@@ -1,7 +1,7 @@
 # Gschem3
 This project reimplements Gschem using Gtk+-3.0.
 
-    :warning: __This project has not reached minimum viability.__
+:warning: __This project has not reached minimum viability.__
 
 The goals of this project include:
 
