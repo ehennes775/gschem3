@@ -40,7 +40,13 @@ The goals of this project include:
     make
     ```
     
-6. __Install.__ Install the program using the following command:    
+6. __Run tests.__ Optionally, run tests using the following command:
+    
+    ```
+    make check
+    ```
+    
+7. __Install.__ Install the program using the following command:    
     
     ```
     sudo make install
