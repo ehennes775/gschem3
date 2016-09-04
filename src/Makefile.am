@@ -2,7 +2,7 @@ RESOURCES_FILE = Gschem3.gresource.xml
 
 AM_CPPFLAGS = \
 	$(DEPS_CFLAGS) \
-	-I/usr/local/include
+	-I/usr/local/include \
 	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-include config.h
 

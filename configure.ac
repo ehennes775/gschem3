@@ -12,6 +12,7 @@ GLIB_GSETTINGS
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
+    tests/Makefile
     ])
 
 PKG_CHECK_MODULES([DEPS], [
