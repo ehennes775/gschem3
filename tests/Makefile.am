@@ -12,7 +12,7 @@ AM_VALAFLAGS = \
 check_PROGRAMS = \
 	test_angle
 
-test_angle_SOURCES = TestAngle.vala
+test_angle_SOURCES = TestAngle.vala ../src/Geda.vapi
 test_angle_LDADD = -lm $(DEPS_LIBS)
 
 TESTS = \
