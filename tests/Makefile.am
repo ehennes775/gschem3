@@ -4,9 +4,6 @@ AM_CPPFLAGS = \
 	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-include config.h
 
-AM_LDFLAGS = \
-	-L../src -lm $(DEPS_LIBS) -lgeda3
-
 AM_VALAFLAGS = \
 	--target-glib=2.40 \
 	--pkg gee-0.8 \
@@ -15,8 +12,8 @@ AM_VALAFLAGS = \
 check_PROGRAMS = \
 	test_angle
 
-test_angle_SOURCES = \
-	TestAngle.vala
+test_angle_SOURCES = TestAngle.vala
+test_angle_LDADD = -lm $(DEPS_LIBS)
 
 TESTS = \
 	test_angle
