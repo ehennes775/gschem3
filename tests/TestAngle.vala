@@ -1,4 +1,4 @@
-namespace GedaTest.Angle
+    namespace GedaTest.Angle
 {
     void check_is_normal()
     {
@@ -25,15 +25,15 @@ namespace GedaTest.Angle
 
     void check_is_ortho()
     {
-		for (int count = 0; count < 100000; count++)
-		{
-			int angle = 90 * Test.rand_int_range(int.MIN / 90, int.MAX / 90);
-			int noise = Test.rand_int_range(1, 89);
-			
-			assert_true(Geda.Angle.is_ortho(angle));
-			assert_true(!Geda.Angle.is_ortho(angle + noise));
-		}
-	}
+        for (int count = 0; count < 100000; count++)
+        {
+            int angle = 90 * Test.rand_int_range(int.MIN / 90, int.MAX / 90);
+            int noise = Test.rand_int_range(1, 89);
+            
+            assert_true(Geda.Angle.is_ortho(angle));
+            assert_true(!Geda.Angle.is_ortho(angle + noise));
+        }
+    }
 
 
     void check_normalize()
@@ -52,21 +52,21 @@ namespace GedaTest.Angle
         }
     }
 
-	
-	void check_make_ortho()
-	{
-		for (int count = 0; count < 100000; count++)
-		{
-			int angle = 90 * Test.rand_int_range(int.MIN / 90, int.MAX / 90);
-			int noise = Test.rand_int_range(1, 44);
-			
-			int normalized = Geda.Angle.make_ortho(angle + noise);
-			assert_true(angle == normalized);
+    
+    void check_make_ortho()
+    {
+        for (int count = 0; count < 100000; count++)
+        {
+            int angle = 90 * Test.rand_int_range(int.MIN / 90, int.MAX / 90);
+            int noise = Test.rand_int_range(1, 44);
+            
+            int normalized = Geda.Angle.make_ortho(angle + noise);
+            assert_true(angle == normalized);
 
-			normalized = Geda.Angle.make_ortho(angle - noise);
-			assert_true(angle == normalized);
-		}
-	}
+            normalized = Geda.Angle.make_ortho(angle - noise);
+            assert_true(angle == normalized);
+        }
+    }
 
 
     public static int main(string[] args)

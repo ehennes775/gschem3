@@ -11,7 +11,7 @@ namespace Geda
     
     namespace Coord
     {
-		public int snap(int coord, int grid);
-	}
+        public int snap(int coord, int grid);
+    }
 }
 
