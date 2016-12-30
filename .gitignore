@@ -13,6 +13,24 @@ Makefile.in
 missing
 stamp-h1
 
+.deps
+
+*.a
+*.c
+*.o
+*.log
+*.stamp
+*.trs
+
+*.gschema.valid
+
+compile
+
+gschem3
+test-driver
+tests/test_angle
+tests/test_coord
+
 ## Backup files
 *~
 
