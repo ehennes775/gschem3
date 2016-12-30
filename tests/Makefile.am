@@ -10,10 +10,15 @@ AM_VALAFLAGS = \
 	--pkg gtk+-3.0
 
 check_PROGRAMS = \
-	test_angle
+	test_angle \
+	test_coord
 
 test_angle_SOURCES = TestAngle.vala ../src/Geda.vapi
 test_angle_LDADD = -lm $(DEPS_LIBS)
 
+test_coord_SOURCES = TestCoord.vala ../src/Geda.vapi
+test_coord_LDADD = -lm $(DEPS_LIBS)
+
 TESTS = \
-	test_angle
+	test_angle \
+	test_coord

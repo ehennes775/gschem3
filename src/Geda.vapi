@@ -8,5 +8,10 @@ namespace Geda
         public int make_ortho(int angle);
         public int normalize(int angle);
     }
+    
+    namespace Coord
+    {
+		public int snap(int coord, int grid);
+	}
 }
 
