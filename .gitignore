@@ -29,6 +29,7 @@ compile
 gschem3
 test-driver
 tests/test_angle
+tests/test_color_scheme
 tests/test_coord
 
 ## Backup files

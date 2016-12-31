@@ -28,6 +28,7 @@ $(BUILT_SOURCES) : $(RESOURCES_FILE) $(shell $(GLIB_COMPILE_RESOURCES) --generat
 bin_PROGRAMS = gschem3
 
 gschem3_SOURCES = \
+	ColorScheme.vala \
 	Program.vala
 
 gschem3_LDADD = -lm $(DEPS_LIBS) libgeda3.a libgschem3.a
