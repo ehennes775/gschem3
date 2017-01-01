@@ -39,6 +39,7 @@ noinst_LIBRARIES = \
 
 libgeda3_a_SOURCES = \
 	Coord.vala \
+	ParseError.vala \
 	Geda.vapi
 
 libgschem3_a_SOURCES = \
