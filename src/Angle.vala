@@ -62,7 +62,37 @@ namespace Geda3
 
           return angle;
         }
+
+
+        /**
+         * Parse the string representation of an angle
+         *
+         * @param input the string representation of the angle
+         * @return the angle
+         * @throw ParseError.INVALID_INTEGER not a valid number
+         * @throw ParseError.OUT_OF_RANGE input outside 32 bit integer
+         */
+        public int parse(string input) throws ParseError
+        {
+            int64 result;
+
+            var success = int64.try_parse(input, out result);
+
+            if (!success)
+            {
+                throw new ParseError.INVALID_INTEGER(
+                    @"Invalid angle: $input"
+                    );
+            }
+
+            if ((result < int.MIN) || (result > int.MAX))
+            {
+                throw new ParseError.OUT_OF_RANGE(
+                    @"Angle out of range: $input"
+                    );
+            }
+
+            return (int) result;
+        }
     }
 }
-
-
