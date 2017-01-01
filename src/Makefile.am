@@ -38,6 +38,7 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
+	Coord.vala \
 	Geda.vapi
 
 libgschem3_a_SOURCES = \

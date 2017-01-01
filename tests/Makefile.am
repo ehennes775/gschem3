@@ -20,7 +20,7 @@ test_angle_LDADD = -lm $(DEPS_LIBS)
 test_color_scheme_SOURCES = TestColorScheme.vala ../src/ColorScheme.vala
 test_color_scheme_LDADD = -lm $(DEPS_LIBS)
 
-test_coord_SOURCES = TestCoord.vala ../src/Geda.vapi
+test_coord_SOURCES = TestCoord.vala ../src/Coord.vala
 test_coord_LDADD = -lm $(DEPS_LIBS)
 
 TESTS = \
