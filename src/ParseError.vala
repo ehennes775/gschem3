@@ -1,6 +1,6 @@
 namespace Geda3
 {
-    errordomain ParseError
+    public errordomain ParseError
     {
         INVALID_INTEGER,
         OUT_OF_RANGE

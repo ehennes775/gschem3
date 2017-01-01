@@ -13,7 +13,7 @@ namespace Geda3
          * @throw ParseError.INVALID_INTEGER not a valid number
          * @throw ParseError.OUT_OF_RANGE input outside 32 bit integer
          */
-        int parse(string input) throws ParseError
+        public int parse(string input) throws ParseError
         {
             int64 result;
 
@@ -44,7 +44,7 @@ namespace Geda3
          * @param grid the grid size
          * @return the snapped coordinate
          */
-        int snap(int coord, int grid)
+        public int snap(int coord, int grid)
 
             requires(grid > 0)
 

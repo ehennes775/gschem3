@@ -6,13 +6,6 @@ AM_CPPFLAGS = \
 	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-include config.h
 
-AM_VALAFLAGS = \
-	--target-glib=2.40 \
-	--pkg gee-0.8 \
-	--pkg gdl-3.0 \
-	--pkg gtk+-3.0 \
-	--gresources=$(RESOURCES_FILE)
-
 gsettings_SCHEMAS = com.github.ehennes775.gschem3.gschema.xml
 EXTRA_DIST = $(gsettings_SCHEMAS)
 
@@ -28,7 +21,6 @@ $(BUILT_SOURCES) : $(RESOURCES_FILE) $(shell $(GLIB_COMPILE_RESOURCES) --generat
 bin_PROGRAMS = gschem3
 
 gschem3_SOURCES = \
-	ColorScheme.vala \
 	Program.vala
 
 gschem3_LDADD = -lm $(DEPS_LIBS) libgeda3.a libgschem3.a
@@ -42,8 +34,23 @@ libgeda3_a_SOURCES = \
 	ParseError.vala \
 	Geda.vapi
 
+libgeda3_a_VALAFLAGS = \
+	--target-glib=2.40 \
+	--pkg gee-0.8 \
+	--header=libgeda3.h \
+	--vapi=libgeda3.vapi
+
 libgschem3_a_SOURCES = \
+	ColorScheme.vala \
 	$(BUILT_SOURCES)
+
+libgschem3_a_VALAFLAGS = \
+	--target-glib=2.40 \
+	--pkg gee-0.8 \
+	--pkg gtk+-3.0 \
+	--header=libgschem3.h \
+	--vapi=libgschem3.vapi \
+	--gresources=$(RESOURCES_FILE)
 
 CLEANFILES = $(BUILT_SOURCES)
 

@@ -1,6 +1,7 @@
 AM_CPPFLAGS = \
 	$(DEPS_CFLAGS) \
 	-I/usr/local/include \
+	-I../src
 	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-include config.h
 
@@ -15,13 +16,13 @@ check_PROGRAMS = \
 	test_coord
 
 test_angle_SOURCES = TestAngle.vala ../src/Geda.vapi
-test_angle_LDADD = -lm $(DEPS_LIBS)
+test_angle_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
-test_color_scheme_SOURCES = TestColorScheme.vala ../src/ColorScheme.vala
-test_color_scheme_LDADD = -lm $(DEPS_LIBS)
+test_color_scheme_SOURCES = TestColorScheme.vala ../src/libgeda3.vapi ../src/libgschem3.vapi
+test_color_scheme_LDADD = ../src/libgeda3.a ../src/libgschem3.a -lm $(DEPS_LIBS)
 
-test_coord_SOURCES = TestCoord.vala ../src/Coord.vala ../src/ParseError.vala
-test_coord_LDADD = -lm $(DEPS_LIBS)
+test_coord_SOURCES = TestCoord.vala ../src/libgeda3.vapi
+test_coord_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
 TESTS = \
 	test_angle \

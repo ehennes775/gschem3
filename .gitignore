@@ -26,6 +26,11 @@ stamp-h1
 
 compile
 
+src/libgeda3.h
+src/libgeda3.vapi
+src/libgschem3.h
+src/libgschem3.vapi
+
 gschem3
 test-driver
 tests/test_angle
