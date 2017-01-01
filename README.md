@@ -6,7 +6,6 @@ This project reimplements Gschem using Gtk+-3.0.
 The goals of this project include:
 
 1. Migrate Gschem to GTK+-3.0
-2. Leverage existing libgeda where possible
 
 ##Installation
 1. __Install Git.__ This step can be skipped with Git already installed. Use the following command to install or update Git:

@@ -19,7 +19,6 @@ PKG_CHECK_MODULES([DEPS], [
     gee-0.8 >= 0.18
     glib-2.0 >= 2.40
     gtk+-3.0 >= 3.10
-    libgeda >= 0.26
     ])
 
 AC_OUTPUT

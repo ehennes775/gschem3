@@ -30,9 +30,9 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
+	Angle.vala \
 	Coord.vala \
-	ParseError.vala \
-	Geda.vapi
+	ParseError.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \

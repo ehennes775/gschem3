@@ -6,21 +6,21 @@ namespace GedaTest.Angle
         {
             int angle = Test.rand_int_range(int.MIN, 0);
 
-            assert_true(!Geda.Angle.is_normal(angle));
+            assert_true(!Geda3.Angle.is_normal(angle));
         }
 
         for (int count = 0; count < 10000; count++)
         {
             int angle = Test.rand_int_range(360, int.MAX);
 
-            assert_true(!Geda.Angle.is_normal(angle));
+            assert_true(!Geda3.Angle.is_normal(angle));
         }
 
         for (int count = 0; count < 100; count++)
         {
             int angle = Test.rand_int_range(0, 360);
 
-            assert_true(Geda.Angle.is_normal(angle));
+            assert_true(Geda3.Angle.is_normal(angle));
         }
     }
 
@@ -32,8 +32,8 @@ namespace GedaTest.Angle
             int angle = 90 * Test.rand_int_range(int.MIN / 90, int.MAX / 90);
             int noise = Test.rand_int_range(1, 90);
 
-            assert_true(Geda.Angle.is_ortho(angle));
-            assert_true(!Geda.Angle.is_ortho(angle + noise));
+            assert_true(Geda3.Angle.is_ortho(angle));
+            assert_true(!Geda3.Angle.is_ortho(angle + noise));
         }
     }
 
@@ -45,7 +45,7 @@ namespace GedaTest.Angle
             int angle = Test.rand_int_range(0, 360);
             int noise = 360 * Test.rand_int_range(int.MIN / 360, int.MAX / 360);
 
-            int normalized = Geda.Angle.normalize(angle + noise);
+            int normalized = Geda3.Angle.normalize(angle + noise);
 
             assert_true (normalized >= 0);
             assert_true (normalized < 360);
@@ -61,10 +61,10 @@ namespace GedaTest.Angle
             int angle = 90 * Test.rand_int_range((int.MIN + 45) / 90, int.MAX / 90);
             int noise = Test.rand_int_range(1, 45);
 
-            int normalized = Geda.Angle.make_ortho(angle + noise);
+            int normalized = Geda3.Angle.make_ortho(angle + noise);
             assert_true(angle == normalized);
 
-            normalized = Geda.Angle.make_ortho(angle - noise);
+            normalized = Geda3.Angle.make_ortho(angle - noise);
             assert_true(angle == normalized);
         }
     }
