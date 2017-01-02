@@ -31,6 +31,7 @@ noinst_LIBRARIES = \
 
 libgeda3_a_SOURCES = \
 	Angle.vala \
+	Color.vala \
 	Coord.vala \
 	ParseError.vala
 
