@@ -1,5 +1,19 @@
 namespace GedaTest.Angle
 {
+    void check_convert()
+    {
+        for (int count = 0; count < 10000; count++)
+        {
+            int original_angle = Test.rand_int();
+
+            var radians = Geda3.Angle.to_radians(original_angle);
+            var calculated_angle = Geda3.Angle.from_radians(radians);
+
+            assert_true(original_angle == calculated_angle);
+        }
+    }
+
+    
     void check_is_normal()
     {
         for (int count = 0; count < 10000; count++)
@@ -154,6 +168,7 @@ namespace GedaTest.Angle
     {
         Test.init(ref args);
 
+        Test.add_func("/geda/libgeda/angle/convert", check_convert);
         Test.add_func("/geda/libgeda/angle/parse", check_parse);
         Test.add_func("/geda/libgeda/angle/parseinvalidinteger", check_parse_invalid_integer);
         Test.add_func("/geda/libgeda/angle/parseoutofrange", check_parse_out_of_range);
