@@ -11,6 +11,22 @@ namespace GedaTest.Angle
 
             assert_true(original_angle == calculated_angle);
         }
+
+        assert_true(
+            0 == Geda3.Angle.from_radians(0.0)
+            );
+
+        assert_true(
+            -180 == Geda3.Angle.from_radians(-Math.PI)
+            );
+
+        assert_true(
+            180 == Geda3.Angle.from_radians(Math.PI)
+            );
+
+        assert_true(
+            360 == Geda3.Angle.from_radians(2.0 * Math.PI)
+            );
     }
 
     
