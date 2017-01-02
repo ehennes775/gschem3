@@ -10,8 +10,8 @@ namespace Geda3
          *
          * @param input the string representation of the coordinate
          * @return the coordinate
-         * @throw ParseError.INVALID_INTEGER not a valid number
-         * @throw ParseError.OUT_OF_RANGE input outside 32 bit integer
+         * @throws ParseError.INVALID_INTEGER not a valid number
+         * @throws ParseError.OUT_OF_RANGE input outside 32 bit integer
          */
         public int parse(string input) throws ParseError
         {

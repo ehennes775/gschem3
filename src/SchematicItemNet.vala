@@ -3,16 +3,16 @@ namespace Geda3
     /**
      * Represents a net on a schematic
      */
-    public class SchematicItemNet
+    public class SchematicItemNet : SchematicItem
     {
         /**
-         *
+         * The type code, for a net, used in schematic files
          */
         public const string TYPE_ID = "N";
 
 
         /**
-         *
+         * Create a schematic net
          */
         public SchematicItemNet()
         {
@@ -25,21 +25,13 @@ namespace Geda3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
-        public void read(DataInputStream stream) throws IOError, ParseError
+        public override void read(DataInputStream stream) throws IOError, ParseError
         {
             var input = stream.read_line(null);
-            stdout.printf("read: '%s'\n", input);
 
             var params = input.split(" ");
-
-            foreach (var param in params)
-            {
-                stdout.printf("    param: '%s'\n", param);
-            }
-
-            stdout.flush();
 
             if (params.length != 6)
             {
@@ -59,10 +51,9 @@ namespace Geda3
 
 
         /**
-         *
-         *
+         * {@inheritDoc}
          */
-        public void write(DataOutputStream stream) throws IOError
+        public override void write(DataOutputStream stream) throws IOError
         {
             var output = "%s %d %d %d %d %d\n".printf(
                 TYPE_ID,
@@ -72,9 +63,6 @@ namespace Geda3
                 b_y[1],
                 b_color
                 );
-
-            stdout.printf("write: '%s'\n", output);
-            stdout.flush();
 
             stream.write_all(output.data, null);
         }

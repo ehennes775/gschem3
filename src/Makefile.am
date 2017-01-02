@@ -38,6 +38,7 @@ libgeda3_a_SOURCES = \
 	FillType.vala \
 	ParseError.vala \
 	PinType.vala \
+	SchematicItem.vala \
 	SchematicItemNet.vala
 
 libgeda3_a_VALAFLAGS = \
@@ -62,4 +63,4 @@ libgschem3_a_VALAFLAGS = \
 CLEANFILES = $(BUILT_SOURCES)
 
 Gschem3:
-	valadoc $(gschem_exp_SOURCES) --pkg gtk+-3.0 -o GschemExp
+	valadoc $(libgeda3_a_SOURCES) --pkg gtk+-3.0 -o Gschem3

@@ -9,7 +9,7 @@ namespace Geda3
          * Checks if an angle is [0,360)
          *
          * @param angle the angle in degrees
-         * @retval TRUE if the angle is [0,360)
+         * @return TRUE if the angle is [0,360)
          */
         public bool is_normal(int angle)
         {
@@ -21,7 +21,7 @@ namespace Geda3
          * Checks if an angle is orthographic
          *
          * @param angle the angle in degrees
-         * @retval TRUE if the angle is a multiple of 90 degrees
+         * @return TRUE if the angle is a multiple of 90 degrees
          */
         public bool is_ortho(int angle)
         {
@@ -69,8 +69,8 @@ namespace Geda3
          *
          * @param input the string representation of the angle
          * @return the angle
-         * @throw ParseError.INVALID_INTEGER not a valid number
-         * @throw ParseError.OUT_OF_RANGE input outside 32 bit integer
+         * @throws ParseError.INVALID_INTEGER not a valid number
+         * @throws ParseError.OUT_OF_RANGE input outside 32 bit integer
          */
         public int parse(string input) throws ParseError
         {
