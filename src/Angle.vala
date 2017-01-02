@@ -6,6 +6,18 @@ namespace Geda3
     namespace Angle
     {
         /**
+         * Convert radians to degrees
+         *
+         * @param radians the angle in radians
+         * @return the angle in degrees
+         */
+        public int from_radians(double radians)
+        {
+            return (int) Math.round(180.0 * radians / Math.PI);
+        }
+
+
+        /**
          * Checks if an angle is [0,360)
          *
          * @param angle the angle in degrees
@@ -93,6 +105,18 @@ namespace Geda3
             }
 
             return (int) result;
+        }
+
+
+        /**
+         * Convert degrees to radians
+         *
+         * @param angle the angle in degrees
+         * @return the angle in radians
+         */
+        public double to_radians(int angle)
+        {
+            return Math.PI * angle / 180.0;
         }
     }
 }
