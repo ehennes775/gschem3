@@ -39,6 +39,7 @@ libgeda3_a_SOURCES = \
 	ParseError.vala \
 	PinType.vala \
 	SchematicItem.vala \
+	SchematicItemLine.vala \
 	SchematicItemNet.vala
 
 libgeda3_a_VALAFLAGS = \

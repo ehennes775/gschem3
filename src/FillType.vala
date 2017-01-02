@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * The fill type for closed shapes
      */
-    enum FillType
+    public enum FillType
     {
         HOLLOW,
         FILL,

@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Represents the pin type
      */
-    enum PinType
+    public enum PinType
     {
         NORMAL,
         BUS,

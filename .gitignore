@@ -37,6 +37,7 @@ tests/test_angle
 tests/test_color
 tests/test_color_scheme
 tests/test_coord
+tests/test_schematic_item_line
 tests/test_schematic_item_net
 
 ## Backup files
