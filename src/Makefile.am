@@ -37,11 +37,13 @@ libgeda3_a_SOURCES = \
 	DashType.vala \
 	FillType.vala \
 	ParseError.vala \
-	PinType.vala
+	PinType.vala \
+	SchematicItemNet.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \
 	--pkg gee-0.8 \
+	--pkg gio-2.0 \
 	--header=libgeda3.h \
 	--vapi=libgeda3.vapi
 

@@ -12,6 +12,12 @@ namespace Geda3
 
 
         /**
+         * The default color index for schematic nets
+         */
+        public const int NET = 4;
+
+
+        /**
          * Parse the string representation of a color
          *
          * @param input the string representation of the color

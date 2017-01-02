@@ -14,7 +14,8 @@ check_PROGRAMS = \
 	test_angle \
 	test_color \
 	test_color_scheme \
-	test_coord
+	test_coord \
+	test_schematic_item_net
 
 test_angle_SOURCES = TestAngle.vala ../src/libgeda3.vapi
 test_angle_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
@@ -28,8 +29,12 @@ test_color_scheme_LDADD = ../src/libgeda3.a ../src/libgschem3.a -lm $(DEPS_LIBS)
 test_coord_SOURCES = TestCoord.vala ../src/libgeda3.vapi
 test_coord_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
+test_schematic_item_net_SOURCES = TestSchematicItemNet.vala ../src/libgeda3.vapi
+test_schematic_item_net_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+
 TESTS = \
 	test_angle \
 	test_color \
 	test_color_scheme \
-	test_coord
+	test_coord \
+	test_schematic_item_net
