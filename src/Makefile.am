@@ -31,9 +31,13 @@ noinst_LIBRARIES = \
 
 libgeda3_a_SOURCES = \
 	Angle.vala \
+	CapType.vala \
 	Color.vala \
 	Coord.vala \
-	ParseError.vala
+	DashType.vala \
+	FillType.vala \
+	ParseError.vala \
+	PinType.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \
