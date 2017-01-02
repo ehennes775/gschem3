@@ -33,6 +33,7 @@ libgeda3_a_SOURCES = \
 	Angle.vala \
 	CapType.vala \
 	Color.vala \
+	ColorScheme.vala \
 	Coord.vala \
 	DashType.vala \
 	FillType.vala \
@@ -40,17 +41,19 @@ libgeda3_a_SOURCES = \
 	PinType.vala \
 	SchematicItem.vala \
 	SchematicItemLine.vala \
-	SchematicItemNet.vala
+	SchematicItemNet.vala \
+	SchematicPainter.vala \
+	SchematicPainterCairo.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \
 	--pkg gee-0.8 \
 	--pkg gio-2.0 \
+	--pkg gtk+-3.0 \
 	--header=libgeda3.h \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
-	ColorScheme.vala \
 	$(BUILT_SOURCES)
 
 libgschem3_a_VALAFLAGS = \

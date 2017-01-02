@@ -6,6 +6,14 @@ namespace Geda3
     public abstract class SchematicItem
     {
         /**
+         * Draw this item using the given painter
+         *
+         * @param painter The painter to use for drawing
+         */
+        public abstract void draw(SchematicPainter painter);
+
+
+        /**
          * Read this item from the input stream
          *
          * @param stream The input stream to read from

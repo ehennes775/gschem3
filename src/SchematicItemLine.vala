@@ -32,6 +32,17 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void draw(SchematicPainter painter)
+        {
+            painter.set_cap_type(b_cap_type);
+            painter.set_color(b_color);
+            painter.set_dash(b_dash_type, b_dash_length, b_dash_space);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void read(DataInputStream stream) throws IOError, ParseError
         {
             var input = stream.read_line(null);

@@ -1,4 +1,4 @@
-namespace Gschem3
+namespace Geda3
 {
     /**
      * Stores colors for drawing schematics
