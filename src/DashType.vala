@@ -157,7 +157,7 @@ namespace Geda3
         /**
          * Indicates this dash type uses the space parameter
          *
-         *  @return TRUE if this dash type uses the space parameter
+         * @return TRUE if this dash type uses the space parameter
          */
         public bool uses_space()
 
