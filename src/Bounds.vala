@@ -40,6 +40,21 @@ namespace Geda3
             max_y = int.MIN;
         }
 
+        /**
+         * Create a bounds with points
+         *
+         * @param x0 x coordinate of first point
+         * @param y0 y coordinate of first point
+         * @param x1 x coordinate of second point
+         * @param y1 y coordinate of second point
+         */
+        public Bounds.with_points(int x0, int y0, int x1, int y1)
+        {
+            min_x = int.min(x0, x1);
+            min_y = int.min(y0, y1);
+            max_x = int.max(x0, x1);
+            max_y = int.max(y0, y1);
+        }
 
         /**
          * Checks if the bounds is empty
