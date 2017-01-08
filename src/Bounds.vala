@@ -56,6 +56,7 @@ namespace Geda3
             max_y = int.max(y0, y1);
         }
 
+
         /**
          * Checks if the bounds is empty
          *
@@ -64,6 +65,24 @@ namespace Geda3
         public bool empty()
         {
             return ((min_x > max_x) || (min_y > max_y));
+        }
+
+
+        /**
+         * Expand the bounds
+         *
+         * @param x the amount to expand on the left and right
+         * @param y the amount to expand on the top and bottom
+         */
+        public void expand(int x, int y)
+        {
+            if (!empty())
+            {
+                min_x -= x;
+                min_y -= y;
+                max_x += x;
+                max_y += y;
+            }
         }
     }
 }

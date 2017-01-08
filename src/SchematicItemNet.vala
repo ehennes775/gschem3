@@ -12,6 +12,12 @@ namespace Geda3
 
 
         /**
+         * The width to use for drawing nets
+         */
+        public const int WIDTH = 10;
+
+
+        /**
          * Create a schematic net
          */
         public SchematicItemNet()
@@ -21,6 +27,26 @@ namespace Geda3
             b_y[0] = 0;
             b_y[1] = 0;
             b_color = Color.NET;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override Bounds calculate_bounds(SchematicPainter painter)
+        {
+            var bounds = Bounds.with_points(
+                b_x[0],
+                b_y[0],
+                b_x[1],
+                b_y[1]
+                );
+
+            int expand = (int) Math.ceil(0.5 * Math.SQRT2 * WIDTH);
+
+            bounds.expand(expand, expand);
+
+            return bounds;
         }
 
 

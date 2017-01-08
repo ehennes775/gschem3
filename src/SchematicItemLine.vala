@@ -32,6 +32,26 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override Bounds calculate_bounds(SchematicPainter painter)
+        {
+            var bounds = Bounds.with_points(
+                b_x[0],
+                b_y[0],
+                b_x[1],
+                b_y[1]
+                );
+
+            int expand = (int) Math.ceil(0.5 * Math.SQRT2 * b_width);
+
+            bounds.expand(expand, expand);
+
+            return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw(SchematicPainter painter)
         {
             painter.set_cap_type(b_cap_type);
