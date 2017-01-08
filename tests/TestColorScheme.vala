@@ -2,7 +2,7 @@ namespace GedaTest.ColorScheme
 {
     void check_empty()
     {
-        var scheme = new Gschem3.ColorScheme();
+        var scheme = new Geda3.ColorScheme();
 
         for (int count = 0; count < 1000; count++)
         {
