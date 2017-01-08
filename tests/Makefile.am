@@ -12,6 +12,7 @@ AM_VALAFLAGS = \
 
 check_PROGRAMS = \
 	test_angle \
+	test_bounds \
 	test_color \
 	test_color_scheme \
 	test_coord \
@@ -20,6 +21,9 @@ check_PROGRAMS = \
 
 test_angle_SOURCES = TestAngle.vala ../src/libgeda3.vapi
 test_angle_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+
+test_bounds_SOURCES = TestBounds.vala ../src/libgeda3.vapi
+test_bounds_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
 test_color_SOURCES = TestColor.vala ../src/libgeda3.vapi
 test_color_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
@@ -38,6 +42,7 @@ test_schematic_item_net_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
 TESTS = \
 	test_angle \
+	test_bounds \
 	test_color \
 	test_color_scheme \
 	test_coord \
