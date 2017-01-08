@@ -58,6 +58,18 @@ namespace Geda3
 
 
         /**
+         * Checks if a point lies inside the bounds
+         *
+         * @return true if the point lies inside the bounds
+         */
+        public bool contains(int x, int y)
+        {
+            return (x >= min_x) && (x <= max_x) &&
+                   (y >= min_y) && (y <= max_y);
+        }
+
+
+        /**
          * Checks if the bounds is empty
          *
          * @return true if the bounds is empty
@@ -75,6 +87,10 @@ namespace Geda3
          * @param y the amount to expand on the top and bottom
          */
         public void expand(int x, int y)
+
+            requires(x >= 0)
+            requires(y >= 0)
+
         {
             if (!empty())
             {
