@@ -40,11 +40,13 @@ libgeda3_a_SOURCES = \
 	FillType.vala \
 	ParseError.vala \
 	PinType.vala \
+	Schematic.vala \
 	SchematicItem.vala \
 	SchematicItemLine.vala \
 	SchematicItemNet.vala \
 	SchematicPainter.vala \
-	SchematicPainterCairo.vala
+	SchematicPainterCairo.vala \
+	SchematicReader.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \

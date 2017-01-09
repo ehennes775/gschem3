@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Base class for items found in schematics or symbols
      */
-    public abstract class SchematicItem
+    public abstract class SchematicItem : Object
     {
         /**
          * Calculate the bounds of this item
