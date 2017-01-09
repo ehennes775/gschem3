@@ -41,6 +41,7 @@ tests/test_coord
 tests/test_schematic
 tests/test_schematic_item_line
 tests/test_schematic_item_net
+tests/test_schematic_reader
 
 ## Backup files
 *~

@@ -25,20 +25,29 @@ namespace Geda3
          * Read a schematic item from an input stream
          *
          * @param stream the stream to read the schematic item from
-         * @return the schematic item
+         * @return the schematic item or null for no more items
          * @throws IOError
          * @throws ParseError
          */
-        public SchematicItem read(DataInputStream stream) throws IOError, ParseError
+        public SchematicItem read(DataInputStream stream) throws Error, ParseError
 
             requires(types != null)
 
         {
-            stream.fill(10);
-            var data = (string) stream.peek_buffer();
-            var split = data.split_set(" " ,2);
-            var id = split[0];
-            
+            var id = peek_token(stream);
+
+            if (id == null)
+            {
+                return null;
+            }
+
+            if (!types.has_key(id))
+            {
+                throw new ParseError.UNKNOWN_ITEM_TYPE(
+                    @"Unknown item type '$id'"
+                    );
+            }
+
             var type = types[id];
 
             var item = Object.@new(type) as SchematicItem;
@@ -46,6 +55,64 @@ namespace Geda3
             item.read(stream);
 
             return item;
+        }
+
+
+        /**
+         * Peek at the next token in the input stream
+         *
+         * @param stream the stream to get the token from
+         * @return the token at the front of the stream
+         * @return null if no more tokens or end of file
+         */
+        public static string? peek_token(DataInputStream stream) throws Error
+        {
+            string token = null;
+
+            stream.fill(100);
+            var data = (string) stream.peek_buffer();
+
+            unichar character;
+            int index = 0;
+            int index0 = 0;
+
+            var success = data.get_next_char(ref index, out character);
+
+            while (success && character.isspace())
+            {
+                index0 = index;
+
+                if (true)
+                {
+                    var status = stream.fill(10);
+                    data = (string) stream.peek_buffer();
+                }
+
+                success = data.get_next_char(ref index, out character);
+            }
+
+            if (success)
+            {
+                var busy = true;
+                var index1 = index;
+
+                while (busy && !character.isspace())
+                {
+                    index1 = index;
+
+                    if (true)
+                    {
+                        var status = stream.fill(10);
+                        data = (string) stream.peek_buffer();
+                    }
+
+                    busy = data.get_next_char(ref index, out character);
+                }
+
+                token = data.slice(index0, index1);
+            }
+
+            return token;
         }
 
 

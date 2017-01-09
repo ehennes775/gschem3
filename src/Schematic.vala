@@ -30,18 +30,22 @@ namespace Geda3
          * @throws IOError
          * @throws ParseError
          */
-        public void read(DataInputStream stream) throws IOError, ParseError
+        public void read(DataInputStream stream) throws Error
 
             requires(items != null)
 
         {
             items.clear();
 
-            for (int count = 0; count < 10; count++)
-            {
-                var item = reader.read(stream);
+            // TODO: Read the version line
 
+            var item = reader.read(stream);
+
+            while (item != null)
+            {
                 add(item);
+
+                item = reader.read(stream);
             }
         }
 
