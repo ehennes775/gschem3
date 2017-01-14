@@ -3,11 +3,21 @@ namespace Geda3
     public class Schematic
     {
         /**
+         *
+         */
+        public FileVersion version
+        {
+            get;
+            private set;
+        }
+
+        /**
          * Create an empty schematic
          */
         public Schematic()
         {
             items = new Gee.LinkedList<SchematicItem>();
+            version = FileVersion.LATEST;
         }
 
 
@@ -37,7 +47,7 @@ namespace Geda3
         {
             items.clear();
 
-            // TODO: Read the version line
+            version.read(stream);
 
             var item = reader.read(stream);
 
@@ -61,7 +71,7 @@ namespace Geda3
             requires(items != null)
 
         {
-            // TODO: Write the version line
+            version.write(stream);
 
             foreach (var item in items)
             {

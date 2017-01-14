@@ -18,6 +18,7 @@ namespace GedaTest.Schematic
         }
         catch (Error error)
         {
+            stderr.printf("%s", error.message);
             assert_not_reached();
         }
     }

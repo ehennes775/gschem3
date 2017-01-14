@@ -37,6 +37,7 @@ libgeda3_a_SOURCES = \
 	ColorScheme.vala \
 	Coord.vala \
 	DashType.vala \
+	FileVersion.vala \
 	FillType.vala \
 	ParseError.vala \
 	PinType.vala \
