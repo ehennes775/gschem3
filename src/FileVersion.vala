@@ -36,7 +36,7 @@ namespace Geda3
          * @throws IOError
          * @throws ParseError
          */
-        public void read(DataInputStream stream) throws IOError, ParseError
+        public static FileVersion read(DataInputStream stream) throws IOError, ParseError
         {
             var input = stream.read_line(null);
 
@@ -56,9 +56,13 @@ namespace Geda3
                     );
             }
 
-            tool_version = params[1];
+            FileVersion version = FileVersion();
 
-            file_version = params[2];
+            version.tool_version = params[1];
+
+            version.file_version = params[2];
+
+            return version;
         }
 
 

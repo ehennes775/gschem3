@@ -17,7 +17,12 @@ namespace Geda3
         public Schematic()
         {
             items = new Gee.LinkedList<SchematicItem>();
-            version = FileVersion.LATEST;
+            version = FileVersion()
+            {
+                file_version = FileVersion.LATEST.file_version,
+                tool_version = FileVersion.LATEST.tool_version
+            };
+            
         }
 
 
@@ -30,6 +35,21 @@ namespace Geda3
         public bool add(SchematicItem item)
         {
             return items.add(item);
+        }
+
+
+        /**
+         * Read a schematic from an input file
+         *
+         * @param file the file to read the schematic from
+         * @throws IOError
+         * @throws ParseError
+         */
+        public void read_from_file(File file) throws Error
+        {
+            var stream = new DataInputStream(file.read());
+
+            read(stream);
         }
 
 
@@ -47,7 +67,7 @@ namespace Geda3
         {
             items.clear();
 
-            version.read(stream);
+            version = FileVersion.read(stream);
 
             var item = reader.read(stream);
 

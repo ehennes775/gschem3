@@ -7,9 +7,7 @@ namespace GedaTest.Schematic
             var schematic = new Geda3.Schematic();
 
             var input_file = File.new_for_path("input.sch");
-            var file_input_stream = input_file.read();
-            var data_input_stream = new DataInputStream(file_input_stream);
-            schematic.read(data_input_stream);
+            schematic.read_from_file(input_file);
 
             var output_file = File.new_for_path("output.sch");
             var file_output_stream = output_file.replace(null, false, FileCreateFlags.NONE);
