@@ -17,12 +17,7 @@ namespace Geda3
         public Schematic()
         {
             items = new Gee.LinkedList<SchematicItem>();
-            version = FileVersion()
-            {
-                file_version = FileVersion.LATEST.file_version,
-                tool_version = FileVersion.LATEST.tool_version
-            };
-            
+            version = FileVersion.LATEST;
         }
 
 
