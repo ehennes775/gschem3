@@ -17,6 +17,7 @@ check_PROGRAMS = \
 	test_color_scheme \
 	test_coord \
 	test_schematic \
+	test_schematic_item_bus \
 	test_schematic_item_line \
 	test_schematic_item_net \
 	test_schematic_reader
@@ -39,6 +40,9 @@ test_coord_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 test_schematic_SOURCES = TestSchematic.vala ../src/libgeda3.vapi
 test_schematic_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
+test_schematic_item_bus_SOURCES = TestSchematicItemBus.vala ../src/libgeda3.vapi
+test_schematic_item_bus_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+
 test_schematic_item_line_SOURCES = TestSchematicItemLine.vala ../src/libgeda3.vapi
 test_schematic_item_line_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
@@ -55,6 +59,7 @@ TESTS = \
 	test_color_scheme \
 	test_coord \
 	test_schematic \
+	test_schematic_item_bus \
 	test_schematic_item_line \
 	test_schematic_item_net \
 	test_schematic_reader
