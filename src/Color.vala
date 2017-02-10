@@ -12,9 +12,39 @@ namespace Geda3
 
 
         /**
+         * The default color index for schematic busses
+         */
+        public const int BUS = 10;
+
+
+        /**
+         * The default color index for graphic objects
+         */
+        public const int GRAPHIC = 3;
+
+
+        /**
+         * The default color index for junctions
+         */
+        public const int JUNCTION = 21;
+
+
+        /**
          * The default color index for schematic nets
          */
         public const int NET = 4;
+
+
+        /**
+         * The default color index for schematic pins
+         */
+        public const int PIN = 1;
+
+
+        /**
+         * The default color index for graphic objects
+         */
+        public const int TEXT = 9;
 
 
         /**

@@ -20,7 +20,7 @@ namespace Geda3
             b_x[1] = 0;
             b_y[0] = 0;
             b_y[1] = 0;
-            b_color = Color.NET;
+            b_color = Color.GRAPHIC;
             b_width = 10;
             b_cap_type = CapType.NONE;
             b_dash_type = DashType.SOLID;
