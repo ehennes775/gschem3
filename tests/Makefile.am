@@ -20,6 +20,7 @@ check_PROGRAMS = \
 	test_schematic_item_bus \
 	test_schematic_item_line \
 	test_schematic_item_net \
+	test_schematic_item_pin \
 	test_schematic_reader
 
 test_angle_SOURCES = TestAngle.vala ../src/libgeda3.vapi
@@ -49,6 +50,9 @@ test_schematic_item_line_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 test_schematic_item_net_SOURCES = TestSchematicItemNet.vala ../src/libgeda3.vapi
 test_schematic_item_net_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
+test_schematic_item_pin_SOURCES = TestSchematicItemPin.vala ../src/libgeda3.vapi
+test_schematic_item_pin_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+
 test_schematic_reader_SOURCES = TestSchematicReader.vala ../src/libgeda3.vapi
 test_schematic_reader_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
@@ -62,4 +66,5 @@ TESTS = \
 	test_schematic_item_bus \
 	test_schematic_item_line \
 	test_schematic_item_net \
+	test_schematic_item_pin \
 	test_schematic_reader

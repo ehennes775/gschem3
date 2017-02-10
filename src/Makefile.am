@@ -46,6 +46,7 @@ libgeda3_a_SOURCES = \
 	SchematicItemBus.vala \
 	SchematicItemLine.vala \
 	SchematicItemNet.vala \
+	SchematicItemPin.vala \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
 	SchematicReader.vala
