@@ -21,7 +21,7 @@ namespace Geda3
             b_y[0] = 0;
             b_y[1] = 0;
             b_color = Color.PIN;
-            b_type = PinType.NORMAL;
+            b_type = PinType.NET;
             b_end = 0;
         }
 
