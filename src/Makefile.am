@@ -49,7 +49,8 @@ libgeda3_a_SOURCES = \
 	SchematicItemPin.vala \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
-	SchematicReader.vala
+	SchematicReader.vala \
+	TextAlignment.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \
@@ -73,4 +74,4 @@ libgschem3_a_VALAFLAGS = \
 CLEANFILES = $(BUILT_SOURCES)
 
 Gschem3:
-	valadoc $(libgeda3_a_SOURCES) --pkg gtk+-3.0 -o Gschem3
+	valadoc $(libgeda3_a_SOURCES) --pkg gtk+-3.0 --pkg gee-0.8 -o Gschem3
