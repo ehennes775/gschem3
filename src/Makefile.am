@@ -32,6 +32,7 @@ noinst_LIBRARIES = \
 libgeda3_a_SOURCES = \
 	Angle.vala \
 	Bounds.vala \
+	BusDirection.vala \
 	CapType.vala \
 	Color.vala \
 	ColorScheme.vala \
