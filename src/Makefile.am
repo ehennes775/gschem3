@@ -51,6 +51,7 @@ libgeda3_a_SOURCES = \
 	SchematicPainterCairo.vala \
 	SchematicReader.vala \
 	TextAlignment.vala \
+	TextPresentation.vala \
 	Visibility.vala
 
 libgeda3_a_VALAFLAGS = \
