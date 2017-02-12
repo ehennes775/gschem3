@@ -50,7 +50,8 @@ libgeda3_a_SOURCES = \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
 	SchematicReader.vala \
-	TextAlignment.vala
+	TextAlignment.vala \
+	Visibility.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \
