@@ -35,6 +35,7 @@ libgeda3_a_SOURCES = \
 	AttributeParent.vala \
 	Bounds.vala \
 	BusDirection.vala \
+	BusItem.vala \
 	CapType.vala \
 	Color.vala \
 	ColorScheme.vala \
@@ -47,7 +48,6 @@ libgeda3_a_SOURCES = \
 	PinType.vala \
 	Schematic.vala \
 	SchematicItem.vala \
-	SchematicItemBus.vala \
 	SchematicItemLine.vala \
 	SchematicItemPin.vala \
 	SchematicPainter.vala \

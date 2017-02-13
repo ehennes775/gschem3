@@ -10,8 +10,8 @@ namespace Geda3
             types = new Gee.HashMap<string,Type>();
 
             types.@set(
-                SchematicItemBus.TYPE_ID,
-                typeof(SchematicItemBus)
+                BusItem.TYPE_ID,
+                typeof(BusItem)
                 );
 
             types.@set(

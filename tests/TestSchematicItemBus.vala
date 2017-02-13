@@ -9,7 +9,7 @@ namespace GedaTest.SchematicItemBus
                 var memory_stream = new MemoryOutputStream.resizable();
                 var output_stream = new DataOutputStream(memory_stream);
 
-                var bus0 = new Geda3.SchematicItemBus();
+                var bus0 = new Geda3.BusItem();
 
                 bus0.b_x[0] = Test.rand_int();
                 bus0.b_y[0] = Test.rand_int();
@@ -28,7 +28,7 @@ namespace GedaTest.SchematicItemBus
                         )
                     );
 
-                var bus1 = new Geda3.SchematicItemBus();
+                var bus1 = new Geda3.BusItem();
                 bus1.read(input_stream);
 
                 assert_true(bus0.b_x[0] == bus1.b_x[0]);

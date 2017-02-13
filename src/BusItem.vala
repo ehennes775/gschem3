@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Represents a bus on a schematic
      */
-    public class SchematicItemBus : SchematicItem, AttributeParent
+    public class BusItem : SchematicItem, AttributeParent
     {
         /**
          * The type code, for a bus, used in schematic files
@@ -41,7 +41,7 @@ namespace Geda3
         /**
          * Create a schematic bus
          */
-        public SchematicItemBus()
+        public BusItem()
         {
             b_x[0] = 0;
             b_x[1] = 0;

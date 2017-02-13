@@ -72,8 +72,7 @@ namespace Geda3
                 );
 
             var width =
-                (b_type == PinType.BUS) ? SchematicItemBus.WIDTH :
-                NetItem.WIDTH;
+                (b_type == PinType.BUS) ? BusItem.WIDTH : NetItem.WIDTH;
 
             int expand = (int) Math.ceil(0.5 * Math.SQRT2 * width);
 
