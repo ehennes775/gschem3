@@ -20,8 +20,8 @@ namespace Geda3
                 );
 
             types.@set(
-                SchematicItemNet.TYPE_ID,
-                typeof(SchematicItemNet)
+                NetItem.TYPE_ID,
+                typeof(NetItem)
                 );
 
             types.@set(

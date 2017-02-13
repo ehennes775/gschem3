@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Represents a net on a schematic
      */
-    public class SchematicItemNet : SchematicItem, AttributeParent
+    public class NetItem : SchematicItem, AttributeParent
     {
         /**
          * The type code, for a net, used in schematic files
@@ -41,7 +41,7 @@ namespace Geda3
         /**
          * Create a schematic net
          */
-        public SchematicItemNet()
+        public NetItem()
         {
             b_x[0] = 0;
             b_x[1] = 0;

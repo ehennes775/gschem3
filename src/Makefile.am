@@ -42,13 +42,13 @@ libgeda3_a_SOURCES = \
 	DashType.vala \
 	FileVersion.vala \
 	FillType.vala \
+	NetItem.vala \
 	ParseError.vala \
 	PinType.vala \
 	Schematic.vala \
 	SchematicItem.vala \
 	SchematicItemBus.vala \
 	SchematicItemLine.vala \
-	SchematicItemNet.vala \
 	SchematicItemPin.vala \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \

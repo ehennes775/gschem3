@@ -9,7 +9,7 @@ namespace GedaTest.SchematicItemNet
                 var memory_stream = new MemoryOutputStream.resizable();
                 var output_stream = new DataOutputStream(memory_stream);
 
-                var net0 = new Geda3.SchematicItemNet();
+                var net0 = new Geda3.NetItem();
 
                 net0.b_x[0] = Test.rand_int();
                 net0.b_y[0] = Test.rand_int();
@@ -27,7 +27,7 @@ namespace GedaTest.SchematicItemNet
                         )
                     );
 
-                var net1 = new Geda3.SchematicItemNet();
+                var net1 = new Geda3.NetItem();
                 net1.read(input_stream);
 
                 assert_true(net0.b_x[0] == net1.b_x[0]);
