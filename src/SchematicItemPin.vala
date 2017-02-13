@@ -14,11 +14,11 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public Gee.LinkedList<AttributeChild> attributes
+        public Gee.List<AttributeChild> attributes
         {
-            get
+            owned get
             {
-                return m_attributes;
+                return m_attributes.read_only_view;
             }
         }
 

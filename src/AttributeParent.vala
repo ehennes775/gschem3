@@ -1,14 +1,18 @@
 namespace Geda3
 {
     /**
-     *
+     * An interface for schematic items capable of having attributes
      */
     public interface AttributeParent : SchematicItem
     {
-        public abstract Gee.LinkedList<AttributeChild> attributes
+        /**
+         * The attributes attached to this item
+         */
+        public abstract Gee.List<AttributeChild> attributes
         {
-            get;
+            owned get;
         }
+
 
         /**
          * Attach an attribute to this item
