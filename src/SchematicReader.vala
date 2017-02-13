@@ -23,6 +23,16 @@ namespace Geda3
                 SchematicItemNet.TYPE_ID,
                 typeof(SchematicItemNet)
                 );
+
+            types.@set(
+                SchematicItemPin.TYPE_ID,
+                typeof(SchematicItemPin)
+                );
+
+            types.@set(
+                TextItem.TYPE_ID,
+                typeof(TextItem)
+                );
         }
 
 
@@ -31,8 +41,8 @@ namespace Geda3
          *
          * @param stream the stream to read the schematic item from
          * @return the schematic item or null for no more items
-         * @throws IOError
-         * @throws ParseError
+         * @throws Error TBD
+         * @throws ParseError TBD
          */
         public SchematicItem read(DataInputStream stream) throws Error, ParseError
 
@@ -58,6 +68,64 @@ namespace Geda3
             var item = Object.@new(type) as SchematicItem;
             return_val_if_fail(item != null, null);
             item.read(stream);
+
+            id = peek_token(stream);
+
+            if ((id != null) && (id == "{"))
+            {
+                var parent_item = item as AttributeParent;
+
+                if (parent_item == null)
+                {
+                    throw new ParseError.UNKNOWN_ITEM_TYPE(
+                        @"001 Unknown item type '$id'"
+                        );
+                }
+
+                stream.read_line(null);
+
+                id = peek_token(stream);
+
+                if (id == null)
+                {
+                    // unexpected end of file
+                }
+
+                while (id != "}")
+                {
+                    if (!types.has_key(id))
+                    {
+                        throw new ParseError.UNKNOWN_ITEM_TYPE(
+                            @"002 Unknown item type '$id'"
+                            );
+                    }
+
+                    var child_item = Object.@new(types[id]) as AttributeChild;
+                    
+                    if (child_item == null)
+                    {
+                        throw new ParseError.UNKNOWN_ITEM_TYPE(
+                            @"003 Unknown item type '$id'"
+                            );
+                    }
+
+                    child_item.read(stream);
+
+                    parent_item.attach(child_item);
+
+                    id = peek_token(stream);
+
+                    if (id == null)
+                    {
+                        // unexpected end of file
+                    }
+                }
+
+                if (id == "}")
+                {
+                    stream.read_line(null);
+                }
+            }
 
             return item;
         }

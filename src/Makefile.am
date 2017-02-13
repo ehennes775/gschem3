@@ -31,6 +31,8 @@ noinst_LIBRARIES = \
 
 libgeda3_a_SOURCES = \
 	Angle.vala \
+	AttributeChild.vala \
+	AttributeParent.vala \
 	Bounds.vala \
 	BusDirection.vala \
 	CapType.vala \

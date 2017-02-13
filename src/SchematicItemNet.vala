@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Represents a net on a schematic
      */
-    public class SchematicItemNet : SchematicItem
+    public class SchematicItemNet : SchematicItem, AttributeParent
     {
         /**
          * The type code, for a net, used in schematic files
@@ -18,6 +18,27 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public Gee.LinkedList<AttributeChild> attributes
+        {
+            get
+            {
+                return m_attributes;
+            }
+        }
+
+
+        /**
+         * GObject initialization
+         */
+        construct
+        {
+            m_attributes = new Gee.LinkedList<AttributeChild>();
+        }
+
+
+        /**
          * Create a schematic net
          */
         public SchematicItemNet()
@@ -27,6 +48,18 @@ namespace Geda3
             b_y[0] = 0;
             b_y[1] = 0;
             b_color = Color.NET;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void attach(AttributeChild attribute)
+
+            requires(m_attributes != null) 
+
+        {
+            m_attributes.add(attribute);
         }
 
 
@@ -103,6 +136,12 @@ namespace Geda3
 
             stream.write_all(output.data, null);
         }
+
+
+        /**
+         * The attributes attached to this item
+         */
+        private Gee.LinkedList<AttributeChild> m_attributes;
 
 
         /**

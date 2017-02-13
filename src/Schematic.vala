@@ -37,8 +37,7 @@ namespace Geda3
          * Read a schematic from an input file
          *
          * @param file the file to read the schematic from
-         * @throws IOError
-         * @throws ParseError
+         * @throws Error TBD
          */
         public void read_from_file(File file) throws Error
         {
@@ -52,8 +51,7 @@ namespace Geda3
          * Read a schematic from an input stream
          *
          * @param stream the stream to read the schematic from
-         * @throws IOError
-         * @throws ParseError
+         * @throws Error TBD
          */
         public void read(DataInputStream stream) throws Error
 
@@ -79,7 +77,7 @@ namespace Geda3
          * Write schematic to an output stream
          *
          * @param stream the stream to write the schematic to
-         * @throws IOError
+         * @throws IOError TBD
          */
         public void write(DataOutputStream stream) throws IOError
 
@@ -91,6 +89,20 @@ namespace Geda3
             foreach (var item in items)
             {
                 item.write(stream);
+
+                var parent = item as AttributeParent;
+
+                if (parent != null)
+                {
+                    stream.put_string("{\n");
+
+                    foreach (var child in parent.attributes)
+                    {
+                        child.write(stream);
+                    }
+
+                    stream.put_string("}\n");
+                }
             }
         }
 

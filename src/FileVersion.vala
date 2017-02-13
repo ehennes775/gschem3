@@ -33,8 +33,8 @@ namespace Geda3
          * Read the file version from the input stream
          *
          * @param stream The stream to read the version from
-         * @throws IOError
-         * @throws ParseError
+         * @throws IOError TBD
+         * @throws ParseError TBD
          */
         public static FileVersion read(DataInputStream stream) throws IOError, ParseError
         {
@@ -70,7 +70,7 @@ namespace Geda3
          * Write the file version to the output stream
          *
          * @param stream The stream to write the version to
-         * @throws IOError
+         * @throws IOError TBD
          */
         public void write(DataOutputStream stream) throws IOError
         {

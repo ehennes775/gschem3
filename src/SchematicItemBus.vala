@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Represents a bus on a schematic
      */
-    public class SchematicItemBus : SchematicItem
+    public class SchematicItemBus : SchematicItem, AttributeParent
     {
         /**
          * The type code, for a bus, used in schematic files
@@ -18,6 +18,27 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public Gee.LinkedList<AttributeChild> attributes
+        {
+            get
+            {
+                return m_attributes;
+            }
+        }
+
+
+        /**
+         * GObject initialization
+         */
+        construct
+        {
+            m_attributes = new Gee.LinkedList<AttributeChild>();
+        }
+
+
+        /**
          * Create a schematic bus
          */
         public SchematicItemBus()
@@ -28,6 +49,18 @@ namespace Geda3
             b_y[1] = 0;
             b_color = Color.BUS;
             b_direction = 0;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void attach(AttributeChild attribute)
+
+            requires(m_attributes != null) 
+
+        {
+            m_attributes.add(attribute);
         }
 
 
@@ -106,6 +139,12 @@ namespace Geda3
 
             stream.write_all(output.data, null);
         }
+
+
+        /**
+         * The attributes attached to this item
+         */
+        private Gee.LinkedList<AttributeChild> m_attributes;
 
 
         /**

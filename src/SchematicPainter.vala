@@ -5,10 +5,10 @@ namespace Geda3
         /**
          * Draw a line
          *
-         * @param x0
-         * @param y0
-         * @param x1
-         * @param y1
+         * @param x0 The x coordinate of the first point
+         * @param y0 The y coordinate of the first point
+         * @param x1 The x coordinate of the second point
+         * @param y1 The y coordinate of the second point
          */
         public abstract void draw_line(int x0, int y0, int x1, int y1);
 
@@ -30,9 +30,11 @@ namespace Geda3
 
 
         /**
-         * Set the drawing color the index specified
+         * Set the dash style
          *
-         * @param index The color index in the color scheme
+         * @param dash_type The type of dashes to draw
+         * @param length The length of the dashes
+         * @param space The length of the gaps between the dashes
          */
         public abstract void set_dash(DashType dash_type, int length, int space);
     }

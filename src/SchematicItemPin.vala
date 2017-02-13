@@ -3,12 +3,33 @@ namespace Geda3
     /**
      * Represents a pin on a schematic
      */
-    public class SchematicItemPin : SchematicItem
+    public class SchematicItemPin : SchematicItem, AttributeParent
     {
         /**
          * The type code, for a pin, used in schematic files
          */
         public const string TYPE_ID = "P";
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gee.LinkedList<AttributeChild> attributes
+        {
+            get
+            {
+                return m_attributes;
+            }
+        }
+
+
+        /**
+         * GObject initialization
+         */
+        construct
+        {
+            m_attributes = new Gee.LinkedList<AttributeChild>();
+        }
 
 
         /**
@@ -23,6 +44,18 @@ namespace Geda3
             b_color = Color.PIN;
             b_type = PinType.NET;
             b_end = 0;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void attach(AttributeChild attribute)
+
+            requires(m_attributes != null) 
+
+        {
+            m_attributes.add(attribute);
         }
 
 
@@ -107,6 +140,12 @@ namespace Geda3
 
             stream.write_all(output.data, null);
         }
+
+
+        /**
+         * The attributes attached to this item
+         */
+        private Gee.LinkedList<AttributeChild> m_attributes;
 
 
         /**

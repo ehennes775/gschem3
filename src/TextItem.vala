@@ -5,7 +5,7 @@ namespace Geda3
      *
      * Represents text or an attribute on a schematic
      */
-    public class TextItem : SchematicItem
+    public class TextItem : SchematicItem, AttributeChild
     {
         /**
          * The type code, for text, used in schematic files
@@ -111,6 +111,7 @@ namespace Geda3
             for (int index = 0; index < b_lines.length; index++)
             {
                 stream.put_string(b_lines[index]);
+                stream.put_string("\n");
             }
         }
 
