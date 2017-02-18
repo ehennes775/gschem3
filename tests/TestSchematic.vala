@@ -6,10 +6,10 @@ namespace GedaTest.Schematic
         {
             var schematic = new Geda3.Schematic();
 
-            var input_file = File.new_for_path("74HC244-1.sym");
+            var input_file = File.new_for_path("input.sym");
             schematic.read_from_file(input_file);
 
-            var output_file = File.new_for_path("output.sch");
+            var output_file = File.new_for_path("output.sym");
             var file_output_stream = output_file.replace(null, false, FileCreateFlags.NONE);
             var data_output_stream = new DataOutputStream(file_output_stream);
             schematic.write(data_output_stream);
