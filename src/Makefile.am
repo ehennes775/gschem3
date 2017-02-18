@@ -34,6 +34,7 @@ libgeda3_a_SOURCES = \
 	AttributeChild.vala \
 	AttributeParent.vala \
 	Bounds.vala \
+	BoxItem.vala \
 	BusDirection.vala \
 	BusItem.vala \
 	CapType.vala \
