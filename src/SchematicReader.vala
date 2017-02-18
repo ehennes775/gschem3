@@ -10,6 +10,16 @@ namespace Geda3
             types = new Gee.HashMap<string,Type>();
 
             types.@set(
+                CircleItem.TYPE_ID,
+                typeof(CircleItem)
+                );
+
+            types.@set(
+                BoxItem.TYPE_ID,
+                typeof(BoxItem)
+                );
+
+            types.@set(
                 BusItem.TYPE_ID,
                 typeof(BusItem)
                 );

@@ -38,6 +38,7 @@ libgeda3_a_SOURCES = \
 	BusDirection.vala \
 	BusItem.vala \
 	CapType.vala \
+	CircleItem.vala \
 	Color.vala \
 	ColorScheme.vala \
 	Coord.vala \
