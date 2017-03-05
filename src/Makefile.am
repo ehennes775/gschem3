@@ -20,8 +20,12 @@ $(BUILT_SOURCES) : $(RESOURCES_FILE) $(shell $(GLIB_COMPILE_RESOURCES) --generat
 
 bin_PROGRAMS = gschem3
 
+# TODO: Resources don't get pulled in from a static library, so as a
+# workaround, the resources will get linked with the executable
+
 gschem3_SOURCES = \
-	Program.vala
+	Program.vala \
+	$(BUILT_SOURCES)
 
 gschem3_LDADD = -lm $(DEPS_LIBS) libgeda3.a libgschem3.a
 
@@ -79,8 +83,7 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
-	MainWindow.vala \
-	$(BUILT_SOURCES)
+	MainWindow.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \
