@@ -25,6 +25,15 @@ gschem3_SOURCES = \
 
 gschem3_LDADD = -lm $(DEPS_LIBS) libgeda3.a libgschem3.a
 
+gschem3_VALAFLAGS = \
+	--target-glib=2.40 \
+	--pkg gee-0.8 \
+	--pkg gio-2.0 \
+	--pkg gtk+-3.0 \
+	--pkg libgeda3 \
+	--pkg libgschem3 \
+	--vapidir=.
+
 noinst_LIBRARIES = \
 	libgeda3.a \
 	libgschem3.a
@@ -70,6 +79,7 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
+	MainWindow.vala \
 	$(BUILT_SOURCES)
 
 libgschem3_a_VALAFLAGS = \
