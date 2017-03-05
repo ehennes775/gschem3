@@ -2,5 +2,6 @@
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
         <file>MainWindow.ui.xml</file>
+        <file>Menus.ui.xml</file>
     </gresource>
 </gresources>

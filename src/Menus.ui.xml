@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+    <menu id="menubar">
+        <section>
+            <submenu>
+                <attribute name="label" translatable="yes">_File</attribute>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">New</attribute>
+                        <attribute name="action">win.file-new</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Open</attribute>
+                        <attribute name="action">win.file-open</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Save</attribute>
+                        <attribute name="action">win.file-save</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Save As...</attribute>
+                        <attribute name="action">win.file-save-as</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Save All</attribute>
+                        <attribute name="action">win.file-save-all</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Reload</attribute>
+                        <attribute name="action">win.file-reload</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Quit</attribute>
+                    </item>
+                </section>
+            </submenu>
+        </section>
+    </menu>
+</interface>

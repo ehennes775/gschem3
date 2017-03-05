@@ -75,5 +75,38 @@ namespace Gschem3
                 }
             }
         }
+
+
+        /**
+         * Called after the applicaton is registered
+         */
+        protected override void startup()
+        {
+            base.startup();
+
+            try
+            {
+                var builder = new Gtk.Builder.from_resource(RESOURCE_NAME);
+
+                menubar = builder.get_object("menubar") as MenuModel;
+            }
+            catch (Error error)
+            {
+                stderr.printf("%s\n", error.message);
+            }
+        }
+
+
+        /**
+         * The the id of the menubar in the resource file
+         */
+        private const string MENUBAR_ID = "menu";
+
+
+        /**
+         * The resource name for the UI menus.
+         */
+        private const string RESOURCE_NAME =
+            "/com/github/ehennes775/gschem3/Menus.ui.xml";
     }
 }
