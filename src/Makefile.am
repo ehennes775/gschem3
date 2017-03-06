@@ -27,7 +27,7 @@ gschem3_SOURCES = \
 	Program.vala \
 	$(BUILT_SOURCES)
 
-gschem3_LDADD = -lm $(DEPS_LIBS) libgeda3.a libgschem3.a
+gschem3_LDADD = libgschem3.a libgeda3.a -lm $(DEPS_LIBS)
 
 gschem3_VALAFLAGS = \
 	--target-glib=2.40 \

@@ -31,6 +31,19 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public void open (File[] files)
+        {
+            stdout.printf("Opening files:\n");
+            
+            foreach (var file in files)
+            {
+                stdout.printf("    %s\n", file.get_path());
+            }
+        }
+
+        /**
          * Organized from most frequently used to least frequently used
          */
         private const ActionEntry[] action_entries =
@@ -75,7 +88,28 @@ namespace Gschem3
          */
         private void on_file_open(SimpleAction action, Variant? parameter)
         {
-            stdout.printf("on_file_open\n");
+            var dialog = new Gtk.FileChooserDialog(
+                "Select File",
+                this,
+                Gtk.FileChooserAction.OPEN,
+                "_Cancel", Gtk.ResponseType.CANCEL,
+                "_Open", Gtk.ResponseType.ACCEPT
+                );
+
+            dialog.select_multiple = true;
+
+            var response = dialog.run();
+
+            if (response == Gtk.ResponseType.ACCEPT)
+            {
+                var files = new Gee.ArrayList<File>();
+
+                dialog.get_files().foreach((file) => { files.add(file); });
+
+                open(files.to_array());
+            }
+
+            dialog.close();
         }
 
 
