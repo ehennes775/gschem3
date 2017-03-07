@@ -31,7 +31,9 @@ namespace Gschem3
 
 
         /**
+         * Open existing files
          *
+         * @param files the files to open
          */
         public void open (File[] files)
         {
@@ -42,6 +44,7 @@ namespace Gschem3
                 stdout.printf("    %s\n", file.get_path());
             }
         }
+
 
         /**
          * Organized from most frequently used to least frequently used
@@ -54,6 +57,13 @@ namespace Gschem3
             { "file-save-all", on_file_save_all, null, null, null },
             { "file-save-as", on_file_save_as, null, null, null }
         };
+
+
+        /**
+         * The notebook containing the document windows
+         */
+        [GtkChild]
+        private Gtk.Notebook notebook;
 
 
         /**
@@ -120,8 +130,21 @@ namespace Gschem3
          * @param parameter unused
          */
         private void on_file_save(SimpleAction action, Variant? parameter)
+
+            requires(notebook != null)
+
         {
-            stdout.printf("on_file_save\n");
+            var page_index = notebook.get_current_page();
+
+            if (page_index >= 0)
+            {
+                var page = notebook.get_nth_page(page_index) as Savable;
+
+                if (page != null)
+                {
+                    page.save();
+                }
+            }
         }
 
 
@@ -132,8 +155,21 @@ namespace Gschem3
          * @param parameter unused
          */
         private void on_file_save_all(SimpleAction action, Variant? parameter)
+
+            requires(notebook != null)
+
         {
-            stdout.printf("on_file_save_all\n");
+            var page_count = notebook.get_n_pages();
+
+            for (var page_index = 0; page_index < page_count; page_index++)
+            {
+                var page = notebook.get_nth_page(page_index) as Savable;
+
+                if (page != null)
+                {
+                    page.save();
+                }
+            }
         }
 
 
@@ -144,8 +180,21 @@ namespace Gschem3
          * @param parameter unused
          */
         private void on_file_save_as(SimpleAction action, Variant? parameter)
+
+            requires(notebook != null)
+
         {
-            stdout.printf("on_file_save_as\n");
+            var page_index = notebook.get_current_page();
+
+            if (page_index >= 0)
+            {
+                var page = notebook.get_nth_page(page_index) as Savable;
+
+                if (page != null)
+                {
+                    page.save_as();
+                }
+            }
         }
     }
 }

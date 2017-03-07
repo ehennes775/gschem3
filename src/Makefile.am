@@ -83,7 +83,8 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
-	MainWindow.vala
+	MainWindow.vala \
+	Savable.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \

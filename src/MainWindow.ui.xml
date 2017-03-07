@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <interface>
     <template class="Gschem3MainWindow">
+        <child>
+            <object class="GtkNotebook" id="notebook">
+                <property name="hexpand">true</property>
+                <property name="vexpand">true</property>
+            </object>
+        </child>
     </template>
 </interface>
 
