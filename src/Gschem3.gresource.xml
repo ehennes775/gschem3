@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
+        <file>DocumentTab.ui.xml</file>
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
+        <file>SchematicWindow.ui.xml</file>
     </gresource>
 </gresources>

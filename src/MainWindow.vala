@@ -37,11 +37,14 @@ namespace Gschem3
          */
         public void open (File[] files)
         {
-            stdout.printf("Opening files:\n");
-            
             foreach (var file in files)
             {
-                stdout.printf("    %s\n", file.get_path());
+                var window = new SchematicWindow.with_file(file);
+                window.visible = true;
+                var tab = new DocumentTab(window);
+                tab.show_all();
+
+                notebook.append_page(window, tab);
             }
         }
 
@@ -85,8 +88,16 @@ namespace Gschem3
          * @param parameter unused
          */
         private void on_file_new(SimpleAction action, Variant? parameter)
+
+            requires(notebook != null)
+
         {
-            stdout.printf("on_file_new\n");
+            var window = new SchematicWindow();
+            window.visible = true;
+            var tab = new DocumentTab(window);
+            tab.show_all();
+
+            notebook.append_page(window, tab);
         }
 
 
