@@ -64,6 +64,7 @@ namespace Gschem3
         construct
         {
             file = null;
+            schematic = new Geda3.Schematic();
             tag = null;
 
             this.notify["file"].connect(on_notify_file);
@@ -101,9 +102,12 @@ namespace Gschem3
 
 
         /**
-         * Save the document
+         * {@inheritDoc}
          */
-        public void save() throws Error
+        public void save(Gtk.Window? parent) throws Error
+
+            requires(schematic != null)
+
         {
             var temp_file = file;
 
@@ -111,7 +115,7 @@ namespace Gschem3
             {
                 var dialog = new Gtk.FileChooserDialog(
                     "Save As...",
-                    null,
+                    parent,
                     Gtk.FileChooserAction.SAVE,
                     "_Cancel", Gtk.ResponseType.CANCEL,
                     "_Save", Gtk.ResponseType.ACCEPT
@@ -130,6 +134,14 @@ namespace Gschem3
 
             if (temp_file != null)
             {
+                var stream = new DataOutputStream(temp_file.replace(
+                    null,
+                    true,
+                    FileCreateFlags.NONE
+                    ));
+                
+                schematic.write(stream);
+
                 changed = false;
                 file = temp_file;
             }
@@ -137,13 +149,16 @@ namespace Gschem3
 
 
         /**
-         * Save the document using another filename
+         * {@inheritDoc}
          */
-        public void save_as()
+        public void save_as(Gtk.Window? parent)
+
+            requires(schematic != null)
+
         {
             var dialog = new Gtk.FileChooserDialog(
                 "Save As...",
-                null,
+                parent,
                 Gtk.FileChooserAction.SAVE,
                 "_Cancel", Gtk.ResponseType.CANCEL,
                 "_Save", Gtk.ResponseType.ACCEPT
@@ -166,6 +181,14 @@ namespace Gschem3
 
                 if (temp_file != null)
                 {
+                    var stream = new DataOutputStream(temp_file.replace(
+                        null,
+                        true,
+                        FileCreateFlags.NONE
+                        ));
+                    
+                    schematic.write(stream);
+
                     changed = false;
                     file = temp_file;
                 }
@@ -173,6 +196,12 @@ namespace Gschem3
 
             dialog.destroy();
         }
+
+
+        /**
+         *
+         */
+        private Geda3.Schematic schematic;
 
 
         /**

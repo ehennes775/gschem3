@@ -153,7 +153,7 @@ namespace Gschem3
 
                 if (page != null)
                 {
-                    page.save();
+                    page.save(this);
                 }
             }
         }
@@ -178,7 +178,7 @@ namespace Gschem3
 
                 if (page != null)
                 {
-                    page.save();
+                    page.save(this);
                 }
             }
         }
@@ -203,7 +203,7 @@ namespace Gschem3
 
                 if (page != null)
                 {
-                    page.save_as();
+                    page.save_as(this);
                 }
             }
         }

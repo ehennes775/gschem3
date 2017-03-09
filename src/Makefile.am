@@ -94,11 +94,13 @@ libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \
 	--pkg gee-0.8 \
 	--pkg gtk+-3.0 \
+	--pkg libgeda3 \
 	--header=libgschem3.h \
+	--vapidir=. \
 	--vapi=libgschem3.vapi \
 	--gresources=$(RESOURCES_FILE)
 
 CLEANFILES = $(BUILT_SOURCES)
 
 Gschem3:
-	valadoc $(libgeda3_a_SOURCES) --pkg gtk+-3.0 --pkg gee-0.8 -o Gschem3
+	valadoc $(libgeda3_a_SOURCES) $(libgschem3_a_SOURCES) --pkg gtk+-3.0 --pkg gee-0.8 -o Gschem3
