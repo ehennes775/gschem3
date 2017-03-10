@@ -66,8 +66,6 @@ namespace Gschem3
             file = null;
             schematic = new Geda3.Schematic();
             tag = null;
-
-            this.notify["file"].connect(on_notify_file);
         }
 
 
@@ -76,6 +74,7 @@ namespace Gschem3
          */
         public SchematicWindow()
         {
+            tab = "untitled_%d.sch".printf(untitled_number++);
         }
 
 
@@ -85,6 +84,16 @@ namespace Gschem3
         public SchematicWindow.with_file(File file) throws Error
         {
             this.file = file;
+
+            var file_info = file.query_info(
+                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
+                FileQueryInfoFlags.NONE
+                );
+
+            changed = false;
+            modified = false;
+            tab = file_info.get_display_name();
+            tag = file_info.get_etag();
         }
 
 
@@ -110,6 +119,7 @@ namespace Gschem3
 
         {
             var temp_file = file;
+            var temp_tag = tag;
 
             if (temp_file == null)
             {
@@ -127,6 +137,7 @@ namespace Gschem3
                 if (dialog.run() == Gtk.ResponseType.ACCEPT)
                 {
                     temp_file = dialog.get_file();
+                    temp_tag = null;
                 }
 
                 dialog.destroy();
@@ -135,15 +146,24 @@ namespace Gschem3
             if (temp_file != null)
             {
                 var stream = new DataOutputStream(temp_file.replace(
-                    null,
+                    temp_tag,
                     true,
                     FileCreateFlags.NONE
                     ));
                 
                 schematic.write(stream);
+                stream.close();
+
+                var file_info = temp_file.query_info(
+                    @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
+                    FileQueryInfoFlags.NONE
+                    );
 
                 changed = false;
+                modified = false;
                 file = temp_file;
+                tab = file_info.get_display_name();
+                tag = file_info.get_etag();
             }
         }
 
@@ -188,9 +208,18 @@ namespace Gschem3
                         ));
                     
                     schematic.write(stream);
+                    stream.close();
+
+                    var file_info = temp_file.query_info(
+                        @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
+                        FileQueryInfoFlags.NONE
+                        );
 
                     changed = false;
+                    modified = false;
                     file = temp_file;
+                    tab = file_info.get_display_name();
+                    tag = file_info.get_etag();
                 }
             }
 
@@ -214,26 +243,5 @@ namespace Gschem3
          * A number used in the untitled filename to make it unique
          */
         private static int untitled_number = 1;
-
-
-        /**
-         *
-         */
-        private void on_notify_file()
-        {
-            if (file == null)
-            {
-                tab = "untitled_%d.sch".printf(untitled_number++);
-            }
-            else
-            {
-                var file_info = file.query_info(
-                    @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
-                    FileQueryInfoFlags.NONE
-                    );
-
-                tab = file_info.get_display_name();
-            }
-        }
     }
 }
