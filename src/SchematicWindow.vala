@@ -118,52 +118,15 @@ namespace Gschem3
             requires(schematic != null)
 
         {
-            var temp_file = file;
-            var temp_tag = tag;
-
-            if (temp_file == null)
+            if (file == null)
             {
-                var dialog = new Gtk.FileChooserDialog(
-                    "Save As...",
-                    parent,
-                    Gtk.FileChooserAction.SAVE,
-                    "_Cancel", Gtk.ResponseType.CANCEL,
-                    "_Save", Gtk.ResponseType.ACCEPT
-                    );
-
-                dialog.do_overwrite_confirmation = true;
-                dialog.set_current_name(tab);
-
-                if (dialog.run() == Gtk.ResponseType.ACCEPT)
-                {
-                    temp_file = dialog.get_file();
-                    temp_tag = null;
-                }
-
-                dialog.destroy();
+                save_as(parent);
             }
-
-            if (temp_file != null)
+            else
             {
-                var stream = new DataOutputStream(temp_file.replace(
-                    temp_tag,
-                    true,
-                    FileCreateFlags.NONE
-                    ));
-                
-                schematic.write(stream);
-                stream.close();
+                write(file, tag);
 
-                var file_info = temp_file.query_info(
-                    @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
-                    FileQueryInfoFlags.NONE
-                    );
-
-                changed = false;
-                modified = false;
-                file = temp_file;
-                tab = file_info.get_display_name();
-                tag = file_info.get_etag();
+                // TODO: catch and handle IOError.WRONG_ETAG
             }
         }
 
@@ -171,7 +134,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void save_as(Gtk.Window? parent)
+        public void save_as(Gtk.Window? parent) throws Error
 
             requires(schematic != null)
 
@@ -197,30 +160,7 @@ namespace Gschem3
 
             if (dialog.run() == Gtk.ResponseType.ACCEPT)
             {
-                var temp_file = dialog.get_file();
-
-                if (temp_file != null)
-                {
-                    var stream = new DataOutputStream(temp_file.replace(
-                        null,
-                        true,
-                        FileCreateFlags.NONE
-                        ));
-                    
-                    schematic.write(stream);
-                    stream.close();
-
-                    var file_info = temp_file.query_info(
-                        @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
-                        FileQueryInfoFlags.NONE
-                        );
-
-                    changed = false;
-                    modified = false;
-                    file = temp_file;
-                    tab = file_info.get_display_name();
-                    tag = file_info.get_etag();
-                }
+                write(dialog.get_file(), null);
             }
 
             dialog.destroy();
@@ -243,5 +183,45 @@ namespace Gschem3
          * A number used in the untitled filename to make it unique
          */
         private static int untitled_number = 1;
+
+
+        /**
+         * Write the schematic to a file
+         *
+         * When writing to a new file or overwriting an existing file,
+         * the next_file represents the new or existing file to
+         * overwrite. And, the current tag should be null.
+         *
+         * When saving to an existing file, the next_file represents
+         * the current file and the current_tag should be set to the
+         * current tag. Setting the current tag ensures the contents of
+         * the existing file are not overwritten if modified elsewhere
+         * since the last save.
+         * 
+         * @param next_file the current or next file to save to
+         * @param current_tag the current tag or null
+         */
+        private void write(File next_file, string? current_tag)
+        {
+            var stream = new DataOutputStream(next_file.replace(
+                current_tag,
+                true,
+                FileCreateFlags.NONE
+                ));
+            
+            schematic.write(stream);
+            stream.close();
+
+            var file_info = next_file.query_info(
+                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
+                FileQueryInfoFlags.NONE
+                );
+
+            changed = false;
+            modified = false;
+            file = next_file;
+            tab = file_info.get_display_name();
+            tag = file_info.get_etag();
+        }
     }
 }
