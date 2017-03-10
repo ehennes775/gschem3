@@ -170,6 +170,12 @@ namespace Gschem3
         /**
          *
          */
+        private FileMonitor monitor;
+
+
+        /**
+         *
+         */
         private Geda3.Schematic schematic;
 
 
@@ -183,6 +189,15 @@ namespace Gschem3
          * A number used in the untitled filename to make it unique
          */
         private static int untitled_number = 1;
+
+
+        /**
+         *
+         */
+        private void on_changed(File file_a, File? file_b, FileMonitorEvent event)
+        {
+            stdout.printf("changed %d\n", event);
+        }
 
 
         /**
@@ -203,11 +218,16 @@ namespace Gschem3
          */
         private void write(File next_file, string? current_tag)
         {
+            if (monitor != null)
+            {
+                monitor.cancel();
+            }
+
             var stream = new DataOutputStream(next_file.replace(
                 current_tag,
                 true,
                 FileCreateFlags.NONE
-                ));
+                )); 
             
             schematic.write(stream);
             stream.close();
@@ -216,6 +236,9 @@ namespace Gschem3
                 @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
                 FileQueryInfoFlags.NONE
                 );
+
+            monitor = next_file.monitor_file(FileMonitorFlags.NONE);
+            monitor.changed.connect(on_changed);
 
             changed = false;
             modified = false;
