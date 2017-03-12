@@ -83,17 +83,7 @@ namespace Gschem3
          */
         public SchematicWindow.with_file(File file) throws Error
         {
-            this.file = file;
-
-            var file_info = file.query_info(
-                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
-                FileQueryInfoFlags.NONE
-                );
-
-            changed = false;
-            modified = false;
-            tab = file_info.get_display_name();
-            tag = file_info.get_etag();
+            read(file);
         }
 
 
@@ -105,8 +95,7 @@ namespace Gschem3
             requires(file != null)
 
         {
-            changed = false;
-            modified = false;
+            read(file);
         }
 
 
@@ -197,6 +186,41 @@ namespace Gschem3
         private void on_changed(File file_a, File? file_b, FileMonitorEvent event)
         {
             stdout.printf("changed %d\n", event);
+        }
+
+
+        /**
+         * Read the schematic from a file
+         *
+         * @param next_file the file to read the schematic from
+         */
+        private void read(File next_file)
+        {
+            if (monitor != null)
+            {
+                monitor.cancel();
+            }
+
+            var stream = new DataInputStream(next_file.read()); 
+            schematic.read(stream);
+            stream.close();
+
+            var file_info = next_file.query_info(
+                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
+                FileQueryInfoFlags.NONE
+                );
+
+            // TODO: this file monitor is receiving spurious events
+            // from the output stream hadling the backup file.
+
+            monitor = next_file.monitor_file(FileMonitorFlags.NONE);
+            monitor.changed.connect(on_changed);
+
+            changed = false;
+            modified = false;
+            file = next_file;
+            tab = file_info.get_display_name();
+            tag = file_info.get_etag();
         }
 
 

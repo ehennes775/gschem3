@@ -39,12 +39,21 @@ namespace Gschem3
         {
             foreach (var file in files)
             {
-                var window = new SchematicWindow.with_file(file);
-                window.visible = true;
-                var tab = new DocumentTab(window);
-                tab.show_all();
+                try
+                {
+                    stdout.printf("%s\n", file.get_path());
+                    
+                    var window = new SchematicWindow.with_file(file);
+                    window.visible = true;
+                    var tab = new DocumentTab(window);
+                    tab.show_all();
 
-                notebook.append_page(window, tab);
+                    notebook.append_page(window, tab);
+                }
+                catch (Error error)
+                {
+                    stderr.printf("%s\n", error.message);
+                }
             }
         }
 
