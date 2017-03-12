@@ -237,6 +237,9 @@ namespace Gschem3
                 FileQueryInfoFlags.NONE
                 );
 
+            // TODO: this file monitor is receiving spurious events
+            // from the output stream hadling the backup file.
+
             monitor = next_file.monitor_file(FileMonitorFlags.NONE);
             monitor.changed.connect(on_changed);
 
