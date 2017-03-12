@@ -9,7 +9,7 @@ namespace Gschem3
         Savable
     {
         /**
-         * Indicates the document can be reloaded
+         * {@inheritDoc}
          */
         public bool can_reload
         {
@@ -19,7 +19,7 @@ namespace Gschem3
 
 
         /**
-         * Indicates the document has changed since last saved
+         * {@inheritDoc}
          */
         public bool changed
         {
@@ -31,7 +31,8 @@ namespace Gschem3
         /**
          * The underlying file for the schematic
          *
-         * If this value is null, an underlying file has not beed created yet.
+         * If this value is null, an underlying file has not been
+         * created yet.
          */
         public File file
         {
@@ -41,7 +42,7 @@ namespace Gschem3
 
 
         /**
-         * Indicates the file has changed since last loaded
+         *  {@inheritDoc}
          */
         public bool modified
         {
@@ -88,9 +89,9 @@ namespace Gschem3
 
 
         /**
-         * Reload the document
+         * {@inheritDoc}
          */
-        public void reload()
+        public void reload() throws Error
 
             requires(file != null)
 
@@ -157,19 +158,20 @@ namespace Gschem3
 
 
         /**
-         *
+         * This montior checks for changes to the underlying file
          */
         private FileMonitor monitor;
 
 
         /**
-         *
+         * The schematic this window is editing
          */
         private Geda3.Schematic schematic;
 
 
         /**
-         *
+         * This tag determines if changes have been made to the
+         * underlying file by an external process.
          */
         private string tag;
 
@@ -181,11 +183,11 @@ namespace Gschem3
 
 
         /**
-         *
+         * Event handler for changes occuring to the underlying file
          */
         private void on_changed(File file_a, File? file_b, FileMonitorEvent event)
         {
-            stdout.printf("changed %d\n", event);
+            stdout.printf("on_changed event=%s\n", event.to_string());
         }
 
 
@@ -211,7 +213,7 @@ namespace Gschem3
                 );
 
             // TODO: this file monitor is receiving spurious events
-            // from the output stream hadling the backup file.
+            // from the output stream handling the backup file.
 
             monitor = next_file.monitor_file(FileMonitorFlags.NONE);
             monitor.changed.connect(on_changed);
@@ -262,7 +264,7 @@ namespace Gschem3
                 );
 
             // TODO: this file monitor is receiving spurious events
-            // from the output stream hadling the backup file.
+            // from the output stream handling the backup file.
 
             monitor = next_file.monitor_file(FileMonitorFlags.NONE);
             monitor.changed.connect(on_changed);

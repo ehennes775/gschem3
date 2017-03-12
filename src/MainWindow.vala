@@ -162,7 +162,14 @@ namespace Gschem3
 
                 if (page != null)
                 {
-                    page.save(this);
+                    try
+                    {
+                        page.save(this);
+                    }
+                    catch (Error error)
+                    {
+                        stderr.printf("%s\n", error.message);
+                    }
                 }
             }
         }
@@ -187,7 +194,14 @@ namespace Gschem3
 
                 if (page != null)
                 {
-                    page.save(this);
+                    try
+                    {
+                        page.save(this);
+                    }
+                    catch (Error error)
+                    {
+                        stderr.printf("%s\n", error.message);
+                    }
                 }
             }
         }
@@ -212,7 +226,14 @@ namespace Gschem3
 
                 if (page != null)
                 {
-                    page.save_as(this);
+                    try
+                    {
+                        page.save_as(this);
+                    }
+                    catch (Error error)
+                    {
+                        stderr.printf("%s\n", error.message);
+                    }
                 }
             }
         }
