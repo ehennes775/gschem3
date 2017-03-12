@@ -104,9 +104,6 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public void save(Gtk.Window? parent) throws Error
-
-            requires(schematic != null)
-
         {
             if (file == null)
             {
@@ -125,9 +122,6 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public void save_as(Gtk.Window? parent) throws Error
-
-            requires(schematic != null)
-
         {
             var dialog = new Gtk.FileChooserDialog(
                 "Save As...",
@@ -197,13 +191,16 @@ namespace Gschem3
          * @param next_file the file to read the schematic from
          */
         private void read(File next_file)
+
+            requires(schematic != null)
+
         {
             if (monitor != null)
             {
                 monitor.cancel();
             }
 
-            var stream = new DataInputStream(next_file.read()); 
+            var stream = new DataInputStream(next_file.read());
             schematic.read(stream);
             stream.close();
 
@@ -238,11 +235,14 @@ namespace Gschem3
          * current tag. Setting the current tag ensures the contents of
          * the existing file are not overwritten if modified elsewhere
          * since the last save.
-         * 
+         *
          * @param next_file the current or next file to save to
          * @param current_tag the current tag or null
          */
         private void write(File next_file, string? current_tag)
+
+            requires(schematic != null)
+
         {
             if (monitor != null)
             {
@@ -253,8 +253,8 @@ namespace Gschem3
                 current_tag,
                 true,
                 FileCreateFlags.NONE
-                )); 
-            
+                ));
+
             schematic.write(stream);
             stream.close();
 
