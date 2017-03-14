@@ -25,7 +25,9 @@ namespace Gschem3
 
         /**
          * Reloads the document from the file
+         *
+         * @param window The transient parent for dialogs
          */
-        public abstract void reload() throws Error;
+        public abstract void reload(Gtk.Window? parent) throws Error;
     }
 }

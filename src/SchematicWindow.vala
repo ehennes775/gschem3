@@ -91,7 +91,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void reload() throws Error
+        public void reload(Gtk.Window? parent) throws Error
 
             requires(file != null)
 

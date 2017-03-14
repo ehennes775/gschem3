@@ -63,11 +63,12 @@ namespace Gschem3
          */
         private const ActionEntry[] action_entries =
         {
-            { "file-open", on_file_open, null, null, null },
-            { "file-new", on_file_new, null, null, null },
             { "file-save", on_file_save, null, null, null },
             { "file-save-all", on_file_save_all, null, null, null },
-            { "file-save-as", on_file_save_as, null, null, null }
+            { "file-save-as", on_file_save_as, null, null, null },
+            { "file-open", on_file_open, null, null, null },
+            { "file-new", on_file_new, null, null, null },
+            { "file-reload", on_file_reload, null, null, null }
         };
 
 
@@ -140,6 +141,38 @@ namespace Gschem3
             }
 
             dialog.close();
+        }
+
+
+        /**
+         * Reload the current file
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_file_reload(SimpleAction action, Variant? parameter)
+
+            requires(notebook != null)
+
+        {
+            var page_index = notebook.get_current_page();
+
+            if (page_index >= 0)
+            {
+                var page = notebook.get_nth_page(page_index) as Reloadable;
+
+                if (page != null)
+                {
+                    try
+                    {
+                        page.reload(this);
+                    }
+                    catch (Error error)
+                    {
+                        stderr.printf("%s\n", error.message);
+                    }
+                }
+            }
         }
 
 
