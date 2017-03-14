@@ -76,7 +76,7 @@ namespace Gschem3
          */
         public SchematicWindow()
         {
-            tab = "untitled_%d.sch".printf(untitled_number++);
+            tab = "untitled_%d.sch".printf(++untitled_number);
         }
 
 
@@ -174,7 +174,7 @@ namespace Gschem3
         /**
          * A number used in the untitled filename to make it unique
          */
-        private static int untitled_number = 1;
+        private static int untitled_number = 0;
 
 
         /**
