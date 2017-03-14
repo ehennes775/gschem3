@@ -190,7 +190,7 @@ namespace Gschem3
          *
          * @param next_file the file to read the schematic from
          */
-        private void read(File next_file)
+        private void read(File next_file) throws Error
 
             requires(schematic != null)
 
@@ -239,7 +239,7 @@ namespace Gschem3
          * @param next_file the current or next file to save to
          * @param current_tag the current tag or null
          */
-        private void write(File next_file, string? current_tag)
+        private void write(File next_file, string? current_tag) throws Error
 
             requires(schematic != null)
 
