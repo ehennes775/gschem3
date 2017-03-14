@@ -34,7 +34,7 @@ namespace Gschem3
          * If this value is null, an underlying file has not been
          * created yet.
          */
-        public File file
+        public File? file
         {
             get;
             private set;
