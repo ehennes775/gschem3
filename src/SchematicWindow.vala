@@ -9,6 +9,12 @@ namespace Gschem3
         Savable
     {
         /**
+         * The filename extension for schematic files
+         */
+        public const string SCHEMATIC_EXTENSION = ".sch";
+
+
+        /**
          * {@inheritDoc}
          */
         public bool can_reload
@@ -76,7 +82,10 @@ namespace Gschem3
          */
         public SchematicWindow()
         {
-            tab = "untitled_%d.sch".printf(++untitled_number);
+            tab = "untitled_%d%s".printf(
+                ++untitled_number,
+                SCHEMATIC_EXTENSION
+                );
         }
 
 
