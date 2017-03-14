@@ -65,6 +65,7 @@ namespace Gschem3
         construct
         {
             file = null;
+            monitor = null;
             schematic = new Geda3.Schematic();
             tag = null;
         }
@@ -154,7 +155,7 @@ namespace Gschem3
         /**
          * This montior checks for changes to the underlying file
          */
-        private FileMonitor monitor;
+        private FileMonitor? monitor;
 
 
         /**
@@ -167,7 +168,7 @@ namespace Gschem3
          * This tag determines if changes have been made to the
          * underlying file by an external process.
          */
-        private string tag;
+        private string? tag;
 
 
         /**
