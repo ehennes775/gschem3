@@ -49,10 +49,18 @@ namespace Gschem3
         /**
          * Open existing files
          *
+         * This functions sets current notebook page to the page
+         * containing last document succesfully opened.
+         *
          * @param files the files to open
          */
         public void open (File[] files)
+
+            requires (notebook != null)
+
         {
+            Gtk.Widget? last_window = null;
+
             foreach (var file in files)
             {
                 try
@@ -65,10 +73,26 @@ namespace Gschem3
                     tab.show_all();
 
                     notebook.append_page(window, tab);
+
+                    last_window = window;
                 }
                 catch (Error error)
                 {
                     ErrorDialog.show_with_file(this, error, file);
+                }
+            }
+
+            if (last_window != null)
+            {
+                var page_index = notebook.page_num(last_window);
+
+                if (page_index >= 0)
+                {
+                    notebook.set_current_page(page_index);
+                }
+                else
+                {
+                    warn_if_reached();
                 }
             }
         }
