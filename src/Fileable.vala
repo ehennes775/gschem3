@@ -7,6 +7,18 @@ namespace Gschem3
     public interface Fileable : Object
     {
         /**
+         * A string uniquly identifing the file
+         *
+         * If this value is null, an underlying file has not been
+         * created yet.
+         */
+        public abstract string? file_id
+        {
+            get;
+            protected set;
+        }
+
+        /**
          * The underlying file for this document
          *
          * If this value is null, an underlying file has not been

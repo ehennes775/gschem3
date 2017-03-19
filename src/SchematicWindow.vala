@@ -51,6 +51,16 @@ namespace Gschem3
         /**
          *  {@inheritDoc}
          */
+        public string? file_id
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
+         *  {@inheritDoc}
+         */
         public bool modified
         {
             get;
@@ -72,6 +82,7 @@ namespace Gschem3
         construct
         {
             file = null;
+            file_id = null;
             monitor = null;
             schematic = new Geda3.Schematic();
             tag = null;
@@ -216,7 +227,7 @@ namespace Gschem3
             stream.close();
 
             var file_info = next_file.query_info(
-                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
+                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE),$(FileAttribute.ID_FILE)",
                 FileQueryInfoFlags.NONE
                 );
 
@@ -229,6 +240,7 @@ namespace Gschem3
             changed = false;
             modified = false;
             file = next_file;
+            file_id = file_info.get_attribute_string(FileAttribute.ID_FILE);
             tab = file_info.get_display_name();
             tag = file_info.get_etag();
         }
@@ -270,7 +282,7 @@ namespace Gschem3
             stream.close();
 
             var file_info = next_file.query_info(
-                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE)",
+                @"$(FileAttribute.STANDARD_DISPLAY_NAME),$(FileAttribute.ETAG_VALUE),$(FileAttribute.ID_FILE)",
                 FileQueryInfoFlags.NONE
                 );
 
@@ -283,6 +295,7 @@ namespace Gschem3
             changed = false;
             modified = false;
             file = next_file;
+            file_id = file_info.get_attribute_string(FileAttribute.ID_FILE);
             tab = file_info.get_display_name();
             tag = file_info.get_etag();
         }
