@@ -5,6 +5,7 @@ namespace Gschem3
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/SchematicWindow.ui.xml")]
     public class SchematicWindow : DocumentWindow,
+        Fileable,
         Reloadable,
         Savable
     {
@@ -43,7 +44,7 @@ namespace Gschem3
         public File? file
         {
             get;
-            private set;
+            protected set;
         }
 
 

@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      *
      */
-    public interface Reloadable : Object
+    public interface Reloadable : Object, Fileable
     {
         /**
          * Indicates the document can be reloaded

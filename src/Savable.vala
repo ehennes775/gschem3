@@ -4,7 +4,7 @@ namespace Gschem3
      * An interface for document windows that can save contents to a
      * file
      */
-    public interface Savable : Object
+    public interface Savable : Object, Fileable
     {
         /**
          * Indicates the document has changed since last saved

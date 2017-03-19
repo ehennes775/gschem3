@@ -52,7 +52,7 @@ namespace Gschem3
                 }
                 catch (Error error)
                 {
-                    stderr.printf("%s\n", error.message);
+                    ErrorDialog.show_with_file(this, error, file);
                 }
             }
         }
@@ -169,7 +169,7 @@ namespace Gschem3
                     }
                     catch (Error error)
                     {
-                        stderr.printf("%s\n", error.message);
+                        ErrorDialog.show_with_file(this, error, page.file);
                     }
                 }
             }
@@ -201,7 +201,7 @@ namespace Gschem3
                     }
                     catch (Error error)
                     {
-                        stderr.printf("%s\n", error.message);
+                        ErrorDialog.show_with_file(this, error, page.file);
                     }
                 }
             }
@@ -233,7 +233,7 @@ namespace Gschem3
                     }
                     catch (Error error)
                     {
-                        stderr.printf("%s\n", error.message);
+                        ErrorDialog.show_with_file(this, error, page.file);
                     }
                 }
             }
@@ -265,7 +265,7 @@ namespace Gschem3
                     }
                     catch (Error error)
                     {
-                        stderr.printf("%s\n", error.message);
+                        ErrorDialog.show_with_file(this, error, page.file);
                     }
                 }
             }

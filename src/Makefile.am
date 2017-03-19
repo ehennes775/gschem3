@@ -56,6 +56,7 @@ libgeda3_a_SOURCES = \
 	ColorScheme.vala \
 	Coord.vala \
 	DashType.vala \
+	Fileable.vala \
 	FileVersion.vala \
 	FillType.vala \
 	NetItem.vala \
@@ -85,6 +86,7 @@ libgeda3_a_VALAFLAGS = \
 libgschem3_a_SOURCES = \
 	DocumentTab.vala \
 	DocumentWindow.vala \
+	ErrorDialog.vala \
 	MainWindow.vala \
 	Reloadable.vala \
 	Savable.vala \
