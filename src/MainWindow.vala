@@ -17,6 +17,22 @@ namespace Gschem3
         {
             delete_event.connect(on_delete_event);
             add_action_entries(action_entries, this);
+
+            // Setup drag and drop
+
+            var targets = new Gtk.TargetList(null);
+            targets.add_uri_targets(TargetInfo.URI_LIST);
+
+            Gtk.drag_dest_set(
+                this,
+                Gtk.DestDefaults.ALL,
+                target_entries,
+                Gdk.DragAction.MOVE
+                );
+
+            Gtk.drag_dest_set_target_list(this, targets);
+
+            drag_data_received.connect(on_data_received);
         }
 
 
@@ -42,7 +58,7 @@ namespace Gschem3
                 try
                 {
                     stdout.printf("%s\n", file.get_path());
-                    
+
                     var window = new SchematicWindow.with_file(file);
                     window.visible = true;
                     var tab = new DocumentTab(window);
@@ -55,6 +71,16 @@ namespace Gschem3
                     ErrorDialog.show_with_file(this, error, file);
                 }
             }
+        }
+
+
+        /**
+         * Identifies the drop operation
+         */
+        private enum TargetInfo
+        {
+            URI_LIST,
+            COUNT
         }
 
 
@@ -73,10 +99,58 @@ namespace Gschem3
 
 
         /**
+         * The drag and drop targets
+         *
+         * Currently, an empty list since drag_dest_set cannot accept
+         * a null pointer.
+         */
+        private const Gtk.TargetEntry[] target_entries =
+        {
+        };
+
+
+        /**
          * The notebook containing the document windows
          */
         [GtkChild]
         private Gtk.Notebook notebook;
+
+
+        /**
+         * An event handler for drag and drop data received
+         *
+         * @param context the drag context
+         * @param x the x coordinate of the drop location
+         * @param y the y coordinate of the drop location
+         * @param data the selection data
+         * @param info the number registered in the target list
+         * @param timestamp when the drop operation occured
+         */
+        private void on_data_received(
+            Gdk.DragContext context,
+            int x,
+            int y,
+            Gtk.SelectionData data,
+            uint info,
+            uint timestamp
+            )
+
+            requires (info < TargetInfo.COUNT)
+
+        {
+            if (info == TargetInfo.URI_LIST)
+            {
+                var files = new Gee.ArrayList<File>();
+                var uris = data.get_uris();
+
+                foreach (var uri in uris)
+                {
+                    files.add(File.new_for_uri(uri));
+                }
+
+                open(files.to_array());
+            }
+        }
 
 
         /**
