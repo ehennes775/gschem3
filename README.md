@@ -7,7 +7,7 @@ The goals of this project include:
 
 1. Migrate Gschem to GTK+-3.0
 
-##Installation
+## Installation
 1. __Install Git.__ This step can be skipped with Git already installed. Use the following command to install or update Git:
 
     ```
