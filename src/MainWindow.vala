@@ -70,7 +70,7 @@ namespace Gschem3
                     if (window == null)
                     {
                         window = new SchematicWindow.with_file(file);
-                        window.visible = true;
+                        window.show_all();
                         var tab = new DocumentTab(window);
                         tab.show_all();
 
@@ -258,7 +258,7 @@ namespace Gschem3
 
         {
             var window = new SchematicWindow();
-            window.visible = true;
+            window.show_all();
             var tab = new DocumentTab(window);
             tab.show_all();
 

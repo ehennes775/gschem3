@@ -92,6 +92,8 @@ namespace Gschem3
             monitor = null;
             schematic = new Geda3.Schematic();
             tag = null;
+
+            drawing.draw.connect(on_draw);
         }
 
 
@@ -185,6 +187,19 @@ namespace Gschem3
 
 
         /**
+         * The color scheme used for all schematic windows
+         */
+        private Geda3.ColorScheme scheme = new Geda3.ColorScheme();
+
+
+        /**
+         * The drawing area for the schematic
+         */
+        [GtkChild]
+        private Gtk.DrawingArea drawing;
+
+
+        /**
          * This montior checks for changes to the underlying file
          */
         private FileMonitor? monitor;
@@ -247,6 +262,36 @@ namespace Gschem3
         private void on_changed(File file_a, File? file_b, FileMonitorEvent event)
         {
             stdout.printf("on_changed event=%s\n", event.to_string());
+        }
+
+
+        /**
+         * Draw the schematic window contents
+         */
+        private bool on_draw(Cairo.Context context)
+
+            requires(scheme != null)
+
+        {
+            var background = scheme[0];
+
+            context.set_source_rgba(
+                background.red,
+                background.green,
+                background.blue,
+                background.alpha
+                );
+
+            context.rectangle(
+                0,
+                0,
+                drawing.get_allocated_width(),
+                drawing.get_allocated_height()
+                );
+
+            context.fill();
+
+            return true;
         }
 
 

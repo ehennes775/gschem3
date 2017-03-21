@@ -2,7 +2,7 @@
 <interface>
     <template class="Gschem3SchematicWindow">
         <child>
-            <object class="GtkScrolledWindow" id="scrolled-window">
+            <object class="GtkDrawingArea" id="drawing">
             </object>
         </child>
     </template>
