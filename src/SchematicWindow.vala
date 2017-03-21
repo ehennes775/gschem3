@@ -155,6 +155,11 @@ namespace Gschem3
 
             dialog.do_overwrite_confirmation = true;
 
+            foreach (var filter in save_filters)
+            {
+                dialog.add_filter(filter);
+            }
+
             if (file == null)
             {
                 dialog.set_current_name(tab);
@@ -180,6 +185,12 @@ namespace Gschem3
 
 
         /**
+         * File filters used by the save dialog
+         */
+        private static Gtk.FileFilter[] save_filters = create_filters();
+
+
+        /**
          * The schematic this window is editing
          */
         private Geda3.Schematic schematic;
@@ -196,6 +207,22 @@ namespace Gschem3
          * A number used in the untitled filename to make it unique
          */
         private static int untitled_number = 0;
+
+
+        /**
+         * Create the file filters used by the save dialog
+         */
+        private static Gtk.FileFilter[] create_filters()
+        {
+            var filters = new Gee.ArrayList<Gtk.FileFilter>();
+
+            var schematics = new Gtk.FileFilter();
+            schematics.set_filter_name("Schematics");
+            schematics.add_pattern(@"*$SCHEMATIC_EXTENSION");
+            filters.add(schematics);
+
+            return filters.to_array();
+        }
 
 
         /**
