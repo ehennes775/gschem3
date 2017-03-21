@@ -18,6 +18,8 @@ namespace Geda3
 
         public SchematicPainterCairo()
         {
+            cairo_context = null;
+            color_scheme = null;
         }
 
 
@@ -25,6 +27,9 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void draw_line(int x0, int y0, int x1, int y1)
+
+            requires(cairo_context != null)
+
         {
             cairo_context.move_to(x0, y0);
             cairo_context.line_to(x1, y1);
@@ -36,6 +41,11 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void set_cap_type(CapType cap_type)
+
+            requires(cap_type >= 0)
+            requires(cap_type < CapType.COUNT)
+            requires(cairo_context != null)
+
         {
             switch (cap_type)
             {
@@ -80,6 +90,13 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void set_dash(DashType dash_type, int length, int space)
+
+            requires(cairo_context != null)
+            requires(dash_type >= 0)
+            requires(dash_type < DashType.COUNT)
+            requires(length >= 0)
+            requires(space >= 0)
+
         {
         }
     }

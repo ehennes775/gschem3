@@ -34,6 +34,20 @@ namespace Geda3
 
 
         /**
+         * Draw the schematic
+         *
+         * @param painter the painter to use for drawing
+         */
+        public void draw(SchematicPainter painter)
+        {
+            foreach (var item in items)
+            {
+                item.draw(painter);
+            }
+        }
+
+
+        /**
          * Read a schematic from an input file
          *
          * @param file the file to read the schematic from

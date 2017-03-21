@@ -206,6 +206,12 @@ namespace Gschem3
 
 
         /**
+         * The painter used to draw schematics
+         */
+        private Geda3.SchematicPainterCairo painter = new Geda3.SchematicPainterCairo();
+
+
+        /**
          * File filters used by the save dialog
          */
         private static Gtk.FileFilter[] save_filters = create_filters();
@@ -290,6 +296,10 @@ namespace Gschem3
                 );
 
             context.fill();
+
+            painter.cairo_context = context;
+            painter.color_scheme = scheme;
+            schematic.draw(painter);
 
             return true;
         }
