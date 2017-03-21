@@ -16,6 +16,12 @@ namespace Gschem3
 
 
         /**
+         * The filename extension for symbol files
+         */
+        public const string SYMBOL_EXTENSION = ".sym";
+
+
+        /**
          * {@inheritDoc}
          */
         public bool can_reload
@@ -216,10 +222,20 @@ namespace Gschem3
         {
             var filters = new Gee.ArrayList<Gtk.FileFilter>();
 
+            var all = new Gtk.FileFilter();
+            all.set_filter_name("All Files");
+            all.add_pattern("*.*");
+            filters.add(all);
+
             var schematics = new Gtk.FileFilter();
             schematics.set_filter_name("Schematics");
             schematics.add_pattern(@"*$SCHEMATIC_EXTENSION");
             filters.add(schematics);
+
+            var symbols = new Gtk.FileFilter();
+            symbols.set_filter_name("Symbols");
+            symbols.add_pattern(@"*$SYMBOL_EXTENSION");
+            filters.add(symbols);
 
             return filters.to_array();
         }
