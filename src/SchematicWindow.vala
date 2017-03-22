@@ -187,6 +187,43 @@ namespace Gschem3
 
 
         /**
+         * Zoom the schematic to fit the view
+         */
+        public void zoom_extents()
+
+            requires(painter != null)
+            requires(schematic != null)
+
+        {
+            matrix = Cairo.Matrix.identity();
+
+            var bounds = schematic.calculate_bounds(painter);
+
+            var width = drawing.get_allocated_width();
+            var height = drawing.get_allocated_height();
+
+            matrix.translate(
+                Math.round(width / 2.0),
+                Math.round(height / 2.0)
+                );
+
+            var scale = double.min(
+                0.8 * width / (bounds.max_x - bounds.min_x).abs(),
+                0.8 * height / (bounds.max_y - bounds.min_y).abs()
+                );
+
+            matrix.scale(scale, -scale);
+
+            matrix.translate(
+                (bounds.max_x - bounds.min_x).abs() / -2.0,
+                (bounds.max_y - bounds.min_y).abs() / -2.0
+                );
+
+            queue_draw();
+        }
+
+
+        /**
          * The color scheme used for all schematic windows
          */
         private Geda3.ColorScheme scheme = new Geda3.ColorScheme();
@@ -197,6 +234,12 @@ namespace Gschem3
          */
         [GtkChild]
         private Gtk.DrawingArea drawing;
+
+
+        /**
+         * Matrix for converting drawing to window coordinates
+         */
+        private Cairo.Matrix matrix = Cairo.Matrix.identity();
 
 
         /**
@@ -297,6 +340,7 @@ namespace Gschem3
 
             context.fill();
 
+            context.set_matrix(matrix);
             painter.cairo_context = context;
             painter.color_scheme = scheme;
             schematic.draw(painter);

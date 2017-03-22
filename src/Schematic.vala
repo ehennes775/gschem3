@@ -34,6 +34,25 @@ namespace Geda3
 
 
         /**
+         * Calculate the bounds of this schematic
+         *
+         * @param painter The painter to use for bounds calculation
+         */
+        public Bounds calculate_bounds(SchematicPainter painter)
+        {
+            Geda3.Bounds bounds = Geda3.Bounds();
+
+            foreach (var item in items)
+            {
+                bounds.union(item.calculate_bounds(painter));
+            }
+
+            return bounds;
+        }
+
+
+
+        /**
          * Draw the schematic
          *
          * @param painter the painter to use for drawing

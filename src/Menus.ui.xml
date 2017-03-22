@@ -39,5 +39,16 @@
                 </section>
             </submenu>
         </section>
+        <section>
+            <submenu>
+                <attribute name="label" translatable="yes">_View</attribute>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Zoom Extents</attribute>
+                        <attribute name="action">win.zoom-extents</attribute>
+                    </item>
+                </section>
+            </submenu>
+        </section>
     </menu>
 </interface>

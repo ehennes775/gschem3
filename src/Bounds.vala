@@ -100,5 +100,19 @@ namespace Geda3
                 max_y += y;
             }
         }
+
+
+        /**
+         * Calculate the union of two bounds
+         *
+         * @param other the other bounds to use for calculation
+         */
+        public void union(Bounds other)
+        {
+            min_x = int.min(min_x, other.min_x);
+            min_y = int.min(min_y, other.min_y);
+            max_x = int.max(max_x, other.max_x);
+            max_y = int.max(max_y, other.max_y);
+        }
     }
 }
