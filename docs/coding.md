@@ -1,13 +1,11 @@
 ---
 layout: default
-markdown: redcarpet
-title: Gschem3
-redcarpet:
-    extensions: ["tables"]
+title: Coding
 ---
 # CODING
 
 ## Naming Conventions
+
 |Identifier|Case|Example|Notes|
 |-|-|-|-|
 |Classes, Interfaces, and Structs|Upper Camel Case|`MainWindow`||
