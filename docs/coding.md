@@ -1,5 +1,6 @@
 ---
 layout: default
+markdown: redcarpet
 title: Gschem3
 ---
 # CODING
