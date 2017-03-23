@@ -3,4 +3,4 @@ theme: jekyll-theme-dinky
 markdown: redcarpet
 
 redcarpet:
-  extensions: [tables]
+  extensions: ["tables"]
