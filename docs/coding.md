@@ -2,6 +2,8 @@
 layout: default
 markdown: redcarpet
 title: Gschem3
+redcarpet:
+    extensions: ["tables"]
 ---
 # CODING
 
