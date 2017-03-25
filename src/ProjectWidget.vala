@@ -1,13 +1,24 @@
 namespace Gschem3
 {
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/ProjectWidget.ui.xml")]
-    public class ProjectWidget : Gtk.Box
+    public class ProjectWidget : Gtk.Box, Gtk.Buildable
     {
         /**
          * Initialize the instance
          */
         construct
         {
+            // Setup actions
+
+            var group = new SimpleActionGroup();
+            group.add_action_entries(action_entries, this);
+            insert_action_group("prj", group);
+
+            // Setup context menu
+
+            tree.events |= Gdk.EventMask.BUTTON_PRESS_MASK;
+            tree.button_press_event.connect(on_button_release_event);
+
             // Setup drag and drop
 
             var targets = new Gtk.TargetList(null);
@@ -27,6 +38,22 @@ namespace Gschem3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void parser_finished(Gtk.Builder builder)
+
+            ensures(context != null)
+
+        {
+            var builder2 = new Gtk.Builder.from_resource(
+                "/com/github/ehennes775/gschem3/ProjectWidgetMenu.ui.xml"
+                );
+
+            context = builder2.get_object("context") as MenuModel;
+        }
+
+
+        /**
          * Identifies the drop operation
          */
         private enum TargetInfo
@@ -41,6 +68,7 @@ namespace Gschem3
          */
         private const ActionEntry[] action_entries =
         {
+            { "add-files", on_add_files, null, null, null }
         };
 
 
@@ -56,16 +84,56 @@ namespace Gschem3
 
 
         /**
+         * The context menu for the project widget
+         */
+        private MenuModel context;
+
+
+        /**
+         * A GtkTreeView widget containing the project
+         */
+        [GtkChild]
+        private Gtk.TreeView tree;
+
+
+        /**
          * Add files to the project
          *
          * @param files the files to add to the project
          */
-        private void add(File[] files)
+        private void add_files(File[] files)
         {
             foreach (var file in files)
             {
                 stdout.printf("%s\n", file.get_path());
             }
+        }
+
+
+        /**
+         *
+         * @todo This function is not displaying a popup menu.
+         */
+        public bool on_button_release_event(Gdk.EventButton event)
+        {
+            if (event.triggers_context_menu())
+            {
+                stdout.printf("Context menu...\n");
+
+                var menu = new Gtk.Menu.from_model(context);
+
+                menu.popup(
+                    null,
+                    null,
+                    null,
+                    event.button,
+                    event.time
+                    );
+
+                return true;
+            }
+
+            return false;
         }
 
 
@@ -101,8 +169,41 @@ namespace Gschem3
                     files.add(File.new_for_uri(uri));
                 }
 
-                add(files.to_array());
+                add_files(files.to_array());
             }
+        }
+
+
+        /**
+         * Add existing files to the project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_add_files(SimpleAction action, Variant? parameter)
+        {
+            var dialog = new Gtk.FileChooserDialog(
+                "Add Files to Project",
+                get_toplevel() as Gtk.Window,
+                Gtk.FileChooserAction.OPEN,
+                "_Cancel", Gtk.ResponseType.CANCEL,
+                "_Open", Gtk.ResponseType.ACCEPT
+                );
+
+            dialog.select_multiple = true;
+
+            var response = dialog.run();
+
+            if (response == Gtk.ResponseType.ACCEPT)
+            {
+                var files = new Gee.ArrayList<File>();
+
+                dialog.get_files().foreach((file) => { files.add(file); });
+
+                add_files(files.to_array());
+            }
+
+            dialog.close();
         }
     }
 }

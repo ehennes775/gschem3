@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+    <menu id="context">
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">Add...</attribute>
+                <attribute name="action">prj.add-files</attribute>
+            </item>
+        </section>
+    </menu>
+</interface>
+

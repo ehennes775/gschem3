@@ -5,6 +5,7 @@
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
         <file>ProjectWidget.ui.xml</file>
+        <file>ProjectWidgetMenu.ui.xml</file>
         <file>SchematicWindow.ui.xml</file>
     </gresource>
 </gresources>

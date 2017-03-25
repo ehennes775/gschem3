@@ -27,6 +27,8 @@ namespace Gschem3
             delete_event.connect(on_delete_event);
             add_action_entries(action_entries, this);
 
+            this.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
+
             // Setup drag and drop
 
             var targets = new Gtk.TargetList(null);
