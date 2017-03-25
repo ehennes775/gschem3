@@ -88,6 +88,7 @@ libgschem3_a_SOURCES = \
 	DocumentWindow.vala \
 	ErrorDialog.vala \
 	MainWindow.vala \
+	ProjectWidget.vala \
 	Reloadable.vala \
 	Savable.vala \
 	SchematicWindow.vala

@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <interface>
-    <template class="Gschem3MainWindow">
+    <template class="Gschem3MainWindow" parent="GtkApplicationWindow">
         <child>
-            <object class="GtkNotebook" id="notebook">
-                <property name="hexpand">true</property>
-                <property name="vexpand">true</property>
+            <object class="GtkPaned" id="paned">
+                <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+                <child>
+                    <object class="Gschem3ProjectWidget" id="project">
+                        <property name="hexpand">true</property>
+                        <property name="vexpand">true</property>
+                    </object>
+                    <packing>
+                        <property name="resize">false</property>
+                        <property name="shrink">false</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkNotebook" id="notebook">
+                        <property name="hexpand">true</property>
+                        <property name="vexpand">true</property>
+                    </object>
+                    <packing>
+                        <property name="resize">true</property>
+                        <property name="shrink">false</property>
+                    </packing>
+                </child>
+                <!--
+                -->
             </object>
         </child>
     </template>

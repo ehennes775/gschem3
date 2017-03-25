@@ -11,6 +11,15 @@ namespace Gschem3
 
 
         /**
+         * Initialize the class
+         */
+        static construct
+        {
+            stdout.printf("%s\n",typeof(ProjectWidget).name());
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct
