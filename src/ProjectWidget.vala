@@ -35,7 +35,7 @@ namespace Gschem3
 
             // The default value establishes the initial value of the
             // "enabled" property on the action.
-            default = true;    // temporarily true for testing
+            default = false;
         }
 
 
@@ -49,7 +49,7 @@ namespace Gschem3
 
             // The default value establishes the initial value of the
             // "enabled" property on the action.
-            default = true;    // temporarily true for testing
+            default = false;
         }
 
 
@@ -65,21 +65,21 @@ namespace Gschem3
             insert_action_group("prj", group);
 
             bind_property(
-                "can_add_files",
+                "can-add-files",
                 group.lookup_action("add-files"),
                 "enabled",
                 BindingFlags.SYNC_CREATE
                 );
 
             bind_property(
-                "can_open_files",
+                "can-open-files",
                 group.lookup_action("open-files"),
                 "enabled",
                 BindingFlags.SYNC_CREATE
                 );
 
             bind_property(
-                "can_remove_files",
+                "can-remove-files",
                 group.lookup_action("remove-files"),
                 "enabled",
                 BindingFlags.SYNC_CREATE
@@ -105,6 +105,30 @@ namespace Gschem3
             Gtk.drag_dest_set_target_list(this, targets);
 
             drag_data_received.connect(on_data_received);
+
+            // Setup tree model
+
+            model = new Gtk.ListStore(
+                2,
+                typeof(string),
+                typeof(File)
+                );
+
+            tree.model = model;
+
+            var cell = new Gtk.CellRendererText();
+
+            tree.insert_column_with_attributes(
+                -1,
+                "File",
+                cell,
+                "text",
+                0
+                );
+
+            selection = tree.get_selection();
+            selection.mode = Gtk.SelectionMode.MULTIPLE;
+            selection.changed.connect(update_sensitivities);
         }
 
 
@@ -163,6 +187,18 @@ namespace Gschem3
 
 
         /**
+         * A GtkTreeModel for testing
+         */
+        private Gtk.ListStore model;
+
+
+        /**
+         * The selection from the Gtk.TreeView widget
+         */
+        private Gtk.TreeSelection selection;
+
+
+        /**
          * A GtkTreeView widget containing the project
          */
         [GtkChild]
@@ -178,8 +214,61 @@ namespace Gschem3
         {
             foreach (var file in files)
             {
-                stdout.printf("%s\n", file.get_path());
+                Gtk.TreeIter iter;
+
+                model.append(out iter);
+
+                model.set(
+                    iter,
+                    0, file.get_basename(),
+                    1, file
+                    );
             }
+        }
+
+
+        /**
+         * Remove files from the project
+         *
+         * @param files the files to remove from the project
+         */
+        private void remove_files(File[] files)
+        {
+            foreach (var file in files)
+            {
+                stdout.printf("remove: %s\n", file.get_path());
+            }
+        }
+
+
+        /**
+         * Gets the selected files from the project tree view
+         */
+        private File[] get_selected_files()
+
+            requires(selection != null)
+
+        {
+            var files = new Gee.ArrayList<File>();
+
+            selection.selected_foreach(
+                (model, path, iter) =>
+                {
+                    File file = null;
+
+                    model.get(
+                        iter,
+                        1, &file
+                        );
+
+                    if (file != null)
+                    {
+                        files.add(file);
+                    }
+                }
+                );
+
+            return files.to_array();
         }
 
 
@@ -187,7 +276,7 @@ namespace Gschem3
          *
          * @todo This function is not displaying a popup menu.
          */
-        public bool on_button_release_event(Gdk.EventButton event)
+        private bool on_button_release_event(Gdk.EventButton event)
         {
             if (event.triggers_context_menu())
             {
@@ -307,14 +396,9 @@ namespace Gschem3
         {
             warn_if_fail(can_open_files);
 
-            stdout.printf("on_open_files()\n");
+            var files = get_selected_files();
 
-            var files = new Gee.ArrayList<File>();
-
-            // for testing
-            files.add(File.new_for_path("untitled_1.sch"));
-
-            open_files(files.to_array());
+            open_files(files);
         }
 
 
@@ -328,7 +412,25 @@ namespace Gschem3
         {
             warn_if_fail(can_remove_files);
 
-            stdout.printf("on_remove_files()\n");
+            var files = get_selected_files();
+
+            remove_files(files);
+        }
+
+
+        /**
+         * Update the senstitivities for the actions in this widget
+         */
+        private void update_sensitivities()
+
+            requires(selection != null)
+
+        {
+            var count = selection.count_selected_rows();
+            var enabled = (count > 0);
+
+            can_open_files = enabled;
+            can_remove_files = enabled;
         }
     }
 }
