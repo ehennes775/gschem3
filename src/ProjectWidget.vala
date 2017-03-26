@@ -68,7 +68,8 @@ namespace Gschem3
          */
         private const ActionEntry[] action_entries =
         {
-            { "add-files", on_add_files, null, null, null }
+            { "add-files", on_add_files, null, null, null },
+            { "remove-files", on_remove_files, null, null, null }
         };
 
 
@@ -121,6 +122,8 @@ namespace Gschem3
                 stdout.printf("Context menu...\n");
 
                 var menu = new Gtk.Menu.from_model(context);
+
+                menu.show_all();
 
                 menu.popup(
                     null,
@@ -204,6 +207,18 @@ namespace Gschem3
             }
 
             dialog.close();
+        }
+
+
+        /**
+         * Remove files from the project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_remove_files(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_remove_files()\n");
         }
     }
 }
