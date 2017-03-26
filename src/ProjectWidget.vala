@@ -4,6 +4,56 @@ namespace Gschem3
     public class ProjectWidget : Gtk.Box, Gtk.Buildable
     {
         /**
+         * Requests files to be opened in an editor
+         *
+         * @param files The files to open in an editor
+         */
+        public signal void open_files(File[] files);
+
+
+        /**
+         * Indicates files can be added to the project
+         */
+        public bool can_add_files
+        {
+            get;
+            private set;
+
+            // The default value establishes the initial value of the
+            // "enabled" property on the action.
+            default = true;    // temporarily true for testing
+        }
+
+
+        /**
+         * Indicates files can be opened from the project
+         */
+        public bool can_open_files
+        {
+            get;
+            private set;
+
+            // The default value establishes the initial value of the
+            // "enabled" property on the action.
+            default = true;    // temporarily true for testing
+        }
+
+
+        /**
+         * Indicates files can be removed from the project
+         */
+        public bool can_remove_files
+        {
+            get;
+            private set;
+
+            // The default value establishes the initial value of the
+            // "enabled" property on the action.
+            default = true;    // temporarily true for testing
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct
@@ -13,6 +63,27 @@ namespace Gschem3
             var group = new SimpleActionGroup();
             group.add_action_entries(action_entries, this);
             insert_action_group("prj", group);
+
+            bind_property(
+                "can_add_files",
+                group.lookup_action("add-files"),
+                "enabled",
+                BindingFlags.SYNC_CREATE
+                );
+
+            bind_property(
+                "can_open_files",
+                group.lookup_action("open-files"),
+                "enabled",
+                BindingFlags.SYNC_CREATE
+                );
+
+            bind_property(
+                "can_remove_files",
+                group.lookup_action("remove-files"),
+                "enabled",
+                BindingFlags.SYNC_CREATE
+                );
 
             // Setup context menu
 
@@ -68,6 +139,7 @@ namespace Gschem3
          */
         private const ActionEntry[] action_entries =
         {
+            { "open-files", on_open_files, null, null, null },
             { "add-files", on_add_files, null, null, null },
             { "remove-files", on_remove_files, null, null, null }
         };
@@ -119,9 +191,20 @@ namespace Gschem3
         {
             if (event.triggers_context_menu())
             {
-                stdout.printf("Context menu...\n");
+                stdout.printf("Context menu in...\n");
 
                 var menu = new Gtk.Menu.from_model(context);
+
+                var menuitem = new Gtk.MenuItem.with_label("Testing...");
+                menu.append(menuitem);
+
+                menu.realize.connect(() => {stdout.printf("realize\n");});
+                menu.unrealize.connect(() => {stdout.printf("unrealize\n");});
+
+                menu.map.connect(() => {stdout.printf("map\n");});
+                menu.unmap.connect(() => {stdout.printf("unmap\n");});
+
+                menu.activate_current.connect(() => {stdout.printf("activate_current\n");});
 
                 menu.show_all();
 
@@ -132,6 +215,8 @@ namespace Gschem3
                     event.button,
                     event.time
                     );
+
+                stdout.printf("Context menu out...\n");
 
                 return true;
             }
@@ -185,6 +270,8 @@ namespace Gschem3
          */
         private void on_add_files(SimpleAction action, Variant? parameter)
         {
+            warn_if_fail(can_add_files);
+
             var dialog = new Gtk.FileChooserDialog(
                 "Add Files to Project",
                 get_toplevel() as Gtk.Window,
@@ -206,7 +293,28 @@ namespace Gschem3
                 add_files(files.to_array());
             }
 
-            dialog.close();
+            dialog.destroy();
+        }
+
+
+        /**
+         * Open files from the project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_open_files(SimpleAction action, Variant? parameter)
+        {
+            warn_if_fail(can_open_files);
+
+            stdout.printf("on_open_files()\n");
+
+            var files = new Gee.ArrayList<File>();
+
+            // for testing
+            files.add(File.new_for_path("untitled_1.sch"));
+
+            open_files(files.to_array());
         }
 
 
@@ -218,6 +326,8 @@ namespace Gschem3
          */
         private void on_remove_files(SimpleAction action, Variant? parameter)
         {
+            warn_if_fail(can_remove_files);
+
             stdout.printf("on_remove_files()\n");
         }
     }

@@ -25,9 +25,10 @@ namespace Gschem3
         construct
         {
             delete_event.connect(on_delete_event);
-            add_action_entries(action_entries, this);
 
-            this.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
+            // Setup actions
+
+            add_action_entries(action_entries, this);
 
             // Setup drag and drop
 
@@ -44,6 +45,10 @@ namespace Gschem3
             Gtk.drag_dest_set_target_list(this, targets);
 
             drag_data_received.connect(on_data_received);
+
+            // Setup project signal handling
+
+            project.open_files.connect(open);
         }
 
 
@@ -65,7 +70,7 @@ namespace Gschem3
          *
          * @param files the files to open
          */
-        public void open (File[] files)
+        public void open(File[] files)
 
             requires (notebook != null)
 
@@ -153,6 +158,13 @@ namespace Gschem3
          */
         [GtkChild]
         private Gtk.Notebook notebook;
+
+
+        /**
+         * The widget containing the project view
+         */
+        [GtkChild]
+        private ProjectWidget project;
 
 
         /**

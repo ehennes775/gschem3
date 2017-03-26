@@ -6,6 +6,10 @@
                 <attribute name="label" translatable="yes">Add...</attribute>
                 <attribute name="action">prj.add-files</attribute>
             </item>
+            <item>
+                <attribute name="label" translatable="yes">Remove</attribute>
+                <attribute name="action">prj.remove-files</attribute>
+            </item>
         </section>
     </menu>
 </interface>
