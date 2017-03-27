@@ -6,6 +6,25 @@
             <object class="GtkTreeView" id="tree">
                 <property name="hexpand">true</property>
                 <property name="vexpand">true</property>
+                <child>
+                    <object class="GtkTreeViewColumn" id="column-name">
+                        <property name="title">Name</property>
+                        <child>
+                            <object class="GtkCellRendererPixbuf" id="column-name-renderer-icon">
+                            </object>
+                            <attributes>
+                                <attribute name="pixbuf">0</attribute>
+                            </attributes>
+                        </child>
+                        <child>
+                            <object class="GtkCellRendererText" id="column-name-renderer-name">
+                            </object>
+                            <attributes>
+                                <attribute name="text">1</attribute>
+                            </attributes>
+                        </child>
+                    </object>
+                </child>
             </object>
         </child>
         <child>

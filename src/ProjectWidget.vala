@@ -54,6 +54,17 @@ namespace Gschem3
 
 
         /**
+         * Initialize the class
+         */
+        static construct
+        {
+            schematic_icon = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/schematic.svg"
+                );
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct
@@ -109,22 +120,13 @@ namespace Gschem3
             // Setup tree model
 
             model = new Gtk.ListStore(
-                2,
+                Column.COUNT,
+                typeof(Gdk.Pixbuf),
                 typeof(string),
                 typeof(File)
                 );
 
             tree.model = model;
-
-            var cell = new Gtk.CellRendererText();
-
-            tree.insert_column_with_attributes(
-                -1,
-                "File",
-                cell,
-                "text",
-                0
-                );
 
             selection = tree.get_selection();
             selection.mode = Gtk.SelectionMode.MULTIPLE;
@@ -147,6 +149,14 @@ namespace Gschem3
             context = builder2.get_object("context") as MenuModel;
         }
 
+
+        private enum Column
+        {
+            ICON,
+            NAME,
+            FILE,
+            COUNT
+        }
 
         /**
          * Identifies the drop operation
@@ -178,6 +188,12 @@ namespace Gschem3
         private const Gtk.TargetEntry[] target_entries =
         {
         };
+
+
+        /**
+         * The context menu for the project widget
+         */
+        private static Gdk.Pixbuf schematic_icon;
 
 
         /**
@@ -220,8 +236,9 @@ namespace Gschem3
 
                 model.set(
                     iter,
-                    0, file.get_basename(),
-                    1, file
+                    Column.ICON, schematic_icon,
+                    Column.NAME, file.get_basename(),
+                    Column.FILE, file
                     );
             }
         }
@@ -258,7 +275,7 @@ namespace Gschem3
 
                     model.get(
                         iter,
-                        1, &file
+                        Column.FILE, &file
                         );
 
                     if (file != null)
