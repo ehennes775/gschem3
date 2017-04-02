@@ -59,16 +59,24 @@ libgeda3_a_SOURCES = \
 	Fileable.vala \
 	FileVersion.vala \
 	FillType.vala \
+	KeyFileProject.vala \
+	KeyFileSchematicList.vala \
+	KeyFileSymbolFolder.vala \
+	KeyFileSymbolLibrary.vala \
 	NetItem.vala \
 	ParseError.vala \
 	PinType.vala \
+	Project.vala \
 	Schematic.vala \
+	SchematicFile.vala \
 	SchematicItem.vala \
 	SchematicItemLine.vala \
 	SchematicItemPin.vala \
+	SchematicList.vala \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
 	SchematicReader.vala \
+	SymbolLibrary.vala \
 	TextAlignment.vala \
 	TextItem.vala \
 	TextPresentation.vala \

@@ -54,6 +54,16 @@ namespace Gschem3
 
 
         /**
+         * The project this widget views
+         */
+        public Geda3.Project? project
+        {
+            get;
+            set;
+        }
+
+
+        /**
          * Initialize the class
          */
         static construct

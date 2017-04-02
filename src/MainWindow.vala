@@ -11,6 +11,19 @@ namespace Gschem3
 
 
         /**
+         * The currently open project
+         *
+         * This property functions as a source for bindings. A null
+         * indicates no project is open.
+         */
+        public Geda3.Project? project
+        {
+            get;
+            set;
+        }
+
+
+        /**
          * Initialize the class
          */
         static construct
@@ -48,7 +61,14 @@ namespace Gschem3
 
             // Setup project signal handling
 
-            project.open_files.connect(open);
+            m_project_widget.open_files.connect(open);
+
+            bind_property(
+                "project",
+                m_project_widget,
+                "project",
+                BindingFlags.SYNC_CREATE
+                );
         }
 
 
@@ -163,8 +183,8 @@ namespace Gschem3
         /**
          * The widget containing the project view
          */
-        [GtkChild]
-        private ProjectWidget project;
+        [GtkChild(name="project")]
+        private ProjectWidget m_project_widget;
 
 
         /**

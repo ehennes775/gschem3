@@ -6,6 +6,7 @@
         <file>Menus.ui.xml</file>
         <file>ProjectWidget.ui.xml</file>
         <file>ProjectWidgetMenu.ui.xml</file>
+        <file>schematic.svg</file>
         <file>SchematicWindow.ui.xml</file>
     </gresource>
 </gresources>
