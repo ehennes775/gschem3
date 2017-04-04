@@ -6,17 +6,93 @@ namespace Geda3
     public class KeyFileProject : Project
     {
         /**
+         * The project file
+         *
+         * Other files in the project use a relative path from the
+         * project file. Moving this file to another folder will break
+         * those paths.
+         */
+        public File file
+        {
+            get;
+            private set;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override SchematicList schematic_list
         {
             get;
-            construct;
+            protected set;
         }
 
 
+        /**
+         *
+         *
+         */
         construct
         {
+            m_key_file = new KeyFile();
+
+            //schematic_list = new KeyFileSchematicList(m_key_file);
         }
+
+
+        /**
+         *
+         *
+         */
+        public KeyFileProject.create(File file)
+
+            requires(m_key_file != null)
+
+        {
+            var exists = file.query_exists();
+
+            if (exists)
+            {
+                // error
+            }
+        }
+
+
+        /**
+         *
+         *
+         */
+        public KeyFileProject.open(File file)
+
+            requires(m_key_file != null)
+
+        {
+            this.file = file;
+
+            m_key_file.load_from_file(
+                file.get_path(),
+                KeyFileFlags.KEEP_COMMENTS | KeyFileFlags.KEEP_TRANSLATIONS
+                );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void save() throws FileError
+
+            requires(file != null)
+            requires(m_key_file != null)
+
+        {
+            m_key_file.save_to_file(file.get_path());
+        }
+
+
+        /**
+         *
+         */
+        private KeyFile m_key_file;
     }
 }

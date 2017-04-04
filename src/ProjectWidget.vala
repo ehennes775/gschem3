@@ -106,6 +106,10 @@ namespace Gschem3
                 BindingFlags.SYNC_CREATE
                 );
 
+            // Setup project
+
+            notify["project"].connect(on_notify_project);
+
             // Setup context menu
 
             tree.events |= Gdk.EventMask.BUTTON_PRESS_MASK;
@@ -410,6 +414,17 @@ namespace Gschem3
             }
 
             dialog.destroy();
+        }
+
+
+        /**
+         *
+         *
+         * @param param unused
+         */
+        private void on_notify_project(ParamSpec param)
+        {
+            
         }
 
 

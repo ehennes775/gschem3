@@ -15,7 +15,13 @@ namespace Geda3
         public abstract SchematicList schematic_list
         {
             get;
-            construct;
+            protected set;
         }
+
+
+        /**
+         * Save this project
+         */
+        public abstract void save() throws FileError;
     }
 }

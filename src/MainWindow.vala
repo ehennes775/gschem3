@@ -19,7 +19,7 @@ namespace Gschem3
         public Geda3.Project? project
         {
             get;
-            set;
+            private set;
         }
 
 
@@ -83,6 +83,40 @@ namespace Gschem3
 
 
         /**
+         * Close the current project
+         *
+         * Truth table for this function:
+         *
+         * project = the state of the project on entry
+         * changed = changes made to project since last save
+         * abort = user chose not to save the changes
+         * output = the state of the project on exit
+         * 
+         * |project|changed|abort |output|
+         * +-------+-------+------+------+
+         * |closed |x      |x     |closed|
+         * |open   |false  |x     |closed|
+         * |open   |true   |false |closed|
+         * |open   |true   |true  |open  |
+         */
+        public void close_project()
+        {
+            if (project != null)
+            {
+                // if (project.changed)
+                // {
+                    // check to see if user wants to save the project
+                    // before closing the project
+
+                    project.save();
+                // }
+
+                project = null;
+            }
+        }
+
+
+        /**
          * Open existing files
          *
          * This functions sets current notebook page to the page
@@ -138,6 +172,23 @@ namespace Gschem3
 
 
         /**
+         * Open an existing project
+         *
+         * A current project that is open should be closed before
+         * calling this function.
+         *
+         * @param files the project file to open
+         */
+        public void open_project(File file)
+
+            requires(project == null)
+
+        {
+            project = new Geda3.KeyFileProject.open(file);
+        }
+
+
+        /**
          * Identifies the drop operation
          */
         private enum TargetInfo
@@ -158,7 +209,10 @@ namespace Gschem3
             { "file-save-as", on_file_save_as, null, null, null },
             { "file-open", on_file_open, null, null, null },
             { "file-new", on_file_new, null, null, null },
-            { "file-reload", on_file_reload, null, null, null }
+            { "file-reload", on_file_reload, null, null, null },
+            { "project-save", on_project_save, null, null, null },
+            { "project-open", on_project_open, null, null, null },
+            { "project-new", on_project_new, null, null, null }
         };
 
 
@@ -468,6 +522,89 @@ namespace Gschem3
                     }
                 }
             }
+        }
+
+
+        /**
+         * Create a new project and set it as the current project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_project_new(SimpleAction action, Variant? parameter)
+        {
+            close_project();
+
+            if (project == null)
+            {
+                var dialog = new Gtk.FileChooserDialog(
+                    "Select File",
+                    this,
+                    Gtk.FileChooserAction.OPEN,
+                    "_Cancel", Gtk.ResponseType.CANCEL,
+                    "_Open", Gtk.ResponseType.ACCEPT
+                    );
+
+                var response = dialog.run();
+
+                if (response == Gtk.ResponseType.ACCEPT)
+                {
+                    var file = dialog.get_file();
+
+                    project = new Geda3.KeyFileProject.create(file);
+                }
+
+                dialog.destroy();
+            }
+        }
+
+
+        /**
+         * Open an existing project and set it as the current project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_project_open(SimpleAction action, Variant? parameter)
+        {
+            close_project();
+
+            if (project == null)
+            {
+                var dialog = new Gtk.FileChooserDialog(
+                    "Select File",
+                    this,
+                    Gtk.FileChooserAction.OPEN,
+                    "_Cancel", Gtk.ResponseType.CANCEL,
+                    "_Open", Gtk.ResponseType.ACCEPT
+                    );
+
+                var response = dialog.run();
+
+                if (response == Gtk.ResponseType.ACCEPT)
+                {
+                    var file = dialog.get_file();
+
+                    open_project(file);
+                }
+
+                dialog.destroy();
+            }
+        }
+
+
+        /**
+         * Save the current project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_project_save(SimpleAction action, Variant? parameter)
+
+            requires(project != null)
+
+        {
+            project.save();
         }
 
 
