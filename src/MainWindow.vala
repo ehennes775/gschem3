@@ -604,7 +604,16 @@ namespace Gschem3
             requires(project != null)
 
         {
-            project.save();
+            // warn_if_fail(can_project_save);
+
+            try
+            {
+                project.save();
+            }
+            catch (Error error)
+            {
+                ErrorDialog.show_with_file(this, error, project.file);
+            }
         }
 
 

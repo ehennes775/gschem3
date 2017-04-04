@@ -6,16 +6,12 @@ namespace Geda3
     public class KeyFileProject : Project
     {
         /**
-         * The project file
-         *
-         * Other files in the project use a relative path from the
-         * project file. Moving this file to another folder will break
-         * those paths.
+         * {@inheritDoc}
          */
-        public File file
+        public override File file
         {
             get;
-            private set;
+            protected set;
         }
 
 

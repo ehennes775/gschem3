@@ -6,6 +6,20 @@ namespace Geda3
     public abstract class Project : Object
     {
         /**
+         * The project file
+         *
+         * Other files in the project use a relative path from the
+         * project file. Moving this file to another folder will break
+         * those paths.
+         */
+        public abstract File file
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * A list of the schematics in this project
          *
          * This property is used as a port. To make this property
