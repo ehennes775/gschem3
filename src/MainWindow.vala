@@ -90,28 +90,71 @@ namespace Gschem3
          * project = the state of the project on entry
          * changed = changes made to project since last save
          * abort = user chose not to save the changes
+         * dialog = the user response from the dialog
+         * save = if the project is saved
          * output = the state of the project on exit
-         * 
-         * |project|changed|abort |output|
-         * +-------+-------+------+------+
-         * |closed |x      |x     |closed|
-         * |open   |false  |x     |closed|
-         * |open   |true   |false |closed|
-         * |open   |true   |true  |open  |
+         *
+         * |project|changed|dialog |save |output|
+         * +-------+-------+-------+-----+------+
+         * |closed |x      |x      |false|closed|
+         * |open   |false  |x      |false|closed|
+         * |open   |true   |save   |true |closed|
+         * |open   |true   |discard|false|closed|
+         * |open   |true   |cancel |false|open  |
+         *
+         * If the project is open after this function is called, then
+         * operations such as project-new and project-open should
+         * abort.
          */
         public void close_project()
         {
             if (project != null)
             {
-                // if (project.changed)
-                // {
-                    // check to see if user wants to save the project
-                    // before closing the project
+                if (false) // if (project.changed)
+                {
+                    var dialog = new Gtk.MessageDialog(
+                        this,
+                        Gtk.DialogFlags.MODAL,
+                        Gtk.MessageType.QUESTION,
+                        Gtk.ButtonsType.NONE,
+                        "Save changes?"
+                        );
 
-                    project.save();
-                // }
+                    dialog.add_buttons(
+                        "Save",    Gtk.ResponseType.YES,
+                        "Discard", Gtk.ResponseType.NO,
+                        "Cancel",  Gtk.ResponseType.CANCEL
+                        );
 
-                project = null;
+                    var response = dialog.run();
+
+                    if (response == Gtk.ResponseType.YES)
+                    {
+                        try
+                        {
+                            project.save();
+                            project = null;
+                        }
+                        catch (Error error)
+                        {
+                            ErrorDialog.show_with_file(
+                                this,
+                                error,
+                                project.file
+                                );
+                        }
+                    }
+                    else if (response == Gtk.ResponseType.NO)
+                    {
+                        project = null;
+                    }
+
+                    dialog.destroy();
+                }
+                else
+                {
+                    project = null;
+                }
             }
         }
 
@@ -146,7 +189,7 @@ namespace Gschem3
 
                         notebook.append_page(window, tab);
                     }
-                    
+
                     last_window = window;
                 }
                 catch (Error error)
@@ -184,7 +227,14 @@ namespace Gschem3
             requires(project == null)
 
         {
-            project = new Geda3.KeyFileProject.open(file);
+            try
+            {
+                project = new Geda3.KeyFileProject.open(file);
+            }
+            catch (Error error)
+            {
+                ErrorDialog.show_with_file(this, error, file);
+            }
         }
 
 
@@ -243,7 +293,7 @@ namespace Gschem3
 
         /**
          * Find the document window that contains a file
-         * 
+         *
          * @param file The file to search for
          * @return The document window containing the file, or null if
          * not found.
