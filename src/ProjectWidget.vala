@@ -79,33 +79,6 @@ namespace Gschem3
          */
         construct
         {
-            // Setup actions
-
-            var group = new SimpleActionGroup();
-            group.add_action_entries(action_entries, this);
-            insert_action_group("prj", group);
-
-            bind_property(
-                "can-add-files",
-                group.lookup_action("add-files"),
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            bind_property(
-                "can-open-files",
-                group.lookup_action("open-files"),
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            bind_property(
-                "can-remove-files",
-                group.lookup_action("remove-files"),
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
             // Setup project
 
             notify["project"].connect(on_notify_project);
@@ -164,6 +137,38 @@ namespace Gschem3
         }
 
 
+        /**
+         * Add this widget's actions to the action map
+         *
+         * @param map The action map to receive this widget's actions
+         */
+        public void add_actions(ActionMap map)
+        {
+            map.add_action_entries(action_entries, this);
+
+            bind_property(
+                "can-add-files",
+                map.lookup_action("project-add-files"),
+                "enabled",
+                BindingFlags.SYNC_CREATE
+                );
+
+            bind_property(
+                "can-open-files",
+                map.lookup_action("project-open-files"),
+                "enabled",
+                BindingFlags.SYNC_CREATE
+                );
+
+            bind_property(
+                "can-remove-files",
+                map.lookup_action("project-remove-files"),
+                "enabled",
+                BindingFlags.SYNC_CREATE
+                );
+        }
+
+
         private enum Column
         {
             ICON,
@@ -187,9 +192,9 @@ namespace Gschem3
          */
         private const ActionEntry[] action_entries =
         {
-            { "open-files", on_open_files, null, null, null },
-            { "add-files", on_add_files, null, null, null },
-            { "remove-files", on_remove_files, null, null, null }
+            { "project-open-files", on_open_files, null, null, null },
+            { "project-add-files", on_add_files, null, null, null },
+            { "project-remove-files", on_remove_files, null, null, null }
         };
 
 
@@ -441,6 +446,18 @@ namespace Gschem3
             var files = get_selected_files();
 
             open_files(files);
+        }
+
+
+        /**
+         * Open files from the project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_parent_set(Gtk.Widget? previous)
+        {
+            stdout.printf("parent = %p\n", parent);
         }
 
 

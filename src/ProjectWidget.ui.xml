@@ -33,19 +33,19 @@
                 <property name="hexpand">true</property>
                 <child>
                     <object class="GtkButton" id="button-add">
-                        <property name="action-name">prj.add-files</property>
+                        <property name="action-name">win.project-add-files</property>
                         <property name="label">Add...</property>
                     </object>
                 </child>
                 <child>
                     <object class="GtkButton" id="button-remove">
-                        <property name="action-name">prj.remove-files</property>
+                        <property name="action-name">win.project-remove-files</property>
                         <property name="label">Remove</property>
                     </object>
                 </child>
                 <child>
                     <object class="GtkButton" id="button-open">
-                        <property name="action-name">prj.open-files</property>
+                        <property name="action-name">win.project-open-files</property>
                         <property name="label">Open</property>
                     </object>
                 </child>

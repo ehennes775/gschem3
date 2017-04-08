@@ -4,11 +4,11 @@
         <section>
             <item>
                 <attribute name="label" translatable="yes">Add...</attribute>
-                <attribute name="action">prj.add-files</attribute>
+                <attribute name="action">win.project-add-files</attribute>
             </item>
             <item>
                 <attribute name="label" translatable="yes">Remove</attribute>
-                <attribute name="action">prj.remove-files</attribute>
+                <attribute name="action">win.project-remove-files</attribute>
             </item>
         </section>
     </menu>

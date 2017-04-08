@@ -34,6 +34,10 @@
                 </section>
                 <section>
                     <item>
+                        <attribute name="label" translatable="yes">Save Project</attribute>
+                        <attribute name="action">win.project-save</attribute>
+                    </item>
+                    <item>
                         <attribute name="label" translatable="yes">Save</attribute>
                         <attribute name="action">win.file-save</attribute>
                     </item>
@@ -73,8 +77,18 @@
                 <attribute name="label" translatable="yes">_Project</attribute>
                 <section>
                     <item>
-                        <attribute name="label" translatable="yes">Save</attribute>
-                        <attribute name="action">win.project-save</attribute>
+                        <attribute name="label" translatable="yes">Open Files</attribute>
+                        <attribute name="action">win.project-open-files</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Add Files...</attribute>
+                        <attribute name="action">win.project-add-files</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Remove Files</attribute>
+                        <attribute name="action">win.project-remove-files</attribute>
                     </item>
                 </section>
             </submenu>
