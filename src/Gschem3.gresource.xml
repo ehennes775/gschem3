@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
+        <file>Blank.svg</file>
+        <file>BlueFolder.svg</file>
         <file>DocumentTab.ui.xml</file>
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
+        <file>Missing.svg</file>
+        <file>OrangeFolder.svg</file>
         <file>ProjectWidget.ui.xml</file>
         <file>ProjectWidgetMenu.ui.xml</file>
-        <file>schematic.svg</file>
+        <file>Schematic.svg</file>
         <file>SchematicWindow.ui.xml</file>
+        <file>Symbol.svg</file>
     </gresource>
 </gresources>
