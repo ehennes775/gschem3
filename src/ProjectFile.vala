@@ -79,14 +79,22 @@ namespace Geda3
                 }
                 else
                 {
-                    icon = ProjectIcon.SCHEMATIC;
+                    icon = ProjectIcon.BLANK;
                     tab = "Unknown";
                 }
             }
             catch (Error error)
             {
                 icon = ProjectIcon.MISSING;
-                tab = "Error";
+
+                if (file != null)
+                {
+                    tab = file.get_basename();
+                }
+                else
+                {
+                    tab = "Error";
+                }
             }
         }
     }

@@ -35,12 +35,20 @@ namespace Gschem3
         {
             m_icons = new Gdk.Pixbuf[Geda3.ProjectIcon.COUNT];
             
+            m_icons[Geda3.ProjectIcon.BLANK] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/BlueFolder.svg"
+                );
+
             m_icons[Geda3.ProjectIcon.BLUE_FOLDER] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/BlueFolder.svg"
                 );
 
             m_icons[Geda3.ProjectIcon.MISSING] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/Missing.svg"
+                );
+
+            m_icons[Geda3.ProjectIcon.ORANGE_FOLDER] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/OrangeFolder.svg"
                 );
 
             m_icons[Geda3.ProjectIcon.SCHEMATIC] = new Gdk.Pixbuf.from_resource(
