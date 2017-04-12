@@ -69,6 +69,7 @@ libgeda3_a_SOURCES = \
 	Project.vala \
 	ProjectFile.vala \
 	ProjectFolder.vala \
+	ProjectIcon.vala \
 	ProjectItem.vala \
 	ProjectItemAdapter.vala \
 	Schematic.vala \

@@ -6,6 +6,16 @@ namespace Geda3
     public class ProjectItemAdapter : ProjectItem
     {
         /**
+         * {@inheritDoc}
+         */
+        public override ProjectIcon icon
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * The project adapted as an item
          */
         public Project? project

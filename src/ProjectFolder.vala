@@ -8,6 +8,16 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override ProjectIcon icon
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override string tab
         {
             get;
@@ -21,9 +31,10 @@ namespace Geda3
          * @param tab A name for this folder to show in the project
          * tree
          */
-        public ProjectFolder(string? tab = null)
+        public ProjectFolder(ProjectIcon icon = ProjectIcon.MISSING, string? tab = null)
         {
             Object(
+                icon : icon,
                 tab : tab ?? "Unknown"
                 );
         }

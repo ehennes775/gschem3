@@ -33,8 +33,22 @@ namespace Gschem3
          */
         static construct
         {
-            m_schematic_icon = new Gdk.Pixbuf.from_resource(
+            m_icons = new Gdk.Pixbuf[Geda3.ProjectIcon.COUNT];
+            
+            m_icons[Geda3.ProjectIcon.BLUE_FOLDER] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/BlueFolder.svg"
+                );
+
+            m_icons[Geda3.ProjectIcon.MISSING] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/Missing.svg"
+                );
+
+            m_icons[Geda3.ProjectIcon.SCHEMATIC] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/Schematic.svg"
+                );
+
+            m_icons[Geda3.ProjectIcon.SYMBOL] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/Symbol.svg"
                 );
         }
 
@@ -155,7 +169,7 @@ namespace Gschem3
             switch (column)
             {
                 case Column.ICON:
-                    contents = m_schematic_icon;
+                    contents = m_icons[m_project.get_icon(iter.user_data)];
                     break;
 
                 case Column.NAME:
@@ -428,7 +442,7 @@ namespace Gschem3
         /**
          * The context menu for the project widget
          */
-        private static Gdk.Pixbuf m_schematic_icon;
+        private static Gdk.Pixbuf[] m_icons;
 
 
         /**

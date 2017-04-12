@@ -48,7 +48,7 @@ namespace Geda3
 
             m_schematics = m_project.append(
                 new Node<ProjectItem>(
-                    new ProjectFolder("sch")
+                    new ProjectFolder(ProjectIcon.BLUE_FOLDER, "sch")
                     )
                 );
 
@@ -58,6 +58,19 @@ namespace Geda3
                     new ProjectFile(File.new_for_path("untitled_1.sch"))
                     )
                 );
+        }
+
+
+        /**
+         * Get the icon to show for this node
+         *
+         * @param node The iterator for the node
+         */
+        public ProjectIcon get_icon(void* node)
+        {
+            var temp = (Node<ProjectItem>*) node ?? m_root;
+
+            return temp->data.icon;
         }
 
 

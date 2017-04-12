@@ -19,6 +19,16 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override ProjectIcon icon
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override string tab
         {
             get;
@@ -64,15 +74,18 @@ namespace Geda3
                         FileQueryInfoFlags.NONE
                         );
 
+                    icon = ProjectIcon.SCHEMATIC;
                     tab = file_info.get_display_name();
                 }
                 else
                 {
+                    icon = ProjectIcon.SCHEMATIC;
                     tab = "Unknown";
                 }
             }
             catch (Error error)
             {
+                icon = ProjectIcon.MISSING;
                 tab = "Error";
             }
         }
