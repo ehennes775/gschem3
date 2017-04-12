@@ -106,11 +106,10 @@ namespace Gschem3
         /**
          * Convert a tree path to an iterator
          *
-         * |return|first  |description                         |
-         * +------+-------+------------------------------------+
-         * |true  |valid  |A valid iterator for the input path |
-         * |false |invalid|Path does not reference a valid node|
-         * |false |invalid|Logic error                         |
+         * ||''return''||''first''||''description''                     ||
+         * ||true      ||valid    ||A valid iterator for the input path ||
+         * ||false     ||invalid  ||Path does not reference a valid node||
+         * ||false     ||invalid  ||Logic error                         ||
          *
          * @param iter The iterator corresponding to the tree path
          * @param path The path to convert to an iterator
@@ -197,13 +196,12 @@ namespace Gschem3
         /**
          * Get an iterator to the first child of a parent
          *
-         * |return|first  |parent |description                 |
-         * +------+-------+-------+----------------------------+
-         * |true  |valid  |null   |First iterator of the root  |
-         * |true  |valid  |valid  |First iterator of the parent|
-         * |false |invalid|null   |Root has no children        |
-         * |false |invalid|valid  |Parent has no children      |
-         * |false |invalid|invalid|Logic error                 |
+         * ||''return''||''first''||''parent''||''description''             ||
+         * ||true      ||valid    ||null      ||First iterator of the root  ||
+         * ||true      ||valid    ||valid     ||First iterator of the parent||
+         * ||false     ||invalid  ||null      ||Root has no children        ||
+         * ||false     ||invalid  ||valid     ||Parent has no children      ||
+         * ||false     ||invalid  ||invalid   ||Logic error                 ||
          *
          * @param first An iterator to the first child of the parent or
          * invalid if the parent has no children. This invalid iterator
@@ -283,11 +281,10 @@ namespace Gschem3
         /**
          * Get the next iterator at the same level
          *
-         * |return|iter out|iter in|description                 |
-         * +------+--------+-------+----------------------------+
-         * |true  |valid   |valid  |An iterator to next node    |
-         * |false |invalid |valid  |No nodes after the iterator |
-         * |false |invalid |invalid|Logic error                 |
+         * ||''return''||''iter out''||''iter in''||''description''            ||
+         * ||true      ||valid       ||valid      ||An iterator to next node   ||
+         * ||false     ||invalid     ||valid      ||No nodes after the iterator||
+         * ||false     ||invalid     ||invalid    ||Logic error                ||
          *
          * @param iter The current position
          * @return True when iter represents a valid iterator
@@ -322,14 +319,13 @@ namespace Gschem3
         /**
          * Get an iterator to the indexed child of a parent
          *
-         * |return|first  |parent |index  |description                 |
-         * +------+-------+-------+-------+----------------------------+
-         * |true  |valid  |null   |valid  |First iterator of the root  |
-         * |true  |valid  |valid  |valid  |First iterator of the parent|
-         * |false |invalid|null   |valid  |Root has no children        |
-         * |false |invalid|valid  |valid  |Parent has no children      |
-         * |false |invalid|invalid|       |Logic error                 |
-         * |false |invalid|       |invalid|Logic error                 |
+         * ||''return''||''first''||''parent''||''index''||''description''             ||
+         * ||true      ||valid    ||null      ||valid    ||First iterator of the root  ||
+         * ||true      ||valid    ||valid     ||valid    ||First iterator of the parent||
+         * ||false     ||invalid  ||null      ||valid    ||Root has no children        ||
+         * ||false     ||invalid  ||valid     ||valid    ||Parent has no children      ||
+         * ||false     ||invalid  ||invalid   ||         ||Logic error                 ||
+         * ||false     ||invalid  ||          ||invalid  ||Logic error                 ||
          *
          * @param first An iterator to the indexed child of the parent
          * or invalid if the parent has no children. This invalid
@@ -387,11 +383,10 @@ namespace Gschem3
         /**
          * Get the parent node of a child
          *
-         * |return|parent |child  |description             |
-         * +------+-------+-------+------------------------+
-         * |true  |valid  |valid  |Returns parent node     |
-         * |false |invalid|valid  |Child has no parent node|
-         * |false |invalid|invalid|Logic error             |
+         * ||''return''||''parent''||''child''||''description''         ||
+         * ||true      ||valid     ||valid    ||Returns parent node     ||
+         * ||false     ||invalid   ||valid    ||Child has no parent node||
+         * ||false     ||invalid   ||invalid  ||Logic error             ||
          *
          * @param parent An iterator for the parent node. If the child
          * does not have a parent, or a logic error occurs, the parent
