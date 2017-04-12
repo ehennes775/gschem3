@@ -112,8 +112,8 @@ namespace Gschem3
          * |false |invalid|Path does not reference a valid node|
          * |false |invalid|Logic error                         |
          *
-         * @param iter
-         * @param path 
+         * @param iter The iterator corresponding to the tree path
+         * @param path The path to convert to an iterator
          * @return True when iter represents a valid iterator
          */
         public bool get_iter(out Gtk.TreeIter iter, Gtk.TreePath path)

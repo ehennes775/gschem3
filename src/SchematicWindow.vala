@@ -55,7 +55,7 @@ namespace Gschem3
 
 
         /**
-         *  {@inheritDoc}
+         *  A unique string identifing the file
          */
         public string? file_id
         {
@@ -65,7 +65,7 @@ namespace Gschem3
 
 
         /**
-         *  {@inheritDoc}
+         *  Indicates the file has been modified
          */
         public bool modified
         {
