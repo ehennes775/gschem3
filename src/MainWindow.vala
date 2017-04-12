@@ -71,6 +71,8 @@ namespace Gschem3
                 "project",
                 BindingFlags.SYNC_CREATE
                 );
+
+            project = new Geda3.KeyFileProject();
         }
 
 

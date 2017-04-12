@@ -67,6 +67,9 @@ libgeda3_a_SOURCES = \
 	ParseError.vala \
 	PinType.vala \
 	Project.vala \
+	ProjectFolder.vala \
+	ProjectItem.vala \
+	ProjectItemAdapter.vala \
 	Schematic.vala \
 	SchematicFile.vala \
 	SchematicItem.vala \
@@ -96,6 +99,7 @@ libgschem3_a_SOURCES = \
 	DocumentWindow.vala \
 	ErrorDialog.vala \
 	MainWindow.vala \
+	ProjectAdapter.vala \
 	ProjectWidget.vala \
 	Reloadable.vala \
 	Savable.vala \

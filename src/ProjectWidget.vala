@@ -69,7 +69,7 @@ namespace Gschem3
         static construct
         {
             schematic_icon = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/schematic.svg"
+                "/com/github/ehennes775/gschem3/Schematic.svg"
                 );
         }
 
@@ -106,14 +106,16 @@ namespace Gschem3
 
             // Setup tree model
 
-            model = new Gtk.ListStore(
-                Column.COUNT,
-                typeof(Gdk.Pixbuf),
-                typeof(string),
-                typeof(File)
+            var adapter = new ProjectAdapter();
+
+            bind_property(
+                "project",
+                adapter,
+                "project",
+                BindingFlags.SYNC_CREATE
                 );
 
-            tree.model = model;
+            tree.model = adapter;
 
             selection = tree.get_selection();
             selection.mode = Gtk.SelectionMode.MULTIPLE;
@@ -222,12 +224,6 @@ namespace Gschem3
 
 
         /**
-         * A GtkTreeModel for testing
-         */
-        private Gtk.ListStore model;
-
-
-        /**
          * The selection from the Gtk.TreeView widget
          */
         private Gtk.TreeSelection selection;
@@ -249,16 +245,6 @@ namespace Gschem3
         {
             foreach (var file in files)
             {
-                Gtk.TreeIter iter;
-
-                model.append(out iter);
-
-                model.set(
-                    iter,
-                    Column.ICON, schematic_icon,
-                    Column.NAME, file.get_basename(),
-                    Column.FILE, file
-                    );
             }
         }
 
@@ -429,7 +415,11 @@ namespace Gschem3
          */
         private void on_notify_project(ParamSpec param)
         {
-            
+            var adapter = new ProjectAdapter();
+
+            adapter.project = project;
+
+            tree.model = adapter;
         }
 
 
