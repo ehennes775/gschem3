@@ -83,18 +83,25 @@ namespace Geda3
          */
         private void on_notify_project_file(ParamSpec param)
         {
-            if ((b_project != null) && (b_project.file != null))
+            try
             {
-                var file_info = b_project.file.query_info(
-                    FileAttribute.STANDARD_DISPLAY_NAME,
-                    FileQueryInfoFlags.NONE
-                    );
+                if ((b_project != null) && (b_project.file != null))
+                {
+                    var file_info = b_project.file.query_info(
+                        FileAttribute.STANDARD_DISPLAY_NAME,
+                        FileQueryInfoFlags.NONE
+                        );
 
-                tab = file_info.get_display_name();
+                    tab = file_info.get_display_name();
+                }
+                else
+                {
+                    tab = "Unknown";
+                }
             }
-            else
+            catch (Error error)
             {
-                tab = "Unknown";
+                tab = "Error";
             }
         }
     }

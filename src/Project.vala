@@ -51,6 +51,13 @@ namespace Geda3
                     new ProjectFolder("sch")
                     )
                 );
+
+            // for testing
+            m_schematics.append(
+                new Node<ProjectItem>(
+                    new ProjectFile(File.new_for_path("untitled_1.sch"))
+                    )
+                );
         }
 
 
@@ -120,7 +127,7 @@ namespace Geda3
          *
          * This dummy item allows the node to use a non-nullable type.
          */
-        private static ProjectItem s_dummy = new ProjectFolder("dummy");
+        private static ProjectItem s_dummy = new ProjectFolder();
 
 
         /**

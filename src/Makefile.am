@@ -67,6 +67,7 @@ libgeda3_a_SOURCES = \
 	ParseError.vala \
 	PinType.vala \
 	Project.vala \
+	ProjectFile.vala \
 	ProjectFolder.vala \
 	ProjectItem.vala \
 	ProjectItemAdapter.vala \
