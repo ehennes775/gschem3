@@ -12,6 +12,7 @@ namespace Geda3
         {
             get;
             set;
+            default = null;
         }
 
 

@@ -32,6 +32,7 @@ namespace Geda3
                         );
                 }
             }
+            default = null;
         }
 
 
@@ -61,7 +62,9 @@ namespace Geda3
          */
         public ProjectItemAdapter(Project project)
         {
-            this.project = project;
+            Object(
+                project : project
+                );
         }
 
 
