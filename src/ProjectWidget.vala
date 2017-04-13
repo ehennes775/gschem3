@@ -18,10 +18,6 @@ namespace Gschem3
         {
             get;
             private set;
-
-            // The default value establishes the initial value of the
-            // "enabled" property on the action.
-            default = true;    // temporarily true for testing
         }
 
 
@@ -60,6 +56,10 @@ namespace Gschem3
         {
             get;
             set;
+
+            // Setting the default to null allows the signal handlers
+            // to run and establish values for other properties.
+            default = null;
         }
 
 
@@ -79,8 +79,6 @@ namespace Gschem3
          */
         construct
         {
-            // Setup project
-
             notify["project"].connect(on_notify_project);
 
             // Setup context menu
@@ -106,16 +104,20 @@ namespace Gschem3
 
             // Setup tree model
 
-            var adapter = new ProjectAdapter();
+            m_adapter = new ProjectAdapter();
+
+            m_adapter.refresh.connect(on_adapter_refresh);
 
             bind_property(
                 "project",
-                adapter,
+                m_adapter,
                 "project",
                 BindingFlags.SYNC_CREATE
                 );
 
-            tree.model = adapter;
+            tree.model = m_adapter;
+
+            // set up tree selection
 
             selection = tree.get_selection();
             selection.mode = Gtk.SelectionMode.MULTIPLE;
@@ -171,14 +173,6 @@ namespace Gschem3
         }
 
 
-        private enum Column
-        {
-            ICON,
-            NAME,
-            FILE,
-            COUNT
-        }
-
         /**
          * Identifies the drop operation
          */
@@ -220,6 +214,12 @@ namespace Gschem3
         /**
          * The context menu for the project widget
          */
+        private ProjectAdapter m_adapter;
+
+
+        /**
+         * The context menu for the project widget
+         */
         private MenuModel context;
 
 
@@ -242,9 +242,15 @@ namespace Gschem3
          * @param files the files to add to the project
          */
         private void add_files(File[] files)
+
+            requires(project != null)
+
         {
+            warn_if_fail(can_add_files);
+
             foreach (var file in files)
             {
+                project.add_file(file);
             }
         }
 
@@ -276,21 +282,34 @@ namespace Gschem3
             selection.selected_foreach(
                 (model, path, iter) =>
                 {
-                    File file = null;
+                    Geda3.ProjectItem? item = null;
 
                     model.get(
                         iter,
-                        Column.FILE, &file
+                        ProjectAdapter.Column.ITEM, &item
                         );
 
-                    if (file != null)
+                    var file = item as Geda3.ProjectFile;
+
+                    if ((file != null) && (file.file != null))
                     {
-                        files.add(file);
+                        files.add(file.file);
                     }
                 }
                 );
 
             return files.to_array();
+        }
+
+
+        /**
+         * Signal handler for when the tree view needs a complete
+         * refresh
+         */
+        private void on_adapter_refresh()
+        {
+            tree.model = null;
+            tree.model = m_adapter;
         }
 
 
@@ -408,20 +427,10 @@ namespace Gschem3
         }
 
 
-        /**
-         *
-         *
-         * @param param unused
-         */
         private void on_notify_project(ParamSpec param)
         {
-            var adapter = new ProjectAdapter();
-
-            adapter.project = project;
-
-            tree.model = adapter;
+            can_add_files = (project != null);
         }
-
 
         /**
          * Open files from the project
@@ -436,18 +445,6 @@ namespace Gschem3
             var files = get_selected_files();
 
             open_files(files);
-        }
-
-
-        /**
-         * Open files from the project
-         *
-         * @param action the action that activated this function call
-         * @param parameter unused
-         */
-        private void on_parent_set(Gtk.Widget? previous)
-        {
-            stdout.printf("parent = %p\n", parent);
         }
 
 
@@ -475,8 +472,8 @@ namespace Gschem3
             requires(selection != null)
 
         {
-            var count = selection.count_selected_rows();
-            var enabled = (count > 0);
+            var files = get_selected_files();
+            var enabled = (files.length > 0);
 
             can_open_files = enabled;
             can_remove_files = enabled;

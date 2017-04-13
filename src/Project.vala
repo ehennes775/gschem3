@@ -92,15 +92,31 @@ namespace Geda3
 
 
         /**
-         * Get the icon to show for this node
+         * Get an indexed child of a parent
+         *
+         * @param node The iterator for the parent
+         * @param index The index of the child
+         */
+        public void add_file(File file)
+        {
+            m_schematics.append(
+                new Node<ProjectItem>(
+                    new ProjectFile(file)
+                    )
+                );
+        }
+
+
+        /**
+         * Returns the item for this node
          *
          * @param node The iterator for the node
          */
-        public ProjectIcon get_icon(void* node)
+        public ProjectItem get_item(void* node)
         {
             var temp = (Node<ProjectItem>*) node ?? m_root;
 
-            return temp->data.icon;
+            return temp->data;
         }
 
 
@@ -148,21 +164,6 @@ namespace Geda3
          * Save this project
          */
         public abstract void save() throws FileError;
-
-
-        /**
-         * Get the short name of the node
-         *
-         * Gets a short name for the node suitable for use in a widget.
-         *
-         * @param node The iterator for the node
-         */
-        public string tab(void* node)
-        {
-            var temp = (Node<ProjectItem>*) node ?? m_root;
-
-            return temp->data.tab;
-        }
 
 
         /**

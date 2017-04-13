@@ -1,15 +1,45 @@
 namespace Gschem3
 {
     /**
-     * Adapts the project to a tree view
+     * Adapts a project to a tree model
      */
     public class ProjectAdapter : Object, Gtk.TreeModel
     {
         /**
-         * Get the type of a column
-         *
-         * @param column The column index
-         * @return The type of the column
+         * Indicates the entire tree should be refreshed
+         */
+        public signal void refresh();
+
+
+        /**
+         * An enumeration of the columns in the tree model
+         */
+        public enum Column
+        {
+            /**
+             * A Gdk.PixBuf used as an icon for the Geda3.ProjectItem
+             */
+            ICON,
+
+            /**
+             * A short name for the Geda3.ProjectItem
+             */
+            NAME,
+
+            /**
+             * The Geda3.ProjectItem
+             */
+            ITEM,
+
+            /**
+             * The number of columns in this tree model
+             */
+            COUNT
+        }
+
+
+        /**
+         * The project adapted to the tree model
          */
         public Geda3.Project? project
         {
@@ -19,11 +49,11 @@ namespace Gschem3
             }
             set
             {
-                stdout.printf("assigning project to %p\n", value);
-
                 m_project = value;
                 m_stamp = (int)Random.next_int();
             }
+
+            // Set to null to trigger signal handlers
             default = null;
         }
 
@@ -33,43 +63,50 @@ namespace Gschem3
          */
         static construct
         {
-            m_icons = new Gdk.Pixbuf[Geda3.ProjectIcon.COUNT];
+            s_icons = new Gdk.Pixbuf[Geda3.ProjectIcon.COUNT];
             
-            m_icons[Geda3.ProjectIcon.BLANK] = new Gdk.Pixbuf.from_resource(
+            s_icons[Geda3.ProjectIcon.BLANK] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/Blank.svg"
+                );
+
+            s_icons[Geda3.ProjectIcon.BLUE_FOLDER] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/BlueFolder.svg"
                 );
 
-            m_icons[Geda3.ProjectIcon.BLUE_FOLDER] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/BlueFolder.svg"
-                );
-
-            m_icons[Geda3.ProjectIcon.MISSING] = new Gdk.Pixbuf.from_resource(
+            s_icons[Geda3.ProjectIcon.MISSING] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/Missing.svg"
                 );
 
-            m_icons[Geda3.ProjectIcon.ORANGE_FOLDER] = new Gdk.Pixbuf.from_resource(
+            s_icons[Geda3.ProjectIcon.ORANGE_FOLDER] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/OrangeFolder.svg"
                 );
 
-            m_icons[Geda3.ProjectIcon.SCHEMATIC] = new Gdk.Pixbuf.from_resource(
+            s_icons[Geda3.ProjectIcon.SCHEMATIC] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/Schematic.svg"
                 );
 
-            m_icons[Geda3.ProjectIcon.SYMBOL] = new Gdk.Pixbuf.from_resource(
+            s_icons[Geda3.ProjectIcon.SYMBOL] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/Symbol.svg"
                 );
         }
 
 
+        /**
+         * Initialize the instance
+         */
         construct
         {
+            notify["project"].connect(on_notify_project);
         }
 
+
         /**
-         * Get the type of a column
+         * Returns the GLib.Type used in a column
          *
-         * @param column The column index
-         * @return The type of the column
+         * @param column The zero based column index
+         * @return The GLib.Type used in the column. If the column
+         * index is out of range, this function returns
+         * GLib.Type.INVALID.
          */
         public Type get_column_type(int column)
         {
@@ -81,8 +118,8 @@ namespace Gschem3
                 case Column.NAME:
                     return typeof(string);
 
-                case Column.FILE:
-                    return typeof(File);
+                case Column.ITEM:
+                    return typeof(Geda3.ProjectItem);
 
                 default:
                     return_val_if_reached(Type.INVALID);
@@ -91,14 +128,12 @@ namespace Gschem3
 
 
         /**
-         * Get the TreeModelFlags for this tree model
+         * Returns the TreeModelFlags for this tree model
          *
          * @return The TreeModelFlags
          */
         public Gtk.TreeModelFlags get_flags()
         {
-            stdout.printf("get_flags()\n");
-
             return 0;
         }
 
@@ -106,10 +141,10 @@ namespace Gschem3
         /**
          * Convert a tree path to an iterator
          *
-         * ||''return''||''first''||''description''                     ||
-         * ||true      ||valid    ||A valid iterator for the input path ||
-         * ||false     ||invalid  ||Path does not reference a valid node||
-         * ||false     ||invalid  ||Logic error                         ||
+         * ||''return''||''description''                     ||
+         * ||true      ||A valid iterator for the input path ||
+         * ||false     ||Path does not reference a valid node||
+         * ||false     ||Logic error                         ||
          *
          * @param iter The iterator corresponding to the tree path
          * @param path The path to convert to an iterator
@@ -121,8 +156,6 @@ namespace Gschem3
             ensures(!result || iter.stamp == m_stamp)
 
         {
-            stdout.printf("get_iter(\"%s\")\n", path.to_string());
-
             Gtk.TreeIter? parent = null;
 
             foreach (var index in path.get_indices())
@@ -142,19 +175,22 @@ namespace Gschem3
 
 
         /**
-         * Get the number of columns in the tree
+         * Returns the number of columns in the tree
          * 
          * @return The number of columns in the tree
          */
         public int get_n_columns()
         {
-            stdout.printf("get_n_columns()\n");
-
             return Column.COUNT;
         }
 
 
-
+        /**
+         * Converts a tree iterator into a tree path
+         *
+         * @param iter The tree iterator
+         * @return The tree path
+         */
         public Gtk.TreePath? get_path(Gtk.TreeIter iter)
         {
             stdout.printf("get_path()\n");
@@ -169,22 +205,36 @@ namespace Gschem3
         }
 
 
+        /**
+         * Gets the value in a column
+         * 
+         * @param iter The tree iterator of the row
+         * @param column The zero based column index
+         * @param contents The contents of the cell
+         */
         public void get_value(Gtk.TreeIter iter, int column, out Value contents)
+
+            requires(iter_valid(iter))
+            requires(m_project != null)
+            requires(s_icons != null)
+
         {
-            stdout.printf("get_value()\n");
+            var item = m_project.get_item(iter.user_data);
+
+            return_if_fail(item != null);
 
             switch (column)
             {
                 case Column.ICON:
-                    contents = m_icons[m_project.get_icon(iter.user_data)];
+                    contents = s_icons[item.icon];
                     break;
 
                 case Column.NAME:
-                    contents = m_project.tab(iter.user_data);
+                    contents = item.tab;
                     break;
 
-                case Column.FILE:
-                    contents = File.new_for_path(".");
+                case Column.ITEM:
+                    contents = item;
                     break;
 
                 default:
@@ -215,35 +265,30 @@ namespace Gschem3
             ensures(!result || first.stamp == m_stamp)
 
         {
-            stdout.printf("iter_children()\n");
-
-            // precondition checks are inside the function so the
-            // output iterator can be invalidated
-
             return iter_nth_child(out first, parent, 0);
         }
 
 
         /**
-         *
-         * @param
-         * @return
+         * Determines if the tree node has child nodes
+         * 
+         * @param parent The parent node
+         * @return true if the parent node has children
          */
         public bool iter_has_child(Gtk.TreeIter parent)
 
-            requires(parent.stamp == m_stamp)
+            requires(iter_valid(parent))
 
         {
-            stdout.printf("iter_has_child()\n");
-
             return !m_project.is_leaf(parent.user_data);
         }
 
 
         /**
-         *
-         * @param
-         * @return
+         * Get the number of child nodes
+         * 
+         * @param parent The parent node
+         * @return The number of child nodes
          */
         public int iter_n_children(Gtk.TreeIter? parent)
 
@@ -295,8 +340,6 @@ namespace Gschem3
             ensures(!result || iter.stamp == m_stamp)
 
         {
-            stdout.printf("iter_next()\n");
-
             // precondition checks are inside the function so the
             // output iterator can be invalidated
 
@@ -309,8 +352,6 @@ namespace Gschem3
             var node = (Node<string>*) iter.user_data;
 
             void* next = node->next_sibling();
-
-            stdout.printf("    next=%p\n", next);
 
             return make_iter(out iter, next);
         }
@@ -339,8 +380,6 @@ namespace Gschem3
             ensures(!result || child.stamp == m_stamp)
 
         {
-            stdout.printf("iter_nth_child(,, %d)\n", index);
-
             // precondition checks are inside the function so the
             // output iterator can be invalidated
 
@@ -401,8 +440,6 @@ namespace Gschem3
             ensures(!result || parent.stamp == m_stamp)
 
         {
-            stdout.printf("iter_parent()\n");
-
             // precondition checks are inside the function so the
             // output iterator can be invalidated
 
@@ -431,21 +468,11 @@ namespace Gschem3
 
 
         /**
+         * Icons to use in rows
          *
+         * The index uses the Geda3.ProjectIcon enumeration
          */
-        private enum Column
-        {
-            ICON,
-            NAME,
-            FILE,
-            COUNT
-        }
-
-
-        /**
-         * The context menu for the project widget
-         */
-        private static Gdk.Pixbuf[] m_icons;
+        private static Gdk.Pixbuf[] s_icons;
 
 
         /**
@@ -481,10 +508,26 @@ namespace Gschem3
         }
 
 
+        /**
+         * Check an iterator for validity
+         *
+         * @param iter The iterator to check for validity
+         * @return true if the iterator is valid
+         */
         private bool iter_valid(Gtk.TreeIter iter)
         {
-            return false;
+            return (iter.stamp == m_stamp) && (iter.user_data != null);
         }
+
+
+        /**
+         * Signal handler for when the project property changes
+         */
+        private void on_notify_project(ParamSpec param)
+        {
+            refresh();
+        }
+
 
         /**
          * Make a valid iterator referencing the given node
