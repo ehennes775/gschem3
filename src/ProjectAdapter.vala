@@ -202,14 +202,29 @@ namespace Gschem3
          * @return The tree path
          */
         public Gtk.TreePath? get_path(Gtk.TreeIter iter)
+
+            requires(iter_valid(iter))
+            requires(m_project != null)
+
         {
             stdout.printf("get_path()\n");
             stdout.printf("    stamp = %d\n", iter.stamp);
             stdout.printf("    user_data = %p\n", iter.user_data);
 
+            var node = iter.user_data;
+            var parent = m_project.get_parent(node);
             var path = new Gtk.TreePath();
 
-            path.prepend_index(0);
+            while (parent != null)
+            {
+                var index = m_project.child_position(node);
+
+                path.prepend_index(index);
+
+                node = parent;
+                parent = m_project.get_parent(node);
+            }
+
 
             return path;
         }

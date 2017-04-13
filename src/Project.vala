@@ -118,6 +118,24 @@ namespace Geda3
 
 
         /**
+         * Returns index of the child
+         *
+         * @param child The child to determince the index of
+         */
+        public int child_position(void* child)
+
+            requires(child != null)
+
+        {
+            var temp_child = (Node<ProjectItem>*) child;
+
+            return_if_fail(temp_child->parent != null);
+
+            return temp_child->parent.child_position(temp_child);
+        }
+
+
+        /**
          * Returns the item for this node
          *
          * @param node The iterator for the node
@@ -127,6 +145,22 @@ namespace Geda3
             var temp = (Node<ProjectItem>*) node ?? m_root;
 
             return temp->data;
+        }
+
+
+        /**
+         * Returns the parent node
+         *
+         * @param child The child node
+         */
+        public void* get_parent(void* child)
+
+            requires(child != null)
+
+        {
+            var temp_child = (Node<ProjectItem>*) child;
+
+            return temp_child->parent;
         }
 
 
