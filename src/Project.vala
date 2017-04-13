@@ -6,6 +6,14 @@ namespace Geda3
     public abstract class Project : Object
     {
         /**
+         * Indicates a new node inserted into the project
+         *
+         * @param node The new node inserted into the project
+         */
+        public signal void node_inserted(void* node);
+
+
+        /**
          * The project file
          *
          * Other files in the project use a relative path from the
@@ -99,11 +107,13 @@ namespace Geda3
          */
         public void add_file(File file)
         {
-            m_schematics.append(
+            unowned Node<ProjectItem> node = m_schematics.append(
                 new Node<ProjectItem>(
                     new ProjectFile(file)
                     )
                 );
+
+            node_inserted(node);
         }
 
 

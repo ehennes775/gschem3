@@ -49,8 +49,18 @@ namespace Gschem3
             }
             set
             {
+                if (m_project != null)
+                {
+                    m_project.node_inserted.disconnect(on_node_inserted);
+                }
+
                 m_project = value;
                 m_stamp = (int)Random.next_int();
+
+                if (m_project != null)
+                {
+                    m_project.node_inserted.connect(on_node_inserted);
+                }
             }
 
             // Set to null to trigger signal handlers
@@ -548,6 +558,24 @@ namespace Gschem3
             };
 
             return valid;
+        }
+
+
+        /**
+         * Signal handler when a node is added to the project
+         *
+         * @param node The node added to the project
+         */
+        private void on_node_inserted(void* node)
+        {
+            var iter = Gtk.TreeIter();
+            var success = make_iter(out iter, node);
+
+            return_if_fail(success);
+
+            var path = get_path(iter);
+
+            row_inserted(path, iter);
         }
     }
 }
