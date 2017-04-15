@@ -43,9 +43,11 @@ namespace Geda3
          */
         public KeyFileProject.create(File file)
 
-            requires(m_key_file != null)
+            //requires(m_key_file != null)
 
         {
+            this.file = file;
+
             var exists = file.query_exists();
 
             if (exists)

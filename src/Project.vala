@@ -70,11 +70,6 @@ namespace Geda3
                 );
 
             // for testing
-            m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("untitled.sch"))
-                    )
-                );
 
             m_schematics.append(
                 new Node<ProjectItem>(
@@ -90,19 +85,7 @@ namespace Geda3
 
             m_schematics.append(
                 new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("untitled.sym"))
-                    )
-                );
-
-            m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("untitled_1.sym"))
-                    )
-                );
-
-            m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("untitled_2.sym"))
+                    new ProjectFile(File.new_for_path("untitled_3.sch"))
                     )
                 );
         }
