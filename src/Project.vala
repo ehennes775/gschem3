@@ -100,20 +100,26 @@ namespace Geda3
 
 
         /**
-         * Get an indexed child of a parent
+         * Add a file to the project
          *
-         * @param node The iterator for the parent
-         * @param index The index of the child
+         * This function will not add duplicates
+         *
+         * @param file The file to add to the project
          */
         public void add_file(File file)
         {
-            unowned Node<ProjectItem> node = m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(file)
-                    )
-                );
+            unowned Node<ProjectItem>? node = find_by_file(file);
 
-            node_inserted(node);
+            if (node == null)
+            {
+                unowned Node<ProjectItem> new_node = m_schematics.append(
+                    new Node<ProjectItem>(
+                        new ProjectFile(file)
+                        )
+                    );
+
+                node_inserted(new_node);
+            }
         }
 
 
@@ -129,7 +135,7 @@ namespace Geda3
         {
             var temp_child = (Node<ProjectItem>*) child;
 
-            return_if_fail(temp_child->parent != null);
+            return_val_if_fail(temp_child->parent != null, -1);
 
             return temp_child->parent.child_position(temp_child);
         }
@@ -237,5 +243,46 @@ namespace Geda3
          * The schematics folder in the project tree
          */
         private unowned Node<ProjectItem> m_schematics;
+
+
+        /**
+         * Find a file in the project tree
+         *
+         * @return This function returns the node containing the item
+         * that represents the given file. If not found, this function
+         * returns null.
+         */
+        private unowned Node<ProjectItem>? find_by_file(File file)
+
+            requires(m_schematics != null)
+
+        {
+            var file_info = file.query_info(
+                FileAttribute.ID_FILE,
+                FileQueryInfoFlags.NONE
+                );
+
+            var file_id = file_info.get_attribute_string(
+                FileAttribute.ID_FILE
+                );
+
+            return_val_if_fail(file_id != null, null);
+
+            unowned Node<ProjectItem>? iter = m_schematics.first_child();
+
+            while (iter != null)
+            {
+                var item = iter.data as ProjectFile;
+
+                if ((item != null) && (item.file_id == file_id))
+                {
+                    return iter;
+                }
+
+                iter = iter.next;
+            }
+
+            return null;
+        }
     }
 }

@@ -17,6 +17,16 @@ namespace Geda3
 
 
         /**
+         * A string uniquely identifying the file
+         */
+        public string? file_id
+        {
+            get;
+            set;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override ProjectIcon icon
@@ -65,13 +75,23 @@ namespace Geda3
          */
         private void on_notify_file(ParamSpec param)
         {
+            string attributes = string.join(
+                ",",
+                FileAttribute.STANDARD_DISPLAY_NAME,
+                FileAttribute.ID_FILE
+                );
+
             try
             {
                 if (file != null)
                 {
                     var file_info = file.query_info(
-                        FileAttribute.STANDARD_DISPLAY_NAME,
+                        attributes,
                         FileQueryInfoFlags.NONE
+                        );
+
+                    file_id = file_info.get_attribute_string(
+                        FileAttribute.ID_FILE
                         );
 
                     icon = ProjectIcon.SCHEMATIC;
@@ -79,12 +99,14 @@ namespace Geda3
                 }
                 else
                 {
+                    file_id = null;
                     icon = ProjectIcon.BLANK;
                     tab = "Unknown";
                 }
             }
             catch (Error error)
             {
+                file_id = null;
                 icon = ProjectIcon.MISSING;
 
                 if (file != null)
