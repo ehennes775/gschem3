@@ -18,11 +18,14 @@ namespace Geda3
 
         /**
          * A string uniquely identifying the file
+         *
+         * If this property contains null, then there is no underlying
+         * file or an error occured.
          */
         public string? file_id
         {
             get;
-            set;
+            private set;
         }
 
 
@@ -69,24 +72,28 @@ namespace Geda3
 
 
         /**
+         * The attributes needed for the query in on_notify_file
+         */
+        private static string s_attributes = string.join(
+            ",",
+            FileAttribute.STANDARD_DISPLAY_NAME,
+            FileAttribute.ID_FILE
+            );
+
+
+        /**
          * Signal handler when the file changes
          *
          * @param param unused
          */
         private void on_notify_file(ParamSpec param)
         {
-            string attributes = string.join(
-                ",",
-                FileAttribute.STANDARD_DISPLAY_NAME,
-                FileAttribute.ID_FILE
-                );
-
             try
             {
                 if (file != null)
                 {
                     var file_info = file.query_info(
-                        attributes,
+                        s_attributes,
                         FileQueryInfoFlags.NONE
                         );
 
