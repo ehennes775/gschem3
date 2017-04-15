@@ -14,6 +14,15 @@ namespace Geda3
 
 
         /**
+         * Indicates a node has been removed from the project
+         *
+         * @param parent The parent of the removed node
+         * @param index The location of the node before removal
+         */
+        public signal void node_removed(void* parent, int index);
+
+
+        /**
          * The project file
          *
          * Other files in the project use a relative path from the
@@ -207,6 +216,45 @@ namespace Geda3
             var temp = (Node<ProjectItem>*) parent ?? m_root;
 
             return temp->nth_child(index);
+        }
+
+
+        /**
+         * Remove a file from the project
+         *
+         * @param file The file to remove from the project
+         */
+        public void remove_file(File file)
+        {
+            unowned Node<ProjectItem>? node = find_by_file(file);
+
+            if (node != null)
+            {
+                remove_node(node);
+            }
+        }
+
+
+        /**
+         * Remove a node from the project
+         *
+         * @param file The node to remove from the project
+         */
+        public void remove_node(void* node)
+
+            requires(node != null)
+
+        {
+            var temp = (Node<ProjectItem>*) node;
+            unowned Node<ProjectItem>? parent = temp->parent;
+
+            return_if_fail(parent != null);
+
+            var index = parent.child_position(temp);
+
+            temp->unlink();
+
+            node_removed(parent, index);
         }
 
 

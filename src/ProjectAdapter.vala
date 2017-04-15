@@ -52,6 +52,7 @@ namespace Gschem3
                 if (m_project != null)
                 {
                     m_project.node_inserted.disconnect(on_node_inserted);
+                    m_project.node_removed.disconnect(on_node_removed);
                 }
 
                 m_project = value;
@@ -60,6 +61,7 @@ namespace Gschem3
                 if (m_project != null)
                 {
                     m_project.node_inserted.connect(on_node_inserted);
+                    m_project.node_removed.connect(on_node_removed);
                 }
             }
 
@@ -591,6 +593,29 @@ namespace Gschem3
             var path = get_path(iter);
 
             row_inserted(path, iter);
+        }
+
+        /**
+         * Signal handler when a node is removed from the project
+         *
+         * @param parent The parent of the removed node
+         * @param index The location of the node before removal
+         */
+        private void on_node_removed(void* parent, int index)
+
+            requires(index >= 0)
+
+        {
+            var iter = Gtk.TreeIter();
+            var success = make_iter(out iter, parent);
+
+            return_if_fail(success);
+
+            var path = get_path(iter);
+
+            path.append_index(index);
+
+            row_deleted(path);
         }
     }
 }

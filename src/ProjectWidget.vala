@@ -261,10 +261,13 @@ namespace Gschem3
          * @param files the files to remove from the project
          */
         private void remove_files(File[] files)
+
+            requires(project != null)
+
         {
             foreach (var file in files)
             {
-                stdout.printf("remove: %s\n", file.get_path());
+                project.remove_file(file);
             }
         }
 
