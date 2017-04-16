@@ -209,10 +209,6 @@ namespace Gschem3
             requires(m_project != null)
 
         {
-            stdout.printf("get_path()\n");
-            stdout.printf("    stamp = %d\n", iter.stamp);
-            stdout.printf("    user_data = %p\n", iter.user_data);
-
             var node = iter.user_data;
             var parent = m_project.get_parent(node);
             var path = new Gtk.TreePath();
