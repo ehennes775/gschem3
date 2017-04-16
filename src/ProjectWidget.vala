@@ -306,6 +306,75 @@ namespace Gschem3
 
 
         /**
+         * Gets the selected items from the project tree
+         */
+        private Gee.Collection<Geda3.ProjectItem> get_selected_items()
+
+            requires(selection != null)
+
+        {
+            var items = new Gee.ArrayList<Geda3.ProjectItem>();
+
+            selection.selected_foreach((model, path, iter) =>
+                {
+                    Geda3.ProjectItem? item = null;
+
+                    model.get(
+                        iter,
+                        ProjectAdapter.Column.ITEM, &item
+                        );
+
+                    if (item is Geda3.ProjectItem)
+                    {
+                        items.add(item);
+                    }
+                    else
+                    {
+                        warning("ProjectAdapter contans invalid item");
+                    }
+                }
+                );
+
+            return items;
+        }
+
+
+        /**
+         * Determines if the item is openable
+         *
+         * @param item The item to check if it can be opened
+         * @return This function returns true when the item is openable
+         */
+        private bool is_openable(Geda3.ProjectItem item)
+        {
+            var file_item = item as Geda3.ProjectFile;
+
+            return (
+                (file_item != null) &&
+                (file_item.file != null) &&
+                file_item.can_open
+                );
+        }
+
+
+        /**
+         * Determines if the item is removable
+         *
+         * @param item The item to check if it can be removed
+         * @return This function returns true when the item is removable
+         */
+        private bool is_removable(Geda3.ProjectItem item)
+        {
+            var file_item = item as Geda3.ProjectFile;
+
+            return (
+                (file_item != null) &&
+                (file_item.file != null)
+                );
+        }
+
+
+        /**
          * Signal handler for when the tree view needs a complete
          * refresh
          */
@@ -430,10 +499,16 @@ namespace Gschem3
         }
 
 
+        /**
+         * Signal handler for when the project changes
+         *
+         * @param param unused
+         */
         private void on_notify_project(ParamSpec param)
         {
             can_add_files = (project != null);
         }
+
 
         /**
          * Open files from the project
@@ -445,9 +520,32 @@ namespace Gschem3
         {
             warn_if_fail(can_open_files);
 
-            var files = get_selected_files();
+            var files = new Gee.ArrayList<File>();
+            var items = get_selected_items();
 
-            open_files(files);
+            foreach (var item in items)
+            {
+                if (!is_openable(item))
+                {
+                    continue;
+                }
+
+                var file_item = item as Geda3.ProjectFile;
+
+                if (file_item != null)
+                {
+                    if (file_item.file == null)
+                    {
+                        warning("null file encountered in project tree");
+                        continue;
+                    }
+
+                    files.add(file_item.file);
+                }
+
+            }
+
+            open_files(files.to_array());
         }
 
 
@@ -458,12 +556,19 @@ namespace Gschem3
          * @param parameter unused
          */
         private void on_remove_files(SimpleAction action, Variant? parameter)
+
+            requires(project != null)
+
         {
-            warn_if_fail(can_remove_files);
+            var items = get_selected_items();
 
-            var files = get_selected_files();
-
-            remove_files(files);
+            foreach (var item in items)
+            {
+                if (is_removable(item))
+                {
+                    project.remove_item(item);
+                }
+            }
         }
 
 
@@ -471,15 +576,39 @@ namespace Gschem3
          * Update the senstitivities for the actions in this widget
          */
         private void update_sensitivities()
-
-            requires(selection != null)
-
         {
-            var files = get_selected_files();
-            var enabled = (files.length > 0);
+            var items = get_selected_items();
 
-            can_open_files = enabled;
-            can_remove_files = enabled;
+            // Waiting for Gee-0.8 version 0.18.2
+            //
+            // can_open_files = items.any_match(is_openable);
+            // can_remove_files = items.any_match(is_removable);
+
+            var temp_can_open = false;
+
+            foreach (var item in items)
+            {
+                if (is_openable(item))
+                {
+                    temp_can_open = true;
+                    break;
+                }
+            }
+
+            can_open_files = temp_can_open;
+
+            var temp_can_remove = false;
+
+            foreach (var item in items)
+            {
+                if (is_removable(item))
+                {
+                    temp_can_remove = true;
+                    break;
+                }
+            }
+
+            can_remove_files = temp_can_remove;
         }
     }
 }

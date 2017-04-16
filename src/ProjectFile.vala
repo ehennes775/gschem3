@@ -6,6 +6,16 @@ namespace Geda3
     public class ProjectFile : ProjectItem
     {
         /**
+         * Indicates this file can be opened
+         */
+        public bool can_open
+        {
+            get;
+            private set;
+        }
+
+
+        /**
          * The underlying file this item refers to
          */
         public File? file
@@ -101,11 +111,13 @@ namespace Geda3
                         FileAttribute.ID_FILE
                         );
 
+                    can_open = true;
                     icon = ProjectIcon.SCHEMATIC;
                     tab = file_info.get_display_name();
                 }
                 else
                 {
+                    can_open = false;
                     file_id = null;
                     icon = ProjectIcon.BLANK;
                     tab = "Unknown";
@@ -113,6 +125,7 @@ namespace Geda3
             }
             catch (Error error)
             {
+                can_open = false;
                 file_id = null;
                 icon = ProjectIcon.MISSING;
 

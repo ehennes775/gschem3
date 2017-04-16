@@ -88,6 +88,12 @@ namespace Geda3
                     new ProjectFile(File.new_for_path("untitled_3.sch"))
                     )
                 );
+
+            m_schematics.append(
+                new Node<ProjectItem>(
+                    new ProjectFile(File.new_for_path("missing.sch"))
+                    )
+                );
         }
 
 
@@ -210,6 +216,26 @@ namespace Geda3
         public void remove_file(File file)
         {
             unowned Node<ProjectItem>? node = find_by_file(file);
+
+            if (node != null)
+            {
+                remove_node(node);
+            }
+        }
+
+
+        /**
+         * Remove an item from the project
+         *
+         * @param item The item to remove from the project
+         */
+        public void remove_item(ProjectItem item)
+        {
+            unowned Node<ProjectItem>? node = m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                item
+                );
 
             if (node != null)
             {
