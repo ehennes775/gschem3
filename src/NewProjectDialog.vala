@@ -20,14 +20,10 @@ namespace Gschem3
     /**
      * A dialog box to create a new project.
      */
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/NewProjectDialog.xml")]
     public class NewProjectDialog : Gtk.Dialog, Gtk.Buildable
+
     {
-        /**
-         * The resource name for the UI design.
-         */
-        public const string RESOURCE_NAME = "/com/github/ehennes775/gschem3/NewProjectDialog.xml";
-
-
         /**
          * The filename extension for project files
          */
@@ -46,6 +42,7 @@ namespace Gschem3
          * Making this widget visible will indicate to the user that the
          * current project folder already exists.
          */
+        [GtkChild(name="hbox-error-folder-exists")]
         private Gtk.Widget m_error_folder_exists;
 
 
@@ -55,18 +52,21 @@ namespace Gschem3
          * Making this widget visible will indicate to the user that the
          * current project folder path is not absolute.
          */
+        [GtkChild(name="hbox-error-not-absolute")]
         private Gtk.Widget m_error_not_absolute;
 
 
         /**
          * The folder chooser widget containing the parent folder.
          */
+        [GtkChild(name="folder-chooser")]
         private Gtk.FileChooserWidget m_folder_chooser;
 
 
         /**
          * The entry widget containing the design name.
          */
+        [GtkChild(name="name-entry")]
         private Gtk.Entry m_project_name;
 
 
@@ -79,6 +79,7 @@ namespace Gschem3
         /**
          * The entry widget containing the design folder name.
          */
+        [GtkChild(name="folder-entry")]
         private Gtk.Entry m_folder_name;
 
 
@@ -92,11 +93,13 @@ namespace Gschem3
 
 
         /**
-         * Initialize the class.
+         * Initialize the instance
          */
-        class construct
+        construct
         {
-            set_template_from_resource(RESOURCE_NAME);
+            m_folder_chooser.selection_changed.connect(on_selection_change);
+            m_folder_name.notify["text"].connect(on_notify_folder);
+            m_project_name.notify["text"].connect(on_notify_name);
         }
 
 
@@ -105,12 +108,6 @@ namespace Gschem3
          */
         public NewProjectDialog()
         {
-            init_template();
-
-            m_folder_chooser.selection_changed.connect(on_selection_change);
-            m_folder_name.notify["text"].connect(on_notify_folder);
-            m_project_name.notify["text"].connect(on_notify_name);
-
             /* set up initial values */
 
             m_folder_chooser.set_filename(
@@ -222,21 +219,10 @@ namespace Gschem3
          */
         private void update()
         {
-            set_response_sensitive(Gtk.ResponseType.OK, m_project_name_valid && m_folder_name_valid);
-        }
-
-
-        /**
-         * Couldn't get the template bindings to work, so this function
-         * obtains the objects from the Gtk.Builder.
-         */
-        private void parser_finished(Gtk.Builder builder)
-        {
-            m_folder_chooser = builder.get_object("folder-chooser") as Gtk.FileChooserWidget;
-            m_folder_name = builder.get_object("folder-entry") as Gtk.Entry;
-            m_project_name = builder.get_object("name-entry") as Gtk.Entry;
-            m_error_folder_exists = builder.get_object("hbox-error-folder-exists") as Gtk.Widget;
-            m_error_not_absolute = builder.get_object("hbox-error-not-absolute") as Gtk.Widget;
+            set_response_sensitive(
+                Gtk.ResponseType.OK,
+                m_project_name_valid && m_folder_name_valid
+                );
         }
     }
 }
