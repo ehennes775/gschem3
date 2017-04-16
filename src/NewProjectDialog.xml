@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+  <template class="Gschem3NewProjectDialog">
+    <property name="title">New Project</property>
+    <property name="border-width">15</property>
+    <property name="width-request">640</property>
+    <property name="height-request">480</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="content">
+        <property name="visible">TRUE</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="GtkFileChooserWidget" id="folder-chooser">
+            <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+            <property name="visible">TRUE</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkHBox" id="name-hbox">
+            <property name="visible">TRUE</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkLabel" id="name-label">
+                <property name="visible">TRUE</property>
+                <property name="label">Project Name</property>
+                <property name="xalign">0.0</property>
+              </object>
+              <packing>
+                <property name="expand">FALSE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="name-entry">
+                <property name="visible">TRUE</property>
+              </object>
+              <packing>
+                <property name="expand">TRUE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">FALSE</property>
+            <property name="fill">TRUE</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="folder-hbox">
+            <property name="visible">TRUE</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkLabel" id="folder-label">
+                <property name="visible">TRUE</property>
+                <property name="label">Project Folder</property>
+                <property name="xalign">0.0</property>
+              </object>
+              <packing>
+                <property name="expand">FALSE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="folder-entry">
+                <property name="visible">TRUE</property>
+              </object>
+              <packing>
+                <property name="expand">TRUE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">FALSE</property>
+            <property name="fill">TRUE</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox-error-folder-exists">
+            <property name="visible">TRUE</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkImage" id="image-error-folder-exists">
+                <property name="visible">TRUE</property>
+                <property name="stock">gtk-dialog-error</property>
+              </object>
+              <packing>
+                <property name="expand">FALSE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label-error-folder-exists">
+                <property name="visible">TRUE</property>
+                <property name="label">A folder with that name already exists.</property>
+                <property name="xalign">0.0</property>
+              </object>
+              <packing>
+                <property name="expand">TRUE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">FALSE</property>
+            <property name="fill">TRUE</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox-error-not-absolute">
+            <property name="visible">TRUE</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkImage" id="image-error-not_absolute">
+                <property name="visible">TRUE</property>
+                <property name="stock">gtk-dialog-error</property>
+              </object>
+              <packing>
+                <property name="expand">FALSE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label-error-not-absolute">
+                <property name="visible">TRUE</property>
+                <property name="label">The folder path must be absolute.</property>
+                <property name="xalign">0.0</property>
+              </object>
+              <packing>
+                <property name="expand">TRUE</property>
+                <property name="fill">TRUE</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">FALSE</property>
+            <property name="fill">TRUE</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child internal-child="action_area">
+      <object class="GtkHButtonBox" id="buttons">
+        <property name="visible">TRUE</property>
+        <child>
+          <object class="GtkButton" id="button-cancel">
+            <property name="visible">TRUE</property>
+            <property name="label">gtk-cancel</property>
+            <property name="use-stock">TRUE</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button-ok">
+            <property name="visible">TRUE</property>
+            <property name="label">gtk-ok</property>
+            <property name="use-stock">TRUE</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-6">button-cancel</action-widget>
+      <action-widget response="-5">button-ok</action-widget>
+    </action-widgets>
+  </template>
+</interface>
+

@@ -7,6 +7,7 @@
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
         <file>Missing.svg</file>
+        <file>NewProjectDialog.xml</file>
         <file>OrangeFolder.svg</file>
         <file>ProjectWidget.ui.xml</file>
         <file>ProjectWidgetMenu.ui.xml</file>

@@ -592,21 +592,17 @@ namespace Gschem3
 
             if (project == null)
             {
-                var dialog = new Gtk.FileChooserDialog(
-                    "Select File",
-                    this,
-                    Gtk.FileChooserAction.OPEN,
-                    "_Cancel", Gtk.ResponseType.CANCEL,
-                    "_Open", Gtk.ResponseType.ACCEPT
-                    );
+                var dialog = new NewProjectDialog();
+
+                dialog.set_transient_for(this);
 
                 var response = dialog.run();
 
                 if (response == Gtk.ResponseType.ACCEPT)
                 {
-                    var file = dialog.get_file();
+                    //var file = dialog.get_file();
 
-                    project = new Geda3.KeyFileProject.create(file);
+                    //project = new Geda3.KeyFileProject.create(file);
                 }
 
                 dialog.destroy();

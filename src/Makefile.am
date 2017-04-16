@@ -101,6 +101,7 @@ libgschem3_a_SOURCES = \
 	DocumentWindow.vala \
 	ErrorDialog.vala \
 	MainWindow.vala \
+	NewProjectDialog.vala \
 	ProjectAdapter.vala \
 	ProjectWidget.vala \
 	Reloadable.vala \
