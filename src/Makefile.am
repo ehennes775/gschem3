@@ -59,11 +59,14 @@ libgeda3_a_SOURCES = \
 	Fileable.vala \
 	FileVersion.vala \
 	FillType.vala \
-	KeyFileProject.vala \
-	KeyFileSchematicList.vala \
+	KeyFileProjectStorage.vala \
 	KeyFileSymbolFolder.vala \
 	KeyFileSymbolLibrary.vala \
+	KeyProjectFileMapper.vala \
+	Mapper.vala \
+	MapError.vala \
 	NetItem.vala \
+	NullMapper.vala \
 	ParseError.vala \
 	PinType.vala \
 	Project.vala \
@@ -72,6 +75,7 @@ libgeda3_a_SOURCES = \
 	ProjectIcon.vala \
 	ProjectItem.vala \
 	ProjectItemAdapter.vala \
+	ProjectStorage.vala \
 	Schematic.vala \
 	SchematicFile.vala \
 	SchematicItem.vala \

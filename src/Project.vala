@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * A base class for projects
      */
-    public abstract class Project : Object
+    public class Project : Object
     {
         /**
          * Indicates a new node inserted into the project
@@ -29,7 +29,7 @@ namespace Geda3
          * project file. Moving this file to another folder will break
          * those paths.
          */
-        public abstract File file
+        public File file
         {
             get;
             protected set;
@@ -43,11 +43,11 @@ namespace Geda3
          * usable as a port, the reference does not change throughout
          * the lifetime of this project object.
          */
-        public abstract SchematicList schematic_list
-        {
-            get;
-            protected set;
-        }
+        //public abstract SchematicList schematic_list
+        //{
+        //    get;
+        //    protected set;
+        //}
 
 
         /**
@@ -68,34 +68,20 @@ namespace Geda3
                     new ProjectFolder(ProjectIcon.BLUE_FOLDER, "sch")
                     )
                 );
-
-            // for testing
-
-            m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("untitled_1.sch"))
-                    )
-                );
-
-            m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("untitled_2.sch"))
-                    )
-                );
-
-            m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("untitled_3.sch"))
-                    )
-                );
-
-            m_schematics.append(
-                new Node<ProjectItem>(
-                    new ProjectFile(File.new_for_path("missing.sch"))
-                    )
-                );
         }
 
+
+        public Project(ProjectStorage storage)
+        {
+            m_storage = storage;
+
+            foreach (var item in m_storage.get_files())
+            {
+                m_schematics.append(
+                    new Node<ProjectItem>(item)
+                    );
+            }
+        }
 
         /**
          * Add a file to the project
@@ -105,15 +91,21 @@ namespace Geda3
          * @param file The file to add to the project
          */
         public void add_file(File file)
+
+            requires(m_schematics != null)
+            requires(m_storage != null)
+
         {
             unowned Node<ProjectItem>? node = find_by_file(file);
 
             if (node == null)
             {
+                var new_item = m_storage.insert_file(file);
+
+                return_if_fail(new_item != null);
+
                 unowned Node<ProjectItem> new_node = m_schematics.append(
-                    new Node<ProjectItem>(
-                        new ProjectFile(file)
-                        )
+                    new Node<ProjectItem>(new_item)
                     );
 
                 node_inserted(new_node);
@@ -270,7 +262,13 @@ namespace Geda3
         /**
          * Save this project
          */
-        public abstract void save() throws FileError;
+        public void save() throws FileError
+
+            requires(m_storage != null)
+
+        {
+            m_storage.save();
+        }
 
 
         /**
@@ -279,6 +277,12 @@ namespace Geda3
          * This dummy item allows the node to use a non-nullable type.
          */
         private static ProjectItem s_dummy = new ProjectFolder();
+
+
+        /**
+         *
+         */
+        private ProjectStorage m_storage;
 
 
         /**

@@ -71,9 +71,6 @@ namespace Gschem3
                 "project",
                 BindingFlags.SYNC_CREATE
                 );
-
-            // temporary for testing
-            project = new Geda3.KeyFileProject.create(File.new_for_path("test.prj"));
         }
 
 
@@ -234,7 +231,9 @@ namespace Gschem3
         {
             try
             {
-                project = new Geda3.KeyFileProject.open(file);
+                var mapper = new Geda3.KeyFileProjectStorage.open(file);
+
+                project = new Geda3.Project(mapper);
             }
             catch (Error error)
             {
