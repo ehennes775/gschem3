@@ -63,13 +63,13 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override ProjectItem[] get_files()
+        public override ProjectFile[] get_files()
 
             requires(m_key_file != null)
             ensures(result != null)
 
         {
-            var files = new Gee.ArrayList<ProjectItem>();
+            var files = new Gee.ArrayList<ProjectFile>();
             var keys = get_schematic_keys();
 
             foreach (var key in keys)
@@ -97,14 +97,33 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override ProjectItem insert_file(File file)
+        public override ProjectFile insert_file(File file)
 
             ensures(result != null)
 
         {
             var key = make_key();
+            var item = new ProjectFile(key, file);
 
-            return new ProjectFile(key, file);
+            update_file(item);
+
+            return item;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void update_file(ProjectFile item)
+
+            requires(m_key_file != null)
+
+        {
+            m_key_file.set_string(
+                SCHEMATIC_GROUP,
+                item.key,
+                item.file.get_path()
+                );
         }
 
 

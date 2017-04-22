@@ -21,7 +21,7 @@ namespace Geda3
          * @return an array of project items representing the project
          * files
          */
-        public abstract ProjectItem[] get_files();
+        public abstract ProjectFile[] get_files();
 
 
         /**
@@ -30,7 +30,15 @@ namespace Geda3
          * @param file the new file to add to the project storage
          * @return a project item representing the project file
          */
-        public abstract ProjectItem insert_file(File file);
+        public abstract ProjectFile insert_file(File file);
+
+
+        /**
+         * Updates the data in storages with the values of the item
+         *
+         * @param item The values to update storage
+         */
+        public abstract void update_file(ProjectFile item);
 
 
         /**
