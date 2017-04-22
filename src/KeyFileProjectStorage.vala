@@ -114,6 +114,21 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void remove_file(string key)
+
+            requires(m_key_file != null)
+
+        {
+            m_key_file.remove_key(
+                SCHEMATIC_GROUP,
+                key
+                );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void update_file(ProjectFile item)
 
             requires(m_key_file != null)

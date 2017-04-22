@@ -253,6 +253,13 @@ namespace Geda3
 
             var index = parent.child_position(temp);
 
+            var file = temp->data as ProjectFile;
+
+            if (file != null)
+            {
+                m_storage.remove_file(file.key);
+            }
+
             temp->unlink();
 
             node_removed(parent, index);

@@ -34,6 +34,14 @@ namespace Geda3
 
 
         /**
+         * Remove a file from storage
+         *
+         * @param key The key of the file to remove
+         */
+        public abstract void remove_file(string key);
+
+
+        /**
          * Updates the data in storages with the values of the item
          *
          * @param item The values to update storage
