@@ -22,7 +22,9 @@ namespace Geda3
         {
             try
             {
-                s_schematic_key = new Regex("^Schematic");
+                s_schematic_key = new Regex(
+                    @"^$SCHEMATIC_PREFIX"
+                    );
             }
             catch (Error error)
             {
@@ -83,6 +85,7 @@ namespace Geda3
                     );
 
                 files.add(new ProjectFile(
+                    key,
                     File.new_for_path(abs_path)
                     ));
             }
@@ -99,7 +102,9 @@ namespace Geda3
             ensures(result != null)
 
         {
-            return new ProjectFile(file);
+            var key = make_key();
+
+            return new ProjectFile(key, file);
         }
 
 
@@ -114,6 +119,42 @@ namespace Geda3
         {
             m_key_file.save_to_file(m_file.get_path());
         }
+
+
+        /**
+         *
+         */
+        private const string SCHEMATIC_PREFIX = "Schematic";
+
+
+        /**
+         * The group name in the key file that contains schematics
+         */
+        private const string SCHEMATIC_GROUP = "Schematics";
+
+
+        /**
+         * Checks if a key represents a schematic file
+         */
+        private static Regex s_schematic_key;
+
+
+        /**
+         *
+         */
+        private int m_current_number = 0;
+
+
+        /**
+         *
+         */
+        private File m_file;
+
+
+        /**
+         * The underlying key file used for persistence
+         */
+        private KeyFile m_key_file;
 
 
         /**
@@ -150,23 +191,47 @@ namespace Geda3
 
 
         /**
-         * The group name in the key file that contains schematics
+         * Make a unique key for a schematic
+         *
+         * The format of the key is a standard prefix, followed by a
+         * period and then a number:
+         *
+         *     Schematic.01
+         *
+         * This function will find a numeric suffix to make the key
+         * unique.
+         *
+         * @return a unique key to use in the key file
          */
-        private const string SCHEMATIC_GROUP = "Schematics";
+        private string make_key()
 
+            requires(m_key_file != null)
 
-        /**
-         * Checks if a key represents a schematic file
-         */
-        private static Regex s_schematic_key;
+        {
+            var current_name = "%s.%02d".printf(
+                SCHEMATIC_PREFIX,
+                ++m_current_number
+                );
 
+            try
+            {
+                while (m_key_file.has_key(SCHEMATIC_GROUP, current_name))
+                {
+                    current_name = "%s.%02d".printf(
+                        SCHEMATIC_PREFIX,
+                        ++m_current_number
+                        );
+                }
+            }
+            catch (KeyFileError error)
+            {
+                if (!(error is KeyFileError.GROUP_NOT_FOUND))
+                {
+                    throw error;
+                }
+            }
 
-        private File m_file;
-        
-
-        /**
-         * The underlying key file used for persistence
-         */
-        private KeyFile m_key_file;
+            return current_name;
+        }
     }
 }

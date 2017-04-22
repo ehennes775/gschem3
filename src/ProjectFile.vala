@@ -50,6 +50,16 @@ namespace Geda3
 
 
         /**
+         * A unique string identifying this item
+         */
+        public string key
+        {
+            get;
+            construct;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override string tab
@@ -71,11 +81,13 @@ namespace Geda3
         /**
          * Initialize a new instance with a file
          *
+         * @param key A unique string identifying this item
          * @param file The file for this item
          */
-        public ProjectFile(File file)
+        public ProjectFile(string key, File file)
         {
             Object(
+                key : key,
                 file : file
                 );
         }
