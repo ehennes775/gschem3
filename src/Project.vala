@@ -75,6 +75,13 @@ namespace Geda3
         {
             m_storage = storage;
 
+            m_storage.bind_property(
+                "file",
+                this,
+                "file",
+                BindingFlags.SYNC_CREATE
+                );
+
             foreach (var item in m_storage.get_files())
             {
                 m_schematics.append(

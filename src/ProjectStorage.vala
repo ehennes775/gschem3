@@ -16,6 +16,16 @@ namespace Geda3
 
 
         /**
+         * The project file
+         */
+        public abstract File file
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * Gets all the files in project storage
          *
          * @return an array of project items representing the project

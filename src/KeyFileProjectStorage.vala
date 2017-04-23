@@ -16,6 +16,16 @@ namespace Geda3
         
         
         /**
+         * {@inheritDoc}
+         */
+        public override File file
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * Initialize the class
          */
         static construct
@@ -57,6 +67,7 @@ namespace Geda3
                 );
 
             folder = m_file.get_parent();
+            this.file = file;
         }
 
 
