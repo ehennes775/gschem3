@@ -81,6 +81,10 @@ namespace Gschem3
          */
         public MainWindow(File? file = null)
         {
+            if (file != null)
+            {
+                open_project(file);
+            }
         }
 
 
