@@ -94,6 +94,15 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override void remove(ProjectStorage storage)
+        {
+            storage.remove_file(key);
+        }
+
+
+        /**
          * The attributes needed for the query in on_notify_file
          */
         private static string s_attributes = string.join(

@@ -38,5 +38,13 @@ namespace Geda3
                 tab : tab ?? "Unknown"
                 );
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void remove(ProjectStorage storage)
+        {
+        }
     }
 }

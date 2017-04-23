@@ -79,6 +79,14 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override void remove(ProjectStorage storage)
+        {
+        }
+
+
+        /**
          * Backing store for the project property
          */
         private Project b_project;
