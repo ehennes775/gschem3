@@ -2,6 +2,8 @@ namespace Geda3
 {
     /**
      * A base class for projects
+     *
+     * {{uml/ProjectUml.svg}}
      */
     public class Project : Object
     {
