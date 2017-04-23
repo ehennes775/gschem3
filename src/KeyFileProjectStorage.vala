@@ -13,8 +13,8 @@ namespace Geda3
             get;
             protected set;
         }
-        
-        
+
+
         /**
          * {@inheritDoc}
          */
@@ -38,6 +38,7 @@ namespace Geda3
             }
             catch (Error error)
             {
+                critical(error.message);
                 s_schematic_key = null;
             }
         }
@@ -81,24 +82,42 @@ namespace Geda3
 
         {
             var files = new Gee.ArrayList<ProjectFile>();
-            var keys = get_schematic_keys();
 
-            foreach (var key in keys)
+            try
             {
-                var path = m_key_file.get_string(
-                    SCHEMATIC_GROUP,
-                    key
-                    );
+                var keys = get_schematic_keys();
 
-                var abs_path = Path.build_filename(
-                    folder.get_path(),
-                    path
-                    );
+                foreach (var key in keys)
+                {
+                    try
+                    {
+                        var path = m_key_file.get_string(
+                            SCHEMATIC_GROUP,
+                            key
+                            );
 
-                files.add(new ProjectFile(
-                    key,
-                    File.new_for_path(abs_path)
-                    ));
+                        if (!Path.is_absolute(path))
+                        {
+                            path = Path.build_filename(
+                                folder.get_path(),
+                                path
+                                );
+                        }
+
+                        files.add(new ProjectFile(
+                            key,
+                            File.new_for_path(path)
+                            ));
+                    }
+                    catch (Error error)
+                    {
+                        critical(error.message);
+                    }
+                }
+            }
+            catch (Error error)
+            {
+                critical(error.message);
             }
 
             return files.to_array();
@@ -113,10 +132,20 @@ namespace Geda3
             ensures(result != null)
 
         {
-            var key = make_key();
-            var item = new ProjectFile(key, file);
+            ProjectFile item = null;
 
-            update_file(item);
+            try
+            {
+                var key = make_key();
+
+                item = new ProjectFile(key, file);
+
+                update_file(item);
+            }
+            catch (Error error)
+            {
+                critical(error.message);
+            }
 
             return item;
         }
@@ -128,6 +157,7 @@ namespace Geda3
         public override void remove_file(string key)
 
             requires(m_key_file != null)
+            requires(m_key_file.has_group(SCHEMATIC_GROUP))
 
         {
             m_key_file.remove_key(
@@ -142,14 +172,36 @@ namespace Geda3
          */
         public override void update_file(ProjectFile item)
 
+            requires(item.key != null)
+            requires(item.file != null)
+            requires(folder != null)
             requires(m_key_file != null)
 
         {
-            m_key_file.set_string(
-                SCHEMATIC_GROUP,
-                item.key,
-                item.file.get_path()
-                );
+            var file = item.file;
+            var path = file.get_path();
+
+            if (path != null)
+            {
+                if (file.has_prefix(folder))
+                {
+                    path = folder.get_relative_path(file) ?? path;
+                }
+
+                m_key_file.set_string(
+                    SCHEMATIC_GROUP,
+                    item.key,
+                    path
+                    );
+            }
+            else
+            {
+                m_key_file.set_string(
+                    SCHEMATIC_GROUP,
+                    item.key,
+                    file.get_uri()
+                    );
+            }
         }
 
 
@@ -248,7 +300,7 @@ namespace Geda3
          *
          * @return a unique key to use in the key file
          */
-        private string make_key()
+        private string make_key() throws KeyFileError
 
             requires(m_key_file != null)
 
@@ -258,7 +310,7 @@ namespace Geda3
                 ++m_current_number
                 );
 
-            try
+            if (m_key_file.has_group(SCHEMATIC_GROUP))
             {
                 while (m_key_file.has_key(SCHEMATIC_GROUP, current_name))
                 {
@@ -266,13 +318,6 @@ namespace Geda3
                         SCHEMATIC_PREFIX,
                         ++m_current_number
                         );
-                }
-            }
-            catch (KeyFileError error)
-            {
-                if (!(error is KeyFileError.GROUP_NOT_FOUND))
-                {
-                    throw error;
                 }
             }
 
