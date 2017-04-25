@@ -59,6 +59,7 @@ libgeda3_a_SOURCES = \
 	Fileable.vala \
 	FileVersion.vala \
 	FillType.vala \
+	GeeEx.vala \
 	KeyFileProjectStorage.vala \
 	KeyFileSymbolFolder.vala \
 	KeyFileSymbolLibrary.vala \

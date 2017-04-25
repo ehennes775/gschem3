@@ -579,36 +579,15 @@ namespace Gschem3
         {
             var items = get_selected_items();
 
-            // Waiting for Gee-0.8 version 0.18.2
-            //
-            // can_open_files = items.any_match(is_openable);
-            // can_remove_files = items.any_match(is_removable);
+            can_open_files = Geda3.GeeEx.any_match(
+                items,
+                is_openable
+                );
 
-            var temp_can_open = false;
-
-            foreach (var item in items)
-            {
-                if (is_openable(item))
-                {
-                    temp_can_open = true;
-                    break;
-                }
-            }
-
-            can_open_files = temp_can_open;
-
-            var temp_can_remove = false;
-
-            foreach (var item in items)
-            {
-                if (is_removable(item))
-                {
-                    temp_can_remove = true;
-                    break;
-                }
-            }
-
-            can_remove_files = temp_can_remove;
+            can_remove_files = Geda3.GeeEx.any_match(
+                items,
+                is_removable
+                );
         }
     }
 }
