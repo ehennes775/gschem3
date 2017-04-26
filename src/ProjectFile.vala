@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * A file in the project tree
      */
-    public class ProjectFile : ProjectItem
+    public class ProjectFile : ProjectItem, RemovableItem
     {
         /**
          * Indicates this file can be opened
@@ -12,6 +12,17 @@ namespace Geda3
         {
             get;
             private set;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool can_remove
+        {
+            get;
+            protected set;
+            default = true;
         }
 
 
@@ -96,7 +107,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void remove(ProjectStorage storage)
+        public void remove(ProjectStorage storage)
         {
             storage.remove_file(key);
         }

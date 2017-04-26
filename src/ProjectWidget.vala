@@ -365,11 +365,11 @@ namespace Gschem3
          */
         private bool is_removable(Geda3.ProjectItem item)
         {
-            var file_item = item as Geda3.ProjectFile;
+            var file_item = item as Geda3.RemovableItem;
 
             return (
                 (file_item != null) &&
-                (file_item.file != null)
+                file_item.can_remove
                 );
         }
 

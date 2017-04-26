@@ -77,6 +77,7 @@ libgeda3_a_SOURCES = \
 	ProjectItem.vala \
 	ProjectItemAdapter.vala \
 	ProjectStorage.vala \
+	RemovableItem.vala \
 	Schematic.vala \
 	SchematicFile.vala \
 	SchematicItem.vala \

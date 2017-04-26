@@ -23,13 +23,5 @@ namespace Geda3
             get;
             protected set;
         }
-
-
-        /**
-         * Removes this item from storage
-         *
-         * @param storage The storage to remove this item from
-         */
-        public abstract void remove(ProjectStorage storage);
     }
 }

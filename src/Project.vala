@@ -262,16 +262,16 @@ namespace Geda3
 
             var index = parent.child_position(temp);
 
-            var item = temp->data as ProjectItem;
+            var item = temp->data as RemovableItem;
 
-            if (item != null)
+            if ((item != null) && item.can_remove)
             {
                 item.remove(m_storage);
+
+                temp->unlink();
+
+                node_removed(parent, index);
             }
-
-            temp->unlink();
-
-            node_removed(parent, index);
         }
 
 
