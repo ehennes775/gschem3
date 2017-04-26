@@ -247,6 +247,18 @@ namespace Gschem3
 
 
         /**
+         * The file extension for projects
+         */
+        private const string PROJECT_EXTENSION = ".project";
+
+
+        /**
+         * File filters used by the open project dialog
+         */
+        private static Gtk.FileFilter[] s_project_filters = create_project_filters();
+
+
+        /**
          * Identifies the drop operation
          */
         private enum TargetInfo
@@ -297,6 +309,27 @@ namespace Gschem3
          */
         [GtkChild(name="project")]
         private ProjectWidget m_project_widget;
+
+
+        /**
+         * Create the file filters used by the open project
+         */
+        private static Gtk.FileFilter[] create_project_filters()
+        {
+            var filters = new Gee.ArrayList<Gtk.FileFilter>();
+
+            var all = new Gtk.FileFilter();
+            all.set_filter_name("All Files");
+            all.add_pattern("*.*");
+            filters.add(all);
+
+            var projects = new Gtk.FileFilter();
+            projects.set_filter_name("Projects");
+            projects.add_pattern(@"*$PROJECT_EXTENSION");
+            filters.add(projects);
+
+            return filters.to_array();
+        }
 
 
         /**
@@ -632,6 +665,11 @@ namespace Gschem3
                     "_Cancel", Gtk.ResponseType.CANCEL,
                     "_Open", Gtk.ResponseType.ACCEPT
                     );
+
+                foreach (var filter in s_project_filters)
+                {
+                    dialog.add_filter(filter);
+                }
 
                 var response = dialog.run();
 
