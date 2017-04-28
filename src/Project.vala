@@ -73,6 +73,11 @@ namespace Geda3
         }
 
 
+        /**
+         * Create a new project
+         *
+         * @param storage The persistence layer to use for storage
+         */
         public Project(ProjectStorage storage)
         {
             m_storage = storage;
@@ -86,6 +91,7 @@ namespace Geda3
 
             reload_files();
         }
+
 
         /**
          * Add a file to the project
@@ -291,7 +297,7 @@ namespace Geda3
 
 
         /**
-         *
+         * The persistence layer for this project
          */
         private ProjectStorage m_storage;
 

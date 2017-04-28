@@ -1,7 +1,7 @@
 namespace Geda3
 {
     /**
-     *
+     * Implements a persistence layer for projects in a key file
      */
     public class KeyFileProjectStorage : ProjectStorage
     {
@@ -53,9 +53,9 @@ namespace Geda3
 
 
         /**
+         * Open an existing key file project
          *
-         *
-         * @param file
+         * @param file The key file containing the project
          */
         public KeyFileProjectStorage.open(File file) throws Error
         {
@@ -137,7 +137,7 @@ namespace Geda3
 
             try
             {
-                var key = make_key();
+                var key = make_schematic_key();
 
                 item = new ProjectFile(key, file, false);
 
@@ -229,6 +229,11 @@ namespace Geda3
         /**
          * The string format for schematic keys
          *
+         * The format of the key is a standard prefix, followed by a
+         * period and then a number:
+         *
+         *     Schematic.01
+         *
          * The first format specifier is the SCHEMATIC_PREFIX. The
          * schematic prefix separates the schematic keys from other
          * keys in the same group.
@@ -241,7 +246,7 @@ namespace Geda3
 
 
         /**
-         *
+         * The prefix for keys that contain schemaitc files
          */
         private const string SCHEMATIC_PREFIX = "Schematic";
 
@@ -259,7 +264,7 @@ namespace Geda3
 
 
         /**
-         *
+         * A number to make schematic keys unique
          */
         private int m_current_number = 0;
 
@@ -271,7 +276,7 @@ namespace Geda3
 
 
         /**
-         *
+         * Gets all the key names that represent schematic files
          *
          * @return A list of key names that contain schematic paths
          */
@@ -301,19 +306,14 @@ namespace Geda3
 
 
         /**
-         * Make a unique key for a schematic
-         *
-         * The format of the key is a standard prefix, followed by a
-         * period and then a number:
-         *
-         *     Schematic.01
+         * Make a unique schematic key
          *
          * This function will find a numeric suffix to make the key
          * unique.
          *
          * @return a unique key to use in the key file
          */
-        private string make_key() throws KeyFileError
+        private string make_schematic_key() throws KeyFileError
 
             requires(m_key_file != null)
 
