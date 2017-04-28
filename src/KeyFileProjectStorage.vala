@@ -33,7 +33,7 @@ namespace Geda3
             try
             {
                 s_schematic_key = new Regex(
-                    @"^$SCHEMATIC_PREFIX"
+                    @"^$SCHEMATIC_PREFIX\\."
                     );
             }
             catch (Error error)
