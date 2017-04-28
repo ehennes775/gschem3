@@ -60,15 +60,14 @@ namespace Geda3
          */
         public KeyFileProjectStorage.open(File file) throws Error
         {
-            m_file = file;
+            this.file = file;
 
             m_key_file.load_from_file(
-                m_file.get_path(),
+                this.file.get_path(),
                 KeyFileFlags.KEEP_COMMENTS | KeyFileFlags.KEEP_TRANSLATIONS
                 );
 
-            folder = m_file.get_parent();
-            this.file = file;
+            folder = this.file.get_parent();
         }
 
 
@@ -213,11 +212,11 @@ namespace Geda3
          */
         public override void save()
 
-            requires(m_file != null)
+            requires(file != null)
             requires(m_key_file != null)
 
         {
-            m_key_file.save_to_file(m_file.get_path());
+            m_key_file.save_to_file(file.get_path());
         }
 
 
@@ -257,12 +256,6 @@ namespace Geda3
          *
          */
         private int m_current_number = 0;
-
-
-        /**
-         *
-         */
-        private File m_file;
 
 
         /**
