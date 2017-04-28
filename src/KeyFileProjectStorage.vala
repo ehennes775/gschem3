@@ -8,7 +8,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override File folder
+        public override File file
         {
             get;
             protected set;
@@ -18,7 +18,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override File file
+        public override File folder
         {
             get;
             protected set;

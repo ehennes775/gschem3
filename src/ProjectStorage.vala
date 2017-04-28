@@ -6,9 +6,9 @@ namespace Geda3
     public abstract class ProjectStorage : Object
     {
         /**
-         * The project folder
+         * The project file
          */
-        public abstract File folder
+        public abstract File file
         {
             get;
             protected set;
@@ -16,9 +16,9 @@ namespace Geda3
 
 
         /**
-         * The project file
+         * The project folder
          */
-        public abstract File file
+        public abstract File folder
         {
             get;
             protected set;
