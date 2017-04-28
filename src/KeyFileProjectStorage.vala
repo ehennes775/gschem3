@@ -162,10 +162,17 @@ namespace Geda3
             requires(m_key_file.has_group(SCHEMATIC_GROUP))
 
         {
-            m_key_file.remove_key(
-                SCHEMATIC_GROUP,
-                key
-                );
+            try
+            {
+                m_key_file.remove_key(
+                    SCHEMATIC_GROUP,
+                    key
+                    );
+            }
+            catch (Error error)
+            {
+                critical(error.message);
+            }
         }
 
 
