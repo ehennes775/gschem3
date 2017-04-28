@@ -84,12 +84,7 @@ namespace Geda3
                 BindingFlags.SYNC_CREATE
                 );
 
-            foreach (var item in m_storage.get_files())
-            {
-                m_schematics.append(
-                    new Node<ProjectItem>(item)
-                    );
-            }
+            reload_files();
         }
 
         /**
@@ -360,6 +355,34 @@ namespace Geda3
             }
 
             return null;
+        }
+
+
+        /**
+         * Reload the files in the project tree
+         */
+        private void reload_files()
+
+            requires(m_schematics != null)
+
+        {
+            unowned Node<ProjectItem>? child = m_schematics.first_child();
+
+            while (child != null)
+            {
+                child.unlink();
+
+                node_removed(m_schematics, 0);
+
+                child = m_schematics.first_child();
+            }
+
+            foreach (var item in m_storage.get_files())
+            {
+                m_schematics.append(
+                    new Node<ProjectItem>(item)
+                    );
+            }
         }
     }
 }
