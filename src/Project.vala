@@ -256,22 +256,22 @@ namespace Geda3
 
         {
             var temp = (Node<ProjectItem>*) node;
-            unowned Node<ProjectItem>? parent = temp->parent;
 
+            unowned Node<ProjectItem>? parent = temp->parent;
             return_if_fail(parent != null);
 
             var index = parent.child_position(temp);
+            return_if_fail(index >= 0);
 
             var item = temp->data as RemovableItem;
+            return_if_fail(item != null);
+            return_if_fail(item.can_remove);
 
-            if ((item != null) && item.can_remove)
-            {
-                item.remove(m_storage);
+            item.remove(m_storage);
 
-                temp->unlink();
+            temp->unlink();
 
-                node_removed(parent, index);
-            }
+            node_removed(parent, index);
         }
 
 
