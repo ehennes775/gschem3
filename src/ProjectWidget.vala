@@ -68,9 +68,6 @@ namespace Gschem3
          */
         static construct
         {
-            schematic_icon = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/Schematic.svg"
-                );
         }
 
 
@@ -203,12 +200,6 @@ namespace Gschem3
         private const Gtk.TargetEntry[] target_entries =
         {
         };
-
-
-        /**
-         * The context menu for the project widget
-         */
-        private static Gdk.Pixbuf schematic_icon;
 
 
         /**
