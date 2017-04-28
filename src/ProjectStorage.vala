@@ -9,6 +9,16 @@ namespace Geda3
     public abstract class ProjectStorage : Object
     {
         /**
+         * Indicates the project has changed since last saved
+         */
+        public abstract bool changed
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * The project file
          *
          * No relationship between the project file and project folder

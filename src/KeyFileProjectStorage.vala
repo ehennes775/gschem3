@@ -8,6 +8,16 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override bool changed
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override File file
         {
             get;
@@ -167,6 +177,8 @@ namespace Geda3
                     SCHEMATIC_GROUP,
                     key
                     );
+
+                changed = true;
             }
             catch (Error error)
             {
@@ -210,6 +222,8 @@ namespace Geda3
                     file.get_uri()
                     );
             }
+
+            changed = true;
         }
 
 
@@ -223,6 +237,8 @@ namespace Geda3
 
         {
             m_key_file.save_to_file(file.get_path());
+
+            changed = false;
         }
 
 

@@ -25,6 +25,15 @@ namespace Geda3
 
 
         /**
+         * Indicates the project has changed since last saved
+         */
+        public bool changed
+        {
+            get;
+            protected set;
+        }
+
+        /**
          * The project file
          *
          * Other files in the project use a relative path from the
@@ -81,6 +90,13 @@ namespace Geda3
         public Project(ProjectStorage storage)
         {
             m_storage = storage;
+
+            m_storage.bind_property(
+                "changed",
+                this,
+                "changed",
+                BindingFlags.SYNC_CREATE
+                );
 
             m_storage.bind_property(
                 "file",

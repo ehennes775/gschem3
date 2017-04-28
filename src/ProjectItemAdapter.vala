@@ -28,6 +28,10 @@ namespace Geda3
             {
                 if (b_project != null)
                 {
+                    b_project.notify["changed"].disconnect(
+                        on_notify_project_file
+                        );
+
                     b_project.notify["file"].disconnect(
                         on_notify_project_file
                         );
@@ -37,6 +41,10 @@ namespace Geda3
 
                 if (b_project != null)
                 {
+                    b_project.notify["changed"].connect(
+                        on_notify_project_file
+                        );
+
                     b_project.notify["file"].connect(
                         on_notify_project_file
                         );
@@ -87,7 +95,7 @@ namespace Geda3
         /**
          * Signal handler when the project or project file changes
          *
-         * Two propery notifications are connected to this signal
+         * Three propery notifications are connected to this signal
          * handler. When the project property of this object changes,
          * or the file property of the project object, this handler
          * keeps the tab up to date.
@@ -106,7 +114,11 @@ namespace Geda3
                         );
 
                     icon = ProjectIcon.ORANGE_FOLDER;
-                    tab = file_info.get_display_name();
+
+                    tab = "%s%s".printf(
+                        file_info.get_display_name(),
+                        b_project.changed ? "*" : ""
+                        );
                 }
                 else
                 {
