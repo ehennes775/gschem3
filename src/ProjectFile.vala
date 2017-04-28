@@ -6,6 +6,17 @@ namespace Geda3
     public class ProjectFile : ProjectItem, RemovableItem
     {
         /**
+         * Indicates the file was stored with an absolute path in
+         * the persistence layer.
+         */
+        public bool absolute
+        {
+            get;
+            set;
+        }
+
+
+        /**
          * Indicates this file can be opened
          */
         public bool can_open
@@ -94,12 +105,14 @@ namespace Geda3
          *
          * @param key A unique string identifying this item
          * @param file The file for this item
+         * @param absolute The persistence layer uses an abolute path
          */
-        public ProjectFile(string key, File file)
+        public ProjectFile(string key, File file, bool absolute)
         {
             Object(
                 key : key,
-                file : file
+                file : file,
+                absolute : absolute
                 );
         }
 

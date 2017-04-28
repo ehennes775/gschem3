@@ -96,7 +96,9 @@ namespace Geda3
                             key
                             );
 
-                        if (!Path.is_absolute(path))
+                        var absolute = Path.is_absolute(path);
+
+                        if (!absolute)
                         {
                             path = Path.build_filename(
                                 folder.get_path(),
@@ -106,7 +108,8 @@ namespace Geda3
 
                         files.add(new ProjectFile(
                             key,
-                            File.new_for_path(path)
+                            File.new_for_path(path),
+                            absolute
                             ));
                     }
                     catch (Error error)
@@ -138,7 +141,7 @@ namespace Geda3
             {
                 var key = make_key();
 
-                item = new ProjectFile(key, file);
+                item = new ProjectFile(key, file, false);
 
                 update_file(item);
             }
@@ -183,7 +186,7 @@ namespace Geda3
 
             if (path != null)
             {
-                if (file.has_prefix(folder))
+                if (file.has_prefix(folder) || !item.absolute)
                 {
                     path = folder.get_relative_path(file) ?? path;
                 }
