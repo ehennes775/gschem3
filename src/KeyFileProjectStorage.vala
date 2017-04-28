@@ -278,7 +278,11 @@ namespace Geda3
         /**
          * Gets all the key names that represent schematic files
          *
+         * This function should not throw an error unless functionality
+         * in glib changes.
+         *
          * @return A list of key names that contain schematic paths
+         * @throw KeyFileError.GROUP_NOT_FOUND Should not be thrown
          */
         private string[] get_schematic_keys() throws KeyFileError
 
@@ -311,7 +315,11 @@ namespace Geda3
          * This function will find a numeric suffix to make the key
          * unique.
          *
+         * This function should not throw an error unless functionality
+         * in glib changes.
+         *
          * @return a unique key to use in the key file
+         * @throw KeyFileError.GROUP_NOT_FOUND Should not be thrown
          */
         private string make_schematic_key() throws KeyFileError
 
