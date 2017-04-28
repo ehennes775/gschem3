@@ -219,6 +219,20 @@ namespace Geda3
 
 
         /**
+         * The string format for schematic keys
+         *
+         * The first format specifier is the SCHEMATIC_PREFIX. The
+         * schematic prefix separates the schematic keys from other
+         * keys in the same group.
+         * 
+         * The second format is the serial number. This is a
+         * sequentially assigned unique number for the individual
+         * schematic key.
+         */
+        private const string SCHEMATIC_KEY_FORMAT = "%s.%02d";
+
+
+        /**
          *
          */
         private const string SCHEMATIC_PREFIX = "Schematic";
@@ -305,7 +319,7 @@ namespace Geda3
             requires(m_key_file != null)
 
         {
-            var current_name = "%s.%02d".printf(
+            var current_name = SCHEMATIC_KEY_FORMAT.printf(
                 SCHEMATIC_PREFIX,
                 ++m_current_number
                 );
@@ -314,7 +328,7 @@ namespace Geda3
             {
                 while (m_key_file.has_key(SCHEMATIC_GROUP, current_name))
                 {
-                    current_name = "%s.%02d".printf(
+                    current_name = SCHEMATIC_KEY_FORMAT.printf(
                         SCHEMATIC_PREFIX,
                         ++m_current_number
                         );
