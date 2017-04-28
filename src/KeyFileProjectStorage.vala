@@ -273,7 +273,7 @@ namespace Geda3
          *
          * @return A list of key names that contain schematic paths
          */
-        private string[] get_schematic_keys()
+        private string[] get_schematic_keys() throws KeyFileError
 
             requires(m_key_file != null)
             requires(s_schematic_key != null)
@@ -281,7 +281,7 @@ namespace Geda3
         {
             var output_keys = new Gee.ArrayList<string>();
 
-            try
+            if (m_key_file.has_group(SCHEMATIC_GROUP))
             {
                 var input_keys = m_key_file.get_keys(SCHEMATIC_GROUP);
 
@@ -292,9 +292,6 @@ namespace Geda3
                         output_keys.add(key);
                     }
                 }
-            }
-            catch (Error error)
-            {
             }
 
             return output_keys.to_array();
