@@ -216,7 +216,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void save()
+        public override void save() throws Error
 
             requires(file != null)
             requires(m_key_file != null)

@@ -62,6 +62,6 @@ namespace Geda3
         /**
          * Save the project
          */
-        public abstract void save();
+        public abstract void save() throws Error;
     }
 }

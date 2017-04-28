@@ -278,7 +278,7 @@ namespace Geda3
         /**
          * Save this project
          */
-        public void save() throws FileError
+        public void save() throws Error
 
             requires(m_storage != null)
 
