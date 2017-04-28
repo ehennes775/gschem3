@@ -39,7 +39,6 @@ namespace Geda3
             catch (Error error)
             {
                 critical(error.message);
-                s_schematic_key = null;
             }
         }
 
@@ -256,7 +255,7 @@ namespace Geda3
         /**
          * Checks if a key represents a schematic file
          */
-        private static Regex s_schematic_key;
+        private static Regex s_schematic_key = null;
 
 
         /**
