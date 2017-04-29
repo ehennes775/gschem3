@@ -8,6 +8,12 @@ namespace Geda3
         RenamableItem
     {
         /**
+         * Requests an update from the persistence layer.
+         */
+        public signal void request_update();
+
+
+        /**
          * Indicates the file was stored with an absolute path in
          * the persistence layer.
          */
@@ -158,6 +164,8 @@ namespace Geda3
                 );
 
             file = new_file;
+
+            request_update();
         }
 
 

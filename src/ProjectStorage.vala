@@ -86,18 +86,6 @@ namespace Geda3
 
 
         /**
-         * Updates data in the project with the values from this item
-         *
-         * This function only updates the data in memory and does not
-         * write the values to storage. The save function must be
-         * called to write the values to storage.
-         *
-         * @param item The values to update in the project
-         */
-        public abstract void update_file(ProjectFile item);
-
-
-        /**
          * Save the project
          *
          * Writes the values in memory to storage.

@@ -131,6 +131,11 @@ namespace Geda3
                 critical(error.message);
             }
 
+            foreach (var file in files)
+            {
+                file.request_update.connect(update_file);
+            }
+
             return files.to_array();
         }
 
@@ -150,6 +155,8 @@ namespace Geda3
                 var key = make_schematic_key();
 
                 item = new ProjectFile(key, file, false);
+
+                item.request_update.connect(update_file);
 
                 update_file(item);
             }
@@ -184,46 +191,6 @@ namespace Geda3
             {
                 critical(error.message);
             }
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override void update_file(ProjectFile item)
-
-            requires(item.key != null)
-            requires(item.file != null)
-            requires(folder != null)
-            requires(m_key_file != null)
-
-        {
-            var file = item.file;
-            var path = file.get_path();
-
-            if (path != null)
-            {
-                if (file.has_prefix(folder) || !item.absolute)
-                {
-                    path = folder.get_relative_path(file) ?? path;
-                }
-
-                m_key_file.set_string(
-                    SCHEMATIC_GROUP,
-                    item.key,
-                    path
-                    );
-            }
-            else
-            {
-                m_key_file.set_string(
-                    SCHEMATIC_GROUP,
-                    item.key,
-                    file.get_uri()
-                    );
-            }
-
-            changed = true;
         }
 
 
@@ -359,6 +326,52 @@ namespace Geda3
             }
 
             return current_name;
+        }
+
+
+        /**
+         * Updates data in the project with the values from this item
+         *
+         * This function only updates the data in memory and does not
+         * write the values to storage. The save function must be
+         * called to write the values to storage.
+         *
+         * @param item The values to update in the project
+         */
+        private void update_file(ProjectFile item)
+
+            requires(item.key != null)
+            requires(item.file != null)
+            requires(folder != null)
+            requires(m_key_file != null)
+
+        {
+            var file = item.file;
+            var path = file.get_path();
+
+            if (path != null)
+            {
+                if (file.has_prefix(folder) || !item.absolute)
+                {
+                    path = folder.get_relative_path(file) ?? path;
+                }
+
+                m_key_file.set_string(
+                    SCHEMATIC_GROUP,
+                    item.key,
+                    path
+                    );
+            }
+            else
+            {
+                m_key_file.set_string(
+                    SCHEMATIC_GROUP,
+                    item.key,
+                    file.get_uri()
+                    );
+            }
+
+            changed = true;
         }
     }
 }
