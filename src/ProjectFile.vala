@@ -180,8 +180,10 @@ namespace Geda3
          */
         private static string s_attributes = string.join(
             ",",
-            FileAttribute.STANDARD_DISPLAY_NAME,
-            FileAttribute.ID_FILE
+            FileAttribute.ACCESS_CAN_READ,
+            FileAttribute.ACCESS_CAN_RENAME,
+            FileAttribute.ID_FILE,
+            FileAttribute.STANDARD_DISPLAY_NAME
             );
 
 
@@ -205,8 +207,14 @@ namespace Geda3
                         FileAttribute.ID_FILE
                         );
 
-                    can_open = true;
-                    can_rename = true;
+                    can_open = file_info.get_attribute_boolean(
+                        FileAttribute.ACCESS_CAN_READ
+                        );
+
+                    can_rename = file_info.get_attribute_boolean(
+                        FileAttribute.ACCESS_CAN_RENAME
+                        );
+
                     icon = ProjectIcon.SCHEMATIC;
                     tab = file_info.get_display_name();
                 }
