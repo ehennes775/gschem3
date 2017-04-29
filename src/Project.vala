@@ -117,6 +117,8 @@ namespace Geda3
                 BindingFlags.SYNC_CREATE
                 );
 
+            m_storage.item_removed.connect(on_item_removed);
+
             reload_files();
         }
 
@@ -134,9 +136,9 @@ namespace Geda3
             requires(m_storage != null)
 
         {
-            unowned Node<ProjectItem>? node = find_by_file(file);
+            var item = find_by_file(file);
 
-            if (node == null)
+            if (item == null)
             {
                 var new_item = m_storage.insert_file(file);
 
@@ -245,62 +247,14 @@ namespace Geda3
          */
         public void remove_file(File file)
         {
-            unowned Node<ProjectItem>? node = find_by_file(file);
+            var item = find_by_file(file);
 
-            if (node != null)
+            var removable_item = item as Geda3.RemovableItem;
+
+            if ((removable_item != null) && (removable_item.can_remove))
             {
-                remove_node(node);
+                removable_item.remove();
             }
-        }
-
-
-        /**
-         * Remove an item from the project
-         *
-         * @param item The item to remove from the project
-         */
-        public void remove_item(ProjectItem item)
-        {
-            unowned Node<ProjectItem>? node = m_root.find(
-                TraverseType.LEVEL_ORDER,
-                TraverseFlags.ALL,
-                item
-                );
-
-            if (node != null)
-            {
-                remove_node(node);
-            }
-        }
-
-
-        /**
-         * Remove a node from the project
-         *
-         * @param file The node to remove from the project
-         */
-        public void remove_node(void* node)
-
-            requires(node != null)
-
-        {
-            var temp = (Node<ProjectItem>*) node;
-
-            unowned Node<ProjectItem>? parent = temp->parent;
-            return_if_fail(parent != null);
-
-            var index = parent.child_position(temp);
-            return_if_fail(index >= 0);
-
-            var item = temp->data as RemovableItem;
-            return_if_fail(item != null);
-            return_if_fail(item.can_remove);
-
-            item.remove();
-
-            temp->unlink();
-
-            node_removed(parent, index);
         }
 
 
@@ -354,11 +308,9 @@ namespace Geda3
         /**
          * Find a file in the project tree
          *
-         * @return This function returns the node containing the item
-         * that represents the given file. If not found, this function
-         * returns null.
+         * @return The ProjectFile containing the given file
          */
-        private unowned Node<ProjectItem>? find_by_file(File file)
+        private ProjectFile find_by_file(File file)
 
             requires(m_schematics != null)
 
@@ -382,7 +334,7 @@ namespace Geda3
 
                 if ((item != null) && (item.file_id == file_id))
                 {
-                    return iter;
+                    return item;
                 }
 
                 iter = iter.next;
@@ -404,9 +356,7 @@ namespace Geda3
 
             while (child != null)
             {
-                child.unlink();
-
-                node_removed(m_schematics, 0);
+                remove_node(child);
 
                 child = m_schematics.first_child();
             }
@@ -435,6 +385,47 @@ namespace Geda3
             {
                 node_changed(node);
             }
+        }
+
+
+        /**
+         * Removes an item from the project
+         *
+         * @param item The item to remove from the project
+         */
+        private void on_item_removed(ProjectItem item)
+        {
+            unowned Node<ProjectItem>? node = m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                item
+                );
+
+            if (node != null)
+            {
+                remove_node(node);
+            }
+        }
+
+
+        /**
+         * Remove a node from the project
+         *
+         * @param file The node to remove from the project
+         */
+        private void remove_node(Node<ProjectItem> node)
+
+            requires(node.parent != null)
+
+        {
+            unowned Node<ProjectItem>? parent = node.parent;
+
+            var index = parent.child_position(node);
+            return_if_fail(index >= 0);
+
+            node.unlink();
+
+            node_removed(parent, index);
         }
     }
 }

@@ -620,17 +620,16 @@ namespace Gschem3
          * @param parameter unused
          */
         private void on_remove_files(SimpleAction action, Variant? parameter)
-
-            requires(project != null)
-
         {
             var items = get_selected_items();
 
             foreach (var item in items)
             {
-                if (is_removable(item))
+                var removable_item = item as Geda3.RemovableItem;
+
+                if ((removable_item != null) && (removable_item.can_remove))
                 {
-                    project.remove_item(item);
+                    removable_item.remove();
                 }
             }
         }

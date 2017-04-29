@@ -9,6 +9,12 @@ namespace Geda3
     public abstract class ProjectStorage : Object
     {
         /**
+         * Indicates an item has been removed from storage
+         */
+        public signal void item_removed(ProjectItem item);
+
+
+        /**
          * Indicates the project has changed since last saved
          */
         public abstract bool changed

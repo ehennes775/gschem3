@@ -332,6 +332,7 @@ namespace Geda3
                     );
 
                 changed = true;
+                item_removed(item);
             }
             catch (Error error)
             {
