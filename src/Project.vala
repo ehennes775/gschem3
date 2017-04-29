@@ -296,7 +296,7 @@ namespace Geda3
             return_if_fail(item != null);
             return_if_fail(item.can_remove);
 
-            item.remove(m_storage);
+            item.remove();
 
             temp->unlink();
 

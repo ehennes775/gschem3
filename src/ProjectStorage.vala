@@ -71,21 +71,6 @@ namespace Geda3
 
 
         /**
-         * Remove a file from the project
-         *
-         * Removes the file item from memory and does not write the
-         * memory to storage. The save function must be
-         * called to write the values to storage.
-         *
-         * This function does not delete the file, represented by the
-         * item, from disk.
-         *
-         * @param key The key of the file to remove
-         */
-        public abstract void remove_file(string key);
-
-
-        /**
          * Save the project
          *
          * Writes the values in memory to storage.

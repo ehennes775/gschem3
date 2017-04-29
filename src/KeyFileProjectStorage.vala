@@ -133,6 +133,7 @@ namespace Geda3
 
             foreach (var file in files)
             {
+                file.request_remove.connect(remove_file);
                 file.request_update.connect(update_file);
             }
 
@@ -156,6 +157,7 @@ namespace Geda3
 
                 item = new ProjectFile(key, file, false);
 
+                item.request_remove.connect(remove_file);
                 item.request_update.connect(update_file);
 
                 update_file(item);
@@ -166,31 +168,6 @@ namespace Geda3
             }
 
             return item;
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override void remove_file(string key)
-
-            requires(m_key_file != null)
-            requires(m_key_file.has_group(SCHEMATIC_GROUP))
-
-        {
-            try
-            {
-                m_key_file.remove_key(
-                    SCHEMATIC_GROUP,
-                    key
-                    );
-
-                changed = true;
-            }
-            catch (Error error)
-            {
-                critical(error.message);
-            }
         }
 
 
@@ -326,6 +303,40 @@ namespace Geda3
             }
 
             return current_name;
+        }
+
+
+        /**
+         * Remove a file from the project
+         *
+         * Removes the file item from memory and does not write the
+         * memory to storage. The save function must be
+         * called to write the values to storage.
+         *
+         * This function does not delete the file, represented by the
+         * item, from disk.
+         *
+         * @param key The key of the file to remove
+         */
+        private void remove_file(ProjectFile item)
+
+            requires(m_key_file != null)
+            requires(m_key_file.has_group(SCHEMATIC_GROUP))
+
+        {
+            try
+            {
+                m_key_file.remove_key(
+                    SCHEMATIC_GROUP,
+                    item.key
+                    );
+
+                changed = true;
+            }
+            catch (Error error)
+            {
+                critical(error.message);
+            }
         }
 
 

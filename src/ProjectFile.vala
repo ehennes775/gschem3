@@ -8,7 +8,13 @@ namespace Geda3
         RenamableItem
     {
         /**
-         * Requests an update from the persistence layer.
+         * Requests removal from the persistence layer
+         */
+        public signal void request_remove();
+
+
+        /**
+         * Requests an update from the persistence layer
          */
         public signal void request_update();
 
@@ -138,9 +144,9 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public void remove(ProjectStorage storage)
+        public void remove()
         {
-            storage.remove_file(key);
+            request_remove();
         }
 
 
