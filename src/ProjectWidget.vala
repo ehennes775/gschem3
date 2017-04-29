@@ -241,6 +241,12 @@ namespace Gschem3
 
 
         /**
+         * A dialog for adding files to the project
+         */
+        private Gtk.FileChooserDialog m_add_files_dialog = null;
+
+
+        /**
          * The cell renderer for the name in the tree view
          */
         [GtkChild(name="column-name-renderer-name")]
@@ -525,33 +531,36 @@ namespace Gschem3
         {
             warn_if_fail(can_add_files);
 
-            var dialog = new Gtk.FileChooserDialog(
-                "Add Files to Project",
-                get_toplevel() as Gtk.Window,
-                Gtk.FileChooserAction.OPEN,
-                "_Cancel", Gtk.ResponseType.CANCEL,
-                "_Open", Gtk.ResponseType.ACCEPT
-                );
-
-            foreach (var filter in s_add_filters)
+            if (m_add_files_dialog == null)
             {
-                dialog.add_filter(filter);
+                m_add_files_dialog = new Gtk.FileChooserDialog(
+                    "Add Files to Project",
+                    get_toplevel() as Gtk.Window,
+                    Gtk.FileChooserAction.OPEN,
+                    "_Cancel", Gtk.ResponseType.CANCEL,
+                    "_Open", Gtk.ResponseType.ACCEPT
+                    );
+
+                foreach (var filter in s_add_filters)
+                {
+                    m_add_files_dialog.add_filter(filter);
+                }
+
+                m_add_files_dialog.select_multiple = true;
             }
 
-            dialog.select_multiple = true;
-
-            var response = dialog.run();
+            var response = m_add_files_dialog.run();
 
             if (response == Gtk.ResponseType.ACCEPT)
             {
                 var files = new Gee.ArrayList<File>();
 
-                dialog.get_files().foreach((file) => { files.add(file); });
+                m_add_files_dialog.get_files().foreach((file) => { files.add(file); });
 
                 add_files(files.to_array());
             }
 
-            dialog.destroy();
+            m_add_files_dialog.hide();
         }
 
 
