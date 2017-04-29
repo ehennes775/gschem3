@@ -218,6 +218,12 @@ namespace Gschem3
 
 
         /**
+         * The file filters used by the add files dialog
+         */
+        private static Gtk.FileFilter[] s_add_filters = create_filters();
+
+
+        /**
          * The drag and drop targets
          *
          * Currently, an empty list since drag_dest_set cannot accept
@@ -276,6 +282,27 @@ namespace Gschem3
             {
                 project.add_file(file);
             }
+        }
+
+
+        /**
+         * Create the file filters used by the add files dialog
+         */
+        private static Gtk.FileFilter[] create_filters()
+        {
+            var filters = new Gee.ArrayList<Gtk.FileFilter>();
+
+            var all = new Gtk.FileFilter();
+            all.set_filter_name("All Files");
+            all.add_pattern("*.*");
+            filters.add(all);
+
+            var schematics = new Gtk.FileFilter();
+            schematics.set_filter_name("Schematics");
+            schematics.add_pattern(@"*$(SchematicWindow.SCHEMATIC_EXTENSION)");
+            filters.add(schematics);
+
+            return filters.to_array();
         }
 
 
@@ -505,6 +532,11 @@ namespace Gschem3
                 "_Cancel", Gtk.ResponseType.CANCEL,
                 "_Open", Gtk.ResponseType.ACCEPT
                 );
+
+            foreach (var filter in s_add_filters)
+            {
+                dialog.add_filter(filter);
+            }
 
             dialog.select_multiple = true;
 
