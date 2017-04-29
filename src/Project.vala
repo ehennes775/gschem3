@@ -8,6 +8,14 @@ namespace Geda3
     public class Project : Object
     {
         /**
+         * Indicates a node changed in the project
+         *
+         * @param node The new node inserted into the project
+         */
+        public signal void node_changed(void* node);
+
+
+        /**
          * Indicates a new node inserted into the project
          *
          * @param node The new node inserted into the project
@@ -68,9 +76,13 @@ namespace Geda3
         {
             m_root = new Node<ProjectItem>(s_dummy);
 
+            var adapter = new Geda3.ProjectItemAdapter(this);
+
+            adapter.item_changed.connect(on_item_changed);
+
             m_project = m_root.append(
                 new Node<ProjectItem>(
-                    new Geda3.ProjectItemAdapter(this)
+                    adapter
                     )
                 );
 
@@ -404,6 +416,24 @@ namespace Geda3
                 m_schematics.append(
                     new Node<ProjectItem>(item)
                     );
+            }
+        }
+
+
+        private void on_item_changed(ProjectItem item)
+
+            requires(item != null)
+
+        {
+            unowned Node<ProjectItem>? node = m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                item
+                );
+
+            if (node != null)
+            {
+                node_changed(node);
             }
         }
     }

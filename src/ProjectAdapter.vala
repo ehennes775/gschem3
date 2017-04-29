@@ -51,6 +51,7 @@ namespace Gschem3
             {
                 if (m_project != null)
                 {
+                    m_project.node_changed.disconnect(on_node_changed);
                     m_project.node_inserted.disconnect(on_node_inserted);
                     m_project.node_removed.disconnect(on_node_removed);
                 }
@@ -60,6 +61,7 @@ namespace Gschem3
 
                 if (m_project != null)
                 {
+                    m_project.node_changed.connect(on_node_changed);
                     m_project.node_inserted.connect(on_node_inserted);
                     m_project.node_removed.connect(on_node_removed);
                 }
@@ -575,6 +577,24 @@ namespace Gschem3
 
 
         /**
+         * Signal handler when a node changes appearance
+         *
+         * @param node The node that changed
+         */
+        private void on_node_changed(void* node)
+        {
+            var iter = Gtk.TreeIter();
+            var success = make_iter(out iter, node);
+
+            return_if_fail(success);
+
+            var path = get_path(iter);
+
+            row_changed(path, iter);
+        }
+
+
+        /**
          * Signal handler when a node is added to the project
          *
          * @param node The node added to the project
@@ -590,6 +610,7 @@ namespace Gschem3
 
             row_inserted(path, iter);
         }
+
 
         /**
          * Signal handler when a node is removed from the project
