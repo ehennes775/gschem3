@@ -563,6 +563,18 @@ namespace Gschem3
             requires(notebook != null)
 
         {
+            if (project != null)
+            {
+                try
+                {
+                    project.save();
+                }
+                catch (Error error)
+                {
+                    ErrorDialog.show_with_file(this, error, project.file);
+                }
+            }
+
             var page_count = notebook.get_n_pages();
 
             for (var page_index = 0; page_index < page_count; page_index++)
