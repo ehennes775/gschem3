@@ -91,6 +91,12 @@
                         <attribute name="action">win.project-remove-files</attribute>
                     </item>
                 </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Rename</attribute>
+                        <attribute name="action">win.project-rename-item</attribute>
+                    </item>
+                </section>
             </submenu>
         </section>
     </menu>

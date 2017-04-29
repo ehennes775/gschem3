@@ -3,7 +3,9 @@ namespace Geda3
     /**
      * A file in the project tree
      */
-    public class ProjectFile : ProjectItem, RemovableItem
+    public class ProjectFile : ProjectItem,
+        RemovableItem,
+        RenamableItem
     {
         /**
          * Indicates the file was stored with an absolute path in
@@ -34,6 +36,16 @@ namespace Geda3
             get;
             protected set;
             default = true;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool can_rename
+        {
+            get;
+            protected set;
         }
 
 
@@ -157,12 +169,14 @@ namespace Geda3
                         );
 
                     can_open = true;
+                    can_rename = true;
                     icon = ProjectIcon.SCHEMATIC;
                     tab = file_info.get_display_name();
                 }
                 else
                 {
                     can_open = false;
+                    can_rename = false;
                     file_id = null;
                     icon = ProjectIcon.BLANK;
                     tab = "Unknown";
@@ -171,6 +185,7 @@ namespace Geda3
             catch (Error error)
             {
                 can_open = false;
+                can_rename = false;
                 file_id = null;
                 icon = ProjectIcon.MISSING;
 

@@ -50,6 +50,20 @@ namespace Gschem3
 
 
         /**
+         * Indicates the selected item can be renamed
+         */
+        public bool can_rename_item
+        {
+            get;
+            private set;
+
+            // The default value establishes the initial value of the
+            // "enabled" property on the action.
+            default = false;
+        }
+
+
+        /**
          * The project this widget views
          */
         public Geda3.Project? project
@@ -167,6 +181,13 @@ namespace Gschem3
                 "enabled",
                 BindingFlags.SYNC_CREATE
                 );
+
+            bind_property(
+                "can-rename-item",
+                map.lookup_action("project-rename-item"),
+                "enabled",
+                BindingFlags.SYNC_CREATE
+                );
         }
 
 
@@ -187,7 +208,8 @@ namespace Gschem3
         {
             { "project-open-files", on_open_files, null, null, null },
             { "project-add-files", on_add_files, null, null, null },
-            { "project-remove-files", on_remove_files, null, null, null }
+            { "project-remove-files", on_remove_files, null, null, null },
+            { "project-rename-item", on_rename_item, null, null, null }
         };
 
 
@@ -361,6 +383,23 @@ namespace Gschem3
             return (
                 (file_item != null) &&
                 file_item.can_remove
+                );
+        }
+
+
+        /**
+         * Determines if the item is renamable
+         *
+         * @param item The item to check if it can be renamed
+         * @return This function returns true when the item is renamable
+         */
+        private bool is_renamable(Geda3.ProjectItem item)
+        {
+            var renamable_item = item as Geda3.RenamableItem;
+
+            return (
+                (renamable_item != null) &&
+                renamable_item.can_rename
                 );
         }
 
@@ -564,6 +603,21 @@ namespace Gschem3
 
 
         /**
+         * Rename an item in the project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_rename_item(SimpleAction action, Variant? parameter)
+
+            requires(project != null)
+
+        {
+            var items = get_selected_items();
+        }
+
+
+        /**
          * Update the senstitivities for the actions in this widget
          */
         private void update_sensitivities()
@@ -578,6 +632,11 @@ namespace Gschem3
             can_remove_files = Geda3.GeeEx.any_match(
                 items,
                 is_removable
+                );
+
+            can_rename_item = Geda3.GeeEx.one_match(
+                items,
+                is_renamable
                 );
         }
     }
