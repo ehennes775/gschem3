@@ -1,7 +1,7 @@
 namespace Geda3
 {
     /**
-     * A file in the project tree
+     * Represents a file in the project tree
      */
     public class ProjectFile : ProjectItem,
         RemovableItem,
@@ -21,7 +21,7 @@ namespace Geda3
 
         /**
          * Indicates the file was stored with an absolute path in
-         * the persistence layer.
+         * the persistence layer
          */
         public bool absolute
         {
@@ -32,6 +32,10 @@ namespace Geda3
 
         /**
          * Indicates this file can be opened
+         *
+         * This property is set by the notify signal handler of the
+         * {@link file} property. Changing the {@link file} property
+         * will update this value.
          */
         public bool can_open
         {
@@ -47,12 +51,20 @@ namespace Geda3
         {
             get;
             protected set;
+
+            // Currently, project file items are always removable. This
+            // may change in the future when the persistence layer
+            // supports read-only projects.
             default = true;
         }
 
 
         /**
          * {@inheritDoc}
+         *
+         * This property is set by the notify signal handler of the
+         * {@link file} property. Changing the {@link file} property
+         * will update this value.
          */
         public bool can_rename
         {
@@ -62,12 +74,16 @@ namespace Geda3
 
 
         /**
-         * The underlying file this item refers to
+         * The underlying file this item represents
          */
         public File? file
         {
             get;
             set;
+
+            // Setting the default to null allows the signal handlers
+            // to run and establish initial values for other
+            // properties.
             default = null;
         }
 
@@ -77,6 +93,10 @@ namespace Geda3
          *
          * If this property contains null, then there is no underlying
          * file or an error occured.
+         *
+         * This property is set by the notify signal handler of the
+         * {@link file} property. Changing the {@link file} property
+         * will update this value.
          */
         public string? file_id
         {
@@ -87,6 +107,10 @@ namespace Geda3
 
         /**
          * {@inheritDoc}
+         *
+         * This property is set by the notify signal handler of the
+         * {@link file} property. Changing the {@link file} property
+         * will update this value.
          */
         public override ProjectIcon icon
         {
@@ -96,7 +120,11 @@ namespace Geda3
 
 
         /**
-         * A unique string identifying this item
+         * Provides a unique string identifying this item to the
+         * persistence layer
+         *
+         * This value must remain the same througout the lifespan of
+         * this object.
          */
         public string key
         {
@@ -107,6 +135,13 @@ namespace Geda3
 
         /**
          * {@inheritDoc}
+         *
+         * To facilitate renaming the file, this property contains the
+         * {@link GLib.FileAttribute.STANDARD_EDIT_NAME}.
+         *
+         * This property is set by the notify signal handler of the
+         * {@link file} property. Changing the {@link file} property
+         * will update this value.
          */
         public override string tab
         {
@@ -125,10 +160,11 @@ namespace Geda3
 
 
         /**
-         * Initialize a new instance with a file
+         * Initialize an instance
          *
-         * @param key A unique string identifying this item
-         * @param file The file for this item
+         * @param key A unique string identifying this item to the
+         * persistence layer
+         * @param file The underlying file this item represents
          * @param absolute The persistence layer uses an abolute path
          */
         public ProjectFile(string key, File file, bool absolute)
@@ -146,49 +182,49 @@ namespace Geda3
          */
         public void remove()
         {
+            warn_if_fail(can_remove);
+
             request_remove();
         }
 
 
         /**
          * {@inheritDoc}
+         *
+         * @param new_name The new filename, in UTF-8. This value can
+         * originate from UI widgets.
          */
         public void rename(string new_name) throws Error
 
             requires(file != null)
 
         {
-            var folder = file.get_parent();
+            warn_if_fail(can_rename);
 
-            var new_file = folder.get_child_for_display_name(
-                new_name
-                );
+            if (new_name != tab)
+            {
+                file = file.set_display_name(new_name);
 
-            file.move(
-                new_file,
-                FileCopyFlags.NO_FALLBACK_FOR_MOVE
-                );
-
-            file = new_file;
-
-            request_update();
+                request_update();
+            }
         }
 
 
         /**
-         * The attributes needed for the query in on_notify_file
+         * The attributes needed for the file info query in
+         * {@link on_notify_file()}.
          */
         private static string s_attributes = string.join(
             ",",
             FileAttribute.ACCESS_CAN_READ,
             FileAttribute.ACCESS_CAN_RENAME,
             FileAttribute.ID_FILE,
-            FileAttribute.STANDARD_DISPLAY_NAME
+            FileAttribute.STANDARD_EDIT_NAME
             );
 
 
         /**
-         * Signal handler when the file changes
+         * A signal handler when the {@link file} property changes
          *
          * @param param unused
          */
@@ -216,7 +252,7 @@ namespace Geda3
                         );
 
                     icon = ProjectIcon.SCHEMATIC;
-                    tab = file_info.get_display_name();
+                    tab = file_info.get_edit_name();
                 }
                 else
                 {
