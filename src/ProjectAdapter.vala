@@ -13,6 +13,10 @@ namespace Gschem3
 
         /**
          * An enumeration of the columns in the tree model
+         *
+         * The values of this enumeration are also hardcoded in the
+         * ui.xml files. Changing these values will require updating
+         * the ui.xml files also.
          */
         public enum Column
         {
@@ -30,6 +34,11 @@ namespace Gschem3
              * The Geda3.ProjectItem
              */
             ITEM,
+
+            /**
+             * Indicates the item can be renamed
+             */
+            RENAMABLE,
 
             /**
              * The number of columns in this tree model
@@ -134,6 +143,9 @@ namespace Gschem3
 
                 case Column.ITEM:
                     return typeof(Geda3.ProjectItem);
+
+                case Column.RENAMABLE:
+                    return typeof(bool);
 
                 default:
                     return_val_if_reached(Type.INVALID);
@@ -260,6 +272,10 @@ namespace Gschem3
 
                 case Column.ITEM:
                     contents = item;
+                    break;
+
+                case Column.RENAMABLE:
+                    contents = Geda3.ProjectItem.is_renamable(item);
                     break;
 
                 default:

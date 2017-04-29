@@ -13,5 +13,11 @@ namespace Geda3
             get;
             protected set;
         }
+
+
+        /**
+         * Indicates this item can be renamed
+         */
+        public abstract void rename(string new_name) throws Error;
     }
 }

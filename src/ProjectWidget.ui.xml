@@ -20,6 +20,7 @@
                             <object class="GtkCellRendererText" id="column-name-renderer-name">
                             </object>
                             <attributes>
+                                <attribute name="editable">3</attribute>
                                 <attribute name="text">1</attribute>
                             </attributes>
                         </child>

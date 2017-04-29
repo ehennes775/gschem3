@@ -139,6 +139,29 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void rename(string new_name) throws Error
+
+            requires(file != null)
+
+        {
+            var folder = file.get_parent();
+
+            var new_file = folder.get_child_for_display_name(
+                new_name
+                );
+
+            file.move(
+                new_file,
+                FileCopyFlags.NO_FALLBACK_FOR_MOVE
+                );
+
+            file = new_file;
+        }
+
+
+        /**
          * The attributes needed for the query in on_notify_file
          */
         private static string s_attributes = string.join(

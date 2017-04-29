@@ -133,6 +133,10 @@ namespace Gschem3
             selection = tree.get_selection();
             selection.mode = Gtk.SelectionMode.MULTIPLE;
             selection.changed.connect(update_sensitivities);
+
+            // set up signal handling for renaming items
+
+            m_renderer.edited.connect(on_item_edited);
         }
 
 
@@ -228,6 +232,13 @@ namespace Gschem3
          * The context menu for the project widget
          */
         private ProjectAdapter m_adapter;
+
+
+        /**
+         * The cell renderer for the name in the tree view
+         */
+        [GtkChild(name="column-name-renderer-name")]
+        private Gtk.CellRendererText m_renderer;
 
 
         /**
@@ -388,23 +399,6 @@ namespace Gschem3
 
 
         /**
-         * Determines if the item is renamable
-         *
-         * @param item The item to check if it can be renamed
-         * @return This function returns true when the item is renamable
-         */
-        private bool is_renamable(Geda3.ProjectItem item)
-        {
-            var renamable_item = item as Geda3.RenamableItem;
-
-            return (
-                (renamable_item != null) &&
-                renamable_item.can_rename
-                );
-        }
-
-
-        /**
          * Signal handler for when the tree view needs a complete
          * refresh
          */
@@ -530,6 +524,46 @@ namespace Gschem3
 
 
         /**
+         * An item has been renamed by the user
+         *
+         * @param path_string the string representation of the path to
+         * the item
+         * @param new_name The new name for the item
+         */
+        private void on_item_edited(string path_string, string new_name)
+
+            requires(m_adapter != null)
+
+        {
+            try
+            {
+                var path = new Gtk.TreePath.from_string(path_string);
+
+                Gtk.TreeIter iter;
+
+                var success = m_adapter.get_iter(out iter, path);
+                return_if_fail(success);
+
+                Geda3.ProjectItem? item = null;
+
+                m_adapter.get(
+                    iter,
+                    ProjectAdapter.Column.ITEM, &item
+                    );
+
+                var renamable_item = item as Geda3.RenamableItem;
+                return_if_fail(renamable_item != null);
+
+                renamable_item.rename(new_name);
+            }
+            catch (Error error)
+            {
+                critical(error.message);
+            }
+        }
+
+
+        /**
          * Signal handler for when the project changes
          *
          * @param param unused
@@ -613,7 +647,6 @@ namespace Gschem3
             requires(project != null)
 
         {
-            var items = get_selected_items();
         }
 
 
@@ -636,7 +669,7 @@ namespace Gschem3
 
             can_rename_item = Geda3.GeeEx.one_match(
                 items,
-                is_renamable
+                Geda3.ProjectItem.is_renamable
                 );
         }
     }

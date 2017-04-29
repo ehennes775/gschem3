@@ -42,6 +42,27 @@ namespace Geda3
 
 
         /**
+         * Determines if this item is renamable
+         *
+         * Currently, this function is static so it can be passed in
+         * as a Predicate<G>.
+         *
+         * @param item The item to check if it can be renamed
+         * @return This function returns true when this item is
+         * renamable
+         */
+        public static bool is_renamable(ProjectItem item)
+        {
+            var renamable_item = item as Geda3.RenamableItem;
+
+            return (
+                (renamable_item != null) &&
+                renamable_item.can_rename
+                );
+        }
+
+
+        /**
          * Signal handler when a property changes
          *
          * This signal handler executes when a property that changes
