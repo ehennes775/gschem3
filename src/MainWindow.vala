@@ -77,7 +77,7 @@ namespace Gschem3
         /**
          * Construct the main window
          *
-         * @param the file to open in the new window
+         * @param file the file to open in the new window
          */
         public MainWindow(File? file = null)
         {
@@ -226,7 +226,7 @@ namespace Gschem3
          * A current project that is open should be closed before
          * calling this function.
          *
-         * @param files the project file to open
+         * @param file the project file to open
          */
         public void open_project(File file)
 

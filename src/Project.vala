@@ -216,7 +216,7 @@ namespace Geda3
         /**
          * Get the number of children of a parent
          *
-         * @param node The iterator for the parent
+         * @param parent The iterator for the parent
          */
         public int n_children(void *parent)
         {
@@ -229,7 +229,7 @@ namespace Geda3
         /**
          * Get an indexed child of a parent
          *
-         * @param node The iterator for the parent
+         * @param parent The iterator for the parent
          * @param index The index of the child
          */
         public void* nth_child(void* parent, int index)

@@ -401,7 +401,7 @@ namespace Gschem3
         /**
          * Get an iterator to the indexed child of a parent
          *
-         * ||''return''||''first''||''parent''||''index''||''description''             ||
+         * ||''return''||''child''||''parent''||''index''||''description''             ||
          * ||true      ||valid    ||null      ||valid    ||First iterator of the root  ||
          * ||true      ||valid    ||valid     ||valid    ||First iterator of the parent||
          * ||false     ||invalid  ||null      ||valid    ||Root has no children        ||
@@ -409,7 +409,7 @@ namespace Gschem3
          * ||false     ||invalid  ||invalid   ||         ||Logic error                 ||
          * ||false     ||invalid  ||          ||invalid  ||Logic error                 ||
          *
-         * @param first An iterator to the indexed child of the parent
+         * @param child An iterator to the indexed child of the parent
          * or invalid if the parent has no children. This invalid
          * iterator is indicated by the return value.
          * @param parent An iterator to the parent or null if the root

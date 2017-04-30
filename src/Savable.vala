@@ -18,7 +18,7 @@ namespace Gschem3
         /**
          * Save the document in the window
          *
-         * @param window The transient parent for dialogs
+         * @param parent The transient parent for dialogs
          */
         public abstract void save(Gtk.Window? parent) throws Error;
 
@@ -26,7 +26,7 @@ namespace Gschem3
         /**
          * Save the document in the window with another filename
          *
-         * @param window The transient parent for dialogs
+         * @param parent The transient parent for dialogs
          */
         public abstract void save_as(Gtk.Window? parent) throws Error;
     }

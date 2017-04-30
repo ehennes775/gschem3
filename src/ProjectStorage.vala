@@ -1,10 +1,14 @@
 namespace Geda3
 {
     /**
-     * Provides an interface for project storage
+     * Provides a persistence layer for storing projects
      *
-     * This class provides an interface for implementing a persistence
-     * layer for projects.
+     * This class uses the Repository pattern from Martin Fowler's
+     * book, with exceptions. Instead of using functions for updating
+     * and removing objects, derived classes connect to signals on
+     * objects that originate from their repository.
+     *
+     * [[https://www.martinfowler.com/eaaCatalog/repository.html]]
      */
     public abstract class ProjectStorage : Object
     {

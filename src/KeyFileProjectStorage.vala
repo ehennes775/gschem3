@@ -1,7 +1,7 @@
 namespace Geda3
 {
     /**
-     * Implements a persistence layer for projects in a key file
+     * Provides a persistence layer for storing projects in key files
      */
     public class KeyFileProjectStorage : ProjectStorage
     {
