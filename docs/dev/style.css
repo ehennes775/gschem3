@@ -1,9 +1,6 @@
 * {
-    color: #111;
-    font-family: "Open Sans", "Droid Sans", Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-	background-color: #252525;
+	font-family: 'Times New Roman';
+	font-size: 12pt;
 }
 
 ul.external_link {
@@ -29,7 +26,7 @@ ul.external_link {
 	padding-bottom: 5px;
 	padding-top: 5px;
 	border-color: #aaaaff;
-	background-color: #151515;
+	background-color: #eeeeff;
 	border-style: solid;
 	border-width: 1px;
 	margin: 10px;
@@ -42,7 +39,7 @@ ul.external_link {
 .main_table {
 	border-collapse: collapse;
 	border: 1px solid #aaaaff;
-	background: #151515;
+	background: #eeeeff;
 	margin-right:auto;
 	margin-left:auto;
 }
@@ -55,7 +52,7 @@ ul.external_link {
 	margin: 10px;
 
 	border-color: #aaaaff;
-	background-color: #151515;
+	background-color: #eeeeff;
 	border-style: solid;
 	border-width: 1px;
 }
@@ -74,7 +71,7 @@ input {
 	font-size: 25px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	background-color: #151515;
+	background-color: #aaaaff;
 	width: 100%;
 }
 
@@ -92,7 +89,7 @@ div {
 
 div.site_footer {
 	text-align: center;
-	background-color: #151515;
+	background-color: #aaaaff;
 	padding-bottom: 5px;
 	padding-top: 5px;
 	width: 100%;
@@ -112,7 +109,7 @@ div.site_navigation {
 	border-color: #aaaaff;
 	border-style: solid;
 	border-width: 1px;
-	background-color: #151515;
+	background-color: #eeeeff;
 }
 
 
@@ -151,7 +148,7 @@ div.main_code_definition {
 
 	font-family: monospace;
 	border-color: #aaaaff;
-	background-color: #151515;
+	background-color: #eeeeff;
 	border-style: solid;
 	border-width: 1px;
 	margin: 10px;
@@ -209,7 +206,7 @@ h3.main_title {
 .main_hr {
 	border: 0;
 	color: #aaaaff;
-	background-color: #151515;
+	background-color: #aaaaff;
 	height: 1px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -489,7 +486,7 @@ a.virtual_method, .description a.virtual_method, .brief_description a.virtual_me
 .navi_hr {
 	border: 0;
 	color: #aaaaff;
-	background-color: #151515;
+	background-color: #aaaaff;
 	height: 1px;
 	margin-left: 10px;
 	margin-right: 10px;
@@ -544,7 +541,7 @@ code {
 .box {
 }
 .box .headline {
-	background-color: #151515;
+	background-color: #eeeeff;
 	border-color: #aaaaff;
 	border-style: solid;
 	border-width: 1px;
