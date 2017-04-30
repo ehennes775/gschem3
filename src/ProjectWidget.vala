@@ -675,6 +675,8 @@ namespace Gschem3
          */
         private void on_remove_files(SimpleAction action, Variant? parameter)
         {
+            warn_if_fail(can_remove_files);
+
             var items = get_selected_items();
 
             foreach (var item in items)
