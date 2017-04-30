@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.KeyFileProjectStorage &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.KeyFileProjectStorage &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="class">KeyFileProjectStorage</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="virtual_property"><a href="Geda3.KeyFileProjectStorage.changed.html">changed</a></li>
+          <li class="virtual_property"><a href="Geda3.KeyFileProjectStorage.file.html">file</a></li>
+          <li class="virtual_property"><a href="Geda3.KeyFileProjectStorage.folder.html">folder</a></li>
+          <li class="creation_method"><a href="Geda3.KeyFileProjectStorage.KeyFileProjectStorage.html">KeyFileProjectStorage</a></li>
+          <li class="creation_method"><a href="Geda3.KeyFileProjectStorage.KeyFileProjectStorage.open.html">KeyFileProjectStorage.open</a></li>
+          <li class="virtual_method"><a href="Geda3.KeyFileProjectStorage.get_files.html">get_files</a></li>
+          <li class="virtual_method"><a href="Geda3.KeyFileProjectStorage.insert_file.html">insert_file</a></li>
+          <li class="virtual_method"><a href="Geda3.KeyFileProjectStorage.save.html">save</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">KeyFileProjectStorage</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        
+        <img class="main_diagram" usemap="#Geda3.KeyFileProjectStorage" alt="Object hierarchy for KeyFileProjectStorage" src="img/Geda3.KeyFileProjectStorage.png"/>
+      
+
+      <map id="Geda3.KeyFileProjectStorage" name="Geda3.KeyFileProjectStorage">
+<area shape="rect" id="node1" href="Geda3.KeyFileProjectStorage.html" title="Geda3.KeyFileProjectStorage" alt="" coords="5,197,244,245"/>
+<area shape="rect" id="node2" href="Geda3.ProjectStorage.html" title="Geda3.ProjectStorage" alt="" coords="35,101,215,149"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">KeyFileProjectStorage</span></b> : <span class="main_type"><a href="Geda3.ProjectStorage.html" class="abstract_class">ProjectStorage</a></span>
+        </div>
+        <div class="description">
+          <p>Implements a persistence layer for projects in a key file</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="virtual_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.KeyFileProjectStorage.changed.html" class="virtual_property">changed</a></b> { <span class="main_keyword">protected</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Indicates the project has changed since last saved</span>
+            </div></li>
+          <li class="virtual_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_type"><span class="interface">File</span></span> <b><a href="Geda3.KeyFileProjectStorage.file.html" class="virtual_property">file</a></b> { <span class="main_keyword">protected</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The project file</span>
+            </div></li>
+          <li class="virtual_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_type"><span class="interface">File</span></span> <b><a href="Geda3.KeyFileProjectStorage.folder.html" class="virtual_property">folder</a></b> { <span class="main_keyword">protected</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The project folder</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.KeyFileProjectStorage.KeyFileProjectStorage.open.html" class="creation_method">KeyFileProjectStorage.open</a></b> (<span class="main_type"><span class="interface">File</span></span> file) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Open an existing key file project</span>
+            </div></li>
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.KeyFileProjectStorage.KeyFileProjectStorage.html" class="creation_method">KeyFileProjectStorage</a></b> ()
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_type"><a href="Geda3.ProjectFile.html" class="class">ProjectFile</a></span>[] <b><a href="Geda3.KeyFileProjectStorage.get_files.html" class="virtual_method">get_files</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Gets all the files in the project</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_type"><a href="Geda3.ProjectFile.html" class="class">ProjectFile</a></span> <b><a href="Geda3.KeyFileProjectStorage.insert_file.html" class="virtual_method">insert_file</a></b> (<span class="main_type"><span class="interface">File</span></span> file)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Inserts a new file into the project</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.KeyFileProjectStorage.save.html" class="virtual_method">save</a></b> () <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Save the project</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline">
+            <div class="text">All known members inherited from class Geda3.ProjectStorage</div>
+            <div class="toggle">
+              <img onclick="toggle_box  (this, 'box-content-7')" src="../coll_open.png">&nbsp;</div>
+            </div>
+            <div class="content" id="box-content-7">
+              <div class="column">
+                <ul class="navi_inline">
+                  <li class="abstract_property"><a href="Geda3.ProjectStorage.changed.html">changed</a></li>
+                  <li class="abstract_property"><a href="Geda3.ProjectStorage.file.html">file</a></li>
+                  <li class="abstract_property"><a href="Geda3.ProjectStorage.folder.html">folder</a></li>
+                </ul>
+              </div>
+              <div class="column">
+                <ul class="navi_inline">
+                  <li class="abstract_method"><a href="Geda3.ProjectStorage.get_files.html">get_files</a></li>
+                  <li class="abstract_method"><a href="Geda3.ProjectStorage.insert_file.html">insert_file</a></li>
+                </ul>
+              </div>
+              <div class="column">
+                <ul class="navi_inline">
+                  <li class="abstract_method"><a href="Geda3.ProjectStorage.save.html">save</a></li>
+                  <li class="signal"><a href="Geda3.ProjectStorage.item_removed.html">item_removed</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="box">
+            <div class="headline">
+              <div class="text">All known members inherited from class GLib.Object</div>
+              <div class="toggle">
+                <img onclick="toggle_box  (this, 'box-content-8')" src="../coll_open.png">&nbsp;</div>
+              </div>
+              <div class="content" id="box-content-8">
+                <div class="column">
+                  <ul class="navi_inline">
+                    <li class="static_method">@new</li>
+                    <li class="static_method">newv</li>
+                    <li class="static_method">new_valist</li>
+                    <li class="method">get_type</li>
+                    <li class="method">get_class</li>
+                    <li class="method">@ref</li>
+                    <li class="method">unref</li>
+                    <li class="method">ref_sink</li>
+                    <li class="method">weak_ref</li>
+                    <li class="method">weak_unref</li>
+                    <li class="method">add_weak_pointer</li>
+                    <li class="method">remove_weak_pointer</li>
+                  </ul>
+                </div>
+                <div class="column">
+                  <ul class="navi_inline">
+                    <li class="method">@get</li>
+                    <li class="method">@set</li>
+                    <li class="method">get_property</li>
+                    <li class="method">set_property</li>
+                    <li class="method">get_data</li>
+                    <li class="method">set_data</li>
+                    <li class="method">set_data_full</li>
+                    <li class="method">steal_data</li>
+                    <li class="method">get_qdata</li>
+                    <li class="method">set_qdata</li>
+                    <li class="method">set_qdata_full</li>
+                    <li class="method">steal_qdata</li>
+                  </ul>
+                </div>
+                <div class="column">
+                  <ul class="navi_inline">
+                    <li class="method">freeze_notify</li>
+                    <li class="method">thaw_notify</li>
+                    <li class="virtual_method">dispose</li>
+                    <li class="virtual_method">constructed</li>
+                    <li class="method">notify_property</li>
+                    <li class="method">connect</li>
+                    <li class="method">disconnect</li>
+                    <li class="method">add_toggle_ref</li>
+                    <li class="method">remove_toggle_ref</li>
+                    <li class="method">bind_property</li>
+                    <li class="signal">notify</li>
+                    <li class="field">ref_count</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><br/>
+        <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+        </div>
+      </body>
+    </html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.Bounds &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.Bounds &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="struct">Bounds</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="creation_method"><a href="Geda3.Bounds.Bounds.html">Bounds</a></li>
+          <li class="creation_method"><a href="Geda3.Bounds.Bounds.with_points.html">Bounds.with_points</a></li>
+          <li class="method"><a href="Geda3.Bounds.contains.html">contains</a></li>
+          <li class="method"><a href="Geda3.Bounds.empty.html">empty</a></li>
+          <li class="method"><a href="Geda3.Bounds.expand.html">expand</a></li>
+          <li class="method"><a href="Geda3.Bounds.union.html">union</a></li>
+          <li class="field"><a href="Geda3.Bounds.max_x.html">max_x</a></li>
+          <li class="field"><a href="Geda3.Bounds.max_y.html">max_y</a></li>
+          <li class="field"><a href="Geda3.Bounds.min_x.html">min_x</a></li>
+          <li class="field"><a href="Geda3.Bounds.min_y.html">min_y</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">Bounds</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Geda3.Bounds" alt="Object hierarchy for Bounds" src="img/Geda3.Bounds.png"/>
+
+      <map id="Geda3.Bounds" name="Geda3.Bounds">
+<area shape="rect" id="node1" href="Geda3.Bounds.html" title="Geda3.Bounds" alt="" coords="5,5,135,53"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">struct</span> <b><span class="struct">Bounds</span></b>
+        </div>
+        <div class="description">
+          <p>Stores a rectangular region</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.Bounds.Bounds.html" class="creation_method">Bounds</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create an empty bounds</span>
+            </div></li>
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.Bounds.Bounds.with_points.html" class="creation_method">Bounds.with_points</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x0, <span class="main_basic_type"><span class="struct">int</span></span> y0, <span class="main_basic_type"><span class="struct">int</span></span> x1, <span class="main_basic_type"><span class="struct">int</span></span> y1)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a bounds with points</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.Bounds.contains.html" class="method">contains</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Checks if a point lies inside the bounds</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.Bounds.empty.html" class="method">empty</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Checks if the bounds is empty</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.expand.html" class="method">expand</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Expand the bounds</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.union.html" class="method">union</a></b> (<span class="main_type"><span class="struct">Bounds</span></span> other)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the union of two bounds</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Fields:</h3>
+        <ul class="navi_inline">
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Bounds.min_x.html" class="field">min_x</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The smallest x coordinate, inclusive</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Bounds.min_y.html" class="field">min_y</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The smallest y coordinate, inclusive</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Bounds.max_x.html" class="field">max_x</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The largest x coordinate, inclusive</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Bounds.max_y.html" class="field">max_y</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The largest y coordinate, inclusive</span>
+            </div></li>
+        </ul>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    </div>
+  </body>
+</html>

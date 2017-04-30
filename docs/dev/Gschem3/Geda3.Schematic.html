@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.Schematic &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.Schematic &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="class">Schematic</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="property"><a href="Geda3.Schematic.version.html">version</a></li>
+          <li class="creation_method"><a href="Geda3.Schematic.Schematic.html">Schematic</a></li>
+          <li class="method"><a href="Geda3.Schematic.add.html">add</a></li>
+          <li class="method"><a href="Geda3.Schematic.calculate_bounds.html">calculate_bounds</a></li>
+          <li class="method"><a href="Geda3.Schematic.draw.html">draw</a></li>
+          <li class="method"><a href="Geda3.Schematic.read.html">read</a></li>
+          <li class="method"><a href="Geda3.Schematic.read_from_file.html">read_from_file</a></li>
+          <li class="method"><a href="Geda3.Schematic.write.html">write</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">Schematic</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Geda3.Schematic" alt="Object hierarchy for Schematic" src="img/Geda3.Schematic.png"/>
+
+      <map id="Geda3.Schematic" name="Geda3.Schematic">
+<area shape="rect" id="node1" href="Geda3.Schematic.html" title="Geda3.Schematic" alt="" coords="5,5,156,53"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">Schematic</span></b>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.FileVersion.html" class="struct">FileVersion</a></span> <b><a href="Geda3.Schematic.version.html" class="property">version</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.Schematic.Schematic.html" class="creation_method">Schematic</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create an empty schematic</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.Schematic.add.html" class="method">add</a></b> (<span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span> item)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Add an item to the schematic</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> <b><a href="Geda3.Schematic.calculate_bounds.html" class="method">calculate_bounds</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the bounds of this schematic</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.draw.html" class="method">draw</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Draw the schematic</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.read_from_file.html" class="method">read_from_file</a></b> (<span class="main_type"><span class="interface">File</span></span> file) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Read a schematic from an input file</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.read.html" class="method">read</a></b> (<span class="main_type"><span class="class">DataInputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Read a schematic from an input stream</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.write.html" class="method">write</a></b> (<span class="main_type"><span class="class">DataOutputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Write schematic to an output stream</span>
+            </div></li>
+        </ul>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    </div>
+  </body>
+</html>

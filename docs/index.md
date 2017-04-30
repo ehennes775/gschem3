@@ -11,5 +11,5 @@ pane operational.
 
 ![Screenshot of Gschem3](gschem3.png)
 
-[Coding](coding.md)
-[Developer Documentation](dev/index.html)
+- [Coding](coding.md)
+- [Developer Documentation](dev/index.html)

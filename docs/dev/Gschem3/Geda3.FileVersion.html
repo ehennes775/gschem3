@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.FileVersion &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.FileVersion &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="struct">FileVersion</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="constant"><a href="Geda3.FileVersion.LATEST.html">LATEST</a></li>
+          <li class="constant"><a href="Geda3.FileVersion.VERSION_TOKEN.html">VERSION_TOKEN</a></li>
+          <li class="static_method"><a href="Geda3.FileVersion.read.html">read</a></li>
+          <li class="method"><a href="Geda3.FileVersion.write.html">write</a></li>
+          <li class="field"><a href="Geda3.FileVersion.file_version.html">file_version</a></li>
+          <li class="field"><a href="Geda3.FileVersion.tool_version.html">tool_version</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">FileVersion</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Geda3.FileVersion" alt="Object hierarchy for FileVersion" src="img/Geda3.FileVersion.png"/>
+
+      <map id="Geda3.FileVersion" name="Geda3.FileVersion">
+<area shape="rect" id="node1" href="Geda3.FileVersion.html" title="Geda3.FileVersion" alt="" coords="5,5,164,53"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">struct</span> <b><span class="struct">FileVersion</span></b>
+        </div>
+        <div class="description">
+          <p>Functions for operating on coordinates</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Constants:</h3>
+        <ul class="navi_inline">
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_type"><span class="struct">FileVersion</span></span> <b><a href="Geda3.FileVersion.LATEST.html" class="constant">LATEST</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The latest file format produced by the gEDA suite</span>
+            </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_keyword">unowned</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Geda3.FileVersion.VERSION_TOKEN.html" class="constant">VERSION_TOKEN</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The token that starts the version line in the file format</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Static methods:</h3>
+        <ul class="navi_inline">
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_type"><span class="struct">FileVersion</span></span> <b><a href="Geda3.FileVersion.read.html" class="static_method">read</a></b> (<span class="main_type"><span class="class">DataInputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>, <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Read the file version from the input stream</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.FileVersion.write.html" class="method">write</a></b> (<span class="main_type"><span class="class">DataOutputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Write the file version to the output stream</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Fields:</h3>
+        <ul class="navi_inline">
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Geda3.FileVersion.tool_version.html" class="field">tool_version</a></b>
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Geda3.FileVersion.file_version.html" class="field">file_version</a></b>
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+        </ul>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    </div>
+  </body>
+</html>

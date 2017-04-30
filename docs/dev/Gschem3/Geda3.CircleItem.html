@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.CircleItem &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.CircleItem &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="class">CircleItem</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="constant"><a href="Geda3.CircleItem.TYPE_ID.html">TYPE_ID</a></li>
+          <li class="creation_method"><a href="Geda3.CircleItem.CircleItem.html">CircleItem</a></li>
+          <li class="virtual_method"><a href="Geda3.CircleItem.calculate_bounds.html">calculate_bounds</a></li>
+          <li class="virtual_method"><a href="Geda3.CircleItem.draw.html">draw</a></li>
+          <li class="virtual_method"><a href="Geda3.CircleItem.read.html">read</a></li>
+          <li class="virtual_method"><a href="Geda3.CircleItem.write.html">write</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_center_x.html">b_center_x</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_center_y.html">b_center_y</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_color.html">b_color</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_dash_length.html">b_dash_length</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_dash_space.html">b_dash_space</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_dash_type.html">b_dash_type</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_fill_angle_1.html">b_fill_angle_1</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_fill_angle_2.html">b_fill_angle_2</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_fill_pitch_1.html">b_fill_pitch_1</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_fill_pitch_2.html">b_fill_pitch_2</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_fill_type.html">b_fill_type</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_fill_width.html">b_fill_width</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_line_cap.html">b_line_cap</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_radius.html">b_radius</a></li>
+          <li class="field"><a href="Geda3.CircleItem.b_width.html">b_width</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">CircleItem</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Geda3.CircleItem" alt="Object hierarchy for CircleItem" src="img/Geda3.CircleItem.png"/>
+
+      <map id="Geda3.CircleItem" name="Geda3.CircleItem">
+<area shape="rect" id="node1" href="Geda3.CircleItem.html" title="Geda3.CircleItem" alt="" coords="21,197,173,245"/>
+<area shape="rect" id="node2" href="Geda3.SchematicItem.html" title="Geda3.SchematicItem" alt="" coords="5,101,189,149"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">CircleItem</span></b> : <span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>
+        </div>
+        <div class="description">
+          <p>Schematic circle</p>
+          <p>Represents a graphic circle on a schematic</p>
+          <table class="main_table">
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">0</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">string</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The constant 'V' indicating a circle</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">1</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">X coordinate of the center</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">2</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">Y coordinate of the center</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">3</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">Radius of the circle</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">4</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">Color index</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">5</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">Width of the perimeter line</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">6</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">Not used</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">7</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The type of dash to use</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">8</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The length of the dashes</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">9</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The spacing between the dashes</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">10</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The fill type to use</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">11</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The width of the fill lines</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">12</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The angle of the first set of fill lines</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">13</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The spacing between the first set of fill lines</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">14</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The angle of the second set of fill lines</td>
+            </tr>
+            <tr>
+              <td class="main_table" colspan="1" rowspan="1" style="">15</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">int32</td>
+              <td class="main_table" colspan="1" rowspan="1" style="">The spacing between the second set of fill lines</td>
+            </tr>
+          </table>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Constants:</h3>
+        <ul class="navi_inline">
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_keyword">unowned</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Geda3.CircleItem.TYPE_ID.html" class="constant">TYPE_ID</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The type code used in schematic files</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.CircleItem.CircleItem.html" class="creation_method">CircleItem</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a schematic bus</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> <b><a href="Geda3.CircleItem.calculate_bounds.html" class="virtual_method">calculate_bounds</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the bounds of this item</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.CircleItem.draw.html" class="virtual_method">draw</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Draw this item using the given painter</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.CircleItem.read.html" class="virtual_method">read</a></b> (<span class="main_type"><span class="class">DataInputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>, <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Read this item from the input stream</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.CircleItem.write.html" class="virtual_method">write</a></b> (<span class="main_type"><span class="class">DataOutputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Write this item to the output stream</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Fields:</h3>
+        <ul class="navi_inline">
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_center_x.html" class="field">b_center_x</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the center x coordinate</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_center_y.html" class="field">b_center_y</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the center y coordinate</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_color.html" class="field">b_color</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store the color</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_dash_length.html" class="field">b_dash_length</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the dash length</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_dash_space.html" class="field">b_dash_space</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the spacing between dashes</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.DashType.html" class="enum">DashType</a></span> <b><a href="Geda3.CircleItem.b_dash_type.html" class="field">b_dash_type</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the dash type</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_fill_angle_1.html" class="field">b_fill_angle_1</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the first fill angle</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_fill_angle_2.html" class="field">b_fill_angle_2</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store the second fill angle</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_fill_pitch_1.html" class="field">b_fill_pitch_1</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the first fill pitch</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_fill_pitch_2.html" class="field">b_fill_pitch_2</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the second fill pitch</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.FillType.html" class="enum">FillType</a></span> <b><a href="Geda3.CircleItem.b_fill_type.html" class="field">b_fill_type</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the fill type</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_fill_width.html" class="field">b_fill_width</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store fill line width</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.CapType.html" class="enum">CapType</a></span> <b><a href="Geda3.CircleItem.b_line_cap.html" class="field">b_line_cap</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the line cap</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_radius.html" class="field">b_radius</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the circle radius</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.CircleItem.b_width.html" class="field">b_width</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the perimeter line width</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline">
+            <div class="text">All known members inherited from class Geda3.SchematicItem</div>
+            <div class="toggle">
+              <img onclick="toggle_box  (this, 'box-content-5')" src="../coll_open.png">&nbsp;</div>
+            </div>
+            <div class="content" id="box-content-5">
+              <div class="column">
+                <ul class="navi_inline">
+                  <li class="abstract_method"><a href="Geda3.SchematicItem.calculate_bounds.html">calculate_bounds</a></li>
+                  <li class="abstract_method"><a href="Geda3.SchematicItem.draw.html">draw</a></li>
+                </ul>
+              </div>
+              <div class="column">
+                <ul class="navi_inline">
+                  <li class="abstract_method"><a href="Geda3.SchematicItem.read.html">read</a></li>
+                </ul>
+              </div>
+              <div class="column">
+                <ul class="navi_inline">
+                  <li class="abstract_method"><a href="Geda3.SchematicItem.write.html">write</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="box">
+            <div class="headline">
+              <div class="text">All known members inherited from class GLib.Object</div>
+              <div class="toggle">
+                <img onclick="toggle_box  (this, 'box-content-6')" src="../coll_open.png">&nbsp;</div>
+              </div>
+              <div class="content" id="box-content-6">
+                <div class="column">
+                  <ul class="navi_inline">
+                    <li class="static_method">@new</li>
+                    <li class="static_method">newv</li>
+                    <li class="static_method">new_valist</li>
+                    <li class="method">get_type</li>
+                    <li class="method">get_class</li>
+                    <li class="method">@ref</li>
+                    <li class="method">unref</li>
+                    <li class="method">ref_sink</li>
+                    <li class="method">weak_ref</li>
+                    <li class="method">weak_unref</li>
+                    <li class="method">add_weak_pointer</li>
+                    <li class="method">remove_weak_pointer</li>
+                  </ul>
+                </div>
+                <div class="column">
+                  <ul class="navi_inline">
+                    <li class="method">@get</li>
+                    <li class="method">@set</li>
+                    <li class="method">get_property</li>
+                    <li class="method">set_property</li>
+                    <li class="method">get_data</li>
+                    <li class="method">set_data</li>
+                    <li class="method">set_data_full</li>
+                    <li class="method">steal_data</li>
+                    <li class="method">get_qdata</li>
+                    <li class="method">set_qdata</li>
+                    <li class="method">set_qdata_full</li>
+                    <li class="method">steal_qdata</li>
+                  </ul>
+                </div>
+                <div class="column">
+                  <ul class="navi_inline">
+                    <li class="method">freeze_notify</li>
+                    <li class="method">thaw_notify</li>
+                    <li class="virtual_method">dispose</li>
+                    <li class="virtual_method">constructed</li>
+                    <li class="method">notify_property</li>
+                    <li class="method">connect</li>
+                    <li class="method">disconnect</li>
+                    <li class="method">add_toggle_ref</li>
+                    <li class="method">remove_toggle_ref</li>
+                    <li class="method">bind_property</li>
+                    <li class="signal">notify</li>
+                    <li class="field">ref_count</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><br/>
+        <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+        </div>
+      </body>
+    </html>
