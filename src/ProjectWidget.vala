@@ -241,13 +241,26 @@ namespace Gschem3
 
 
         /**
+         * The column containing the short name (tab)
+         *
+         * This value is required for the rename operation in function
+         * {@link on_rename_item()}.
+         */
+        [GtkChild(name="column-name")]
+        private Gtk.TreeViewColumn m_column;
+
+
+        /**
          * A dialog for adding files to the project
          */
         private Gtk.FileChooserDialog m_add_files_dialog = null;
 
 
         /**
-         * The cell renderer for the name in the tree view
+         * The cell renderer containing the short name (tab)
+         *
+         * This value is required for the rename operation in function
+         * {@link on_rename_item()}.
          */
         [GtkChild(name="column-name-renderer-name")]
         private Gtk.CellRendererText m_renderer;
@@ -684,9 +697,34 @@ namespace Gschem3
          */
         private void on_rename_item(SimpleAction action, Variant? parameter)
 
-            requires(project != null)
+            requires(m_column != null)
+            requires(m_renderer != null)
+            requires(tree != null)
 
         {
+            warn_if_fail(can_rename_item);
+
+            var paths = selection.get_selected_rows(null);
+            return_if_fail(paths != null);
+            return_if_fail(paths.length() == 1);
+
+            unowned List<Gtk.TreePath> first = paths.first();
+            return_if_fail(first != null);
+
+            var path = first.data;
+            return_if_fail(path != null);
+
+            // Documentation shows calling grab_focus() after
+            // set_cursor_on_cell(), but it actually works calling it
+            // before.
+            tree.grab_focus();
+
+            tree.set_cursor_on_cell(
+                path,
+                m_column,
+                m_renderer,
+                true           // start_editing
+                );
         }
 
 
