@@ -1,4 +1,4 @@
-# Gschem3
+## Gschem3
 
 This project implements a new version of gschem for Gtk+-3.0. This
 project provides GUI functionality and uses
@@ -11,5 +11,6 @@ pane operational.
 
 ![Screenshot of Gschem3](gschem3.png)
 
-- [Coding](coding.md)
+## Links
+- [Coding Standards](coding.md)
 - [Developer Documentation](dev/index.html)
