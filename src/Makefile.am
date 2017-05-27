@@ -70,6 +70,7 @@ libgeda3_a_SOURCES = \
 	NullMapper.vala \
 	ParseError.vala \
 	PinType.vala \
+	PrintDimension.vala \
 	PrintUnits.vala \
 	Project.vala \
 	ProjectFile.vala \
