@@ -70,6 +70,7 @@ libgeda3_a_SOURCES = \
 	NullMapper.vala \
 	ParseError.vala \
 	PinType.vala \
+	PrintUnits.vala \
 	Project.vala \
 	ProjectFile.vala \
 	ProjectFolder.vala \
@@ -128,4 +129,4 @@ libgschem3_a_VALAFLAGS = \
 CLEANFILES = $(BUILT_SOURCES)
 
 Gschem3:
-	valadoc $(libgeda3_a_SOURCES) $(libgschem3_a_SOURCES) --pkg gtk+-3.0 --pkg gee-0.8 -o Gschem3
+	valadoc $(libgeda3_a_SOURCES) $(libgschem3_a_SOURCES) --pkg gtk+-3.0 --pkg gee-0.8 -o Gschem3 --profile=pro
