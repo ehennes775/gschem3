@@ -71,6 +71,8 @@ libgeda3_a_SOURCES = \
 	ParseError.vala \
 	PinType.vala \
 	PrintDimension.vala \
+	PrintFormat.vala \
+	PrintOrientation.vala \
 	PrintUnits.vala \
 	Project.vala \
 	ProjectFile.vala \
