@@ -105,12 +105,8 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void read(DataInputStream stream) throws IOError, ParseError
+        public override void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError
         {
-            var input = stream.read_line(null);
-
-            var params = input.split(" ");
-
             if (params.length != 7)
             {
                 throw new ParseError.PARAMETER_COUNT(

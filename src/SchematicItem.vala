@@ -26,7 +26,23 @@ namespace Geda3
          *
          * @param stream The input stream to read from
          */
-        public abstract void read(DataInputStream stream) throws IOError, ParseError;
+        public virtual void read(DataInputStream stream) throws IOError, ParseError
+        {
+            var input = stream.read_line(null);
+
+            var params = input.split(" ");
+
+            read_with_params(params, stream);
+        }
+
+
+        /**
+         * Read this item from the input stream
+         *
+         * @param params 
+         * @param stream The input stream to read from
+         */
+        public abstract void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError;
 
 
         /**
