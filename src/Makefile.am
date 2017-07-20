@@ -56,6 +56,7 @@ libgeda3_a_SOURCES = \
 	ColorScheme.vala \
 	Coord.vala \
 	DashType.vala \
+	ExportSchematics.vala \
 	Fileable.vala \
 	FileVersion.vala \
 	FillType.vala \

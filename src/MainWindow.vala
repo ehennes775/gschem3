@@ -45,6 +45,10 @@ namespace Gschem3
 
             m_project_widget.add_actions(this);
 
+            add_action(
+                new ExportSchematics(this).create_action()
+                );
+
             // Setup drag and drop
 
             var targets = new Gtk.TargetList(null);
