@@ -32,6 +32,8 @@ namespace Gschem3
         }
 
 
+        ExportSchematics es;
+
         /**
          * Initialize the instance
          */
@@ -45,9 +47,8 @@ namespace Gschem3
 
             m_project_widget.add_actions(this);
 
-            add_action(
-                new ExportSchematics(this).create_action()
-                );
+            m_export_schematics = new ExportSchematics(this);
+            add_action(m_export_schematics.create_action());
 
             // Setup drag and drop
 
@@ -299,6 +300,12 @@ namespace Gschem3
         private const Gtk.TargetEntry[] target_entries =
         {
         };
+
+
+        /**
+         * An operation to export schematics
+         */
+        private ExportSchematics m_export_schematics;
 
 
         /**
