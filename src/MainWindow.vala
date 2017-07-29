@@ -47,8 +47,9 @@ namespace Gschem3
 
             m_project_widget.add_actions(this);
 
-            m_export_schematics = new ExportSchematics(this);
-            add_action(m_export_schematics.create_action());
+            add_action(
+                new ExportSchematics(this).create_action()
+                );
 
             // Setup drag and drop
 

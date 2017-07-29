@@ -3,12 +3,12 @@ namespace Gschem3
     /**
      * An operation to export schematics from the project
      */
-    public class ExportSchematics : Object
+    public class ExportSchematics : CustomAction
     {
         /**
          * Indicates the opeartion is enabled
          */
-        public bool can_activate
+        public bool enabled
         {
             get;
             private set;
@@ -32,13 +32,17 @@ namespace Gschem3
          */
         public Action create_action()
         {
+            @ref();
+
             var action = new SimpleAction(
                 "export-schematics",
                 null
                 );
 
+            action.weak_ref(() => { unref(); });
+
             bind_property(
-                "can-activate",
+                "enabled",
                 action,
                 "enabled",
                 BindingFlags.SYNC_CREATE
@@ -88,6 +92,9 @@ namespace Gschem3
         private Gtk.Window? m_parent;
 
 
+        /**
+         * Create the export dialog
+         */
         private Gtk.FileChooserDialog create_dialog()
         {
             var dialog = new Gtk.FileChooserDialog(
