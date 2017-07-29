@@ -1,6 +1,6 @@
 namespace Gschem3
 {
-    public class CustomAction : Object
+    public abstract class CustomAction : Object
     {
         /**
          * Initialize the class
@@ -15,6 +15,12 @@ namespace Gschem3
             {
             }
         }
+
+
+        /**
+         * Create an action for this operation
+         */
+        public abstract Action create_action();
 
 
         /**

@@ -28,18 +28,14 @@ namespace Gschem3
 
 
         /**
-         * Create an action for this operation
+         * {@inheritDoc}
          */
-        public Action create_action()
+        public override Action create_action()
         {
-            @ref();
-
             var action = new SimpleAction(
                 "export-schematics",
                 null
                 );
-
-            action.weak_ref(() => { unref(); });
 
             bind_property(
                 "enabled",

@@ -47,9 +47,15 @@ namespace Gschem3
 
             m_project_widget.add_actions(this);
 
-            add_action(
-                new ExportSchematics(this).create_action()
-                );
+            m_actions = new CustomAction[]
+            {
+                new ExportSchematics(this)
+            };
+
+            foreach (var action in m_actions)
+            {
+                add_action(action.create_action());
+            }
 
             // Setup drag and drop
 
@@ -304,9 +310,9 @@ namespace Gschem3
 
 
         /**
-         * An operation to export schematics
+         * Actions for this ApplicationWindow
          */
-        private ExportSchematics m_export_schematics;
+        private CustomAction[] m_actions;
 
 
         /**
