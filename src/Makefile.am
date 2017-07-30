@@ -57,6 +57,8 @@ libgeda3_a_SOURCES = \
 	Coord.vala \
 	CustomAction.vala \
 	DashType.vala \
+	ExportNetlist.vala \
+	ExportNetlistDialog.vala \
 	ExportSchematics.vala \
 	Fileable.vala \
 	FileVersion.vala \

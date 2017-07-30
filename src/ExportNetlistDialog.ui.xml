@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+
+  <object class="GtkListStore" id="netlist-formats">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">PCB</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">allegro</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">bae</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">calay</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">cascade</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">eagle</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">ewnet</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">futurenet2</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">geda</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">gossip</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">gsch2pcb</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">liquidpcb</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">mathematica</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">maxascii</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">osmond</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">pads</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">pcbpins</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">protelII</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">redac</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">spice</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">spice-sdb</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">switcap</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">systemc</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">tango</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">vams</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">verilog</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">vhdl</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">vipec</col>
+        <col id="1">Description</col>
+      </row>
+    </data>
+  </object>
+
+  <object class="GtkHBox" id="format-hbox">
+    <property name="spacing">10</property>
+    <property name="visible">TRUE</property>
+    <child>
+      <object class="GtkLabel" id="format-label">
+        <property name="label">Netlist Format</property>
+        <property name="visible">TRUE</property>
+      </object>
+      <packing>
+        <property name="expand">FALSE</property>
+        <property name="fill">TRUE</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="format-combo">
+        <property name="active">0</property>
+        <property name="model">netlist-formats</property>
+        <property name="visible">TRUE</property>
+        <child>
+          <object class="GtkCellRendererText" id="column-1-renderer">
+            <property name="weight">600</property>
+          </object>
+          <attributes>
+            <attribute name="text">0</attribute>
+          </attributes>
+        </child>
+        <child>
+          <object class="GtkCellRendererText" id="column-2-renderer">
+            <property name="style">PANGO_STYLE_ITALIC</property>
+          </object>
+          <attributes>
+            <attribute name="text">1</attribute>
+          </attributes>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">TRUE</property>
+        <property name="fill">TRUE</property>
+      </packing>
+    </child>
+  </object>
+
+  <template class="Gschem3ExportNetlistDialog">
+    <property name="title">Export Netlist</property>
+    <property name="action">GTK_FILE_CHOOSER_ACTION_SAVE</property>
+    <property name="border-width">15</property>
+    <property name="width-request">640</property>
+    <property name="height-request">480</property>
+    <property name="do-overwrite-confirmation">TRUE</property>
+    <property name="extra-widget">format-hbox</property>
+    <child internal-child="action_area">
+      <object class="GtkHButtonBox" id="buttons">
+        <property name="visible">TRUE</property>
+        <child>
+          <object class="GtkButton" id="button-cancel">
+            <property name="visible">TRUE</property>
+            <property name="label">gtk-cancel</property>
+            <property name="use-stock">TRUE</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button-ok">
+            <property name="visible">TRUE</property>
+            <property name="label">gtk-ok</property>
+            <property name="use-stock">TRUE</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-6">button-cancel</action-widget>
+      <action-widget response="-5">button-ok</action-widget>
+    </action-widgets>
+  </template>
+</interface>
+

@@ -4,6 +4,7 @@
         <file>Blank.svg</file>
         <file>BlueFolder.svg</file>
         <file>DocumentTab.ui.xml</file>
+        <file>ExportNetlistDialog.ui.xml</file>
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
         <file>Missing.svg</file>
