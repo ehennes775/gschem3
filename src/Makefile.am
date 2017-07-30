@@ -112,6 +112,8 @@ libgschem3_a_SOURCES = \
 	DocumentTab.vala \
 	DocumentWindow.vala \
 	ErrorDialog.vala \
+	ExportBillOfMaterial.vala \
+	ExportBillOfMaterialDialog.vala \
 	ExportNetlist.vala \
 	ExportNetlistDialog.vala \
 	ExportSchematics.vala \

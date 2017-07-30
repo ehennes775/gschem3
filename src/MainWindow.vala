@@ -49,6 +49,7 @@ namespace Gschem3
 
             m_actions = new CustomAction[]
             {
+                new ExportBillOfMaterial(this),
                 new ExportNetlist(this),
                 new ExportSchematics(this)
             };

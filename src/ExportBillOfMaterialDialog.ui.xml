@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+
+  <object class="GtkListStore" id="bom-formats">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">bom</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">bom2</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">partlist1</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">partlist2</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">partlist3</col>
+        <col id="1">Description</col>
+      </row>
+    </data>
+  </object>
+
+  <object class="GtkHBox" id="format-hbox">
+    <property name="spacing">10</property>
+    <property name="visible">TRUE</property>
+    <child>
+      <object class="GtkLabel" id="format-label">
+        <property name="label">BOM Format</property>
+        <property name="visible">TRUE</property>
+      </object>
+      <packing>
+        <property name="expand">FALSE</property>
+        <property name="fill">TRUE</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="format-combo">
+        <property name="active">0</property>
+        <property name="model">bom-formats</property>
+        <property name="visible">TRUE</property>
+        <child>
+          <object class="GtkCellRendererText" id="column-1-renderer">
+            <property name="weight">600</property>
+          </object>
+          <attributes>
+            <attribute name="text">0</attribute>
+          </attributes>
+        </child>
+        <child>
+          <object class="GtkCellRendererText" id="column-2-renderer">
+            <property name="style">PANGO_STYLE_ITALIC</property>
+          </object>
+          <attributes>
+            <attribute name="text">1</attribute>
+          </attributes>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">TRUE</property>
+        <property name="fill">TRUE</property>
+      </packing>
+    </child>
+  </object>
+
+  <template class="Gschem3ExportBillOfMaterialDialog">
+    <property name="title">Export BOM</property>
+    <property name="action">GTK_FILE_CHOOSER_ACTION_SAVE</property>
+    <property name="border-width">15</property>
+    <property name="width-request">640</property>
+    <property name="height-request">480</property>
+    <property name="do-overwrite-confirmation">TRUE</property>
+    <property name="extra-widget">format-hbox</property>
+    <child internal-child="action_area">
+      <object class="GtkHButtonBox" id="buttons">
+        <property name="visible">TRUE</property>
+        <child>
+          <object class="GtkButton" id="button-cancel">
+            <property name="visible">TRUE</property>
+            <property name="label">gtk-cancel</property>
+            <property name="use-stock">TRUE</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button-ok">
+            <property name="visible">TRUE</property>
+            <property name="label">gtk-ok</property>
+            <property name="use-stock">TRUE</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-6">button-cancel</action-widget>
+      <action-widget response="-5">button-ok</action-widget>
+    </action-widgets>
+  </template>
+</interface>
+
