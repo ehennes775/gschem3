@@ -57,9 +57,6 @@ libgeda3_a_SOURCES = \
 	Coord.vala \
 	CustomAction.vala \
 	DashType.vala \
-	ExportNetlist.vala \
-	ExportNetlistDialog.vala \
-	ExportSchematics.vala \
 	Fileable.vala \
 	FileVersion.vala \
 	FillType.vala \
@@ -115,6 +112,9 @@ libgschem3_a_SOURCES = \
 	DocumentTab.vala \
 	DocumentWindow.vala \
 	ErrorDialog.vala \
+	ExportNetlist.vala \
+	ExportNetlistDialog.vala \
+	ExportSchematics.vala \
 	MainWindow.vala \
 	NewProjectDialog.vala \
 	ProjectAdapter.vala \

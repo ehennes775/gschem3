@@ -20,32 +20,14 @@ namespace Gschem3
     /**
      * A dialog box for exporting a netlist
      */
-    public class ExportNetlistDialog : Gtk.FileChooserDialog, Gtk.Buildable
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/ExportNetlistDialog.ui.xml")]
+    public class ExportNetlistDialog : Gtk.FileChooserDialog
     {
-        /**
-         * The resource name for the UI design.
-         */
-        public const string RESOURCE_NAME = "/com/github/ehennes775/gschem3/ExportNetlistDialog.ui.xml";
-
-
-        /**
-         * The combo box containing the netlist format.
-         */
-        private Gtk.ComboBox m_combo;
-
-
-        /**
-         * The combo box containing the netlist format.
-         */
-        private Gtk.ListStore m_formats;
-
-
         /**
          * Initialize the class.
          */
         class construct
         {
-            set_template_from_resource(RESOURCE_NAME);
         }
 
 
@@ -54,7 +36,6 @@ namespace Gschem3
          */
         public ExportNetlistDialog()
         {
-            init_template();
         }
 
 
@@ -83,13 +64,16 @@ namespace Gschem3
 
 
         /**
-         * Couldn't get the template bindings to work, so this function
-         * obtains the objects from the Gtk.Builder.
+         * The combo box containing the netlist format.
          */
-        private void parser_finished(Gtk.Builder builder)
-        {
-            m_combo = builder.get_object("format-combo") as Gtk.ComboBox;
-            m_formats = builder.get_object("netlist-formats") as Gtk.ListStore;
-        }
+        [GtkChild(name="format-combo")]
+        private Gtk.ComboBox m_combo;
+
+
+        /**
+         * The combo box containing the netlist format.
+         */
+        [GtkChild(name="netlist-formats")]
+        private Gtk.ListStore m_formats;
     }
 }

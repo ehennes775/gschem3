@@ -96,6 +96,7 @@ namespace Gschem3
             var dialog = new ExportNetlistDialog();
 
             dialog.do_overwrite_confirmation = true;
+            dialog.set_transient_for(m_parent);
 
             //dialog.set_current_folder(dirname);
             //dialog.set_current_name(DEFAULT_PRINT_FILENAME);
