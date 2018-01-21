@@ -191,6 +191,7 @@ namespace Gschem3
          */
         public void zoom_extents()
 
+            requires(drawing != null)
             requires(painter != null)
             requires(schematic != null)
 
@@ -208,18 +209,18 @@ namespace Gschem3
                 );
 
             var scale = double.min(
-                0.8 * width / (bounds.max_x - bounds.min_x).abs(),
-                0.8 * height / (bounds.max_y - bounds.min_y).abs()
+                0.9 * width / (bounds.max_x - bounds.min_x).abs(),
+                0.9 * height / (bounds.max_y - bounds.min_y).abs()
                 );
 
             matrix.scale(scale, -scale);
 
             matrix.translate(
-                (bounds.max_x - bounds.min_x).abs() / -2.0,
-                (bounds.max_y - bounds.min_y).abs() / -2.0
+                (bounds.max_x + bounds.min_x) / -2.0,
+                (bounds.max_y + bounds.min_y) / -2.0
                 );
 
-            queue_draw();
+            drawing.queue_draw();
         }
 
 
@@ -319,6 +320,8 @@ namespace Gschem3
          */
         private bool on_draw(Cairo.Context context)
 
+            requires(painter != null)
+            requires(schematic != null)
             requires(scheme != null)
 
         {
@@ -340,7 +343,7 @@ namespace Gschem3
 
             context.fill();
 
-            context.set_matrix(matrix);
+            context.transform(matrix);
             painter.cairo_context = context;
             painter.color_scheme = scheme;
             schematic.draw(painter);
