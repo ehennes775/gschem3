@@ -58,7 +58,7 @@ namespace Geda3
 
                 painter.set_color(b_color);
 
-                painter.draw_text(b_x, b_y, b_alignment, b_lines[0]);
+                painter.draw_text(b_x, b_y, b_alignment, b_size, b_lines[0]);
             }
         }
 

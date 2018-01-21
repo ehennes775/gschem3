@@ -40,9 +40,10 @@ namespace Geda3
          * @param x The x coordinate of the insertion point
          * @param y The y coordinate of the insertion point
          * @param alignment The text alignment
+         * @param size The size of the text in points
          * @param text The visible text
          */
-        public abstract void draw_text(int x, int y, TextAlignment alignment, string text);
+        public abstract void draw_text(int x, int y, TextAlignment alignment, int size, string text);
 
 
         /**

@@ -16,10 +16,18 @@ namespace Geda3
         }
 
 
+        public Pango.FontDescription font_description 
+        {
+            get;
+            set;
+        }
+
+
         public SchematicPainterCairo()
         {
             cairo_context = null;
             color_scheme = null;
+            font_description = Pango.FontDescription.from_string("Sans");
         }
 
 
@@ -71,7 +79,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw_text(int x, int y, TextAlignment alignment, string text)
+        public override void draw_text(int x, int y, TextAlignment alignment, int size, string text)
 
             requires(cairo_context != null)
 
@@ -82,6 +90,8 @@ namespace Geda3
 
             Pango.cairo_context_set_resolution(layout.get_context(), 936);
 
+            font_description.set_size(size * Pango.SCALE);
+            layout.set_font_description(font_description);
             layout.set_spacing(40000);
             layout.set_markup(text, -1);
 
