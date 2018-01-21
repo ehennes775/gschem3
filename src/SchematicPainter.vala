@@ -14,6 +14,16 @@ namespace Geda3
 
 
         /**
+         * Draw a circle
+         *
+         * @param center_x The x coordinate of the center
+         * @param center_y The y coordinate of the center
+         * @param radius The radius of the circle
+         */
+        public abstract void draw_circle(int center_x, int center_y, int radius);
+
+
+        /**
          * Draw a line
          *
          * @param x0 The x coordinate of the first point

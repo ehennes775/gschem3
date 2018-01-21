@@ -43,6 +43,20 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void draw_circle(int center_x, int center_y, int radius)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.move_to(center_x + radius, center_y);
+            cairo_context.arc(center_x, center_y, radius, 0.0, 2.0 * Math.PI);
+            cairo_context.stroke();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw_line(int x0, int y0, int x1, int y1)
 
             requires(cairo_context != null)
