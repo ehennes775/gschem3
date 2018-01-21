@@ -15,6 +15,57 @@ namespace Geda3
 
 
         /**
+         * Create a dark color scheme
+         */
+        public ColorScheme.Dark()
+        {
+            colors = new Gee.HashMap<int,Gdk.RGBA?>();
+
+            colors.@set(
+                Color.GRAPHIC,
+                Gdk.RGBA()
+                {
+                    red = 0.0, green = 1.0, blue = 0.0, alpha = 1.0
+                });
+
+            colors.@set(
+                Color.TEXT,
+                Gdk.RGBA()
+                {
+                    red = 0.0, green = 1.0, blue = 0.0, alpha = 1.0
+                });
+
+            colors.@set(
+                Color.ATTRIBUTE,
+                Gdk.RGBA()
+                {
+                    red = 1.0, green = 1.0, blue = 0.0, alpha = 1.0
+                });
+
+            colors.@set(
+                Color.DETACHED_ATTRIBUTE,
+                Gdk.RGBA()
+                {
+                    red = 1.0, green = 0.0, blue = 0.0, alpha = 1.0
+                });
+
+            colors.@set(
+                Color.MAJOR_GRID,
+                Gdk.RGBA()
+                {
+                    red = 0.125, green = 0.125, blue = 0.125, alpha = 1.0
+                });
+
+            colors.@set(
+                Color.MINOR_GRID,
+                Gdk.RGBA()
+                {
+                    red = 0.09, green = 0.09, blue = 0.09, alpha = 1.0
+                });
+        }
+
+
+        /**
          * Get a color from this color scheme
          *
          * @param index the index

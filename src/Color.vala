@@ -6,6 +6,11 @@ namespace Geda3
     namespace Color
     {
         /**
+         * The default color index for attributes
+         */
+        public const int ATTRIBUTE = 5;
+
+        /**
          * The color index of the background color
          */
         public const int BACKGROUND = 0;
@@ -15,6 +20,12 @@ namespace Geda3
          * The default color index for schematic busses
          */
         public const int BUS = 10;
+
+
+        /**
+         * The default color index for detached attributes
+         */
+        public const int DETACHED_ATTRIBUTE = 8;
 
 
         /**

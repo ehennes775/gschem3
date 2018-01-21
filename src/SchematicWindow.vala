@@ -227,7 +227,7 @@ namespace Gschem3
         /**
          * The color scheme used for all schematic windows
          */
-        private Geda3.ColorScheme scheme = new Geda3.ColorScheme();
+        private Geda3.ColorScheme scheme = new Geda3.ColorScheme.Dark();
 
 
         /**
