@@ -54,6 +54,8 @@ namespace Geda3
             painter.set_cap_type(b_line_cap);
             painter.set_color(b_color);
             painter.set_dash(b_dash_type, b_dash_length, b_dash_space);
+
+            painter.draw_box(b_lower_x, b_lower_y, b_upper_x, b_upper_y);
         }
 
 

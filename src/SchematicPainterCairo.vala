@@ -26,6 +26,23 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void draw_box(int x0, int y0, int x1, int y1)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.move_to(x0, y0);
+            cairo_context.line_to(x1, y0);
+            cairo_context.line_to(x1, y1);
+            cairo_context.line_to(x0, y1);
+            cairo_context.close_path();
+            cairo_context.stroke();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw_line(int x0, int y0, int x1, int y1)
 
             requires(cairo_context != null)

@@ -3,6 +3,17 @@ namespace Geda3
     public abstract class SchematicPainter
     {
         /**
+         * Draw a box
+         *
+         * @param x0 The x coordinate of the first corner
+         * @param y0 The y coordinate of the first corner
+         * @param x1 The x coordinate of the second corner
+         * @param y1 The y coordinate of the second corner
+         */
+        public abstract void draw_box(int x0, int y0, int x1, int y1);
+
+
+        /**
          * Draw a line
          *
          * @param x0 The x coordinate of the first point
