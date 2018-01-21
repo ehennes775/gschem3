@@ -116,5 +116,19 @@ namespace Geda3
 
         {
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void set_width(int width)
+
+            requires(cairo_context != null)
+            requires(width >= 0)
+
+        {
+            cairo_context.set_line_width(width);
+        }
+
     }
 }

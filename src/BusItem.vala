@@ -92,6 +92,7 @@ namespace Geda3
             painter.set_cap_type(CapType.NONE);
             painter.set_color(b_color);
             painter.set_dash(DashType.SOLID, 0, 0);
+            painter.set_width(WIDTH);
 
             painter.draw_line(
                 b_x[0],

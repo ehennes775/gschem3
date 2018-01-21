@@ -48,5 +48,13 @@ namespace Geda3
          * @param space The length of the gaps between the dashes
          */
         public abstract void set_dash(DashType dash_type, int length, int space);
+
+
+        /**
+         * Set the line width
+         *
+         * @param width The width for drawing lines
+         */
+        public abstract void set_width(int width);
     }
 }

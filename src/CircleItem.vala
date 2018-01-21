@@ -71,6 +71,7 @@ namespace Geda3
             painter.set_cap_type(b_line_cap);
             painter.set_color(b_color);
             painter.set_dash(b_dash_type, b_dash_length, b_dash_space);
+            painter.set_width(b_width);
         }
 
 
