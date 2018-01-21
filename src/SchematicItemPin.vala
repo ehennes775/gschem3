@@ -98,6 +98,16 @@ namespace Geda3
                 b_x[1],
                 b_y[1]
                 );
+
+            foreach (var attribute in m_attributes)
+            {
+                var item = attribute as SchematicItem;
+
+                if (item != null)
+                {
+                    item.draw(painter);
+                }
+            }
         }
 
 
