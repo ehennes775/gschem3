@@ -78,8 +78,8 @@ namespace Geda3
          *
          * @param [in] str The string containing the paper orientation
          * @param [out] orientation The paper orientation value
-         * @retval true Parsing successful, orientation contains the value
-         * @retval false Parsing unsuccessful
+         * @return true Parsing successful, orientation contains the value
+         * @return false Parsing unsuccessful
          */
         public static bool try_parse(string str, out PrintOrientation orientation)
         {

@@ -37,9 +37,9 @@ namespace Geda3
         /**
          * The horizontal alignment
          *
-         * 0.0 | left
-         * 0.5 | center
-         * 1.0 | right
+         * || 0.0 || left ||
+         * || 0.5 || center ||
+         * || 1.0 || right ||
          *
          * The setter will confine values to the interval [0.0,1.0].
          */

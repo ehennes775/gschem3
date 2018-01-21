@@ -38,7 +38,7 @@ namespace Geda3
          *
          * @param input the string representation of the print units
          * @return the print units
-         * @throws
+         * @throws ParseError Unable to parse the print units
          */
         public static PrintUnits parse(string input) throws ParseError
 
