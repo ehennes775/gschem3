@@ -92,5 +92,79 @@ namespace Geda3
 
             return (TextAlignment) result2;
         }
+
+
+        /**
+         * Provides a value for the horizontal alignment
+         *
+         * ||''Value''||''Description''||
+         * ||0.0||left||
+         * ||0.5||center||
+         * ||1.0||right||
+         * 
+         * @return A value representing the horizontal alignment
+         */
+        public double alignment_x()
+        {
+            double result;
+            
+            switch (this)
+            {
+                case LOWER_RIGHT:
+                case MIDDLE_RIGHT:
+                case UPPER_RIGHT:
+                    result = 1.0;
+                    break;
+
+                case LOWER_MIDDLE:
+                case MIDDLE_MIDDLE:
+                case UPPER_MIDDLE:
+                    result = 0.5;
+                    break;
+                    
+                default:
+                    result = 0.0;
+                    break;
+            }
+
+            return result;
+        }
+
+
+        /**
+         * Provides a value for the vertical alignment
+         *
+         * ||''Value''||''Description''||
+         * ||0.0||top||
+         * ||0.5||center||
+         * ||1.0||bottom||
+         *
+         * @return A value representing the vertical alignment
+         */
+        public double alignment_y()
+        {
+            double result;
+            
+            switch (this)
+            {
+                case LOWER_LEFT:
+                case LOWER_MIDDLE:
+                case LOWER_RIGHT:
+                    result = 1.0;
+                    break;
+
+                case MIDDLE_LEFT:
+                case MIDDLE_MIDDLE:
+                case MIDDLE_RIGHT:
+                    result = 0.5;
+                    break;
+                    
+                default:
+                    result = 0.0;
+                    break;
+            }
+
+            return result;
+        }
     }
 }
