@@ -30,6 +30,18 @@ namespace Geda3
 
 
         /**
+         * The default color index for major grid lines
+         */
+        public const int MAJOR_GRID = 22;
+
+
+        /**
+         * The default color index minor grid lines
+         */
+        public const int MINOR_GRID = 23;
+
+
+        /**
          * The default color index for schematic nets
          */
         public const int NET = 4;

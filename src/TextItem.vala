@@ -47,6 +47,19 @@ namespace Geda3
          */
         public override void draw(SchematicPainter painter)
         {
+            if (b_visibility == Visibility.VISIBLE)
+            {
+                painter.set_cap_type(CapType.NONE);
+                painter.set_color(Color.MAJOR_GRID);
+                painter.set_dash(DashType.SOLID, 0, 0);
+                painter.set_width(10);
+
+                painter.draw_x(b_x, b_y);
+
+                painter.set_color(b_color);
+
+                painter.draw_text(b_x, b_y, b_alignment, b_lines[0]);
+            }
         }
 
 

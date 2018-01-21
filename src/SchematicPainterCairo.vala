@@ -71,6 +71,73 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void draw_text(int x, int y, TextAlignment alignment, string text)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.save();
+
+            var layout = Pango.cairo_create_layout(cairo_context);
+
+            Pango.cairo_context_set_resolution(layout.get_context(), 936);
+
+            layout.set_spacing(40000);
+            layout.set_markup(text, -1);
+
+            cairo_context.move_to(x, y);
+            cairo_context.scale(1.0, -1.0);
+
+            var alignment_x = alignment.alignment_x();
+
+            if (alignment_x > 0.0)
+            {
+                int height;
+                int width;
+                
+                layout.get_size(out width, out height);
+                cairo_context.rel_move_to(alignment_x * width / -Pango.SCALE, 0.0);
+            }
+
+            var alignment_y = alignment.alignment_y();
+
+            if (alignment_y > 0.0)
+            {
+                var iter = layout.get_iter();
+
+                while (!iter.at_last_line())
+                {
+                    iter.next_line();
+                }
+
+                cairo_context.rel_move_to(0.0, alignment_y * iter.get_baseline() / -Pango.SCALE);
+            }
+
+            Pango.cairo_show_layout(cairo_context, layout);
+            
+            cairo_context.restore();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void draw_x(int x, int y)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.move_to(x - 20, y - 20);
+            cairo_context.line_to(x + 20, y + 20);
+            cairo_context.move_to(x - 20, y + 20);
+            cairo_context.line_to(x + 20, y - 20);
+            cairo_context.stroke();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void set_cap_type(CapType cap_type)
 
             requires(cap_type >= 0)

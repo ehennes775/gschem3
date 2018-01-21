@@ -35,6 +35,26 @@ namespace Geda3
 
 
         /**
+         * Draw an x to mark an instertion point
+         *
+         * @param x The x coordinate of the insertion point
+         * @param y The y coordinate of the insertion point
+         * @param alignment The text alignment
+         * @param text The visible text
+         */
+        public abstract void draw_text(int x, int y, TextAlignment alignment, string text);
+
+
+        /**
+         * Draw an x to mark an instertion point
+         *
+         * @param x The x coordinate of the insertion point
+         * @param y The y coordinate of the insertion point
+         */
+        public abstract void draw_x(int x, int y);
+
+
+        /**
          * Set the cap type to use for line ends
          *
          * @param cap_type The cap type to use for further drawing
