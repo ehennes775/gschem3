@@ -75,7 +75,7 @@ namespace Gschem3
         /**
          *
          */
-        private static Grid s_default_grid = new NoGrid();
+        private static Grid s_default_grid = new MeshGrid();
 
 
         /**

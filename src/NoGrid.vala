@@ -32,7 +32,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public override void draw(Cairo.Context context)
+        public override void draw(Cairo.Context context, Geda3.ColorScheme scheme)
         {
         }
     }

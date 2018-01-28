@@ -119,6 +119,7 @@ libgschem3_a_SOURCES = \
 	ExportSchematics.vala \
 	Grid.vala \
 	MainWindow.vala \
+	MeshGrid.vala \
 	NewProjectDialog.vala \
 	NoGrid.vala \
 	ProjectAdapter.vala \

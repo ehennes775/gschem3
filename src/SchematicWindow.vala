@@ -345,7 +345,7 @@ namespace Gschem3
 
             context.transform(matrix);
 
-            m_settings.grid.draw(context);
+            m_settings.grid.draw(context, m_settings.scheme);
 
             painter.cairo_context = context;
             painter.color_scheme = m_settings.scheme;
