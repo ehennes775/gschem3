@@ -117,13 +117,16 @@ libgschem3_a_SOURCES = \
 	ExportNetlist.vala \
 	ExportNetlistDialog.vala \
 	ExportSchematics.vala \
+	Grid.vala \
 	MainWindow.vala \
 	NewProjectDialog.vala \
+	NoGrid.vala \
 	ProjectAdapter.vala \
 	ProjectWidget.vala \
 	Reloadable.vala \
 	Savable.vala \
-	SchematicWindow.vala
+	SchematicWindow.vala \
+	SchematicWindowSettings.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \

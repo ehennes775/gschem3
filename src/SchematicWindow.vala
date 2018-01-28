@@ -225,12 +225,6 @@ namespace Gschem3
 
 
         /**
-         * The color scheme used for all schematic windows
-         */
-        private Geda3.ColorScheme scheme = new Geda3.ColorScheme.Dark();
-
-
-        /**
          * The drawing area for the schematic
          */
         [GtkChild]
@@ -265,6 +259,12 @@ namespace Gschem3
          * The schematic this window is editing
          */
         private Geda3.Schematic schematic;
+
+
+        /**
+         * The settigs for this schematic window
+         */
+        private SchematicWindowSettings m_settings = SchematicWindowSettings.get_default();
 
 
         /**
@@ -321,11 +321,11 @@ namespace Gschem3
         private bool on_draw(Cairo.Context context)
 
             requires(painter != null)
+            requires(m_settings != null)
             requires(schematic != null)
-            requires(scheme != null)
 
         {
-            var background = scheme[0];
+            var background = m_settings.scheme[0];
 
             context.set_source_rgba(
                 background.red,
@@ -344,8 +344,11 @@ namespace Gschem3
             context.fill();
 
             context.transform(matrix);
+
+            m_settings.grid.draw(context);
+
             painter.cairo_context = context;
-            painter.color_scheme = scheme;
+            painter.color_scheme = m_settings.scheme;
             schematic.draw(painter);
 
             return true;
