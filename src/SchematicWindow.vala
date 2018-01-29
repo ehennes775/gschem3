@@ -208,19 +208,78 @@ namespace Gschem3
                 Math.round(height / 2.0)
                 );
 
-            var scale = double.min(
+            var initial_scale = double.min(
                 0.9 * width / (bounds.max_x - bounds.min_x).abs(),
                 0.9 * height / (bounds.max_y - bounds.min_y).abs()
                 );
 
-            matrix.scale(scale, -scale);
+            var final_scale = Math.floor(100.0 * initial_scale) / 100.0;
+
+            matrix.scale(final_scale, -final_scale);
 
             matrix.translate(
                 (bounds.max_x + bounds.min_x) / -2.0,
                 (bounds.max_y + bounds.min_y) / -2.0
                 );
 
+            matrix.x0 = Math.round(matrix.x0);
+            matrix.y0 = Math.round(matrix.y0);
+
             drawing.queue_draw();
+        }
+
+
+        /**
+         * Zoom in on the center of the window
+         */
+        public void zoom_in_center()
+
+            requires(drawing != null)
+
+        {
+            var width = drawing.get_allocated_width();
+            var height = drawing.get_allocated_height();
+
+            zoom_in_point(width / 2, height / 2);
+        }
+
+
+        /**
+         * Zoom in and center point in window
+         *
+         * @param x The center point in device units
+         * @param y The center point in device units
+         */
+        public void zoom_in_point(int x, int y)
+        {
+            zoom_point(x, y, 1.25);
+        }
+
+
+        /**
+         * Zoom out on the center of the window
+         */
+        public void zoom_out_center()
+
+            requires(drawing != null)
+
+        {
+            var width = drawing.get_allocated_width();
+            var height = drawing.get_allocated_height();
+
+            zoom_out_point(width / 2, height / 2);
+        }
+        
+
+        /**
+         * Zoom out and center point in window
+         *
+         * @param x The center point in device units
+         * @param y The center point in device units
+         */
+        public void zoom_out_point(int x, int y)
+        {
+            zoom_point(x, y, 0.8);
         }
 
 
@@ -343,6 +402,19 @@ namespace Gschem3
 
             context.fill();
 
+            context.translate(0.5, 0.5);
+
+                stdout.printf(@"x0 = $(matrix.x0)\n");
+                stdout.printf(@"y0 = $(matrix.y0)\n");
+
+            double xt = 0.0;
+            double yt = 0.0;
+
+            context.user_to_device(ref xt, ref yt);
+
+                stdout.printf(@"xt = $(xt)\n");
+                stdout.printf(@"yt = $(yt)\n");
+
             context.transform(matrix);
 
             m_settings.grid.draw(context, m_settings.scheme);
@@ -446,6 +518,45 @@ namespace Gschem3
             file_id = file_info.get_attribute_string(FileAttribute.ID_FILE);
             tab = file_info.get_display_name();
             tag = file_info.get_etag();
+        }
+
+
+        /**
+         * Zoom out and center point in window
+         *
+         * @param x The center point in device units
+         * @param y The center point in device units
+         * @param factor The zoom factor
+         */
+        public void zoom_point(int x, int y, double factor)
+
+            requires(drawing != null)
+
+        {
+            var inverse = matrix;
+            var status = inverse.invert();
+
+            if (status == Cairo.Status.SUCCESS)
+            {
+                var scale = Math.floor(factor * 100.0 * matrix.xx) / (100.0 * matrix.xx);
+
+                matrix.scale(scale, scale);
+
+                int width = drawing.get_allocated_width();
+                int height = drawing.get_allocated_height();
+
+                matrix.x0 = (int) Math.round(width / 2.0);
+                matrix.y0 = (int) Math.round(height / 2.0);
+
+                double dx = x;
+                double dy = y;
+
+                inverse.transform_point(ref dx, ref dy);
+
+                matrix.translate(-dx, -dy);
+
+                drawing.queue_draw();
+            }
         }
     }
 }

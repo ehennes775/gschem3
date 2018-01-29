@@ -12,7 +12,7 @@ namespace Gschem3
         {
             get;
             set;
-            default = 3.0;
+            default = 1.0;
         }
 
 
@@ -150,9 +150,9 @@ namespace Gschem3
             // The origin grid color does not have a standardized index yet
 
             context.set_source_rgba(
-                0.16,
-                0.16,
-                0.16,
+                0.25,
+                0.25,
+                0.25,
                 1.0
                 );
 

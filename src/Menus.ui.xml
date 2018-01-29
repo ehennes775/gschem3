@@ -85,6 +85,14 @@
                 <attribute name="label" translatable="yes">_View</attribute>
                 <section>
                     <item>
+                        <attribute name="label" translatable="yes">Zoom In</attribute>
+                        <attribute name="action">win.zoom-in</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Zoom Out</attribute>
+                        <attribute name="action">win.zoom-out</attribute>
+                    </item>
+                    <item>
                         <attribute name="label" translatable="yes">Zoom Extents</attribute>
                         <attribute name="action">win.zoom-extents</attribute>
                     </item>

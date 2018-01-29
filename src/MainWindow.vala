@@ -288,6 +288,8 @@ namespace Gschem3
         private const ActionEntry[] action_entries =
         {
             { "zoom-extents", on_zoom_extents, null, null, null },
+            { "zoom-in", on_zoom_in, null, null, null },
+            { "zoom-out", on_zoom_out, null, null, null },
             { "file-save", on_file_save, null, null, null },
             { "file-save-all", on_file_save_all, null, null, null },
             { "file-save-as", on_file_save_as, null, null, null },
@@ -761,6 +763,58 @@ namespace Gschem3
                 if (page != null)
                 {
                     page.zoom_extents();
+                }
+            }
+        }
+
+
+        /**
+         * Zoom the current view to the extents
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_zoom_in(SimpleAction action, Variant? parameter)
+
+            requires(notebook != null)
+
+        {
+            var page_index = notebook.get_current_page();
+
+            if (page_index >= 0)
+            {
+                var page = notebook.get_nth_page(page_index) as SchematicWindow;
+
+                if (page != null)
+                {
+                    page.zoom_in_center();
+                }
+            }
+        }
+
+
+        /**
+         * Zoom the current view to the extents
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_zoom_out(SimpleAction action, Variant? parameter)
+
+            requires(notebook != null)
+
+        {
+            stdout.printf("Zoom out in MainWindow\n");
+            
+            var page_index = notebook.get_current_page();
+
+            if (page_index >= 0)
+            {
+                var page = notebook.get_nth_page(page_index) as SchematicWindow;
+
+                if (page != null)
+                {
+                    page.zoom_out_center();
                 }
             }
         }
