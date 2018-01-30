@@ -192,38 +192,9 @@ namespace Gschem3
         public void zoom_extents()
 
             requires(drawing != null)
-            requires(painter != null)
-            requires(schematic != null)
 
         {
-            matrix = Cairo.Matrix.identity();
-
-            var bounds = schematic.calculate_bounds(painter);
-
-            var width = drawing.get_allocated_width();
-            var height = drawing.get_allocated_height();
-
-            matrix.translate(
-                Math.round(width / 2.0),
-                Math.round(height / 2.0)
-                );
-
-            var initial_scale = double.min(
-                0.9 * width / (bounds.max_x - bounds.min_x).abs(),
-                0.9 * height / (bounds.max_y - bounds.min_y).abs()
-                );
-
-            var final_scale = Math.floor(100.0 * initial_scale) / 100.0;
-
-            matrix.scale(final_scale, -final_scale);
-
-            matrix.translate(
-                (bounds.max_x + bounds.min_x) / -2.0,
-                (bounds.max_y + bounds.min_y) / -2.0
-                );
-
-            matrix.x0 = Math.round(matrix.x0);
-            matrix.y0 = Math.round(matrix.y0);
+            zoom_extents_no_redraw();
 
             drawing.queue_draw();
         }
@@ -281,6 +252,12 @@ namespace Gschem3
         {
             zoom_point(x, y, 0.8);
         }
+
+
+        /**
+         * Indicates the schematic should be zoomed on initial draw
+         */
+        private bool m_initial_zoom = true;
 
 
         /**
@@ -384,6 +361,13 @@ namespace Gschem3
             requires(schematic != null)
 
         {
+            if (m_initial_zoom)
+            {
+                zoom_extents_no_redraw();
+
+                m_initial_zoom = false;
+            }
+            
             var background = m_settings.scheme[0];
 
             context.set_source_rgba(
@@ -403,17 +387,6 @@ namespace Gschem3
             context.fill();
 
             context.translate(0.5, 0.5);
-
-                stdout.printf(@"x0 = $(matrix.x0)\n");
-                stdout.printf(@"y0 = $(matrix.y0)\n");
-
-            double xt = 0.0;
-            double yt = 0.0;
-
-            context.user_to_device(ref xt, ref yt);
-
-                stdout.printf(@"xt = $(xt)\n");
-                stdout.printf(@"yt = $(yt)\n");
 
             context.transform(matrix);
 
@@ -522,41 +495,104 @@ namespace Gschem3
 
 
         /**
-         * Zoom out and center point in window
-         *
-         * @param x The center point in device units
-         * @param y The center point in device units
-         * @param factor The zoom factor
+         * Zoom the schematic to fit the view without a redraw
          */
-        public void zoom_point(int x, int y, double factor)
+        private void zoom_extents_no_redraw()
 
             requires(drawing != null)
+            requires(painter != null)
+            requires(schematic != null)
+
+        {
+            matrix = Cairo.Matrix.identity();
+
+            var width = drawing.get_allocated_width();
+            var height = drawing.get_allocated_height();
+
+            if ((width > 0) && (height > 0))
+            {
+                matrix.translate(
+                    Math.round(width / 2.0),
+                    Math.round(height / 2.0)
+                    );
+
+                var bounds = schematic.calculate_bounds(painter);
+
+                if (bounds.empty())
+                {
+                    bounds = Geda3.Bounds()
+                    {
+                        min_x = -500,
+                        min_y = -500,
+                        max_x = 1500,
+                        max_y = 1500
+                    };
+                }
+
+                var initial_scale = double.min(
+                    0.9 * width / (bounds.max_x - bounds.min_x).abs(),
+                    0.9 * height / (bounds.max_y - bounds.min_y).abs()
+                    );
+
+                var final_scale = Math.floor(100.0 * initial_scale) / 100.0;
+
+                matrix.scale(final_scale, -final_scale);
+
+                matrix.translate(
+                    (bounds.max_x + bounds.min_x) / -2.0,
+                    (bounds.max_y + bounds.min_y) / -2.0
+                    );
+
+                matrix.x0 = Math.round(matrix.x0);
+                matrix.y0 = Math.round(matrix.y0);
+            }
+        }
+
+
+        /**
+         * Zoom in or out and center a point in window
+         *
+         * Zoom factors less than 1.0 result in zooming in. Zoom
+         * factors greater than 1.0 result in zooming out. The zoom
+         * factor must be a positive value.
+         *
+         * Setting the zoom factor to 1.0 provides a panning operation.
+         * In this case, the given coordinates will be moved to the
+         * center of the screen and the zoom will remain unchanged.
+         *
+         * @param x The x coordinate of the zoom point, in device units
+         * @param y The y coordinate of the zoom point, in device units
+         * @param factor The zoom factor
+         */
+        private void zoom_point(int x, int y, double factor)
+
+            requires(drawing != null)
+            requires(factor > 0.0)
 
         {
             var inverse = matrix;
             var status = inverse.invert();
 
-            if (status == Cairo.Status.SUCCESS)
-            {
-                var scale = Math.floor(factor * 100.0 * matrix.xx) / (100.0 * matrix.xx);
+            return_if_fail(status == Cairo.Status.SUCCESS);
 
-                matrix.scale(scale, scale);
+            var scale = Math.floor(factor * 100.0 * matrix.xx) / (100.0 * matrix.xx);
 
-                int width = drawing.get_allocated_width();
-                int height = drawing.get_allocated_height();
+            matrix.scale(scale, scale);
 
-                matrix.x0 = (int) Math.round(width / 2.0);
-                matrix.y0 = (int) Math.round(height / 2.0);
+            int width = drawing.get_allocated_width();
+            int height = drawing.get_allocated_height();
 
-                double dx = x;
-                double dy = y;
+            matrix.x0 = (int) Math.round(width / 2.0);
+            matrix.y0 = (int) Math.round(height / 2.0);
 
-                inverse.transform_point(ref dx, ref dy);
+            double dx = x;
+            double dy = y;
 
-                matrix.translate(-dx, -dy);
+            inverse.transform_point(ref dx, ref dy);
 
-                drawing.queue_draw();
-            }
+            matrix.translate(-dx, -dy);
+
+            drawing.queue_draw();
         }
     }
 }
