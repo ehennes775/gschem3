@@ -777,6 +777,11 @@ namespace Gschem3
         /**
          * Select a drawing tool
          *
+         * Default functionality in the SimpleAction provides the same
+         * functionality as this method. This method is kept for
+         * precondition checks to validate the parameter and state for
+         * the action.
+         *
          * @param action the action that activated this function call
          * @param parameter The name of the tool as a string
          */
@@ -789,12 +794,9 @@ namespace Gschem3
             requires(parameter.is_of_type(VariantType.STRING))
 
         {
-            // The following statement shouldn't be needed. If the
-            // parameter type matches the state type, then the
-            // SimpleAction should automatically assign the state
-            // inside the activate signal handler.
-
-            stdout.printf(@"Type: $(action.state_type.peek_string())");
+            // Since a signal handler has been connected to the
+            // activate signal, the signal handler is responsible for
+            // changing the state.
 
             action.change_state(parameter);
         }
