@@ -783,7 +783,8 @@ namespace Gschem3
         private void on_select_tool(SimpleAction action, Variant? parameter)
 
             requires(action.state.is_of_type(VariantType.STRING))
-            requires(action.state_type == VariantType.STRING)
+            requires(action.state_type != null)
+            requires(action.state_type.equal(VariantType.STRING))
             requires(parameter != null)
             requires(parameter.is_of_type(VariantType.STRING))
 
@@ -792,6 +793,8 @@ namespace Gschem3
             // parameter type matches the state type, then the
             // SimpleAction should automatically assign the state
             // inside the activate signal handler.
+
+            stdout.printf(@"Type: $(action.state_type.peek_string())");
 
             action.change_state(parameter);
         }

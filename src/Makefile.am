@@ -112,6 +112,14 @@ libgschem3_a_SOURCES = \
 	DocumentTab.vala \
 	DocumentWindow.vala \
 	DrawingTool.vala \
+	DrawingToolArc.vala \
+	DrawingToolBox.vala \
+	DrawingToolBus.vala \
+	DrawingToolCircle.vala \
+	DrawingToolLine.vala \
+	DrawingToolNet.vala \
+	DrawingToolPath.vala \
+	DrawingToolPin.vala \
 	DrawingToolSelect.vala \
 	ErrorDialog.vala \
 	ExportBillOfMaterial.vala \

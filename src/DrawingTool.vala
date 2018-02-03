@@ -7,6 +7,60 @@ namespace Gschem3
     {
         /**
          *
+         */
+        public const string ArcName = "arc";
+
+
+        /**
+         *
+         */
+        public const string BoxName = "box";
+
+
+        /**
+         *
+         */
+        public const string BusName = "bus";
+
+
+        /**
+         *
+         */
+        public const string CircleName = "circle";
+
+
+        /**
+         *
+         */
+        public const string LineName = "line";
+
+
+        /**
+         *
+         */
+        public const string NetName = "net";
+
+
+        /**
+         *
+         */
+        public const string PathName = "path";
+
+
+        /**
+         *
+         */
+        public const string PinName = "pin";
+
+
+        /**
+         *
+         */
+        public const string SelectName = "select";
+
+
+        /**
+         *
          *
          * @param next_file the file to read the schematic from
          */
@@ -23,11 +77,22 @@ namespace Gschem3
          *
          * @param next_file the file to read the schematic from
          */
-        public bool button_released(Gdk.EventButton event)
+        public virtual bool button_released(Gdk.EventButton event)
         {
             stdout.printf("on_button_release_event\n");
 
             return false;
+        }
+
+
+        /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
+        public virtual void cancel()
+        {
+            stdout.printf("cancel\n");
         }
 
 
@@ -67,6 +132,17 @@ namespace Gschem3
             stdout.printf("on_motion_notify_event\n");
 
             return false;
+        }
+
+
+        /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
+        public virtual void reset()
+        {
+            stdout.printf("reset\n");
         }
     }
 }

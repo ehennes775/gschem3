@@ -93,6 +93,16 @@ namespace Gschem3
             schematic = new Geda3.Schematic();
             tag = null;
 
+            m_tools.@set(DrawingTool.ArcName, new DrawingToolArc());
+            m_tools.@set(DrawingTool.BoxName, new DrawingToolBox());
+            m_tools.@set(DrawingTool.BusName, new DrawingToolBus());
+            m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle());
+            m_tools.@set(DrawingTool.LineName, new DrawingToolLine());
+            m_tools.@set(DrawingTool.NetName, new DrawingToolNet());
+            m_tools.@set(DrawingTool.PathName, new DrawingToolPath());
+            m_tools.@set(DrawingTool.PinName, new DrawingToolPin());
+            m_tools.@set(DrawingTool.SelectName, new DrawingToolSelect());
+
             drawing.add_events(
                 Gdk.EventMask.BUTTON_PRESS_MASK |
                 Gdk.EventMask.BUTTON_RELEASE_MASK |
@@ -115,10 +125,7 @@ namespace Gschem3
          */
         public SchematicWindow()
         {
-            tab = "untitled_%d%s".printf(
-                ++untitled_number,
-                SCHEMATIC_EXTENSION
-                );
+            tab = @"untitled_$(++untitled_number)$(SCHEMATIC_EXTENSION)";
         }
 
 
@@ -200,13 +207,32 @@ namespace Gschem3
 
 
         /**
-         * Select a drawing tool in this window
+         * Select a drawing tool for this window
          *
-         * @param name The name of the tool select
+         * The m_current_tool should not be null, but this function
+         * woould need to execute to correct the issue. Otherwise, the
+         * value would be 'stuck' at null. So, this function treats
+         * m_current_tool equal to null as a valid precondition.
+         *
+         * @param name The name of the tool to select
          */
         public void select_tool(string name)
+
+            requires(m_tools != null)
+            requires(m_tools.has_key(name))
+            ensures(m_current_tool != null)
+
         {
-            stdout.printf(@"Tool: $(name)\n");
+            if (m_current_tool != null)
+            {
+                m_current_tool.cancel();
+            }
+
+            m_current_tool = m_tools[name];
+
+            return_if_fail(m_current_tool != null);
+
+            m_current_tool.reset();
         }
 
 
@@ -288,6 +314,12 @@ namespace Gschem3
          * Indicates the schematic should be zoomed on initial draw
          */
         private bool m_initial_zoom = true;
+
+
+        /**
+         * The drawing tools for this window
+         */
+        private Gee.HashMap<string,DrawingTool> m_tools = new Gee.HashMap<string,DrawingTool>();
 
 
         /**
