@@ -93,7 +93,20 @@ namespace Gschem3
             schematic = new Geda3.Schematic();
             tag = null;
 
+            drawing.add_events(
+                Gdk.EventMask.BUTTON_PRESS_MASK |
+                Gdk.EventMask.BUTTON_RELEASE_MASK |
+                Gdk.EventMask.KEY_PRESS_MASK |
+                Gdk.EventMask.KEY_RELEASE_MASK |
+                Gdk.EventMask.POINTER_MOTION_MASK
+                );
+
+            drawing.button_press_event.connect(on_button_press_event);
+            drawing.button_release_event.connect(on_button_release_event);
             drawing.draw.connect(on_draw);
+            drawing.key_press_event.connect(on_key_press_event);
+            drawing.key_release_event.connect(on_key_release_event);
+            drawing.motion_notify_event.connect(on_motion_notify_event);
         }
 
 
@@ -187,6 +200,17 @@ namespace Gschem3
 
 
         /**
+         * Select a drawing tool in this window
+         *
+         * @param name The name of the tool select
+         */
+        public void select_tool(string name)
+        {
+            stdout.printf(@"Tool: $(name)\n");
+        }
+
+
+        /**
          * Zoom the schematic to fit the view
          */
         public void zoom_extents()
@@ -252,6 +276,12 @@ namespace Gschem3
         {
             zoom_point(x, y, 0.8);
         }
+
+
+        /**
+         * The current drawing tool
+         */
+        private DrawingTool m_current_tool = new DrawingToolSelect();
 
 
         /**
@@ -352,6 +382,34 @@ namespace Gschem3
 
 
         /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
+        private bool on_button_press_event(Gdk.EventButton event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.button_pressed(event);
+        }
+
+
+        /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
+        private bool on_button_release_event(Gdk.EventButton event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.button_released(event);
+        }
+
+
+        /**
          * Draw the schematic window contents
          */
         private bool on_draw(Cairo.Context context)
@@ -397,6 +455,48 @@ namespace Gschem3
             schematic.draw(painter);
 
             return true;
+        }
+
+
+        /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
+        private bool on_key_press_event(Gdk.EventKey event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.key_pressed(event);
+        }
+
+
+        /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
+        private bool on_key_release_event(Gdk.EventKey event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.key_released(event);
+        }
+
+
+        /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
+        private bool on_motion_notify_event(Gdk.EventMotion event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.motion_notify(event);
         }
 
 

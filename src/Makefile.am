@@ -111,6 +111,8 @@ libgeda3_a_VALAFLAGS = \
 libgschem3_a_SOURCES = \
 	DocumentTab.vala \
 	DocumentWindow.vala \
+	DrawingTool.vala \
+	DrawingToolSelect.vala \
 	ErrorDialog.vala \
 	ExportBillOfMaterial.vala \
 	ExportBillOfMaterialDialog.vala \

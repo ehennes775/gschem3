@@ -85,6 +85,10 @@ namespace Gschem3
                 "project",
                 BindingFlags.SYNC_CREATE
                 );
+
+            // Setup notebook signal handling
+
+            notebook.switch_page.connect(on_switch_page);
         }
 
 
@@ -287,6 +291,7 @@ namespace Gschem3
          */
         private const ActionEntry[] action_entries =
         {
+            { "select-tool", on_select_tool, "s", "'select'", on_tool_change },
             { "zoom-extents", on_zoom_extents, null, null, null },
             { "zoom-in", on_zoom_in, null, null, null },
             { "zoom-out", on_zoom_out, null, null, null },
@@ -317,6 +322,18 @@ namespace Gschem3
          * Actions for this ApplicationWindow
          */
         private CustomAction[] m_actions;
+
+
+        /**
+         * The currently selected tool
+         */
+        private string m_current_tool = "select";
+
+
+        /**
+         * A dialog box for opening new files
+         */
+        private Gtk.FileChooserDialog m_file_open_dialog = null;
 
 
         /**
@@ -485,28 +502,42 @@ namespace Gschem3
          */
         private void on_file_open(SimpleAction action, Variant? parameter)
         {
-            var dialog = new Gtk.FileChooserDialog(
-                "Select File",
-                this,
-                Gtk.FileChooserAction.OPEN,
-                "_Cancel", Gtk.ResponseType.CANCEL,
-                "_Open", Gtk.ResponseType.ACCEPT
-                );
+            if (m_file_open_dialog == null)
+            {
+                stdout.printf("Creating\n");
+                
+                m_file_open_dialog = new Gtk.FileChooserDialog(
+                    "Select File",
+                    this,
+                    Gtk.FileChooserAction.OPEN,
+                    "_Cancel", Gtk.ResponseType.CANCEL,
+                    "_Open", Gtk.ResponseType.ACCEPT
+                    );
 
-            dialog.select_multiple = true;
+                m_file_open_dialog.select_multiple = true;
+            }
 
-            var response = dialog.run();
+            var folder = m_file_open_dialog.get_current_folder();
+
+            stdout.printf(@"In... $folder\n");
+
+            var response = m_file_open_dialog.run();
 
             if (response == Gtk.ResponseType.ACCEPT)
             {
                 var files = new Gee.ArrayList<File>();
 
-                dialog.get_files().foreach((file) => { files.add(file); });
+                m_file_open_dialog.get_files().foreach(
+                    (file) => { files.add(file); }
+                    );
 
                 open(files.to_array());
             }
 
-            dialog.close();
+            m_file_open_dialog.hide();
+
+            folder = m_file_open_dialog.get_current_folder();
+            stdout.printf(@"Out... $folder\n");
         }
 
 
@@ -740,6 +771,93 @@ namespace Gschem3
             {
                 ErrorDialog.show_with_file(this, error, project.file);
             }
+        }
+
+
+        /**
+         * Select a drawing tool
+         *
+         * @param action the action that activated this function call
+         * @param parameter The name of the tool as a string
+         */
+        private void on_select_tool(SimpleAction action, Variant? parameter)
+
+            requires(action.state.is_of_type(VariantType.STRING))
+            requires(action.state_type == VariantType.STRING)
+            requires(parameter != null)
+            requires(parameter.is_of_type(VariantType.STRING))
+
+        {
+            // The following statement shouldn't be needed. If the
+            // parameter type matches the state type, then the
+            // SimpleAction should automatically assign the state
+            // inside the activate signal handler.
+
+            action.change_state(parameter);
+        }
+
+
+        /**
+         * Signal handler for notebook page changes
+         *
+         * @param page The widget representing the page
+         * @param number The page number
+         */
+        private void on_switch_page(Gtk.Widget page, uint number)
+
+            requires (notebook != null)
+
+        {
+            var selectable = page as SchematicWindow;
+
+            if (selectable == null)
+            {
+                // needs to disable the action
+            }
+            else
+            {
+                // needs to enable the action
+                
+                change_action_state(
+                    "select-tool",
+                    new Variant.string("net")
+                    );
+            }
+        }
+
+
+        /**
+         * Signal handler when the user changes the drawing tool
+         *
+         * @param action the action that activated this function call
+         * @param parameter The name of the tool as a string
+         */
+        private void on_tool_change(SimpleAction action, Variant? state)
+
+            requires(notebook != null)
+            requires(state != null)
+            requires(state.is_of_type(VariantType.STRING))
+
+        {
+            var tool = state.get_string();
+
+            return_if_fail(tool != null);
+
+            m_current_tool = tool;
+
+            var page_index = notebook.get_current_page();
+
+            if (page_index >= 0)
+            {
+                var page = notebook.get_nth_page(page_index) as SchematicWindow;
+
+                if (page != null)
+                {
+                    page.select_tool(m_current_tool);
+                }
+            }
+
+            stdout.printf(@"on_tool_change $(m_current_tool)\n");
         }
 
 
