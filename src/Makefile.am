@@ -137,7 +137,8 @@ libgschem3_a_SOURCES = \
 	Reloadable.vala \
 	Savable.vala \
 	SchematicWindow.vala \
-	SchematicWindowSettings.vala
+	SchematicWindowSettings.vala \
+	Zoomable.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \

@@ -879,7 +879,7 @@ namespace Gschem3
          */
         private void on_zoom_extents(SimpleAction action, Variant? parameter)
         {
-            var page = get_current_page() as SchematicWindow;
+            var page = get_current_page() as Zoomable;
 
             return_if_fail(page != null);
 
@@ -901,7 +901,7 @@ namespace Gschem3
          */
         private void on_zoom_in(SimpleAction action, Variant? parameter)
         {
-            var page = get_current_page() as SchematicWindow;
+            var page = get_current_page() as Zoomable;
 
             return_if_fail(page != null);
 
@@ -923,7 +923,7 @@ namespace Gschem3
          */
         private void on_zoom_out(SimpleAction action, Variant? parameter)
         {
-            var page = get_current_page() as SchematicWindow;
+            var page = get_current_page() as Zoomable;
 
             return_if_fail(page != null);
 

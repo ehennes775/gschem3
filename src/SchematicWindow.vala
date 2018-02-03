@@ -7,7 +7,8 @@ namespace Gschem3
     public class SchematicWindow : DocumentWindow,
         Fileable,
         Reloadable,
-        Savable
+        Savable,
+        Zoomable
     {
         /**
          * The filename extension for schematic files
