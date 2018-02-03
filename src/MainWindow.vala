@@ -372,6 +372,30 @@ namespace Gschem3
 
 
         /**
+         * Gets the current page in the notebook
+         *
+         * @return The current page in the notebook. If the notebook
+         * does not have a current page, then this fucntion returns
+         * null.
+         */
+        private Gtk.Widget? get_current_page()
+
+            requires(notebook != null)
+
+        {
+            Gtk.Widget? page = null;
+            var page_index = notebook.get_current_page();
+
+            if (page_index >= 0)
+            {
+                page = notebook.get_nth_page(page_index) as SchematicWindow;
+            }
+
+            return page;
+        }
+        
+
+        /**
          * Find the document window that contains a file
          *
          * @param file The file to search for
@@ -552,22 +576,17 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            var page_index = notebook.get_current_page();
+            var page = get_current_page() as SchematicWindow;
 
-            if (page_index >= 0)
+            if (page != null)
             {
-                var page = notebook.get_nth_page(page_index) as Reloadable;
-
-                if (page != null)
+                try
                 {
-                    try
-                    {
-                        page.reload(this);
-                    }
-                    catch (Error error)
-                    {
-                        ErrorDialog.show_with_file(this, error, page.file);
-                    }
+                    page.reload(this);
+                }
+                catch (Error error)
+                {
+                    ErrorDialog.show_with_file(this, error, page.file);
                 }
             }
         }
@@ -584,22 +603,17 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            var page_index = notebook.get_current_page();
+            var page = get_current_page() as SchematicWindow;
 
-            if (page_index >= 0)
+            if (page != null)
             {
-                var page = notebook.get_nth_page(page_index) as Savable;
-
-                if (page != null)
+                try
                 {
-                    try
-                    {
-                        page.save(this);
-                    }
-                    catch (Error error)
-                    {
-                        ErrorDialog.show_with_file(this, error, page.file);
-                    }
+                    page.save(this);
+                }
+                catch (Error error)
+                {
+                    ErrorDialog.show_with_file(this, error, page.file);
                 }
             }
         }
@@ -656,26 +670,18 @@ namespace Gschem3
          * @param parameter unused
          */
         private void on_file_save_as(SimpleAction action, Variant? parameter)
-
-            requires(notebook != null)
-
         {
-            var page_index = notebook.get_current_page();
+            var page = get_current_page() as SchematicWindow;
 
-            if (page_index >= 0)
+            if (page != null)
             {
-                var page = notebook.get_nth_page(page_index) as Savable;
-
-                if (page != null)
+                try
                 {
-                    try
-                    {
-                        page.save_as(this);
-                    }
-                    catch (Error error)
-                    {
-                        ErrorDialog.show_with_file(this, error, page.file);
-                    }
+                    page.save_as(this);
+                }
+                catch (Error error)
+                {
+                    ErrorDialog.show_with_file(this, error, page.file);
                 }
             }
         }
@@ -850,96 +856,78 @@ namespace Gschem3
 
             m_current_tool = tool;
 
-            var page_index = notebook.get_current_page();
+            var page = get_current_page() as SchematicWindow;
 
-            if (page_index >= 0)
+            if (page != null)
             {
-                var page = notebook.get_nth_page(page_index) as SchematicWindow;
-
-                if (page != null)
-                {
-                    page.select_tool(m_current_tool);
-                }
+                page.select_tool(m_current_tool);
             }
-
-            stdout.printf(@"on_tool_change $(m_current_tool)\n");
         }
 
 
         /**
          * Zoom the current view to the extents
+         *
+         * The associated action for this method should be disabled
+         * when the notebook does not have a current page, or the page
+         * does not support this action. So, it is considered a logic
+         * error to call this method without current page that can
+         * accept this action.
          *
          * @param action the action that activated this function call
          * @param parameter unused
          */
         private void on_zoom_extents(SimpleAction action, Variant? parameter)
-
-            requires(notebook != null)
-
         {
-            var page_index = notebook.get_current_page();
+            var page = get_current_page() as SchematicWindow;
 
-            if (page_index >= 0)
-            {
-                var page = notebook.get_nth_page(page_index) as SchematicWindow;
+            return_if_fail(page != null);
 
-                if (page != null)
-                {
-                    page.zoom_extents();
-                }
-            }
+            page.zoom_extents();
         }
 
 
         /**
-         * Zoom the current view to the extents
+         * Zoom in on the center of the current view
+         *
+         * The associated action for this method should be disabled
+         * when the notebook does not have a current page, or the page
+         * does not support this action. So, it is considered a logic
+         * error to call this method without current page that can
+         * accept this action.
          *
          * @param action the action that activated this function call
          * @param parameter unused
          */
         private void on_zoom_in(SimpleAction action, Variant? parameter)
-
-            requires(notebook != null)
-
         {
-            var page_index = notebook.get_current_page();
+            var page = get_current_page() as SchematicWindow;
 
-            if (page_index >= 0)
-            {
-                var page = notebook.get_nth_page(page_index) as SchematicWindow;
+            return_if_fail(page != null);
 
-                if (page != null)
-                {
-                    page.zoom_in_center();
-                }
-            }
+            page.zoom_in_center();
         }
 
 
         /**
-         * Zoom the current view to the extents
+         * Zoom out on the center of the current view
+         *
+         * The associated action for this method should be disabled
+         * when the notebook does not have a current page, or the page
+         * does not support this action. So, it is considered a logic
+         * error to call this method without current page that can
+         * accept this action.
          *
          * @param action the action that activated this function call
          * @param parameter unused
          */
         private void on_zoom_out(SimpleAction action, Variant? parameter)
-
-            requires(notebook != null)
-
         {
-            stdout.printf("Zoom out in MainWindow\n");
-            
-            var page_index = notebook.get_current_page();
+            var page = get_current_page() as SchematicWindow;
 
-            if (page_index >= 0)
-            {
-                var page = notebook.get_nth_page(page_index) as SchematicWindow;
+            return_if_fail(page != null);
 
-                if (page != null)
-                {
-                    page.zoom_out_center();
-                }
-            }
+            page.zoom_out_center();
         }
     }
 }
