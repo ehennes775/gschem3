@@ -35,8 +35,12 @@ namespace Gschem3
                 m_state = State.S1;
                 m_x[0] = (int) Math.round(x);
                 m_y[0] = (int) Math.round(y);
+
+                m_window.snap_point(ref m_x[0], ref m_y[0]);
+
                 m_x[2] = m_x[0];
                 m_y[2] = m_y[0];
+
                 calculate_middle();
 
                 invalidate();
@@ -51,6 +55,9 @@ namespace Gschem3
                 m_state = State.S0;
                 m_x[2] = (int) Math.round(x);
                 m_y[2] = (int) Math.round(y);
+
+                m_window.snap_point(ref m_x[2], ref m_y[2]);
+
                 calculate_middle();
 
                 invalidate();
@@ -124,6 +131,9 @@ namespace Gschem3
 
                 m_x[2] = (int) Math.round(x);
                 m_y[2] = (int) Math.round(y);
+
+                m_window.snap_point(ref m_x[2], ref m_y[2]);
+
                 calculate_middle();
 
                 invalidate();

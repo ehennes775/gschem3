@@ -283,6 +283,21 @@ namespace Gschem3
 
 
         /**
+         * Snap a point to the grid of this window
+         *
+         * The coordinates must be user coordinates.
+         *
+         * @param x The x coordinate to snap
+         * @param y The y coordinate to snap
+         */
+        public void snap_point(ref int x, ref int y)
+        {
+            x = Geda3.Coord.snap(x, 100);
+            y = Geda3.Coord.snap(y, 100);
+        }
+
+
+        /**
          * Zoom the schematic to fit the view
          */
         public void zoom_extents()
