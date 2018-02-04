@@ -856,6 +856,12 @@ namespace Gschem3
 
             m_current_tool = tool;
 
+            // Since a signal handler was added to the change_state
+            // signal, this function is responsibe for setting the
+            // state of the action.
+            
+            action.set_state(state);
+
             var page = get_current_page() as SchematicWindow;
 
             if (page != null)
