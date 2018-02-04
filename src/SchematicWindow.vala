@@ -98,7 +98,7 @@ namespace Gschem3
             m_tools.@set(DrawingTool.BoxName, new DrawingToolBox());
             m_tools.@set(DrawingTool.BusName, new DrawingToolBus());
             m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle());
-            m_tools.@set(DrawingTool.LineName, new DrawingToolLine());
+            m_tools.@set(DrawingTool.LineName, new DrawingToolLine(this));
             m_tools.@set(DrawingTool.NetName, new DrawingToolNet());
             m_tools.@set(DrawingTool.PathName, new DrawingToolPath());
             m_tools.@set(DrawingTool.PinName, new DrawingToolPin());
@@ -136,6 +136,51 @@ namespace Gschem3
         public SchematicWindow.with_file(File file) throws Error
         {
             read(file);
+        }
+
+
+        /**
+         * Convert device coordinates to user coordinates
+         */
+        public void device_to_user(ref double x, ref double y)
+        {
+            var inverse = matrix;
+            var status = inverse.invert();
+
+            return_if_fail(status == Cairo.Status.SUCCESS);
+
+            inverse.transform_point(ref x, ref y);
+        }
+
+
+        /**
+         * Invalidate an area of the window in user coordinates
+         *
+         * @param bounds The area to invalidate in user coordinates
+         */
+        public void invalidate_user(Geda3.Bounds bounds)
+        {
+            var x0 = (double) bounds.min_x;
+            var y0 = (double) bounds.min_y;
+            var x1 = (double) bounds.max_x;
+            var y1 = (double) bounds.max_y;
+
+            matrix.transform_point(ref x0, ref y0);
+            matrix.transform_point(ref x1, ref y1);
+
+            var min_x = Math.floor(double.min(x0, x1));
+            var min_y = Math.floor(double.min(y0, y1));
+            var max_x = Math.ceil(double.max(x0, x1));
+            var max_y = Math.ceil(double.min(y0, y1));
+
+            queue_draw_area(
+                (int) min_x,
+                (int) min_y,
+                (int) (max_x - min_x),
+                (int) (max_y - min_y)
+                );
+
+            queue_draw();
         }
 
 
@@ -448,6 +493,7 @@ namespace Gschem3
         private bool on_draw(Cairo.Context context)
 
             requires(painter != null)
+            requires(m_current_tool != null)
             requires(m_settings != null)
             requires(schematic != null)
 
@@ -486,6 +532,7 @@ namespace Gschem3
             painter.cairo_context = context;
             painter.color_scheme = m_settings.scheme;
             schematic.draw(painter);
+            m_current_tool.draw(painter);
 
             return true;
         }

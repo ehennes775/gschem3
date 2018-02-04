@@ -101,6 +101,16 @@ namespace Gschem3
          *
          * @param next_file the file to read the schematic from
          */
+        public virtual void draw(Geda3.SchematicPainter context)
+        {
+        }
+
+
+        /**
+         *
+         *
+         * @param next_file the file to read the schematic from
+         */
         public virtual bool key_pressed(Gdk.EventKey event)
         {
             stdout.printf("on_key_press_event\n");
