@@ -708,7 +708,9 @@ namespace Gschem3
 
             return_if_fail(status == Cairo.Status.SUCCESS);
 
-            var scale = Math.floor(factor * 100.0 * matrix.xx) / (100.0 * matrix.xx);
+            var scale = Math.floor(factor * 100.0 * matrix.xx);
+            scale = scale.clamp(4.0, 125.0);
+            scale /= (100.0 * matrix.xx);
 
             matrix.scale(scale, scale);
 
@@ -724,6 +726,9 @@ namespace Gschem3
             inverse.transform_point(ref dx, ref dy);
 
             matrix.translate(-dx, -dy);
+
+            matrix.x0 = Math.round(matrix.x0);
+            matrix.y0 = Math.round(matrix.y0);
 
             drawing.queue_draw();
         }
