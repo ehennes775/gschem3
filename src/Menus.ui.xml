@@ -111,23 +111,6 @@
                 </section>
                 <section>
                     <item>
-                        <attribute name="label" translatable="yes">Bus</attribute>
-                        <attribute name="action">win.select-tool</attribute>
-                        <attribute name="target">bus</attribute>
-                    </item>
-                    <item>
-                        <attribute name="label" translatable="yes">Net</attribute>
-                        <attribute name="action">win.select-tool</attribute>
-                        <attribute name="target">net</attribute>
-                    </item>
-                    <item>
-                        <attribute name="label" translatable="yes">Pin</attribute>
-                        <attribute name="action">win.select-tool</attribute>
-                        <attribute name="target">pin</attribute>
-                    </item>
-                </section>
-                <section>
-                    <item>
                         <attribute name="label" translatable="yes">Arc</attribute>
                         <attribute name="action">win.select-tool</attribute>
                         <attribute name="target">arc</attribute>
@@ -151,6 +134,23 @@
                         <attribute name="label" translatable="yes">Path</attribute>
                         <attribute name="action">win.select-tool</attribute>
                         <attribute name="target">path</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Bus</attribute>
+                        <attribute name="action">win.select-tool</attribute>
+                        <attribute name="target">bus</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Net</attribute>
+                        <attribute name="action">win.select-tool</attribute>
+                        <attribute name="target">net</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Pin</attribute>
+                        <attribute name="action">win.select-tool</attribute>
+                        <attribute name="target">pin</attribute>
                     </item>
                 </section>
             </submenu>

@@ -129,7 +129,7 @@ namespace Gschem3
          */
         public virtual bool motion_notify(Gdk.EventMotion event)
         {
-            stdout.printf("on_motion_notify_event\n");
+            //stdout.printf("on_motion_notify_event\n");
 
             return false;
         }
