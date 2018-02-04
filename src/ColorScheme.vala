@@ -22,6 +22,20 @@ namespace Geda3
             colors = new Gee.HashMap<int,Gdk.RGBA?>();
 
             colors.@set(
+                Color.NET,
+                Gdk.RGBA()
+                {
+                    red = 0.0, green = 0.0, blue = 1.0, alpha = 1.0
+                });
+
+            colors.@set(
+                Color.BUS,
+                Gdk.RGBA()
+                {
+                    red = 0.0, green = 1.0, blue = 0.0, alpha = 1.0
+                });
+
+            colors.@set(
                 Color.GRAPHIC,
                 Gdk.RGBA()
                 {
