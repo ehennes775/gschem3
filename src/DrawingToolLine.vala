@@ -79,17 +79,20 @@ namespace Gschem3
          */
         public override void draw(Geda3.SchematicPainter painter)
         {
-            painter.set_cap_type(Geda3.CapType.NONE);
-            painter.set_color(Geda3.Color.GRAPHIC);
-            painter.set_dash(Geda3.DashType.SOLID, Geda3.DashType.DEFAULT_LENGTH, Geda3.DashType.DEFAULT_SPACE);
-            painter.set_width(10);
+            if (m_state == State.S1)
+            {
+                painter.set_cap_type(Geda3.CapType.NONE);
+                painter.set_color(Geda3.Color.GRAPHIC);
+                painter.set_dash(Geda3.DashType.SOLID, Geda3.DashType.DEFAULT_LENGTH, Geda3.DashType.DEFAULT_SPACE);
+                painter.set_width(10);
 
-            painter.draw_line(
-                m_x[0],
-                m_y[0],
-                m_x[1],
-                m_y[1]
-                );
+                painter.draw_line(
+                    m_x[0],
+                    m_y[0],
+                    m_x[1],
+                    m_y[1]
+                    );
+            }
         }
 
 

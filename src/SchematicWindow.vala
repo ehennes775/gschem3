@@ -95,9 +95,9 @@ namespace Gschem3
             tag = null;
 
             m_tools.@set(DrawingTool.ArcName, new DrawingToolArc());
-            m_tools.@set(DrawingTool.BoxName, new DrawingToolBox());
+            m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(this));
             m_tools.@set(DrawingTool.BusName, new DrawingToolBus());
-            m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle());
+            m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(this));
             m_tools.@set(DrawingTool.LineName, new DrawingToolLine(this));
             m_tools.@set(DrawingTool.NetName, new DrawingToolNet());
             m_tools.@set(DrawingTool.PathName, new DrawingToolPath());
