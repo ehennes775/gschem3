@@ -303,7 +303,8 @@ namespace Gschem3
             { "file-reload", on_file_reload, null, null, null },
             { "project-save", on_project_save, null, null, null },
             { "project-open", on_project_open, null, null, null },
-            { "project-new", on_project_new, null, null, null }
+            { "project-new", on_project_new, null, null, null },
+            { "select-grid", null, "s", "'mesh'", on_grid_change },
         };
 
 
@@ -688,6 +689,38 @@ namespace Gschem3
 
 
         /**
+         * Signal handler when the user changes the drawing tool
+         *
+         * @param action the action that activated this function call
+         * @param parameter The name of the tool as a string
+         */
+        private void on_grid_change(SimpleAction action, Variant? state)
+
+            requires(notebook != null)
+            requires(state != null)
+            requires(state.is_of_type(VariantType.STRING))
+
+        {
+            var name = state.get_string();
+
+            return_if_fail(name != null);
+
+            // Since a signal handler was added to the change_state
+            // signal, this function is responsibe for setting the
+            // state of the action.
+
+            action.set_state(state);
+
+            var page = get_current_page() as SchematicWindow;
+
+            if (page != null)
+            {
+                page.select_grid(name);
+            }
+        }
+
+
+        /**
          * Create a new project and set it as the current project
          *
          * @param action the action that activated this function call
@@ -859,7 +892,7 @@ namespace Gschem3
             // Since a signal handler was added to the change_state
             // signal, this function is responsibe for setting the
             // state of the action.
-            
+
             action.set_state(state);
 
             var page = get_current_page() as SchematicWindow;

@@ -76,6 +76,36 @@ namespace Gschem3
 
 
         /**
+         * The settings for use by this schematic window
+         *
+         * Setting this property to null will assign the default
+         * settings. The default settings are shared across all
+         * schematic windows.
+         */
+        public SchematicWindowSettings settings
+        {
+            get
+            {
+                return b_settings;
+            }
+            set
+            {
+                if (b_settings != null)
+                {
+                    b_settings.notify.disconnect(on_notify_settings);
+                }
+
+                b_settings = value ?? SchematicWindowSettings.get_default();
+
+                return_if_fail(b_settings != null);
+
+                b_settings.notify.connect(on_notify_settings);
+            }
+            default = null;
+        }
+
+
+        /**
          * Initialize the class
          */
         static construct
@@ -253,6 +283,20 @@ namespace Gschem3
 
 
         /**
+         * Select a drawing grid for this window
+         *
+         * @param name The name of the grid to select
+         */
+        public void select_grid(string name)
+
+            requires(b_settings != null)
+
+        {
+            b_settings.set_grid_by_name(name);
+        }
+
+
+        /**
          * Select a drawing tool for this window
          *
          * The m_current_tool should not be null, but this function
@@ -366,6 +410,16 @@ namespace Gschem3
 
 
         /**
+         * The backing store for the schematic window settings
+         *
+         * Use the property accessor to update this field. The property
+         * accessor will ensure the signals are disconnected from the
+         * previous settings and connected to the new settings.
+         */
+        private SchematicWindowSettings b_settings;
+
+
+        /**
          * The current drawing tool
          */
         private DrawingTool m_current_tool = new DrawingToolSelect();
@@ -418,12 +472,6 @@ namespace Gschem3
          * The schematic this window is editing
          */
         private Geda3.Schematic schematic;
-
-
-        /**
-         * The settigs for this schematic window
-         */
-        private SchematicWindowSettings m_settings = SchematicWindowSettings.get_default();
 
 
         /**
@@ -509,7 +557,7 @@ namespace Gschem3
 
             requires(painter != null)
             requires(m_current_tool != null)
-            requires(m_settings != null)
+            requires(b_settings != null)
             requires(schematic != null)
 
         {
@@ -520,7 +568,7 @@ namespace Gschem3
                 m_initial_zoom = false;
             }
             
-            var background = m_settings.scheme[0];
+            var background = b_settings.scheme[0];
 
             context.set_source_rgba(
                 background.red,
@@ -542,10 +590,10 @@ namespace Gschem3
 
             context.transform(matrix);
 
-            m_settings.grid.draw(context, m_settings.scheme);
+            b_settings.grid.draw(context, b_settings.scheme);
 
             painter.cairo_context = context;
-            painter.color_scheme = m_settings.scheme;
+            painter.color_scheme = b_settings.scheme;
             schematic.draw(painter);
             m_current_tool.draw(painter);
 
@@ -592,6 +640,17 @@ namespace Gschem3
 
         {
             return m_current_tool.motion_notify(event);
+        }
+
+
+        /**
+         * A signal handler for when settings change
+         *
+         * @param spec unused
+         */
+        private void on_notify_settings(ParamSpec spec)
+        {
+            queue_draw();
         }
 
 

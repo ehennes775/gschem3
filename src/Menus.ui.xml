@@ -182,5 +182,22 @@
                 </section>
             </submenu>
         </section>
+        <section>
+            <submenu>
+                <attribute name="label" translatable="yes">_Options</attribute>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">No Grid</attribute>
+                        <attribute name="action">win.select-grid</attribute>
+                        <attribute name="target">none</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Mesh Grid</attribute>
+                        <attribute name="action">win.select-grid</attribute>
+                        <attribute name="target">mesh</attribute>
+                    </item>
+                </section>
+            </submenu>
+        </section>
     </menu>
 </interface>
