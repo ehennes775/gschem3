@@ -30,6 +30,29 @@ namespace Geda3
 
 
         /**
+         * Create a schematic graphical line
+         *
+         * @param x0 The x coordinate of the first point
+         * @param y0 The y coordinate of the first point
+         * @param x1 The x coordinate of the second point
+         * @param y1 The y coordinate of the second point
+         */
+        public SchematicItemLine.with_points(int x0, int y0, int x1, int y1)
+        {
+            b_x[0] = x0;
+            b_x[1] = x1;
+            b_y[0] = y0;
+            b_y[1] = y1;
+            b_color = Color.GRAPHIC;
+            b_width = 10;
+            b_cap_type = CapType.NONE;
+            b_dash_type = DashType.SOLID;
+            b_dash_length = DashType.DEFAULT_LENGTH;
+            b_dash_space = DashType.DEFAULT_SPACE;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override Bounds calculate_bounds(SchematicPainter painter)

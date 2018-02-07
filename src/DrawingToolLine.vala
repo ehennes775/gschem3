@@ -27,8 +27,11 @@ namespace Gschem3
         {
             if (m_state == State.S0)
             {
-                var x = event.x;
-                var y = event.y;
+                m_x = event.x;
+                m_y = event.y;
+
+                var x = m_x;
+                var y = m_y;
 
                 m_window.device_to_user(ref x, ref y);
 
@@ -37,30 +40,27 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                line = new Geda3.SchematicItemLine();
-
-                line.set_point(0, ix, iy);
-                line.set_point(1, ix, iy);
+                line = new Geda3.SchematicItemLine.with_points(
+                    ix,
+                    iy,
+                    ix,
+                    iy
+                    );
 
                 m_state = State.S1;
             }
             else if (m_state == State.S1)
             {
-                var x = event.x;
-                var y = event.y;
+                return_if_fail(b_line != null);
 
-                m_window.device_to_user(ref x, ref y);
+                m_x = event.x;
+                m_y = event.y;
 
-                var ix = (int) Math.round(x);
-                var iy = (int) Math.round(y);
-
-                m_window.snap_point(ref ix, ref iy);
-
-                line.set_point(1, ix, iy);
+                update();
 
                 m_window.add_item(line);
-                line = null;
-                m_state = State.S0;
+
+                reset();
             }
 
             return true;
@@ -71,10 +71,8 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public override void cancel()
-
-            requires(m_window != null)
-
         {
+            line = null;
             m_state = State.S0;
         }
 
@@ -86,7 +84,9 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                line.draw(painter);
+                return_if_fail(b_line != null);
+
+                b_line.draw(painter);
             }
         }
 
@@ -95,23 +95,13 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public override bool motion_notify(Gdk.EventMotion event)
-
-            requires(m_window != null)
-
         {
             if (m_state == State.S1)
             {
-                var x = event.x;
-                var y = event.y;
+                m_x = event.x;
+                m_y = event.y;
 
-                m_window.device_to_user(ref x, ref y);
-
-                var ix = (int) Math.round(x);
-                var iy = (int) Math.round(y);
-
-                m_window.snap_point(ref ix, ref iy);
-
-                line.set_point(1, ix, iy);
+                update();
             }
 
             return false;
@@ -123,32 +113,42 @@ namespace Gschem3
          */
         public override void reset()
         {
+            line = null;
             m_state = State.S0;
         }
 
 
         /**
-         * The x coordinates of the line endpoints
+         * Process the drawing operation with the last event coordinates
          *
-         * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * line object, but more functionality is required inside the
-         * line object.
+         * This function can be called when something can change the
+         * drawing operation in progress. For example, if the user
+         * changes the snap mode. This function update the drawing
+         * operation to accomodate the new snap mode without an
+         * additional event.
          */
-        private int m_x[2];
+        public void update()
 
+            requires(m_window != null)
 
-        /**
-         * The y coordinates of the line endpoints
-         *
-         * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * line object, but more functionality is required inside the
-         * line object.
-         */
-        private int m_y[2];
+        {
+            if (m_state == State.S1)
+            {
+                return_if_fail(b_line != null);
+
+                var x = m_x;
+                var y = m_y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                b_line.set_point(1, ix, iy);
+            }
+        }
 
 
         /**
@@ -162,9 +162,9 @@ namespace Gschem3
 
 
         /**
-         *
+         * The line currently being drawn
          */
-        private Geda3.SchematicItemLine b_line;
+        private Geda3.SchematicItemLine b_line = null;
 
 
         /**
@@ -174,13 +174,25 @@ namespace Gschem3
 
 
         /**
+         * The x coordinate of the last event in device coordinates
+         */
+        private double m_x;
+
+
+        /**
+         * The y coordinate of the last event in device coordinates
+         */
+        private double m_y;
+
+
+        /**
          * Stores the document window this tool is drawing into
          */
         private weak SchematicWindow m_window;
 
 
         /**
-         *
+         * The line currently being drawn
          */
         private Geda3.SchematicItemLine line
         {
@@ -192,6 +204,11 @@ namespace Gschem3
             {
                 if (b_line != null)
                 {
+                    if (m_window != null)
+                    {
+                        m_window.invalidate_item(b_line);
+                    }
+
                     b_line.invalidate.disconnect(on_invalidate);
                 }
 
@@ -199,7 +216,10 @@ namespace Gschem3
 
                 if (b_line != null)
                 {
+                    return_if_fail(m_window != null);
+
                     b_line.invalidate.connect(on_invalidate);
+                    m_window.invalidate_item(b_line);
                 }
             }
         }
@@ -210,10 +230,11 @@ namespace Gschem3
          */
         private void on_invalidate(Geda3.SchematicItem item)
 
+            requires(b_line == item)
             requires(m_window != null)
 
         {
-            m_window.invalidate_item(item);
+            m_window.invalidate_item(b_line);
         }
     }
 }
