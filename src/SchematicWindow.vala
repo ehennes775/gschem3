@@ -170,6 +170,23 @@ namespace Gschem3
 
 
         /**
+         * Add an item to the schematic
+         *
+         * In the future, this will be the function that supports redo
+         * undo.
+         *
+         * @param item The item to add to the schematic
+         */
+        public void add_item(Geda3.SchematicItem item)
+
+            requires(schematic != null)
+
+        {
+            schematic.add(item);
+        }
+
+
+        /**
          * Convert device coordinates to user coordinates
          */
         public void device_to_user(ref double x, ref double y)
@@ -180,6 +197,21 @@ namespace Gschem3
             return_if_fail(status == Cairo.Status.SUCCESS);
 
             inverse.transform_point(ref x, ref y);
+        }
+
+
+        /**
+         * Invalidate an item in the window
+         *
+         * @param item The item to invalidate
+         */
+        public void invalidate_item(Geda3.SchematicItem item)
+        {
+            painter.cairo_context = null;
+
+            var bounds = item.calculate_bounds(painter);
+
+            invalidate_user(bounds);
         }
 
 

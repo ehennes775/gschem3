@@ -32,16 +32,17 @@ namespace Gschem3
 
                 m_window.device_to_user(ref x, ref y);
 
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                line = new Geda3.SchematicItemLine();
+
+                line.set_point(0, ix, iy);
+                line.set_point(1, ix, iy);
+
                 m_state = State.S1;
-                m_x[0] = (int) Math.round(x);
-                m_y[0] = (int) Math.round(y);
-
-                m_window.snap_point(ref m_x[0], ref m_y[0]);
-
-                m_x[1] = m_x[0];
-                m_y[1] = m_y[0];
-
-                invalidate();
             }
             else if (m_state == State.S1)
             {
@@ -50,15 +51,16 @@ namespace Gschem3
 
                 m_window.device_to_user(ref x, ref y);
 
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                line.set_point(1, ix, iy);
+
+                m_window.add_item(line);
+                line = null;
                 m_state = State.S0;
-                m_x[1] = (int) Math.round(x);
-                m_y[1] = (int) Math.round(y);
-
-                m_window.snap_point(ref m_x[1], ref m_y[1]);
-
-                invalidate();
-
-                // TODO: Add new item to schematic 
             }
 
             return true;
@@ -74,8 +76,6 @@ namespace Gschem3
 
         {
             m_state = State.S0;
-
-            invalidate();
         }
 
 
@@ -86,17 +86,7 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                painter.set_cap_type(Geda3.CapType.NONE);
-                painter.set_color(Geda3.Color.GRAPHIC);
-                painter.set_dash(Geda3.DashType.SOLID, Geda3.DashType.DEFAULT_LENGTH, Geda3.DashType.DEFAULT_SPACE);
-                painter.set_width(10);
-
-                painter.draw_line(
-                    m_x[0],
-                    m_y[0],
-                    m_x[1],
-                    m_y[1]
-                    );
+                line.draw(painter);
             }
         }
 
@@ -111,19 +101,17 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                invalidate();
-
                 var x = event.x;
                 var y = event.y;
 
                 m_window.device_to_user(ref x, ref y);
 
-                m_x[1] = (int) Math.round(x);
-                m_y[1] = (int) Math.round(y);
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
 
-                m_window.snap_point(ref m_x[1], ref m_y[1]);
+                m_window.snap_point(ref ix, ref iy);
 
-                invalidate();
+                line.set_point(1, ix, iy);
             }
 
             return false;
@@ -136,8 +124,6 @@ namespace Gschem3
         public override void reset()
         {
             m_state = State.S0;
-
-            invalidate();
         }
 
 
@@ -176,6 +162,12 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private Geda3.SchematicItemLine b_line;
+
+
+        /**
          * Stores the current state of the tool
          */
         private State m_state;
@@ -188,21 +180,40 @@ namespace Gschem3
 
 
         /**
-         * Redraw the current line object
+         *
          */
-        private void invalidate()
+        private Geda3.SchematicItemLine line
+        {
+            get
+            {
+                return b_line;
+            }
+            set
+            {
+                if (b_line != null)
+                {
+                    b_line.invalidate.disconnect(on_invalidate);
+                }
+
+                b_line = value;
+
+                if (b_line != null)
+                {
+                    b_line.invalidate.connect(on_invalidate);
+                }
+            }
+        }
+
+
+        /**
+         * Redraw the current item
+         */
+        private void on_invalidate(Geda3.SchematicItem item)
 
             requires(m_window != null)
 
         {
-            var bounds = Geda3.Bounds.with_points(
-                m_x[0],
-                m_y[0],
-                m_x[1],
-                m_y[1]
-                );
-
-            m_window.invalidate_user(bounds);
+            m_window.invalidate_item(item);
         }
     }
 }

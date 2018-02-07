@@ -6,6 +6,15 @@ namespace Geda3
     public abstract class SchematicItem : Object
     {
         /**
+         * A signal requesting this item be redrawn
+         *
+         * This signal is emitted when the item needs to be redrawn in
+         * a GUI window.
+         */
+        public signal void invalidate();
+
+
+        /**
          * Calculate the bounds of this item
          *
          * @param painter The painter to use for bounds calculation

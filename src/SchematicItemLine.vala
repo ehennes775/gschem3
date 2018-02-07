@@ -96,6 +96,32 @@ namespace Geda3
 
 
         /**
+         * Change a point on the line
+         *
+         * ||''index''||''Description''||
+         * ||0||The first endpoint of the line||
+         * ||1||The second endpoint of the line||
+         *
+         * @param index The index of the point
+         * @param x The new x coordinate for the point
+         * @param y The new y coordinate for the point
+         */
+        public void set_point(int index, int x, int y)
+
+            requires (index >= 0)
+            requires (index < 2)
+
+        {
+            invalidate();
+
+            b_x[index] = x;
+            b_y[index] = y;
+
+            invalidate();
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override void write(DataOutputStream stream) throws IOError
