@@ -51,7 +51,7 @@ namespace Gschem3
             }
             else if (m_state == State.S1)
             {
-                return_if_fail(b_line != null);
+                return_val_if_fail(b_line != null, false);
 
                 m_x = event.x;
                 m_y = event.y;
@@ -61,6 +61,10 @@ namespace Gschem3
                 m_window.add_item(line);
 
                 reset();
+            }
+            else
+            {
+                return_val_if_reached(false);
             }
 
             return true;

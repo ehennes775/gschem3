@@ -14,7 +14,7 @@ namespace Geda3
 
 
         /**
-         * Create a schematic bus
+         * Create a schematic box
          */
         public BoxItem()
         {
@@ -23,6 +23,29 @@ namespace Geda3
             b_upper_x = 0;
             b_upper_y = 0;
             b_color = Color.GRAPHIC;
+            b_width = 10;
+            //b_cap_type = CapType.NONE;
+            b_dash_type = DashType.SOLID;
+            b_dash_length = DashType.DEFAULT_LENGTH;
+            b_dash_space = DashType.DEFAULT_SPACE;
+        }
+
+
+        /**
+         * Create a schematic box
+         */
+        public BoxItem.with_points(int x0, int y0, int x1, int y1)
+        {
+            b_lower_x = x0;
+            b_lower_y = y0;
+            b_upper_x = x1;
+            b_upper_y = y1;
+            b_color = Color.GRAPHIC;
+            b_width = 10;
+            //b_cap_type = CapType.NONE;
+            b_dash_type = DashType.SOLID;
+            b_dash_length = DashType.DEFAULT_LENGTH;
+            b_dash_space = DashType.DEFAULT_SPACE;
         }
 
 
@@ -96,6 +119,63 @@ namespace Geda3
             b_fill_pitch_1 = Coord.parse(params[14]);
             b_fill_angle_2 = Angle.parse(params[15]);
             b_fill_pitch_2 = Coord.parse(params[16]);
+        }
+
+
+        /**
+         * Change a corner point on the box
+         *
+         * The descriptions of the corners may not match the actual
+         * locations of corners. These descriptions reflect the
+         * locations on a 'normal' box. Index 0 and 3 will be opposite
+         * corners. Also, index 1 and 2 will be opposite corners.
+         *
+         * ||''index''||''Description''||
+         * ||0||The lower left corner||
+         * ||1||The lower right corner||
+         * ||2||The upper left corner||
+         * ||3||The upper right corner||
+         *
+         * @param index The index of the point
+         * @param x The new x coordinate for the point
+         * @param y The new y coordinate for the point
+         */
+        public void set_point(int index, int x, int y)
+
+            requires (index >= 0)
+            requires (index < 4)
+
+        {
+            invalidate();
+
+            switch (index)
+            {
+                case 0:
+                    b_lower_x = x;
+                    b_lower_y = y;
+                    break;
+
+                case 1:
+                    b_lower_x = x;
+                    b_upper_y = y;
+                    break;
+
+                case 2:
+                    b_upper_x = x;
+                    b_lower_y = y;
+                    break;
+
+                case 3:
+                    b_upper_x = x;
+                    b_upper_y = y;
+                    break;
+
+                default:
+                    return_if_reached();
+                    break;
+            }
+
+            invalidate();
         }
 
 
