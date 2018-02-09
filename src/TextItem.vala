@@ -45,7 +45,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter)
+        public override void draw(SchematicPainter painter, bool selected = false)
         {
             if (b_visibility == Visibility.VISIBLE)
             {
@@ -56,7 +56,7 @@ namespace Geda3
 
                 painter.draw_x(b_x, b_y);
 
-                painter.set_color(b_color);
+                painter.set_color(selected ? Geda3.Color.SELECT : b_color);
 
                 painter.draw_text(b_x, b_y, b_alignment, b_size, b_lines[0]);
             }

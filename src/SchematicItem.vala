@@ -26,8 +26,9 @@ namespace Geda3
          * Draw this item using the given painter
          *
          * @param painter The painter to use for drawing
+         * @param selected Paint the item as selected
          */
-        public abstract void draw(SchematicPainter painter);
+        public abstract void draw(SchematicPainter painter, bool selected = false);
 
 
         /**

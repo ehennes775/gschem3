@@ -72,10 +72,10 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter)
+        public override void draw(SchematicPainter painter, bool selected = false)
         {
             painter.set_cap_type(b_line_cap);
-            painter.set_color(b_color);
+            painter.set_color(selected ? Geda3.Color.SELECT : b_color);
             painter.set_dash(b_dash_type, b_dash_length, b_dash_space);
             painter.set_width(b_width);
 

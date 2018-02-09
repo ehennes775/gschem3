@@ -65,6 +65,12 @@ namespace Geda3
 
 
         /**
+         * The color index for selected objects
+         */
+        public const int SELECT = 11;
+
+
+        /**
          * The default color index for graphic objects
          */
         public const int TEXT = 9;

@@ -85,10 +85,10 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter)
+        public override void draw(SchematicPainter painter, bool selected = false)
         {
             painter.set_cap_type(CapType.NONE);
-            painter.set_color(b_color);
+            painter.set_color(selected ? Geda3.Color.SELECT : b_color);
             painter.set_dash(DashType.SOLID, 0, 0);
             painter.set_width((b_type == PinType.BUS) ? BusItem.WIDTH : NetItem.WIDTH);
 

@@ -86,7 +86,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter)
+        public override void draw(SchematicPainter painter, bool selected = false)
         {
             painter.set_cap_type(CapType.NONE);
             painter.set_color(b_color);
