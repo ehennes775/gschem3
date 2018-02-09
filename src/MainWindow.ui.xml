@@ -7,13 +7,13 @@
         <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-box">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/BoxTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-circle">
         <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-line">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/LineTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-path">
         <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
@@ -27,12 +27,108 @@
     <object class="GtkImage" id="icon-tool-pin">
         <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
     </object>
+    <object class="GtkImage" id="icon-tool-select-2">
+        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-tool-select-3">
+        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-tool-select-4">
+        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-tool-select-5">
+        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-tool-select-6">
+        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-tool-select-7">
+        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+    </object>
     <template class="Gschem3MainWindow" parent="GtkApplicationWindow">
         <child>
             <object class ="GtkBox" id="box">
                 <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
                 <child>
                     <object class="GtkToolbar" id="toolbar">
+                        <child>
+                            <object class="GtkToolItem" id="tool-testing">
+                                <child>
+                                    <object class="GtkGrid" id="tool-testing-label">
+                                        <child>
+                                            <object class="GtkButton" id="tool-select-2">
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'select'</property>
+                                                <property name="image">icon-tool-select-2</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">0</property>
+                                                <property name="top-attach">0</property>
+                                                <property name="height">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkButton" id="tool-select-3">
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'select'</property>
+                                                <property name="image">icon-tool-select-3</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">1</property>
+                                                <property name="top-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkButton" id="tool-select-5">
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'select'</property>
+                                                <property name="image">icon-tool-select-5</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">1</property>
+                                                <property name="top-attach">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkButton" id="tool-select-6">
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'select'</property>
+                                                <property name="image">icon-tool-select-6</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">2</property>
+                                                <property name="top-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkButton" id="tool-select-7">
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'select'</property>
+                                                <property name="image">icon-tool-select-7</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">2</property>
+                                                <property name="top-attach">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel" id="dddd">
+                                                <property name="label">Drawing</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">0</property>
+                                                <property name="top-attach">2</property>
+                                                <property name="width">2</property>
+                                            </packing>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkSeparatorToolItem" id="tool-separator-1">
+                            </object>
+                        </child>
                         <child>
                             <object class="GtkToggleToolButton" id="tool-select">
                                 <property name="label">Select</property>

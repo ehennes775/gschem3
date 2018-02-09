@@ -3,9 +3,11 @@
     <gresource prefix="/com/github/ehennes775/gschem3">
         <file>Blank.svg</file>
         <file>BlueFolder.svg</file>
+        <file>BoxTool.svg</file>
         <file>DocumentTab.ui.xml</file>
         <file>ExportBillOfMaterialDialog.ui.xml</file>
         <file>ExportNetlistDialog.ui.xml</file>
+        <file>LineTool.svg</file>
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
         <file>Missing.svg</file>
