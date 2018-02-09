@@ -40,6 +40,32 @@ namespace Geda3
             b_center_y = 0;
             b_radius = 0;
             b_color = Color.GRAPHIC;
+            b_width = 10;
+            //b_cap_type = CapType.NONE;
+            b_dash_type = DashType.SOLID;
+            b_dash_length = DashType.DEFAULT_LENGTH;
+            b_dash_space = DashType.DEFAULT_SPACE;
+        }
+
+
+        /**
+         * Create a circle
+         *
+         * @param x The x coordinate of the center of the circle
+         * @param y The y coordinate of the center of the circle
+         * @param radius The radius of the circle
+         */
+        public CircleItem.with_points(int x, int y, int radius)
+        {
+            b_center_x = x;
+            b_center_y = y;
+            b_radius = radius;
+            b_color = Color.GRAPHIC;
+            b_width = 10;
+            //b_cap_type = CapType.NONE;
+            b_dash_type = DashType.SOLID;
+            b_dash_length = DashType.DEFAULT_LENGTH;
+            b_dash_space = DashType.DEFAULT_SPACE;
         }
 
 
@@ -106,6 +132,43 @@ namespace Geda3
             b_fill_pitch_1 = Coord.parse(params[13]);
             b_fill_angle_2 = Angle.parse(params[14]);
             b_fill_pitch_2 = Coord.parse(params[15]);
+        }
+
+
+        /**
+         * Change a point on the circle
+         *
+         * ||''index''||''Description''||
+         * ||0||The center point of the circle||
+         * ||1||A point on the circumference of the circle||
+         *
+         * @param index The index of the point
+         * @param x The new x coordinate for the point
+         * @param y The new y coordinate for the point
+         */
+        public void set_point(int index, int x, int y)
+
+            requires (index >= 0)
+            requires (index < 2)
+
+        {
+            invalidate();
+
+            if (index == 0)
+            {
+                b_center_x = x;
+                b_center_y = y;
+            }
+            else if (index == 1)
+            {
+                b_radius = (int) Math.round(Coord.distance(b_center_x, b_center_y, x, y));
+            }
+            else
+            {
+                return_if_reached();
+            }
+
+            invalidate();
         }
 
 

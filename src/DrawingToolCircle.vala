@@ -6,7 +6,7 @@ namespace Gschem3
     public class DrawingToolCircle : DrawingTool
     {
         /**
-         * Create a new box drawing tool
+         * Create a new circle drawing tool
          *
          * @param window The document window this tool is drawing into
          */
@@ -27,33 +27,43 @@ namespace Gschem3
         {
             if (m_state == State.S0)
             {
-                var x = event.x;
-                var y = event.y;
+                m_x = event.x;
+                m_y = event.y;
+
+                var x = m_x;
+                var y = m_y;
 
                 m_window.device_to_user(ref x, ref y);
 
-                m_state = State.S1;
-                m_x[0] = (int) Math.round(x);
-                m_y[0] = (int) Math.round(y);
-                m_x[1] = m_x[0];
-                m_y[1] = m_y[0];
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
 
-                invalidate();
+                m_window.snap_point(ref ix, ref iy);
+
+                circle = new Geda3.CircleItem.with_points(
+                    ix,
+                    iy,
+                    0
+                    );
+
+                m_state = State.S1;
             }
             else if (m_state == State.S1)
             {
-                var x = event.x;
-                var y = event.y;
+                return_val_if_fail(b_circle != null, false);
 
-                m_window.device_to_user(ref x, ref y);
+                m_x = event.x;
+                m_y = event.y;
 
-                m_state = State.S0;
-                m_x[1] = (int) Math.round(x);
-                m_y[1] = (int) Math.round(y);
+                update();
 
-                invalidate();
+                m_window.add_item(circle);
 
-                // TODO: Add new item to schematic 
+                reset();
+            }
+            else
+            {
+                return_val_if_reached(false);
             }
 
             return true;
@@ -64,13 +74,9 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public override void cancel()
-
-            requires(m_window != null)
-
         {
+            circle = null;
             m_state = State.S0;
-
-            invalidate();
         }
 
 
@@ -81,21 +87,9 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                painter.set_cap_type(Geda3.CapType.NONE);
-                painter.set_color(Geda3.Color.GRAPHIC);
-                painter.set_dash(Geda3.DashType.SOLID, Geda3.DashType.DEFAULT_LENGTH, Geda3.DashType.DEFAULT_SPACE);
-                painter.set_width(10);
+                return_if_fail(b_circle != null);
 
-                var radius_x = (m_x[1] - m_x[0]).abs();
-                var radius_y = (m_y[1] - m_y[0]).abs();
-
-                var radius = int.max(radius_x, radius_y);
-
-                painter.draw_circle(
-                    m_x[0],
-                    m_y[0],
-                    radius
-                    );
+                b_circle.draw(painter, true);
             }
         }
 
@@ -104,23 +98,13 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public override bool motion_notify(Gdk.EventMotion event)
-
-            requires(m_window != null)
-
         {
             if (m_state == State.S1)
             {
-                invalidate();
+                m_x = event.x;
+                m_y = event.y;
 
-                var x = event.x;
-                var y = event.y;
-
-                m_window.device_to_user(ref x, ref y);
-
-                m_x[1] = (int) Math.round(x);
-                m_y[1] = (int) Math.round(y);
-
-                invalidate();
+                update();
             }
 
             return false;
@@ -132,34 +116,42 @@ namespace Gschem3
          */
         public override void reset()
         {
+            circle = null;
             m_state = State.S0;
-
-            invalidate();
         }
 
 
         /**
-         * The x coordinates of the box corners
+         * Process the drawing operation with the last event coordinates
          *
-         * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * box object, but more functionality is required inside the
-         * box object.
+         * This function can be called when something can change the
+         * drawing operation in progress. For example, if the user
+         * changes the snap mode. This function update the drawing
+         * operation to accomodate the new snap mode without an
+         * additional event.
          */
-        private int m_x[2];
+        public void update()
 
+            requires(m_window != null)
 
-        /**
-         * The y coordinates of the box corners
-         *
-         * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * box object, but more functionality is required inside the
-         * box object.
-         */
-        private int m_y[2];
+        {
+            if (m_state == State.S1)
+            {
+                return_if_fail(b_circle != null);
+
+                var x = m_x;
+                var y = m_y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                b_circle.set_point(1, ix, iy);
+            }
+        }
 
 
         /**
@@ -173,9 +165,27 @@ namespace Gschem3
 
 
         /**
+         * The circle currently being drawn
+         */
+        private Geda3.CircleItem b_circle = null;
+
+
+        /**
          * Stores the current state of the tool
          */
         private State m_state;
+
+
+        /**
+         * The x coordinate of the last event in device coordinates
+         */
+        private double m_x;
+
+
+        /**
+         * The y coordinate of the last event in device coordinates
+         */
+        private double m_y;
 
 
         /**
@@ -185,21 +195,49 @@ namespace Gschem3
 
 
         /**
-         * Redraw the current line object
+         * The line currently being drawn
          */
-        private void invalidate()
+        private Geda3.CircleItem circle
+        {
+            get
+            {
+                return b_circle;
+            }
+            set
+            {
+                if (b_circle != null)
+                {
+                    if (m_window != null)
+                    {
+                        m_window.invalidate_item(b_circle);
+                    }
 
+                    b_circle.invalidate.disconnect(on_invalidate);
+                }
+
+                b_circle = value;
+
+                if (b_circle != null)
+                {
+                    return_if_fail(m_window != null);
+
+                    b_circle.invalidate.connect(on_invalidate);
+                    m_window.invalidate_item(b_circle);
+                }
+            }
+        }
+
+
+        /**
+         * Redraw the current item
+         */
+        private void on_invalidate(Geda3.SchematicItem item)
+
+            requires(b_circle == item)
             requires(m_window != null)
 
         {
-            var bounds = Geda3.Bounds.with_points(
-                m_x[0],
-                m_y[0],
-                m_x[1],
-                m_y[1]
-                );
-
-            m_window.invalidate_user(bounds);
+            m_window.invalidate_item(b_circle);
         }
     }
 }

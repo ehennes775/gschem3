@@ -6,6 +6,21 @@ namespace Geda3
     namespace Coord
     {
         /**
+         * Calculate the distance between two points
+         *
+         * @param x0 The x coordinate of the first point
+         * @param y0 The y coordinate of the first point
+         * @param x1 The x coordinate of the second point
+         * @param y1 The y coordinate of the second point
+         * @return the distance between the two points
+         */
+        public double distance(int x0, int y0, int x1, int y1)
+        {
+            return Math.hypot(x1 - x0, y1 - y0);
+        }
+
+
+        /**
          * Parse the string representation of a coordinate
          *
          * @param input the string representation of the coordinate
