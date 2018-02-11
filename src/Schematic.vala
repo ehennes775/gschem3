@@ -5,6 +5,18 @@ namespace Geda3
         /**
          *
          */
+        public Gee.Collection<SchematicItem> items
+        {
+            owned get
+            {
+                return m_items.read_only_view;
+            }
+        }
+
+
+        /**
+         *
+         */
         public FileVersion version
         {
             get;
@@ -16,7 +28,7 @@ namespace Geda3
          */
         public Schematic()
         {
-            items = new Gee.LinkedList<SchematicItem>();
+            m_items = new Gee.LinkedList<SchematicItem>();
             version = FileVersion.LATEST;
         }
 
@@ -29,7 +41,7 @@ namespace Geda3
          */
         public bool add(SchematicItem item)
         {
-            return items.add(item);
+            return m_items.add(item);
         }
 
 
@@ -42,7 +54,7 @@ namespace Geda3
         {
             Geda3.Bounds bounds = Geda3.Bounds();
 
-            foreach (var item in items)
+            foreach (var item in m_items)
             {
                 bounds.union(item.calculate_bounds(painter));
             }
@@ -59,7 +71,7 @@ namespace Geda3
          */
         public void draw(SchematicPainter painter)
         {
-            foreach (var item in items)
+            foreach (var item in m_items)
             {
                 item.draw(painter);
             }
@@ -88,10 +100,10 @@ namespace Geda3
          */
         public void read(DataInputStream stream) throws Error
 
-            requires(items != null)
+            requires(m_items != null)
 
         {
-            items.clear();
+            m_items.clear();
 
             version = FileVersion.read(stream);
 
@@ -114,12 +126,12 @@ namespace Geda3
          */
         public void write(DataOutputStream stream) throws IOError
 
-            requires(items != null)
+            requires(m_items != null)
 
         {
             version.write(stream);
 
-            foreach (var item in items)
+            foreach (var item in m_items)
             {
                 item.write(stream);
 
@@ -140,7 +152,7 @@ namespace Geda3
         }
 
 
-        private Gee.LinkedList<SchematicItem> items;
+        private Gee.LinkedList<SchematicItem> m_items;
 
         private SchematicReader reader = new SchematicReader();
     }

@@ -3,7 +3,9 @@ namespace Geda3
     /**
      * Represents a graphical line in a schematic or symbol file
      */
-    public class SchematicItemLine : SchematicItem
+    public class SchematicItemLine : SchematicItem,
+        Grippable,
+        GrippablePoints
     {
         /**
          * The type code for a graphical line
@@ -69,6 +71,48 @@ namespace Geda3
             bounds.expand(expand, expand);
 
             return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gee.Collection<Grip> create_grips()
+        {
+            var grips = new Gee.ArrayList<Grip>();
+
+            for (int index = 0; index < 2; index++)
+            {
+                grips.add(new PointGrip(this, index));
+            }
+
+            return grips;
+        }
+
+
+        /**
+         * Change a point on the line
+         *
+         * ||''index''||''Description''||
+         * ||0||The first endpoint of the line||
+         * ||1||The second endpoint of the line||
+         *
+         * @param index The index of the point
+         * @param x The new x coordinate for the point
+         * @param y The new y coordinate for the point
+         */
+        public void get_point(int index, out int x, out int y)
+        {
+            if ((index < 0) || (index >= 2))
+            {
+                x = b_x[0];
+                y = b_y[0];
+
+                return_if_reached();
+            }
+
+            x = b_x[index];
+            y = b_y[index];
         }
 
 

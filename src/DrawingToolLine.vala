@@ -150,7 +150,12 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                b_line.set_point(1, ix, iy);
+                // The c function for set_points inside
+                // SchematicItemLine seem to disappear when implementing
+                // the interface. So, this workaround calls the function
+                // through the interface.
+
+                (b_line as Geda3.GrippablePoints).set_point(1, ix, iy);
             }
         }
 

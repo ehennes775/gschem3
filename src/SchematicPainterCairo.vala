@@ -65,6 +65,27 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void draw_grip(int center_x, int center_y)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.move_to(center_x + 20, center_y);
+            cairo_context.arc(center_x, center_y, 20, 0.0, 2.0 * Math.PI);
+
+            set_color(Geda3.Color.BACKGROUND);
+
+            cairo_context.fill_preserve();
+
+            set_color(Geda3.Color.SELECT);
+
+            cairo_context.stroke();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw_line(int x0, int y0, int x1, int y1)
 
             requires(cairo_context != null)

@@ -24,6 +24,15 @@ namespace Geda3
 
 
         /**
+         * Draw a grip
+         *
+         * @param center_x The x coordinate of the center
+         * @param center_y The y coordinate of the center
+         */
+        public abstract void draw_grip(int center_x, int center_y);
+
+
+        /**
          * Draw a line
          *
          * @param x0 The x coordinate of the first point

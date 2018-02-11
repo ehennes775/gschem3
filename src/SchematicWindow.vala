@@ -132,7 +132,9 @@ namespace Gschem3
             m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
             m_tools.@set(DrawingTool.PathName, new DrawingToolPath());
             m_tools.@set(DrawingTool.PinName, new DrawingToolPin(this));
-            m_tools.@set(DrawingTool.SelectName, new DrawingToolSelect());
+            m_tools.@set(DrawingTool.SelectName, new DrawingToolSelect(this));
+
+            m_current_tool = m_tools[DrawingTool.SelectName];
 
             drawing.add_events(
                 Gdk.EventMask.BUTTON_PRESS_MASK |
@@ -454,7 +456,7 @@ namespace Gschem3
         /**
          * The current drawing tool
          */
-        private DrawingTool m_current_tool = new DrawingToolSelect();
+        private DrawingTool m_current_tool;
 
 
         /**
@@ -503,7 +505,8 @@ namespace Gschem3
         /**
          * The schematic this window is editing
          */
-        private Geda3.Schematic schematic;
+        // temporarily public
+        public Geda3.Schematic schematic;
 
 
         /**

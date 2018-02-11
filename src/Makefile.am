@@ -61,6 +61,9 @@ libgeda3_a_SOURCES = \
 	FileVersion.vala \
 	FillType.vala \
 	GeeEx.vala \
+	Grip.vala \
+	Grippable.vala \
+	GrippablePoints.vala \
 	KeyFileProjectStorage.vala \
 	KeyFileSymbolFolder.vala \
 	KeyFileSymbolLibrary.vala \
@@ -71,6 +74,7 @@ libgeda3_a_SOURCES = \
 	NullMapper.vala \
 	ParseError.vala \
 	PinType.vala \
+	PointGrip.vala \
 	PrintDimension.vala \
 	PrintFormat.vala \
 	PrintOrientation.vala \

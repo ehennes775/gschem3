@@ -276,8 +276,6 @@ namespace Gschem3
         private weak SchematicWindow m_window;
 
 
-
-
         /**
          * The pin currently being drawn
          */
