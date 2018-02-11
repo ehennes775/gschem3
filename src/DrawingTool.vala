@@ -101,7 +101,7 @@ namespace Gschem3
          *
          * @param next_file the file to read the schematic from
          */
-        public virtual void draw(Geda3.SchematicPainter context)
+        public virtual void draw(Geda3.SchematicPainterCairo context)
         {
         }
 

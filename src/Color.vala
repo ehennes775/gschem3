@@ -17,6 +17,12 @@ namespace Geda3
 
 
         /**
+         * The color index to use for a selection box
+         */
+        public const int BOUNDING_BOX = 12;
+
+
+        /**
          * The default color index for schematic busses
          */
         public const int BUS = 10;
@@ -74,6 +80,12 @@ namespace Geda3
          * The default color index for graphic objects
          */
         public const int TEXT = 9;
+
+
+        /**
+         * The default color index for graphic objects
+         */
+        public const int ZOOM_BOX = 13;
 
 
         /**

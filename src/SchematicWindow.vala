@@ -203,6 +203,52 @@ namespace Gschem3
 
 
         /**
+         *
+         * @param x0 The x coordinate of the first corner in ? coordinates
+         * @param y0 The y coordinate of the first corner in ? coordinates
+         * @param x1 The x coordinate of the second corner in ? coordinates
+         * @param y1 The y coordinate of the second corner in ? coordinates
+         */
+        public void invalidate_device(double x0, double y0, double x1, double y1)
+        {
+            var min_x = (int) Math.floor(double.min(x0, x1));
+            var min_y = (int) Math.floor(double.min(y0, y1));
+            var max_x = (int) Math.ceil(double.max(x0, x1));
+            var max_y = (int) Math.ceil(double.max(y0, y1));
+
+            // convert to widget coordinates
+
+            int corner_x = min_x;
+            int corner_y = min_y;
+
+            if (get_has_window())
+            {
+                // untested case, so punt and invalidate the entire area
+
+                queue_draw();
+
+                return_if_reached();
+            }
+            else
+            {
+                Gtk.Allocation allocation;
+
+                get_allocation(out allocation);
+
+                corner_x += allocation.x;
+                corner_y += allocation.y;
+            }
+
+            queue_draw_area(
+                corner_x,
+                corner_y,
+                max_x - min_x,
+                max_y - min_y
+                );
+        }
+
+
+        /**
          * Invalidate an item in the window
          *
          * @param item The item to invalidate
@@ -232,19 +278,7 @@ namespace Gschem3
             matrix.transform_point(ref x0, ref y0);
             matrix.transform_point(ref x1, ref y1);
 
-            var min_x = Math.floor(double.min(x0, x1));
-            var min_y = Math.floor(double.min(y0, y1));
-            var max_x = Math.ceil(double.max(x0, x1));
-            var max_y = Math.ceil(double.min(y0, y1));
-
-            queue_draw_area(
-                (int) min_x,
-                (int) min_y,
-                (int) (max_x - min_x),
-                (int) (max_y - min_y)
-                );
-
-            queue_draw();
+            invalidate_device(x0, y0, x1, y1);
         }
 
 
@@ -622,6 +656,8 @@ namespace Gschem3
             context.fill();
 
             context.translate(0.5, 0.5);
+
+            painter.matrix0 = context.get_matrix();
 
             context.transform(matrix);
 

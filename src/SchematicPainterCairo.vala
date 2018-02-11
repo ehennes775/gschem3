@@ -23,6 +23,13 @@ namespace Geda3
         }
 
 
+        public Cairo.Matrix matrix0
+        {
+            get;
+            set;
+        }
+
+
         public SchematicPainterCairo()
         {
             cairo_context = null;
@@ -98,6 +105,23 @@ namespace Geda3
 
 
         /**
+         * Draw the box used to select items
+         *
+         * @param x0 The x coordinate of the first corner in device units
+         * @param y0 The y coordinate of the first corner in device units
+         * @param x1 The x coordinate of the second corner in device units
+         * @param y1 The y coordinate of the second corner in device units
+         */
+        public void draw_select_box(int x0, int y0, int x1, int y1)
+
+            requires(cairo_context != null)
+
+        {
+            draw_bounding_box(x0, y0, x1, y1, Geda3.Color.BOUNDING_BOX);
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override void draw_text(int x, int y, TextAlignment alignment, int angle, int size, string text)
@@ -166,6 +190,23 @@ namespace Geda3
             cairo_context.move_to(x - 20, y + 20);
             cairo_context.line_to(x + 20, y - 20);
             cairo_context.stroke();
+        }
+
+
+        /**
+         * Draw the box used to select items
+         *
+         * @param x0 The x coordinate of the first corner in device units
+         * @param y0 The y coordinate of the first corner in device units
+         * @param x1 The x coordinate of the second corner in device units
+         * @param y1 The y coordinate of the second corner in device units
+         */
+        public void draw_zoom_box(int x0, int y0, int x1, int y1)
+
+            requires(cairo_context != null)
+
+        {
+            draw_bounding_box(x0, y0, x1, y1, Geda3.Color.ZOOM_BOX);
         }
 
 
@@ -306,6 +347,58 @@ namespace Geda3
             bounds.expand(1000, 1000);
 
             return bounds;
+        }
+
+
+        /**
+         * Draw the box used to select items
+         *
+         * @param x0 The x coordinate of the first corner in device units
+         * @param y0 The y coordinate of the first corner in device units
+         * @param x1 The x coordinate of the second corner in device units
+         * @param y1 The y coordinate of the second corner in device units
+         * @param color The color index to use for drawing the box
+         */
+        private void draw_bounding_box(int x0, int y0, int x1, int y1, int color)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.save();
+
+            cairo_context.set_matrix(matrix0);
+
+            set_cap_type(CapType.NONE);
+            set_dash(DashType.SOLID, 0, 0);
+            cairo_context.set_line_width(1.0);
+
+            cairo_context.move_to(x0, y0);
+            cairo_context.line_to(x1, y0);
+            cairo_context.line_to(x1, y1);
+            cairo_context.line_to(x0, y1);
+            cairo_context.close_path();
+
+            var rgba = color_scheme[color];
+
+            cairo_context.set_source_rgba(
+                rgba.red,
+                rgba.green,
+                rgba.blue,
+                0.125 * rgba.alpha
+                );
+
+            cairo_context.fill_preserve();
+
+            cairo_context.set_source_rgba(
+                rgba.red,
+                rgba.green,
+                rgba.blue,
+                rgba.alpha
+                );
+
+            cairo_context.stroke();
+
+            cairo_context.restore();
         }
     }
 }

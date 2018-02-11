@@ -122,12 +122,8 @@ namespace Geda3
             {
                 var item = attribute as SchematicItem;
 
-                stdout.printf("drawing attribute outer\n");
-
                 if (item != null)
                 {
-                    stdout.printf("drawing attribute inner\n");
-
                     item.draw(painter, selected);
                 }
             }

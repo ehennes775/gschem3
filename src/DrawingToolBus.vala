@@ -97,7 +97,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public override void draw(Geda3.SchematicPainter painter)
+        public override void draw(Geda3.SchematicPainterCairo painter)
         {
             if (m_state == State.S1)
             {
