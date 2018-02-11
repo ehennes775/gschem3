@@ -103,6 +103,17 @@ namespace Geda3
 
 
         /**
+         * Create a string for debugging
+         *
+         * @return
+         */
+        public string to_string()
+        {
+            return @"Bounds min_x=$(min_x) min_y=$(min_y) max_x=$(max_x) max_y=$(max_y)";
+        }
+
+
+        /**
          * Calculate the union of two bounds
          *
          * @param other the other bounds to use for calculation

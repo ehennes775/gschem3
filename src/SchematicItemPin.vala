@@ -46,6 +46,25 @@ namespace Geda3
             b_end = 0;
         }
 
+        /**
+         * Create a schematic pin
+         *
+         * @param x0 The x coordinate of the first point
+         * @param y0 The y coordinate of the first point
+         * @param x1 The x coordinate of the second point
+         * @param y1 The y coordinate of the second point
+         */
+        public SchematicItemPin.with_points(int x0, int y0, int x1, int y1)
+        {
+            b_x[0] = x0;
+            b_x[1] = x1;
+            b_y[0] = y0;
+            b_y[1] = y1;
+            b_color = Color.PIN;
+            b_type = PinType.NET;
+            b_end = 0;
+        }
+
 
         /**
          * {@inheritDoc}
@@ -103,9 +122,13 @@ namespace Geda3
             {
                 var item = attribute as SchematicItem;
 
+                stdout.printf("drawing attribute outer\n");
+
                 if (item != null)
                 {
-                    item.draw(painter);
+                    stdout.printf("drawing attribute inner\n");
+
+                    item.draw(painter, selected);
                 }
             }
         }
@@ -132,6 +155,32 @@ namespace Geda3
             b_color = Color.parse(params[5]);
             b_type = PinType.parse(params[6]);
             b_end = Coord.parse(params[7]);
+        }
+
+
+        /**
+         * Change a point on the pin
+         *
+         * ||''index''||''Description''||
+         * ||0||The first endpoint of the line||
+         * ||1||The second endpoint of the line||
+         *
+         * @param index The index of the point
+         * @param x The new x coordinate for the point
+         * @param y The new y coordinate for the point
+         */
+        public void set_point(int index, int x, int y)
+
+            requires (index >= 0)
+            requires (index < 2)
+
+        {
+            invalidate();
+
+            b_x[index] = x;
+            b_y[index] = y;
+
+            invalidate();
         }
 
 

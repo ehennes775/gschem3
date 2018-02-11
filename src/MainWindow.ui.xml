@@ -10,7 +10,7 @@
         <property name="resource">/com/github/ehennes775/gschem3/BoxTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-circle">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/CircleTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-line">
         <property name="resource">/com/github/ehennes775/gschem3/LineTool.svg</property>
@@ -19,13 +19,13 @@
         <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-bus">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/BusTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-net">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/NetTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-pin">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/PinTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-select-2">
         <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
@@ -56,10 +56,11 @@
                                 <child>
                                     <object class="GtkGrid" id="tool-testing-label">
                                         <child>
-                                            <object class="GtkButton" id="tool-select-2">
+                                            <object class="GtkToggleToolButton" id="tool-select">
+                                                <property name="label">Select</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'select'</property>
-                                                <property name="image">icon-tool-select-2</property>
+                                                <property name="icon-widget">icon-tool-select</property>
                                             </object>
                                             <packing>
                                                 <property name="left-attach">0</property>
@@ -68,10 +69,11 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkButton" id="tool-select-3">
+                                            <object class="GtkRadioToolButton" id="tool-arc">
+                                                <property name="label">Arc</property>
                                                 <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'select'</property>
-                                                <property name="image">icon-tool-select-3</property>
+                                                <property name="action-target">'arc'</property>
+                                                <property name="icon-widget">icon-tool-arc</property>
                                             </object>
                                             <packing>
                                                 <property name="left-attach">1</property>
@@ -79,10 +81,59 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkButton" id="tool-select-5">
+                                            <object class="GtkRadioToolButton" id="tool-box">
+                                                <property name="label">Box</property>
                                                 <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'select'</property>
-                                                <property name="image">icon-tool-select-5</property>
+                                                <property name="action-target">'box'</property>
+                                                <property name="icon-widget">icon-tool-box</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">2</property>
+                                                <property name="top-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkRadioToolButton" id="tool-circle">
+                                                <property name="label">Circle</property>
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'circle'</property>
+                                                <property name="icon-widget">icon-tool-circle</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">3</property>
+                                                <property name="top-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkRadioToolButton" id="tool-line">
+                                                <property name="label">Line</property>
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'line'</property>
+                                                <property name="icon-widget">icon-tool-line</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">4</property>
+                                                <property name="top-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkRadioToolButton" id="tool-path">
+                                                <property name="label">Path</property>
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'path'</property>
+                                                <property name="icon-widget">icon-tool-path</property>
+                                            </object>
+                                            <packing>
+                                                <property name="left-attach">5</property>
+                                                <property name="top-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkRadioToolButton" id="tool-bus">
+                                                <property name="label">Bus</property>
+                                                <property name="action-name">win.select-tool</property>
+                                                <property name="action-target">'bus'</property>
+                                                <property name="icon-widget">icon-tool-bus</property>
                                             </object>
                                             <packing>
                                                 <property name="left-attach">1</property>
@@ -90,24 +141,26 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkButton" id="tool-select-6">
+                                            <object class="GtkRadioToolButton" id="tool-net">
+                                                <property name="label">Net</property>
                                                 <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'select'</property>
-                                                <property name="image">icon-tool-select-6</property>
+                                                <property name="action-target">'net'</property>
+                                                <property name="icon-widget">icon-tool-net</property>
                                             </object>
                                             <packing>
                                                 <property name="left-attach">2</property>
-                                                <property name="top-attach">0</property>
+                                                <property name="top-attach">1</property>
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkButton" id="tool-select-7">
+                                            <object class="GtkRadioToolButton" id="tool-pin">
+                                                <property name="label">Pin</property>
                                                 <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'select'</property>
-                                                <property name="image">icon-tool-select-7</property>
+                                                <property name="action-target">'pin'</property>
+                                                <property name="icon-widget">icon-tool-pin</property>
                                             </object>
                                             <packing>
-                                                <property name="left-attach">2</property>
+                                                <property name="left-attach">3</property>
                                                 <property name="top-attach">1</property>
                                             </packing>
                                         </child>
@@ -118,7 +171,7 @@
                                             <packing>
                                                 <property name="left-attach">0</property>
                                                 <property name="top-attach">2</property>
-                                                <property name="width">2</property>
+                                                <property name="width">6</property>
                                             </packing>
                                         </child>
                                     </object>
@@ -127,78 +180,6 @@
                         </child>
                         <child>
                             <object class="GtkSeparatorToolItem" id="tool-separator-1">
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkToggleToolButton" id="tool-select">
-                                <property name="label">Select</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'select'</property>
-                                <property name="icon-widget">icon-tool-select</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-arc">
-                                <property name="label">Arc</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'arc'</property>
-                                <property name="icon-widget">icon-tool-arc</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-box">
-                                <property name="label">Box</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'box'</property>
-                                <property name="icon-widget">icon-tool-box</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-circle">
-                                <property name="label">Circle</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'circle'</property>
-                                <property name="icon-widget">icon-tool-circle</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-line">
-                                <property name="label">Line</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'line'</property>
-                                <property name="icon-widget">icon-tool-line</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-path">
-                                <property name="label">Path</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'path'</property>
-                                <property name="icon-widget">icon-tool-path</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-bus">
-                                <property name="label">Bus</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'bus'</property>
-                                <property name="icon-widget">icon-tool-bus</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-net">
-                                <property name="label">Net</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'net'</property>
-                                <property name="icon-widget">icon-tool-net</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkRadioToolButton" id="tool-pin">
-                                <property name="label">Pin</property>
-                                <property name="action-name">win.select-tool</property>
-                                <property name="action-target">'pin'</property>
-                                <property name="icon-widget">icon-tool-pin</property>
                             </object>
                         </child>
                         <child>

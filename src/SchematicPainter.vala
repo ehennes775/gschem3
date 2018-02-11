@@ -43,7 +43,7 @@ namespace Geda3
          * @param size The size of the text in points
          * @param text The visible text
          */
-        public abstract void draw_text(int x, int y, TextAlignment alignment, int size, string text);
+        public abstract void draw_text(int x, int y, TextAlignment alignment, int angle, int size, string text);
 
 
         /**
@@ -87,5 +87,8 @@ namespace Geda3
          * @param width The width for drawing lines
          */
         public abstract void set_width(int width);
+
+
+        public abstract Geda3.Bounds calculate_text_bounds(int x, int y, TextAlignment alignment, int size, string text);
     }
 }

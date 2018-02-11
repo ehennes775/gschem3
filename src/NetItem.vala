@@ -52,6 +52,19 @@ namespace Geda3
 
 
         /**
+         * Create a schematic net
+         */
+        public NetItem.with_points(int x0, int y0, int x1, int y1)
+        {
+            b_x[0] = x0;
+            b_x[1] = x1;
+            b_y[0] = y0;
+            b_y[1] = y1;
+            b_color = Color.NET;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public void attach(AttributeChild attribute)
@@ -89,7 +102,7 @@ namespace Geda3
         public override void draw(SchematicPainter painter, bool selected = false)
         {
             painter.set_cap_type(CapType.NONE);
-            painter.set_color(b_color);
+            painter.set_color(selected ? Geda3.Color.SELECT : b_color);
             painter.set_dash(DashType.SOLID, 0, 0);
             painter.set_width(WIDTH);
 

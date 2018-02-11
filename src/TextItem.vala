@@ -32,13 +32,35 @@ namespace Geda3
 
 
         /**
+         * Create a text item
+         */
+        public TextItem.with_points(int x, int y, string t)
+        {
+            b_x = x;
+            b_y = y;
+            b_color = Color.TEXT;
+            b_size = 12;
+            b_visibility = Visibility.VISIBLE;
+            b_presentation = TextPresentation.BOTH;
+            b_angle = 0;
+            b_alignment = TextAlignment.LOWER_LEFT;
+            b_lines = new string[1];
+            b_lines[0] = t;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override Bounds calculate_bounds(SchematicPainter painter)
         {
-            var bounds = Bounds();
-
-            return bounds;
+            return painter.calculate_text_bounds(
+                b_x,
+                b_y,
+                b_alignment,
+                b_size,
+                b_lines[0]
+                );
         }
 
 
@@ -58,7 +80,7 @@ namespace Geda3
 
                 painter.set_color(selected ? Geda3.Color.SELECT : b_color);
 
-                painter.draw_text(b_x, b_y, b_alignment, b_size, b_lines[0]);
+                painter.draw_text(b_x, b_y, b_alignment, b_angle, b_size, b_lines[0]);
             }
         }
 
@@ -94,6 +116,30 @@ namespace Geda3
             {
                 b_lines[index] = stream.read_line(null);
             }
+        }
+
+
+        /**
+         * Change the insertion point of the text
+         *
+         * ||''index''||''Description''||
+         * ||0||The insertion point of the text||
+         *
+         * @param index The index of the point
+         * @param x The new x coordinate for the point
+         * @param y The new y coordinate for the point
+         */
+        public void set_point(int index, int x, int y)
+
+            requires (index == 0)
+
+        {
+            invalidate();
+
+            b_x = x;
+            b_y = y;
+
+            invalidate();
         }
 
 

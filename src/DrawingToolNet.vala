@@ -12,6 +12,7 @@ namespace Gschem3
          */
         public DrawingToolNet(SchematicWindow window)
         {
+            m_nets = null;
             m_state = State.S0;
             m_window = window;
         }
@@ -27,23 +28,22 @@ namespace Gschem3
         {
             if (m_state == State.S0)
             {
+                m_state = State.S1;
+
                 var x = event.x;
                 var y = event.y;
 
                 m_window.device_to_user(ref x, ref y);
 
-                m_state = State.S1;
                 m_x[0] = (int) Math.round(x);
                 m_y[0] = (int) Math.round(y);
 
                 m_window.snap_point(ref m_x[0], ref m_y[0]);
 
-                m_x[2] = m_x[0];
-                m_y[2] = m_y[0];
+                m_x[1] = m_x[0];
+                m_y[1] = m_y[0];
 
-                calculate_middle();
-
-                invalidate();
+                update();
             }
             else if (m_state == State.S1)
             {
@@ -52,17 +52,26 @@ namespace Gschem3
 
                 m_window.device_to_user(ref x, ref y);
 
-                m_state = State.S0;
-                m_x[2] = (int) Math.round(x);
-                m_y[2] = (int) Math.round(y);
+                m_x[1] = (int) Math.round(x);
+                m_y[1] = (int) Math.round(y);
 
-                m_window.snap_point(ref m_x[2], ref m_y[2]);
+                m_window.snap_point(ref m_x[1], ref m_y[1]);
 
-                calculate_middle();
+                update();
 
-                invalidate();
+                // temporary code until a mechanism to stop drawing
+                // nets becomes available
 
-                // TODO: Add new item to schematic 
+                foreach (var item in m_nets)
+                {
+                    m_window.add_item(item);
+                }
+
+                reset();
+            }
+            else
+            {
+                return_if_reached();
             }
 
             return true;
@@ -80,6 +89,8 @@ namespace Gschem3
             m_state = State.S0;
 
             invalidate();
+
+            m_nets = null;
         }
 
 
@@ -90,24 +101,12 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                painter.set_cap_type(Geda3.CapType.NONE);
-                painter.set_color(Geda3.Color.NET);
-                painter.set_dash(Geda3.DashType.SOLID, Geda3.DashType.DEFAULT_LENGTH, Geda3.DashType.DEFAULT_SPACE);
-                painter.set_width(Geda3.NetItem.WIDTH);
+                return_if_fail(m_nets != null);
 
-                painter.draw_line(
-                    m_x[0],
-                    m_y[0],
-                    m_x[1],
-                    m_y[1]
-                    );
-
-                painter.draw_line(
-                    m_x[1],
-                    m_y[1],
-                    m_x[2],
-                    m_y[2]
-                    );
+                foreach (var net in m_nets)
+                {
+                    net.draw(painter, true);
+                }
             }
         }
 
@@ -122,24 +121,64 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                invalidate();
-
                 var x = event.x;
                 var y = event.y;
 
                 m_window.device_to_user(ref x, ref y);
 
-                m_x[2] = (int) Math.round(x);
-                m_y[2] = (int) Math.round(y);
+                m_x[1] = (int) Math.round(x);
+                m_y[1] = (int) Math.round(y);
 
-                m_window.snap_point(ref m_x[2], ref m_y[2]);
+                m_window.snap_point(ref m_x[1], ref m_y[1]);
 
-                calculate_middle();
-
-                invalidate();
+                update();
             }
 
             return false;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void update()
+        {
+            invalidate();
+
+            m_nets = new Gee.ArrayList<Geda3.NetItem>();
+
+            var middle_x = m_x[1];
+            var middle_y = m_y[0];
+
+            var length0 = (middle_x - m_x[0]) + (middle_y - m_y[0]);
+
+            if (length0 != 0)
+            {
+                var net = new Geda3.NetItem.with_points(
+                    m_x[0],
+                    m_y[0],
+                    middle_x,
+                    middle_y
+                    );
+
+                m_nets.add(net);
+            }
+
+            var length1 = (m_x[1] - middle_x) + (m_y[1] - middle_y);
+
+            if (length1 != 0)
+            {
+                var net = new Geda3.NetItem.with_points(
+                    middle_x,
+                    middle_y,
+                    m_x[1],
+                    m_y[1]
+                    );
+
+                m_nets.add(net);
+            }
+
+            invalidate();
         }
 
 
@@ -151,31 +190,31 @@ namespace Gschem3
             m_state = State.S0;
 
             invalidate();
+
+            m_nets = null;
         }
 
 
         /**
-         * The x coordinates of the line endpoints
-         *
-         * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * line object, but more functionality is required inside the
-         * line object.
+         * The routed nets to connect the requested endpoints
          */
-        private int m_x[3];
+        private Gee.ArrayList<Geda3.NetItem> m_nets = null;
 
 
         /**
-         * The y coordinates of the pin endpoints
+         * The x coordinates of the requested net endpoints
          *
          * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * pin object, but more functionality is required inside the
-         * pin object.
          */
-        private int m_y[3];
+        private int m_x[2];
+
+
+        /**
+         * The y coordinates of the requested net endpoints
+         *
+         * These coordinates are in user coordinates
+         */
+        private int m_y[2];
 
 
         /**
@@ -200,13 +239,6 @@ namespace Gschem3
         private weak SchematicWindow m_window;
 
 
-        private void calculate_middle()
-        {
-            m_x[1] = m_x[0];
-            m_y[1] = m_y[2];
-        }
-
-
         /**
          * Redraw the current object
          */
@@ -215,12 +247,22 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            var bounds = Geda3.Bounds.with_points(
-                m_x[0],
-                m_y[0],
-                m_x[2],
-                m_y[2]
-                );
+            var bounds = Geda3.Bounds();
+
+            if (m_nets != null)
+            {
+                foreach (var net in m_nets)
+                {
+                    var net_bounds = Geda3.Bounds.with_points(
+                        net.b_x[0],
+                        net.b_y[0],
+                        net.b_x[1],
+                        net.b_y[1]
+                        );
+
+                    bounds.union(net_bounds);
+                }
+            }
 
             m_window.invalidate_user(bounds);
         }

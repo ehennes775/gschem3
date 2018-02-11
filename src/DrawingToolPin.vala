@@ -27,38 +27,63 @@ namespace Gschem3
         {
             if (m_state == State.S0)
             {
-                var x = event.x;
-                var y = event.y;
+                m_x = event.x;
+                m_y = event.y;
+
+                var x = m_x;
+                var y = m_y;
 
                 m_window.device_to_user(ref x, ref y);
 
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                pin = new Geda3.SchematicItemPin.with_points(
+                    ix,
+                    iy,
+                    ix,
+                    iy
+                    );
+
+                pin_name = new Geda3.TextItem.with_points(
+                    ix + 50,
+                    iy,
+                    "RESET"
+                    );
+
+                pin_name.b_alignment = Geda3.TextAlignment.MIDDLE_LEFT;
+
+                pin_number = new Geda3.TextItem.with_points(
+                    ix - 50,
+                    iy - 50,
+                    "13"
+                    );
+
+                pin_number.b_alignment = Geda3.TextAlignment.LOWER_RIGHT;
+                pin_number.b_color = Geda3.Color.ATTRIBUTE;
+
                 m_state = State.S1;
-                m_x[0] = (int) Math.round(x);
-                m_y[0] = (int) Math.round(y);
-
-                m_window.snap_point(ref m_x[0], ref m_y[0]);
-
-                m_x[1] = m_x[0];
-                m_y[1] = m_y[0];
-
-                invalidate();
             }
             else if (m_state == State.S1)
             {
-                var x = event.x;
-                var y = event.y;
+                return_val_if_fail(b_pin != null, false);
 
-                m_window.device_to_user(ref x, ref y);
+                m_x = event.x;
+                m_y = event.y;
 
-                m_state = State.S0;
-                m_x[1] = (int) Math.round(x);
-                m_y[1] = (int) Math.round(y);
+                update();
 
-                m_window.snap_point(ref m_x[1], ref m_y[1]);
+                pin.attach(pin_name);
+                pin.attach(pin_number);
+                m_window.add_item(pin);
 
-                invalidate();
-
-                // TODO: Add new item to schematic 
+                reset();
+            }
+            else
+            {
+                return_val_if_reached(false);
             }
 
             return true;
@@ -69,13 +94,11 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public override void cancel()
-
-            requires(m_window != null)
-
         {
+            pin = null;
+            pin_name = null;
+            pin_number = null;
             m_state = State.S0;
-
-            invalidate();
         }
 
 
@@ -86,17 +109,11 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                painter.set_cap_type(Geda3.CapType.NONE);
-                painter.set_color(Geda3.Color.PIN);
-                painter.set_dash(Geda3.DashType.SOLID, Geda3.DashType.DEFAULT_LENGTH, Geda3.DashType.DEFAULT_SPACE);
-                painter.set_width(10);
+                return_if_fail(b_pin != null);
 
-                painter.draw_line(
-                    m_x[0],
-                    m_y[0],
-                    m_x[1],
-                    m_y[1]
-                    );
+                b_pin.draw(painter, true);
+                b_pin_name.draw(painter, true);
+                b_pin_number.draw(painter, true);
             }
         }
 
@@ -105,25 +122,13 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public override bool motion_notify(Gdk.EventMotion event)
-
-            requires(m_window != null)
-
         {
             if (m_state == State.S1)
             {
-                invalidate();
+                m_x = event.x;
+                m_y = event.y;
 
-                var x = event.x;
-                var y = event.y;
-
-                m_window.device_to_user(ref x, ref y);
-
-                m_x[1] = (int) Math.round(x);
-                m_y[1] = (int) Math.round(y);
-
-                m_window.snap_point(ref m_x[1], ref m_y[1]);
-
-                invalidate();
+                update();
             }
 
             return false;
@@ -135,34 +140,88 @@ namespace Gschem3
          */
         public override void reset()
         {
+            pin = null;
+            pin_name = null;
+            pin_number = null;
             m_state = State.S0;
-
-            invalidate();
         }
 
 
         /**
-         * The x coordinates of the line endpoints
+         * Process the drawing operation with the last event coordinates
          *
-         * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * line object, but more functionality is required inside the
-         * line object.
+         * This function can be called when something can change the
+         * drawing operation in progress. For example, if the user
+         * changes the snap mode. This function update the drawing
+         * operation to accomodate the new snap mode without an
+         * additional event.
          */
-        private int m_x[2];
+        public void update()
 
+            requires(m_window != null)
 
-        /**
-         * The y coordinates of the pin endpoints
-         *
-         * These coordinates are in user coordinates
-         *
-         * In the future, these will be replaced with an instance of a
-         * pin object, but more functionality is required inside the
-         * pin object.
-         */
-        private int m_y[2];
+        {
+            if (m_state == State.S1)
+            {
+                return_if_fail(b_pin != null);
+
+                var x = m_x;
+                var y = m_y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                b_pin.set_point(1, ix, iy);
+
+                var dx = b_pin.b_x[1] - b_pin.b_x[0];
+                var dy = b_pin.b_y[1] - b_pin.b_y[0];
+                var radians = Math.atan2(dy, dx);
+                var degrees = Geda3.Angle.from_radians(radians);
+                var normal = Geda3.Angle.normalize(degrees);
+
+                if ((normal > 90) && (normal <= 270))
+                {
+                    b_pin_name.b_angle = 180 + degrees;
+                    b_pin_name.b_alignment = Geda3.TextAlignment.MIDDLE_RIGHT;
+                }
+                else
+                {
+                    b_pin_name.b_angle = degrees;
+                    b_pin_name.b_alignment = Geda3.TextAlignment.MIDDLE_LEFT;
+                }
+
+                var tx = ix + (int) Math.round(50 * Math.cos(radians));
+                var ty = iy + (int) Math.round(50 * Math.sin(radians));
+
+                b_pin_name.set_point(0, tx, ty);
+
+                if ((normal > 90) && (normal <= 270))
+                {
+                    b_pin_number.b_angle = 180 + degrees;
+                    b_pin_number.b_alignment = Geda3.TextAlignment.LOWER_LEFT;
+
+                    var nx = ix + (int) Math.round(-50 * Math.cos(radians) + 50 * Math.sin(radians));
+                    var ny = iy + (int) Math.round(-50 * Math.sin(radians) - 50 * Math.cos(radians));
+
+                    b_pin_number.set_point(0, nx, ny);
+                }
+                else
+                {
+                    b_pin_number.b_angle = degrees;
+                    b_pin_number.b_alignment = Geda3.TextAlignment.LOWER_RIGHT;
+
+                    var nx = ix + (int) Math.round(-50 * Math.cos(radians) - 50 * Math.sin(radians));
+                    var ny = iy + (int) Math.round(-50 * Math.sin(radians) + 50 * Math.cos(radians));
+
+                    b_pin_number.set_point(0, nx, ny);
+                }
+
+            }
+        }
 
 
         /**
@@ -176,9 +235,39 @@ namespace Gschem3
 
 
         /**
+         * The pin currently being drawn
+         */
+        private Geda3.SchematicItemPin b_pin = null;
+
+
+        /**
+         * The pin name currently being drawn
+         */
+        private Geda3.TextItem b_pin_name = null;
+
+
+        /**
+         * The pin number currently being drawn
+         */
+        private Geda3.TextItem b_pin_number = null;
+
+
+        /**
          * Stores the current state of the tool
          */
         private State m_state;
+
+
+        /**
+         * The x coordinate of the last event in device coordinates
+         */
+        private double m_x;
+
+
+        /**
+         * The y coordinate of the last event in device coordinates
+         */
+        private double m_y;
 
 
         /**
@@ -187,22 +276,130 @@ namespace Gschem3
         private weak SchematicWindow m_window;
 
 
-        /**
-         * Redraw the current object
-         */
-        private void invalidate()
 
+
+        /**
+         * The pin currently being drawn
+         */
+        private Geda3.SchematicItemPin pin
+        {
+            get
+            {
+                return b_pin;
+            }
+            set
+            {
+                if (b_pin != null)
+                {
+                    if (m_window != null)
+                    {
+                        m_window.invalidate_item(b_pin);
+                    }
+
+                    b_pin.invalidate.disconnect(on_invalidate);
+                }
+
+                b_pin = value;
+
+                if (b_pin != null)
+                {
+                    return_if_fail(m_window != null);
+
+                    b_pin.invalidate.connect(on_invalidate);
+                    m_window.invalidate_item(b_pin);
+                }
+            }
+        }
+
+
+        /**
+         * The pin name currently being drawn
+         */
+        private Geda3.TextItem pin_name
+        {
+            get
+            {
+                return b_pin_name;
+            }
+            set
+            {
+                if (b_pin_name != null)
+                {
+                    if (m_window != null)
+                    {
+                        m_window.invalidate_item(b_pin_name);
+                    }
+
+                    b_pin_name.invalidate.disconnect(on_invalidate);
+                }
+
+                b_pin_name = value;
+
+                if (b_pin_name != null)
+                {
+                    return_if_fail(m_window != null);
+
+                    b_pin_name.invalidate.connect(on_invalidate);
+                    m_window.invalidate_item(b_pin_name);
+                }
+            }
+        }
+
+
+        /**
+         * The pin name currently being drawn
+         */
+        private Geda3.TextItem pin_number
+        {
+            get
+            {
+                return b_pin_number;
+            }
+            set
+            {
+                if (b_pin_number != null)
+                {
+                    if (m_window != null)
+                    {
+                        m_window.invalidate_item(b_pin_number);
+                    }
+
+                    b_pin_number.invalidate.disconnect(on_invalidate);
+                }
+
+                b_pin_number = value;
+
+                if (b_pin_number != null)
+                {
+                    return_if_fail(m_window != null);
+
+                    b_pin_number.invalidate.connect(on_invalidate);
+                    m_window.invalidate_item(b_pin_number);
+                }
+            }
+        }
+
+
+        /**
+         * Add the hidden attributes to the pin
+         *
+         * @param pin
+         */
+        private void add_hidden(Geda3.SchematicItemPin pin)
+        {
+        }
+
+
+        /**
+         * Redraw the current item
+         */
+        private void on_invalidate(Geda3.SchematicItem item)
+
+            requires(item != null)
             requires(m_window != null)
 
         {
-            var bounds = Geda3.Bounds.with_points(
-                m_x[0],
-                m_y[0],
-                m_x[1],
-                m_y[1]
-                );
-
-            m_window.invalidate_user(bounds);
+            m_window.invalidate_item(item);
         }
     }
 }

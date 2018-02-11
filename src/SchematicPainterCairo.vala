@@ -79,7 +79,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw_text(int x, int y, TextAlignment alignment, int size, string text)
+        public override void draw_text(int x, int y, TextAlignment alignment, int angle, int size, string text)
 
             requires(cairo_context != null)
 
@@ -97,6 +97,9 @@ namespace Geda3
 
             cairo_context.move_to(x, y);
             cairo_context.scale(1.0, -1.0);
+
+            var rotation = Geda3.Angle.to_radians(angle);
+            cairo_context.rotate(-rotation);
 
             var alignment_x = alignment.alignment_x();
 
@@ -221,5 +224,67 @@ namespace Geda3
             cairo_context.set_line_width(width);
         }
 
+
+        /**
+         * {@inheritDoc}
+         */
+        public override Geda3.Bounds calculate_text_bounds(int x, int y, TextAlignment alignment, int size, string text)
+        {
+            //var context = new Pango.Context();
+
+            //var layout = new Pango.Layout(context);
+
+            //Pango.cairo_context_set_resolution(layout.get_context(), 936);
+
+            //font_description.set_size(size * Pango.SCALE);
+            //layout.set_font_description(font_description);
+            //layout.set_spacing(40000);
+            //layout.set_markup(text, -1);
+
+            //cairo_context.move_to(x, y);
+            //cairo_context.scale(1.0, -1.0);
+
+            //var alignment_x = alignment.alignment_x();
+
+            //if (alignment_x > 0.0)
+            //{
+            //    int height;
+            //    int width;
+            //    
+            //    layout.get_size(out width, out height);
+            //    //cairo_context.rel_move_to(alignment_x * width / -Pango.SCALE, 0.0);
+            //}
+
+            //var alignment_y = alignment.alignment_y();
+
+            //if (alignment_y > 0.0)
+            //{
+            //    var iter = layout.get_iter();
+
+            //    while (!iter.at_last_line())
+            //    {
+            //        iter.next_line();
+            //    }
+
+                //cairo_context.rel_move_to(0.0, alignment_y * iter.get_baseline() / -Pango.SCALE);
+            //}
+
+            //Pango.Rectangle ink_extents;
+            //Pango.Rectangle logical_extents;
+
+            //layout.get_pixel_extents(out ink_extents, out logical_extents);
+
+            //stdout.printf(@"ink = $(ink_extents.x),$(ink_extents.y),$(ink_extents.width),$(ink_extents.height)");
+
+            //Pango.cairo_show_layout(cairo_context, layout);
+            
+            //cairo_context.restore();
+
+            Geda3.Bounds bounds = Geda3.Bounds.with_points(x, y, x, y);
+
+            bounds.expand(1000, 1000);
+
+            return bounds;
+        }
     }
 }
