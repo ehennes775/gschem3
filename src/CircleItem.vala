@@ -92,6 +92,26 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void invalidate_on(Invalidatable invalidatable)
+        {
+            var bounds = Bounds.with_points(
+                b_center_x - b_radius,
+                b_center_y - b_radius,
+                b_center_x + b_radius,
+                b_center_y + b_radius
+                );
+
+            int expand = (int) Math.ceil(0.5 * Math.SQRT2 * b_width);
+
+            bounds.expand(expand, expand);
+
+            invalidatable.invalidate_bounds(bounds);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw(SchematicPainter painter, bool selected = false)
         {
             painter.set_cap_type(b_line_cap);

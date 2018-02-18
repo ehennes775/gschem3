@@ -64,6 +64,7 @@ libgeda3_a_SOURCES = \
 	Grip.vala \
 	Grippable.vala \
 	GrippablePoints.vala \
+	Invalidatable.vala \
 	KeyFileProjectStorage.vala \
 	KeyFileSymbolFolder.vala \
 	KeyFileSymbolLibrary.vala \

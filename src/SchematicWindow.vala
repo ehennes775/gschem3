@@ -6,6 +6,7 @@ namespace Gschem3
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/SchematicWindow.ui.xml")]
     public class SchematicWindow : DocumentWindow,
         Fileable,
+        Geda3.Invalidatable,
         Reloadable,
         Savable,
         Zoomable
@@ -203,6 +204,25 @@ namespace Gschem3
 
 
         /**
+         * Invalidate an area of the window in user coordinates
+         *
+         * @param bounds The area to invalidate in user coordinates
+         */
+        public void invalidate_bounds(Geda3.Bounds bounds)
+        {
+            var x0 = (double) bounds.min_x;
+            var y0 = (double) bounds.min_y;
+            var x1 = (double) bounds.max_x;
+            var y1 = (double) bounds.max_y;
+
+            matrix.transform_point(ref x0, ref y0);
+            matrix.transform_point(ref x1, ref y1);
+
+            invalidate_device(x0, y0, x1, y1);
+        }
+
+
+        /**
          *
          * @param x0 The x coordinate of the first corner in ? coordinates
          * @param y0 The y coordinate of the first corner in ? coordinates
@@ -211,15 +231,9 @@ namespace Gschem3
          */
         public void invalidate_device(double x0, double y0, double x1, double y1)
         {
-            var min_x = (int) Math.floor(double.min(x0, x1));
-            var min_y = (int) Math.floor(double.min(y0, y1));
-            var max_x = (int) Math.ceil(double.max(x0, x1));
-            var max_y = (int) Math.ceil(double.max(y0, y1));
+            var bounds = Geda3.Bounds.with_fpoints(x0, y0, x1, y1);
 
             // convert to widget coordinates
-
-            int corner_x = min_x;
-            int corner_y = min_y;
 
             if (get_has_window())
             {
@@ -235,15 +249,14 @@ namespace Gschem3
 
                 get_allocation(out allocation);
 
-                corner_x += allocation.x;
-                corner_y += allocation.y;
+                bounds.translate(allocation.x, allocation.y);
             }
 
             queue_draw_area(
-                corner_x,
-                corner_y,
-                max_x - min_x,
-                max_y - min_y
+                bounds.min_x,
+                bounds.min_y,
+                bounds.get_width(),
+                bounds.get_height()
                 );
         }
 
@@ -255,8 +268,6 @@ namespace Gschem3
          */
         public void invalidate_item(Geda3.SchematicItem item)
         {
-            painter.cairo_context = null;
-
             var bounds = item.calculate_bounds(painter);
 
             invalidate_user(bounds);
@@ -630,6 +641,9 @@ namespace Gschem3
             requires(schematic != null)
 
         {
+            painter.pango_context = Pango.cairo_create_context(context);
+            Pango.cairo_context_set_resolution(painter.pango_context, 936);
+
             if (m_initial_zoom)
             {
                 zoom_extents_no_redraw();
@@ -658,6 +672,7 @@ namespace Gschem3
             context.translate(0.5, 0.5);
 
             painter.matrix0 = context.get_matrix();
+            painter.matrix1 = matrix;
 
             context.transform(matrix);
 
@@ -667,6 +682,8 @@ namespace Gschem3
             painter.color_scheme = b_settings.scheme;
             schematic.draw(painter);
             m_current_tool.draw(painter);
+
+            painter.cairo_context = null;
 
             return true;
         }

@@ -14,6 +14,46 @@ namespace Geda3
 
 
         /**
+         * The alignment of the text
+         */
+        public TextAlignment alignment
+        {
+            get
+            {
+                return b_alignment;
+            }
+            set
+            {
+                invalidate();
+
+                b_alignment = value;
+
+                invalidate();
+            }
+        }
+
+
+        /**
+         * The angle of the text in degrees
+         */
+        public int angle
+        {
+            get
+            {
+                return b_angle;
+            }
+            set
+            {
+                invalidate();
+
+                b_angle = value;
+
+                invalidate();
+            }
+        }
+
+
+        /**
          * Create a text item
          */
         public TextItem()
@@ -61,6 +101,14 @@ namespace Geda3
                 b_size,
                 b_lines[0]
                 );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void invalidate_on(Invalidatable invalidatable)
+        {
         }
 
 

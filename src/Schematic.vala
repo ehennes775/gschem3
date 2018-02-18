@@ -57,6 +57,16 @@ namespace Geda3
             foreach (var item in m_items)
             {
                 bounds.union(item.calculate_bounds(painter));
+
+                var parent = item as AttributeParent;
+
+                if (parent != null)
+                {
+                    foreach (var child in parent.attributes)
+                    {
+                        bounds.union(child.calculate_bounds(painter));
+                    }
+                }
             }
 
             return bounds;

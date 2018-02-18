@@ -58,6 +58,23 @@ namespace Geda3
 
 
         /**
+         * Create a bounds with points
+         *
+         * @param x0 x coordinate of first point
+         * @param y0 y coordinate of first point
+         * @param x1 x coordinate of second point
+         * @param y1 y coordinate of second point
+         */
+        public Bounds.with_fpoints(double x0, double y0, double x1, double y1)
+        {
+            min_x = (int) Math.floor(double.min(x0, x1));
+            min_y = (int) Math.floor(double.min(y0, y1));
+            max_x = (int) Math.ceil(double.max(x0, x1));
+            max_y = (int) Math.ceil(double.max(y0, y1));
+        }
+
+
+        /**
          * Checks if a point lies inside the bounds
          *
          * @return true if the point lies inside the bounds
@@ -103,6 +120,42 @@ namespace Geda3
 
 
         /**
+         * Calculate the height of the bounds
+         *
+         * @return The height of the bounds
+         */
+        public int get_height()
+        {
+            int height = 0;
+
+            if (!empty())
+            {
+                height = max_y - min_y + 1;
+            }
+
+            return height;
+        }
+
+
+        /**
+         * Calculate the width of the bounds
+         *
+         * @return The width of the bounds
+         */
+        public int get_width()
+        {
+            int width = 0;
+
+            if (!empty())
+            {
+                width = max_x - min_x + 1;
+            }
+
+            return width;
+        }
+
+
+        /**
          * Create a string for debugging
          *
          * @return
@@ -110,6 +163,20 @@ namespace Geda3
         public string to_string()
         {
             return @"Bounds min_x=$(min_x) min_y=$(min_y) max_x=$(max_x) max_y=$(max_y)";
+        }
+
+
+        /**
+         * Create a string for debugging
+         *
+         * @return
+         */
+        public void translate(int dx, int dy)
+        {
+            min_x += dx;
+            min_y += dy;
+            max_x += dx;
+            max_y += dy;
         }
 
 

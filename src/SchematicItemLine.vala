@@ -77,6 +77,26 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void invalidate_on(Invalidatable invalidatable)
+        {
+            var bounds = Bounds.with_points(
+                b_x[0],
+                b_y[0],
+                b_x[1],
+                b_y[1]
+                );
+
+            int expand = (int) Math.ceil(0.5 * Math.SQRT2 * b_width);
+
+            bounds.expand(expand, expand);
+
+            invalidatable.invalidate_bounds(bounds);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public Gee.Collection<Grip> create_grips()
         {
             var grips = new Gee.ArrayList<Grip>();

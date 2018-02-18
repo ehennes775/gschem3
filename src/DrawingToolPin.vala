@@ -185,13 +185,13 @@ namespace Gschem3
 
                 if ((normal > 90) && (normal <= 270))
                 {
-                    b_pin_name.b_angle = 180 + degrees;
-                    b_pin_name.b_alignment = Geda3.TextAlignment.MIDDLE_RIGHT;
+                    b_pin_name.angle = 180 + degrees;
+                    b_pin_name.alignment = Geda3.TextAlignment.MIDDLE_RIGHT;
                 }
                 else
                 {
-                    b_pin_name.b_angle = degrees;
-                    b_pin_name.b_alignment = Geda3.TextAlignment.MIDDLE_LEFT;
+                    b_pin_name.angle = degrees;
+                    b_pin_name.alignment = Geda3.TextAlignment.MIDDLE_LEFT;
                 }
 
                 var tx = ix + (int) Math.round(50 * Math.cos(radians));
@@ -201,8 +201,8 @@ namespace Gschem3
 
                 if ((normal > 90) && (normal <= 270))
                 {
-                    b_pin_number.b_angle = 180 + degrees;
-                    b_pin_number.b_alignment = Geda3.TextAlignment.LOWER_LEFT;
+                    b_pin_number.angle = 180 + degrees;
+                    b_pin_number.alignment = Geda3.TextAlignment.LOWER_LEFT;
 
                     var nx = ix + (int) Math.round(-50 * Math.cos(radians) + 50 * Math.sin(radians));
                     var ny = iy + (int) Math.round(-50 * Math.sin(radians) - 50 * Math.cos(radians));
@@ -211,8 +211,8 @@ namespace Gschem3
                 }
                 else
                 {
-                    b_pin_number.b_angle = degrees;
-                    b_pin_number.b_alignment = Geda3.TextAlignment.LOWER_RIGHT;
+                    b_pin_number.angle = degrees;
+                    b_pin_number.alignment = Geda3.TextAlignment.LOWER_RIGHT;
 
                     var nx = ix + (int) Math.round(-50 * Math.cos(radians) - 50 * Math.sin(radians));
                     var ny = iy + (int) Math.round(-50 * Math.sin(radians) + 50 * Math.cos(radians));

@@ -15,9 +15,10 @@ namespace Geda3
 
 
         /**
-         * Calculate the bounds of this item
+         * Draw this item using the given painter
          *
-         * @param painter The painter to use for bounds calculation
+         * @param painter The painter to use for drawing
+         * @param selected Paint the item as selected
          */
         public abstract Bounds calculate_bounds(SchematicPainter painter);
 
@@ -29,6 +30,15 @@ namespace Geda3
          * @param selected Paint the item as selected
          */
         public abstract void draw(SchematicPainter painter, bool selected = false);
+
+
+        /**
+         * Draw this item using the given painter
+         *
+         * @param painter The painter to use for drawing
+         * @param selected Paint the item as selected
+         */
+        public abstract void invalidate_on(Invalidatable invalidatable);
 
 
         /**

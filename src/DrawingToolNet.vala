@@ -262,6 +262,10 @@ namespace Gschem3
 
                     bounds.union(net_bounds);
                 }
+
+                int expand = (int) Math.ceil(0.5 * Math.SQRT2 * Geda3.NetItem.WIDTH);
+
+                bounds.expand(expand, expand);
             }
 
             m_window.invalidate_user(bounds);

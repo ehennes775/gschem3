@@ -2,6 +2,14 @@ namespace Geda3
 {
     public class SchematicPainterCairo : SchematicPainter
     {
+        /**
+         * The size to use for grips
+         *
+         * The width and height of the grips, divided by 2, in pixels.
+         */
+        public const int GRIP_HALF_WIDTH = 5;
+
+
         public Cairo.Context cairo_context
         {
             get;
@@ -24,6 +32,20 @@ namespace Geda3
 
 
         public Cairo.Matrix matrix0
+        {
+            get;
+            set;
+        }
+
+
+        public Cairo.Matrix matrix1
+        {
+            get;
+            set;
+        }
+
+
+        public Pango.Context pango_context
         {
             get;
             set;
@@ -77,16 +99,47 @@ namespace Geda3
             requires(cairo_context != null)
 
         {
-            cairo_context.move_to(center_x + 20, center_y);
-            cairo_context.arc(center_x, center_y, 20, 0.0, 2.0 * Math.PI);
+            cairo_context.save();
 
-            set_color(Geda3.Color.BACKGROUND);
+            cairo_context.set_matrix(matrix0);
+
+            double x = center_x;
+            double y = center_y;
+
+            matrix1.transform_point(ref x, ref y);
+
+            x = Math.round(x);
+            y = Math.round(y);
+
+            cairo_context.move_to(x - GRIP_HALF_WIDTH, y - GRIP_HALF_WIDTH);
+            cairo_context.line_to(x + GRIP_HALF_WIDTH, y - GRIP_HALF_WIDTH);
+            cairo_context.line_to(x + GRIP_HALF_WIDTH, y + GRIP_HALF_WIDTH);
+            cairo_context.line_to(x - GRIP_HALF_WIDTH, y + GRIP_HALF_WIDTH);
+            cairo_context.close_path();
+
+            var rgba = color_scheme[Color.SELECT];
+
+            cairo_context.set_source_rgba(
+                0.125 * rgba.red,
+                0.125 * rgba.green,
+                0.125 * rgba.blue,
+                rgba.alpha
+                );
 
             cairo_context.fill_preserve();
 
-            set_color(Geda3.Color.SELECT);
+            cairo_context.set_source_rgba(
+                rgba.red,
+                rgba.green,
+                rgba.blue,
+                rgba.alpha
+                );
+
+            cairo_context.set_line_width(1.0);
 
             cairo_context.stroke();
+
+            cairo_context.restore();
         }
 
 
@@ -124,16 +177,22 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw_text(int x, int y, TextAlignment alignment, int angle, int size, string text)
+        public override void draw_text(
+            int x,
+            int y,
+            TextAlignment alignment,
+            int angle,
+            int size,
+            string text
+            )
 
             requires(cairo_context != null)
+            requires(pango_context != null)
 
         {
             cairo_context.save();
 
-            var layout = Pango.cairo_create_layout(cairo_context);
-
-            Pango.cairo_context_set_resolution(layout.get_context(), 936);
+            var layout = new Pango.Layout(pango_context);
 
             font_description.set_size(size * Pango.SCALE);
             layout.set_font_description(font_description);
@@ -146,33 +205,18 @@ namespace Geda3
             var rotation = Geda3.Angle.to_radians(angle);
             cairo_context.rotate(-rotation);
 
-            var alignment_x = alignment.alignment_x();
+            int dx = 0;
+            int dy = 0;
 
-            if (alignment_x > 0.0)
-            {
-                int height;
-                int width;
-                
-                layout.get_size(out width, out height);
-                cairo_context.rel_move_to(alignment_x * width / -Pango.SCALE, 0.0);
-            }
+            calculate_text_adjustment(layout, alignment, size, out dx, out dy);
 
-            var alignment_y = alignment.alignment_y();
-
-            if (alignment_y > 0.0)
-            {
-                var iter = layout.get_iter();
-
-                while (!iter.at_last_line())
-                {
-                    iter.next_line();
-                }
-
-                cairo_context.rel_move_to(0.0, alignment_y * iter.get_baseline() / -Pango.SCALE);
-            }
+            cairo_context.rel_move_to(
+                (double) dx / (double) Pango.SCALE,
+                (double) dy / (double) Pango.SCALE
+                );
 
             Pango.cairo_show_layout(cairo_context, layout);
-            
+
             cairo_context.restore();
         }
 
@@ -290,63 +334,150 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override Geda3.Bounds calculate_text_bounds(int x, int y, TextAlignment alignment, int size, string text)
+        public override Geda3.Bounds calculate_text_bounds(
+            int x,
+            int y,
+            TextAlignment alignment,
+            int size,
+            string text
+            )
+
+            requires(pango_context != null)
+
         {
-            //var context = new Pango.Context();
+            var layout = new Pango.Layout(pango_context);
 
-            //var layout = new Pango.Layout(context);
+            font_description.set_size(size * Pango.SCALE);
+            layout.set_font_description(font_description);
+            layout.set_spacing(40000);
+            layout.set_markup(text, -1);
 
-            //Pango.cairo_context_set_resolution(layout.get_context(), 936);
+            var matrix = Cairo.Matrix.identity();
 
-            //font_description.set_size(size * Pango.SCALE);
-            //layout.set_font_description(font_description);
-            //layout.set_spacing(40000);
-            //layout.set_markup(text, -1);
+            matrix.scale(1.0 / Pango.SCALE, -1.0 / Pango.SCALE);
 
-            //cairo_context.move_to(x, y);
-            //cairo_context.scale(1.0, -1.0);
+            int dx = 0;
+            int dy = 0;
 
-            //var alignment_x = alignment.alignment_x();
+            calculate_text_adjustment(layout, alignment, size, out dx, out dy);
+            matrix.translate(dx, dy);
 
-            //if (alignment_x > 0.0)
-            //{
-            //    int height;
-            //    int width;
-            //    
-            //    layout.get_size(out width, out height);
-            //    //cairo_context.rel_move_to(alignment_x * width / -Pango.SCALE, 0.0);
-            //}
+            Pango.Rectangle ink = { 0 };
+            Pango.Rectangle logical = { 0 };
 
-            //var alignment_y = alignment.alignment_y();
+            layout.get_extents(out ink, out logical);
 
-            //if (alignment_y > 0.0)
-            //{
-            //    var iter = layout.get_iter();
+            double x0 = ink.x;
+            double y0 = ink.y;
+            double x1 = ink.x + ink.width;
+            double y1 = ink.y + ink.height;
 
-            //    while (!iter.at_last_line())
-            //    {
-            //        iter.next_line();
-            //    }
+            matrix.transform_point(ref x0, ref y0);
+            matrix.transform_point(ref x1, ref y1);
 
-                //cairo_context.rel_move_to(0.0, alignment_y * iter.get_baseline() / -Pango.SCALE);
-            //}
+            var bounds = Bounds.with_fpoints(x0, y0, x1, y1);
 
-            //Pango.Rectangle ink_extents;
-            //Pango.Rectangle logical_extents;
+            //bounds.rotate();
+            bounds.translate(x, y);
 
-            //layout.get_pixel_extents(out ink_extents, out logical_extents);
+            // add the bounds of the insertion point graphic "x"
 
-            //stdout.printf(@"ink = $(ink_extents.x),$(ink_extents.y),$(ink_extents.width),$(ink_extents.height)");
+            var bounds_x = Bounds.with_points(
+                x - 20,
+                y - 20,
+                x + 20,
+                y + 20
+                );
 
-            //Pango.cairo_show_layout(cairo_context, layout);
-            
-            //cairo_context.restore();
+            int expand = (int) Math.ceil(0.5 * Math.SQRT2 * 10);
 
-            Geda3.Bounds bounds = Geda3.Bounds.with_points(x, y, x, y);
+            bounds_x.expand(expand, expand);
 
-            bounds.expand(1000, 1000);
+            bounds.union(bounds_x);
 
             return bounds;
+        }
+
+
+        /**
+         *
+         * @return The cap height in Pango units
+         */
+        private int calculate_cap_height(int size)
+
+            requires(pango_context != null)
+            ensures(result >= 0)
+
+        {
+            var layout = new Pango.Layout(pango_context);
+
+            font_description.set_size(size * Pango.SCALE);
+            layout.set_font_description(font_description);
+            layout.set_spacing(40000);
+            layout.set_markup("O", -1);
+
+            var iter = layout.get_iter();
+            
+            Pango.Rectangle ink = { 0 };
+            Pango.Rectangle logical = { 0 };
+
+            int baseline = iter.get_baseline();
+            iter.get_layout_extents(out ink, out logical);
+
+            return ink.y - baseline;
+        }
+
+
+        /**
+         *
+         * This function uses the logical y for the top of the layout
+         * and needs to be changed to top of a capital letter when the
+         * cap height becomes available.
+         *
+         * @param layout
+         * @param alignment
+         * @param size
+         * @param dx The x offset in Pango units
+         * @param dy The y offset in Pango units
+         */
+        private static void calculate_text_adjustment(
+            Pango.Layout layout,
+            Geda3.TextAlignment alignment,
+            int size,
+            out int dx,
+            out int dy
+            )
+        {
+
+            dx = 0;
+
+            var alignment_x = alignment.alignment_x();
+
+            if (alignment_x > 0.0)
+            {
+                int height;
+                int width;
+                
+                layout.get_size(out width, out height);
+
+                dx = - (int) Math.round(alignment_x * width);
+            }
+
+            dy = 0;
+
+            var alignment_y = alignment.alignment_y();
+
+            if (alignment_y > 0.0)
+            {
+                var iter = layout.get_iter();
+
+                while (!iter.at_last_line())
+                {
+                    iter.next_line();
+                }
+
+                dy = - (int) Math.round(alignment_y * iter.get_baseline());
+            }
         }
 
 

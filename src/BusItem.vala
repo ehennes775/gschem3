@@ -101,9 +101,29 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void invalidate_on(Invalidatable invalidatable)
+        {
+            var bounds = Bounds.with_points(
+                b_x[0],
+                b_y[0],
+                b_x[1],
+                b_y[1]
+                );
+
+            int expand = (int) Math.ceil(0.5 * Math.SQRT2 * WIDTH);
+
+            bounds.expand(expand, expand);
+
+            invalidatable.invalidate_bounds(bounds);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw(SchematicPainter painter, bool selected = false)
         {
-            painter.set_cap_type(CapType.NONE);
+            painter.set_cap_type(CapType.SQUARE);
             painter.set_color(selected ? Geda3.Color.SELECT : b_color);
             painter.set_dash(DashType.SOLID, 0, 0);
             painter.set_width(WIDTH);

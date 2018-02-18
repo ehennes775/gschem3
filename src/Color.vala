@@ -83,7 +83,7 @@ namespace Geda3
 
 
         /**
-         * The default color index for graphic objects
+         * The color index for selecting an area to zoom
          */
         public const int ZOOM_BOX = 13;
 
