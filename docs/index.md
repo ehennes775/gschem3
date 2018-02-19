@@ -6,8 +6,8 @@ project provides GUI functionality and uses
 for the rest.
 
 The following screenshot shows a development version of Gschem3.
-Current deveopment focuses on getting the project manager in the left
-pane operational.
+Current deveopment focuses on getting the drawing tools for
+schematics operational.
 
 ![Screenshot of Gschem3](gschem3.png)
 
