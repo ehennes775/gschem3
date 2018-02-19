@@ -98,6 +98,6 @@ namespace Geda3
         public abstract void set_width(int width);
 
 
-        public abstract Geda3.Bounds calculate_text_bounds(int x, int y, TextAlignment alignment, int size, string text);
+        public abstract Geda3.Bounds calculate_text_bounds(int x, int y, TextAlignment alignment, int angle, int size, string text);
     }
 }

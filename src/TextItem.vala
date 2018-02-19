@@ -98,6 +98,7 @@ namespace Geda3
                 b_x,
                 b_y,
                 b_alignment,
+                b_angle,
                 b_size,
                 b_lines[0]
                 );

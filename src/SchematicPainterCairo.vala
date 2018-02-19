@@ -338,6 +338,7 @@ namespace Geda3
             int x,
             int y,
             TextAlignment alignment,
+            int angle,
             int size,
             string text
             )
@@ -377,7 +378,7 @@ namespace Geda3
 
             var bounds = Bounds.with_fpoints(x0, y0, x1, y1);
 
-            //bounds.rotate();
+            bounds.rotate(angle);
             bounds.translate(x, y);
 
             // add the bounds of the insertion point graphic "x"

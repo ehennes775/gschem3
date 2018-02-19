@@ -167,9 +167,61 @@ namespace Geda3
 
 
         /**
-         * Create a string for debugging
+         * Rotate the bounds around the origin
          *
-         * @return
+         * @param angle The angle to rotate the bounds in degrees
+         */
+        public void rotate(int angle)
+        {
+            double x[] =
+            {
+                min_x,
+                max_x,
+                min_x,
+                max_x
+            };
+
+            double y[] =
+            {
+                min_y,
+                min_y,
+                max_y,
+                max_y
+            };
+
+            var matrix = Cairo.Matrix.identity();
+            matrix.rotate(Angle.to_radians(angle));
+
+            for (var index = 0; index < 4; index++)
+            {
+                matrix.transform_point(ref x[index], ref y[index]);
+            }
+
+            var fmin_x = x[0];
+            var fmin_y = y[0];
+            var fmax_x = x[0];
+            var fmax_y = y[0];
+
+            for (var index = 1; index < 4; index++)
+            {
+                fmin_x = double.min(fmin_x, x[index]);
+                fmin_y = double.min(fmin_y, y[index]);
+                fmax_x = double.max(fmax_x, x[index]);
+                fmax_y = double.max(fmax_y, y[index]);
+            }
+
+            min_x = (int) Math.floor(fmin_x);
+            min_y = (int) Math.floor(fmin_y);
+            max_x = (int) Math.ceil(fmax_x);
+            max_y = (int) Math.ceil(fmax_y);
+        }
+
+
+        /**
+         * Translate the bounds
+         *
+         * @param dx The displacement on the x axis
+         * @param dy The displacement on the y axis
          */
         public void translate(int dx, int dy)
         {
