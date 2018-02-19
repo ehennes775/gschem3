@@ -51,11 +51,90 @@ namespace GedaTest.TextItem
     }
 
 
+    void check_get_set_alignment()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        for (var i = 0; i < 100; i++)
+        {
+            var alignment = (Geda3.TextAlignment) Test.rand_int_range(
+                0,
+                Geda3.TextAlignment.COUNT
+                );
+
+            count = 0;
+
+            item.alignment = alignment;
+
+            assert_true(count == 2);
+            assert_true(item.alignment == alignment);
+        }
+    }
+
+
+    void check_get_set_angle()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        for (var i = 0; i < 100; i++)
+        {
+            var angle = Test.rand_int();
+            count = 0;
+
+            item.angle = angle;
+
+            assert_true(count == 2);
+            assert_true(item.angle == angle);
+        }
+    }
+
+
+    void check_get_set_text()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        string test_values[] =
+        {
+            "",
+            "Text",
+            " Text",
+            "Text ",
+            " Text ",
+            "Text\nText",
+            "Text\nText\n",
+            "\nText\nText",
+            "Text \n Text",
+            " Text\nText ",
+        };
+
+        foreach (var text in test_values)
+        {
+            count = 0;
+
+            item.text = text;
+
+            assert_true(count == 2);
+            assert_true(item.text == text);
+        }
+    }
+
+
     public static int main(string[] args)
     {
         Test.init(ref args);
 
         Test.add_func("/geda/libgeda/textitem/readwrite", check_read_write);
+        Test.add_func("/geda/libgeda/textitem/getsetangle", check_get_set_angle);
+        Test.add_func("/geda/libgeda/textitem/getsettext", check_get_set_text);
 
         return Test.run();
     }

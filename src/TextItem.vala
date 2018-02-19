@@ -54,6 +54,26 @@ namespace Geda3
 
 
         /**
+         * The entire text for this item
+         */
+        public string text
+        {
+            owned get
+            {
+                return string.joinv("\n", b_lines);
+            }
+            set
+            {
+                invalidate();
+
+                b_lines = value.split("\n");
+
+                invalidate();
+            }
+        }
+
+
+        /**
          * Create a text item
          */
         public TextItem()
