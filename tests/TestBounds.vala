@@ -6,6 +6,9 @@ namespace GedaTest.Angle
 
         assert_true(bounds.empty());
 
+        assert_true(bounds.get_width() == 0);
+        assert_true(bounds.get_height() == 0);
+
         for (int count = 0; count < 100; count++)
         {
             int x = Test.rand_int();
@@ -34,6 +37,11 @@ namespace GedaTest.Angle
 
             assert_true(!bounds.empty());
 
+            // the width and height may overflow in this test, so
+            // only check if the result is non-zero
+            assert_true(bounds.get_width() != 0);
+            assert_true(bounds.get_height() != 0);
+
             assert_true(bounds.contains(x0, y0));
             assert_true(bounds.contains(x0, y1));
             assert_true(bounds.contains(x1, y1));
@@ -59,6 +67,11 @@ namespace GedaTest.Angle
                 );
 
             assert_true(!bounds.empty());
+
+            // the width and height may overflow in this test, so
+            // only check if the result is non-zero
+            assert_true(bounds.get_width() != 0);
+            assert_true(bounds.get_height() != 0);
 
             int x[] =
             {
