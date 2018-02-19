@@ -42,6 +42,51 @@ namespace GedaTest.Angle
     }
 
 
+    void check_construct_with_fpoints()
+    {
+        for (int count = 0; count < 100; count++)
+        {
+            var x0 = Test.rand_double();
+            var y0 = Test.rand_double();
+            var x1 = Test.rand_double();
+            var y1 = Test.rand_double();
+
+            Geda3.Bounds bounds = Geda3.Bounds.with_fpoints(
+                x0,
+                y0,
+                x1,
+                y1
+                );
+
+            assert_true(!bounds.empty());
+
+            int x[] =
+            {
+                (int) Math.floor(x0),
+                (int) Math.ceil(x0),
+                (int) Math.floor(x1),
+                (int) Math.ceil(x1)
+            };
+
+            int y[] =
+            {
+                (int) Math.floor(y0),
+                (int) Math.ceil(y0),
+                (int) Math.floor(y1),
+                (int) Math.ceil(y1)
+            };
+
+            for (var xi = 0; xi < x.length; xi++)
+            {
+                for (var yi = 0; yi < y.length; yi++)
+                {
+                    assert_true(bounds.contains(x[xi], y[yi]));
+                }
+            }
+        }
+    }
+
+
     void check_expand()
     {
         for (int count = 0; count < 100; count++)
@@ -107,6 +152,7 @@ namespace GedaTest.Angle
 
         Test.add_func("/geda/libgeda/bounds/constructempty", check_construct_empty);
         Test.add_func("/geda/libgeda/bounds/constructwithpoints", check_construct_with_points);
+        Test.add_func("/geda/libgeda/bounds/constructwithfpoints", check_construct_with_fpoints);
         Test.add_func("/geda/libgeda/bounds/expandempty", check_expand_empty);
         Test.add_func("/geda/libgeda/bounds/expand", check_expand);
 
