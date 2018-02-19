@@ -102,7 +102,7 @@ namespace GedaTest.TextItem
 
         item.invalidate.connect(() => { count++; });
 
-        string test_values[] =
+        string[] test_values =
         {
             "",
             "Text",
@@ -128,13 +128,40 @@ namespace GedaTest.TextItem
     }
 
 
+    void check_visible_text()
+    {
+        var item = new Geda3.TextItem();
+
+        string[,] test_values =
+        {
+            { "value=100", "value", "100" }
+        };
+
+        for (var index = 0; index < test_values.length[0]; index++)
+        {
+            item.text = test_values[index,0];
+
+            item.presentation = Geda3.TextPresentation.BOTH;
+            assert_true(item.visible_text == test_values[index,0]);
+
+            item.presentation = Geda3.TextPresentation.NAME;
+            assert_true(item.visible_text == test_values[index,1]);
+
+            item.presentation = Geda3.TextPresentation.VALUE;
+            assert_true(item.visible_text == test_values[index,2]);
+        }
+    }
+
+
     public static int main(string[] args)
     {
         Test.init(ref args);
 
         Test.add_func("/geda/libgeda/textitem/readwrite", check_read_write);
+        Test.add_func("/geda/libgeda/textitem/getsetalignment", check_get_set_alignment);
         Test.add_func("/geda/libgeda/textitem/getsetangle", check_get_set_angle);
         Test.add_func("/geda/libgeda/textitem/getsettext", check_get_set_text);
+        Test.add_func("/geda/libgeda/textitem/visibletext", check_visible_text);
 
         return Test.run();
     }

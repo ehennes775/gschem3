@@ -50,7 +50,7 @@ namespace Gschem3
                 pin_name = new Geda3.TextItem.with_points(
                     ix + 50,
                     iy,
-                    "RESET"
+                    "label=RESET"
                     );
 
                 pin_name.b_alignment = Geda3.TextAlignment.MIDDLE_LEFT;
@@ -58,7 +58,7 @@ namespace Gschem3
                 pin_number = new Geda3.TextItem.with_points(
                     ix - 50,
                     iy - 50,
-                    "13"
+                    "number=13"
                     );
 
                 pin_number.b_alignment = Geda3.TextAlignment.LOWER_RIGHT;

@@ -64,11 +64,53 @@ namespace Geda3
             }
             set
             {
-                invalidate();
-
                 b_lines = value.split("\n");
 
-                invalidate();
+                update_visible_text();
+            }
+        }
+
+
+        /**
+         * The presentation of the text
+         */
+        public TextPresentation presentation
+        {
+            get
+            {
+                return b_presentation;
+            }
+            set
+            {
+                b_presentation = value;
+
+                update_visible_text();
+            }
+        }
+
+
+        /**
+         * The text visible on the schematic
+         */
+        public string visible_text
+        {
+            get;
+            private set;
+        }
+
+
+        /**
+         * Initialize the class
+         */
+        static construct
+        {
+            try
+            {
+                s_attribute_regex = new Regex("^([^=]+)=(.*)$");
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
             }
         }
 
@@ -86,8 +128,8 @@ namespace Geda3
             b_presentation = TextPresentation.BOTH;
             b_angle = 0;
             b_alignment = TextAlignment.LOWER_LEFT;
-            b_lines = new string[1];
-            b_lines[0] = "Text";
+
+            text = "Text";
         }
 
 
@@ -104,8 +146,8 @@ namespace Geda3
             b_presentation = TextPresentation.BOTH;
             b_angle = 0;
             b_alignment = TextAlignment.LOWER_LEFT;
-            b_lines = new string[1];
-            b_lines[0] = t;
+
+            text = t;
         }
 
 
@@ -120,7 +162,7 @@ namespace Geda3
                 b_alignment,
                 b_angle,
                 b_size,
-                b_lines[0]
+                visible_text
                 );
         }
 
@@ -149,7 +191,14 @@ namespace Geda3
 
                 painter.set_color(selected ? Geda3.Color.SELECT : b_color);
 
-                painter.draw_text(b_x, b_y, b_alignment, b_angle, b_size, b_lines[0]);
+                painter.draw_text(
+                    b_x,
+                    b_y,
+                    b_alignment,
+                    b_angle,
+                    b_size,
+                    visible_text
+                    );
             }
         }
 
@@ -241,6 +290,20 @@ namespace Geda3
 
 
         /**
+         * A regular expression for parsing attributes
+         *
+         * ||''Match Group''||''Description''||
+         * ||0||Entire input string||
+         * ||1||Attribute name||
+         * ||2||Attribute value||
+         *
+         * If the text does not match this regex, then the text does
+         * not represent an attribute.
+         */
+        private static Regex s_attribute_regex;
+
+
+        /**
          * Backing store for the text alignment
          *
          * Temporarily public for testing
@@ -254,6 +317,12 @@ namespace Geda3
          * Temporarily public for testing
          */
         public int b_angle;
+
+
+        /**
+         *
+         */
+        private bool b_attribute;
 
 
         /**
@@ -310,5 +379,66 @@ namespace Geda3
          * Temporarily public for testing
          */
         public int b_y;
+
+
+        /**
+         *
+         */
+        private void update_visible_text()
+
+            requires (b_lines != null)
+            requires (s_attribute_regex != null)
+
+        {
+            invalidate();
+
+            var local_text = string.joinv("\n", b_lines);
+
+            MatchInfo match_info;
+
+            b_attribute = s_attribute_regex.match(
+                local_text,
+                0,
+                out match_info
+                );
+
+            stdout.printf(@"b_attribute = $(b_attribute)\n");
+            stdout.printf(@"b_presentation = $(b_presentation)\n");
+
+            if (b_attribute)
+            {
+                string? next_text;
+
+                switch (b_presentation)
+                {
+                    case TextPresentation.NAME:
+                        next_text = match_info.fetch(1);
+                        break;
+
+                    case TextPresentation.VALUE:
+                        next_text = match_info.fetch(2);
+                        break;
+
+                    case TextPresentation.BOTH:
+                    default:
+                        next_text = local_text;
+                        break;
+                }
+
+                return_if_fail(next_text != null);
+
+                visible_text = next_text;
+
+                stdout.printf(@"attribute = $(next_text)\n");
+            }
+            else
+            {
+                stdout.printf(@"plain text = $(local_text)\n");
+
+                visible_text = local_text;
+            }
+
+            invalidate();
+        }
     }
 }
