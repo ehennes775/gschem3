@@ -156,14 +156,21 @@ namespace Geda3
          */
         public override Bounds calculate_bounds(SchematicPainter painter)
         {
-            return painter.calculate_text_bounds(
-                b_x,
-                b_y,
-                b_alignment,
-                b_angle,
-                b_size,
-                visible_text
-                );
+            var bounds = Bounds();
+
+            if (b_visibility == Visibility.VISIBLE)
+            {
+                bounds = painter.calculate_text_bounds(
+                    b_x,
+                    b_y,
+                    b_alignment,
+                    b_angle,
+                    b_size,
+                    visible_text
+                    );
+            }
+
+            return bounds;
         }
 
 
@@ -234,6 +241,8 @@ namespace Geda3
             {
                 b_lines[index] = stream.read_line(null);
             }
+
+            text = string.joinv("\n", b_lines);
         }
 
 
@@ -402,9 +411,6 @@ namespace Geda3
                 out match_info
                 );
 
-            stdout.printf(@"b_attribute = $(b_attribute)\n");
-            stdout.printf(@"b_presentation = $(b_presentation)\n");
-
             if (b_attribute)
             {
                 string? next_text;
@@ -428,13 +434,9 @@ namespace Geda3
                 return_if_fail(next_text != null);
 
                 visible_text = next_text;
-
-                stdout.printf(@"attribute = $(next_text)\n");
             }
             else
             {
-                stdout.printf(@"plain text = $(local_text)\n");
-
                 visible_text = local_text;
             }
 

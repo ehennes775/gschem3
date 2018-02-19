@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
+        <file>ArcTool.svg</file>
         <file>Blank.svg</file>
         <file>BlueFolder.svg</file>
         <file>BoxTool.svg</file>
@@ -16,9 +17,11 @@
         <file>NetTool.svg</file>
         <file>NewProjectDialog.xml</file>
         <file>OrangeFolder.svg</file>
+        <file>PathTool.svg</file>
         <file>PinTool.svg</file>
         <file>ProjectWidget.ui.xml</file>
         <file>ProjectWidgetMenu.ui.xml</file>
+        <file>SelectTool.svg</file>
         <file>Schematic.svg</file>
         <file>SchematicWindow.ui.xml</file>
         <file>Symbol.svg</file>

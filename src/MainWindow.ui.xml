@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <interface>
     <object class="GtkImage" id="icon-tool-select">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/SelectTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-arc">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/ArcTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-box">
         <property name="resource">/com/github/ehennes775/gschem3/BoxTool.svg</property>
@@ -16,7 +16,7 @@
         <property name="resource">/com/github/ehennes775/gschem3/LineTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-path">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/PathTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-bus">
         <property name="resource">/com/github/ehennes775/gschem3/BusTool.svg</property>
