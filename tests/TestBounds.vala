@@ -1,18 +1,18 @@
-namespace GedaTest.Angle
+namespace GedaTest.Bounds
 {
     void check_construct_empty()
     {
-        Geda3.Bounds bounds = Geda3.Bounds();
+        var bounds = Geda3.Bounds();
 
         assert_true(bounds.empty());
 
         assert_true(bounds.get_width() == 0);
         assert_true(bounds.get_height() == 0);
 
-        for (int count = 0; count < 100; count++)
+        for (var count = 0; count < 100; count++)
         {
-            int x = Test.rand_int();
-            int y = Test.rand_int();
+            var x = Test.rand_int();
+            var y = Test.rand_int();
 
             assert_true(!bounds.contains(x, y));
         }
@@ -21,14 +21,14 @@ namespace GedaTest.Angle
 
     void check_construct_with_points()
     {
-        for (int count = 0; count < 100; count++)
+        for (var count = 0; count < 100; count++)
         {
-            int x0 = Test.rand_int();
-            int y0 = Test.rand_int();
-            int x1 = Test.rand_int();
-            int y1 = Test.rand_int();
+            var x0 = Test.rand_int();
+            var y0 = Test.rand_int();
+            var x1 = Test.rand_int();
+            var y1 = Test.rand_int();
 
-            Geda3.Bounds bounds = Geda3.Bounds.with_points(
+            var bounds = Geda3.Bounds.with_points(
                 x0,
                 y0,
                 x1,
@@ -52,14 +52,14 @@ namespace GedaTest.Angle
 
     void check_construct_with_fpoints()
     {
-        for (int count = 0; count < 100; count++)
+        for (var count = 0; count < 100; count++)
         {
             var x0 = Test.rand_double();
             var y0 = Test.rand_double();
             var x1 = Test.rand_double();
             var y1 = Test.rand_double();
 
-            Geda3.Bounds bounds = Geda3.Bounds.with_fpoints(
+            var bounds = Geda3.Bounds.with_fpoints(
                 x0,
                 y0,
                 x1,
@@ -102,9 +102,9 @@ namespace GedaTest.Angle
 
     void check_expand()
     {
-        for (int count = 0; count < 100; count++)
+        for (var count = 0; count < 100; count++)
         {
-            Geda3.Bounds bounds = Geda3.Bounds.with_points(
+            var bounds = Geda3.Bounds.with_points(
                 Test.rand_int_range(int.MIN + 1, int.MAX),
                 Test.rand_int_range(int.MIN + 1, int.MAX),
                 Test.rand_int_range(int.MIN + 1, int.MAX),
@@ -143,14 +143,14 @@ namespace GedaTest.Angle
 
     void check_expand_empty()
     {
-        for (int count = 0; count < 100; count++)
+        for (var count = 0; count < 100; count++)
         {
-            Geda3.Bounds bounds = Geda3.Bounds();
+            var bounds = Geda3.Bounds();
 
             assert_true(bounds.empty());
 
-            int x = Test.rand_int_range(0, int.MAX);
-            int y = Test.rand_int_range(0, int.MAX);
+            var x = Test.rand_int_range(0, int.MAX);
+            var y = Test.rand_int_range(0, int.MAX);
 
             bounds.expand(x, y);
 
