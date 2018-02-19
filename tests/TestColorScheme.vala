@@ -6,14 +6,14 @@ namespace GedaTest.ColorScheme
 
         for (int count = 0; count < 1000; count++)
         {
-            var index = Test.rand_int_range(0, int.MAX);
+            var index = Test.rand_int_range(1, int.MAX);
 
             var color = scheme[index];
 
             assert_true(color.red == 1.0);
             assert_true(color.blue == 1.0);
             assert_true(color.green == 1.0);
-            assert_true(color.alpha == 0.0);
+            assert_true(color.alpha == 1.0);
         }
     }
 
