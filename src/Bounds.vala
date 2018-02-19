@@ -169,6 +169,9 @@ namespace Geda3
         /**
          * Rotate the bounds around the origin
          *
+         * Rotates the bounds around the origin as a quadrilateral,
+         * and then takes the bounds of the result.
+         *
          * @param angle The angle to rotate the bounds in degrees
          */
         public void rotate(int angle)
