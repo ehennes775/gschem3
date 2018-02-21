@@ -1,5 +1,20 @@
 namespace GedaTest.TextItem
 {
+    void check_create()
+    {
+        var text = new Geda3.TextItem();
+
+        assert_true(text.x == 0);
+        assert_true(text.y == 0);
+        assert_true(text.color == Geda3.Color.TEXT);
+        assert_true(text.size == 12);
+        assert_true(text.visibility == Geda3.Visibility.VISIBLE);
+        assert_true(text.presentation == Geda3.TextPresentation.BOTH);
+        assert_true(text.angle == 0);
+        assert_true(text.alignment == Geda3.TextAlignment.LOWER_LEFT);
+    }
+
+
     void check_read_write()
     {
         for (int count = 0; count < 1000; count++)
@@ -261,6 +276,7 @@ namespace GedaTest.TextItem
     {
         Test.init(ref args);
 
+        Test.add_func("/geda/libgeda/textitem/create", check_create);
         Test.add_func("/geda/libgeda/textitem/readwrite", check_read_write);
         Test.add_func("/geda/libgeda/textitem/getsetalignment", check_get_set_alignment);
         Test.add_func("/geda/libgeda/textitem/getsetangle", check_get_set_angle);

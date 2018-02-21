@@ -33,6 +33,7 @@ namespace Geda3
 
                 invalidate();
             }
+            default = TextAlignment.LOWER_LEFT;
         }
 
 
@@ -53,6 +54,7 @@ namespace Geda3
 
                 invalidate();
             }
+            default = 0;
         }
 
 
@@ -73,6 +75,8 @@ namespace Geda3
 
                 invalidate();
             }
+            //Doesn't get set when specified here???
+            // default = Color.TEXT;
         }
 
 
@@ -112,6 +116,7 @@ namespace Geda3
 
                 update_visible_text();
             }
+            default = TextPresentation.BOTH;
         }
 
 
@@ -135,6 +140,8 @@ namespace Geda3
 
                 invalidate();
             }
+            //Doesn't get set when specified here???
+            // default = 12;
         }
 
 
@@ -168,6 +175,8 @@ namespace Geda3
 
                 invalidate();
             }
+            //Doesn't get set when specified here???
+            // default = Visibility.VISIBLE;
         }
 
 
@@ -188,6 +197,7 @@ namespace Geda3
 
                 invalidate();
             }
+            default = 0;
         }
 
 
@@ -208,6 +218,7 @@ namespace Geda3
 
                 invalidate();
             }
+            default = 0;
         }
 
 
@@ -228,36 +239,36 @@ namespace Geda3
 
 
         /**
-         * Create a text item
+         * Initialize the instance
          */
-        public TextItem()
+        construct
         {
-            b_x = 0;
-            b_y = 0;
-            b_color = Color.TEXT;
-            b_size = 12;
-            b_visibility = Visibility.VISIBLE;
-            b_presentation = TextPresentation.BOTH;
-            b_angle = 0;
-            b_alignment = TextAlignment.LOWER_LEFT;
-
-            text = "Text";
+            color = Color.TEXT;
+            size = 12;
+            visibility = Visibility.VISIBLE;
         }
 
 
         /**
          * Create a text item
          */
+        public TextItem()
+        {
+            text = "Text";
+        }
+
+
+        /**
+         * Create a text item
+         *
+         * @param x The x coordinate of the insertion point
+         * @param y The y coordinate of the insertion point
+         * @param t The text
+         */
         public TextItem.with_points(int x, int y, string t)
         {
             b_x = x;
             b_y = y;
-            b_color = Color.TEXT;
-            b_size = 12;
-            b_visibility = Visibility.VISIBLE;
-            b_presentation = TextPresentation.BOTH;
-            b_angle = 0;
-            b_alignment = TextAlignment.LOWER_LEFT;
 
             text = t;
         }
@@ -437,7 +448,7 @@ namespace Geda3
 
 
         /**
-         *
+         * Indicates this text represents an attribute
          */
         private bool b_attribute;
 
@@ -450,10 +461,8 @@ namespace Geda3
 
         /**
          * Backing store for text
-         *
-         * Temporarily public for testing
          */
-        public string[] b_lines;
+        private string[] b_lines;
 
 
         /**
@@ -476,18 +485,14 @@ namespace Geda3
 
         /**
          * Backing store the insertion point x coordinate
-         *
-         * Temporarily public for testing
          */
-        public int b_x;
+        private int b_x;
 
 
         /**
          * Backing store the insertion point y coordinates
-         *
-         * Temporarily public for testing
          */
-        public int b_y;
+        private int b_y;
 
 
         /**
