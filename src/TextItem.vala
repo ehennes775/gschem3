@@ -54,6 +54,24 @@ namespace Geda3
 
 
         /**
+         * The color of the text
+         */
+        public int color
+        {
+            get
+            {
+                return b_color;
+            }
+            set
+            {
+                b_color = value;
+
+                invalidate();
+            }
+        }
+
+
+        /**
          * The entire text for this item
          */
         public string text
@@ -90,12 +108,92 @@ namespace Geda3
 
 
         /**
-         * The text visible on the schematic
+         * The size of the text
+         */
+        public int size
+        {
+            get
+            {
+                return b_size;
+            }
+            set
+            {
+                invalidate();
+
+                b_size = value;
+
+                invalidate();
+            }
+        }
+
+
+        /**
+         * The visible text on the schematic
          */
         public string visible_text
         {
             get;
             private set;
+        }
+
+
+        /**
+         * The visibility of the text
+         */
+        public Visibility visibility
+        {
+            get
+            {
+                return b_visibility;
+            }
+            set
+            {
+                invalidate();
+
+                b_visibility = value;
+
+                invalidate();
+            }
+        }
+
+
+        /**
+         * The x coordinate of the insertion point
+         */
+        public int x
+        {
+            get
+            {
+                return b_x;
+            }
+            set
+            {
+                invalidate();
+
+                b_x = value;
+
+                invalidate();
+            }
+        }
+
+
+        /**
+         * The y coordinate of the insertion point
+         */
+        public int y
+        {
+            get
+            {
+                return b_y;
+            }
+            set
+            {
+                invalidate();
+
+                b_y = value;
+
+                invalidate();
+            }
         }
 
 
@@ -314,18 +412,14 @@ namespace Geda3
 
         /**
          * Backing store for the text alignment
-         *
-         * Temporarily public for testing
          */
-        public TextAlignment b_alignment;
+        private TextAlignment b_alignment;
 
 
         /**
          * Backing store for the text angle
-         *
-         * Temporarily public for testing
          */
-        public int b_angle;
+        private int b_angle;
 
 
         /**
@@ -336,10 +430,8 @@ namespace Geda3
 
         /**
          * Backing store for the color
-         *
-         * Temporarily public for testing
          */
-        public int b_color;
+        private int b_color;
 
 
         /**
@@ -352,26 +444,20 @@ namespace Geda3
 
         /**
          * Backing store for the text presentation
-         *
-         * Temporarily public for testing
          */
-        public TextPresentation b_presentation;
+        private TextPresentation b_presentation;
 
 
         /**
          * Backing store for the text size
-         *
-         * Temporarily public for testing
          */
-        public int b_size;
+        private int b_size;
 
 
         /**
          * Backing store for the text visibility
-         *
-         * Temporarily public for testing
          */
-        public Visibility b_visibility;
+        private Visibility b_visibility;
 
 
         /**

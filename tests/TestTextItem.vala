@@ -11,14 +11,14 @@ namespace GedaTest.TextItem
 
                 var text0 = new Geda3.TextItem();
 
-                text0.b_x = Test.rand_int();
-                text0.b_y = Test.rand_int();
-                text0.b_color = Test.rand_int_range(0, int.MAX);
-                text0.b_size = Test.rand_int_range(Geda3.TextSize.MIN, Geda3.TextSize.MAX);
-                text0.b_visibility = (Geda3.Visibility) Test.rand_int_range(0, Geda3.Visibility.COUNT);
-                text0.b_presentation = (Geda3.TextPresentation) Test.rand_int_range(0, Geda3.TextPresentation.COUNT);
-                text0.b_angle = 90 * Test.rand_int_range(0, 4);
-                text0.b_alignment = (Geda3.TextAlignment) Test.rand_int_range(0, Geda3.TextAlignment.COUNT);
+                text0.x = Test.rand_int();
+                text0.y = Test.rand_int();
+                text0.color = Test.rand_int_range(0, int.MAX);
+                text0.size = Test.rand_int_range(Geda3.TextSize.MIN, Geda3.TextSize.MAX);
+                text0.visibility = (Geda3.Visibility) Test.rand_int_range(0, Geda3.Visibility.COUNT);
+                text0.presentation = (Geda3.TextPresentation) Test.rand_int_range(0, Geda3.TextPresentation.COUNT);
+                text0.angle = 90 * Test.rand_int_range(0, 4);
+                text0.alignment = (Geda3.TextAlignment) Test.rand_int_range(0, Geda3.TextAlignment.COUNT);
 
                 text0.write(output_stream);
                 output_stream.close();
@@ -33,15 +33,15 @@ namespace GedaTest.TextItem
                 var text1 = new Geda3.TextItem();
                 text1.read(input_stream);
 
-                assert_true(text0.b_x == text1.b_x);
-                assert_true(text0.b_y == text1.b_y);
-                assert_true(text0.b_color == text1.b_color);
-                assert_true(text0.b_size == text1.b_size);
-                assert_true(text0.b_visibility == text1.b_visibility);
-                assert_true(text0.b_presentation == text1.b_presentation);
-                assert_true(text0.b_angle == text1.b_angle);
-                assert_true(text0.b_alignment == text1.b_alignment);
-                assert_true(text0.b_lines.length == text1.b_lines.length);
+                assert_true(text0.x == text1.x);
+                assert_true(text0.y == text1.y);
+                assert_true(text0.color == text1.color);
+                assert_true(text0.size == text1.size);
+                assert_true(text0.visibility == text1.visibility);
+                assert_true(text0.presentation == text1.presentation);
+                assert_true(text0.angle == text1.angle);
+                assert_true(text0.alignment == text1.alignment);
+                assert_true(text0.text == text1.text);
             }
             catch (Error unexpected)
             {
@@ -95,6 +95,46 @@ namespace GedaTest.TextItem
     }
 
 
+    void check_get_set_color()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        for (var i = 0; i < 100; i++)
+        {
+            var color = Test.rand_int_range(0, int.MAX);
+            count = 0;
+
+            item.color = color;
+
+            assert_true(count == 1);
+            assert_true(item.color == color);
+        }
+    }
+
+
+    void check_get_set_size()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        for (var i = 0; i < 100; i++)
+        {
+            var size = Test.rand_int_range(0, int.MAX);
+            count = 0;
+
+            item.size = size;
+
+            assert_true(count == 2);
+            assert_true(item.size == size);
+        }
+    }
+
+
     void check_get_set_text()
     {
         int count = 0;
@@ -124,6 +164,66 @@ namespace GedaTest.TextItem
 
             assert_true(count == 2);
             assert_true(item.text == text);
+        }
+    }
+
+
+    void check_get_set_visibility()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        for (var i = 0; i < 100; i++)
+        {
+            var visibility = (Geda3.Visibility) Test.rand_int_range(0, Geda3.Visibility.COUNT);
+            count = 0;
+
+            item.visibility = visibility;
+
+            assert_true(count == 2);
+            assert_true(item.visibility == visibility);
+        }
+    }
+
+
+    void check_get_set_x()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        for (var i = 0; i < 100; i++)
+        {
+            var x = Test.rand_int();
+            count = 0;
+
+            item.x = x;
+
+            assert_true(count == 2);
+            assert_true(item.x == x);
+        }
+    }
+
+
+    void check_get_set_y()
+    {
+        int count = 0;
+        var item = new Geda3.TextItem();
+
+        item.invalidate.connect(() => { count++; });
+
+        for (var i = 0; i < 100; i++)
+        {
+            var y = Test.rand_int();
+            count = 0;
+
+            item.y = y;
+
+            assert_true(count == 2);
+            assert_true(item.y == y);
         }
     }
 
@@ -160,7 +260,12 @@ namespace GedaTest.TextItem
         Test.add_func("/geda/libgeda/textitem/readwrite", check_read_write);
         Test.add_func("/geda/libgeda/textitem/getsetalignment", check_get_set_alignment);
         Test.add_func("/geda/libgeda/textitem/getsetangle", check_get_set_angle);
+        Test.add_func("/geda/libgeda/textitem/getsetcolor", check_get_set_color);
+        Test.add_func("/geda/libgeda/textitem/getsetsize", check_get_set_size);
         Test.add_func("/geda/libgeda/textitem/getsettext", check_get_set_text);
+        Test.add_func("/geda/libgeda/textitem/getsetx", check_get_set_x);
+        Test.add_func("/geda/libgeda/textitem/getsety", check_get_set_y);
+        Test.add_func("/geda/libgeda/textitem/getsetvisibility", check_get_set_visibility);
         Test.add_func("/geda/libgeda/textitem/visibletext", check_visible_text);
 
         return Test.run();

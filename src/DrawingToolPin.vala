@@ -53,7 +53,7 @@ namespace Gschem3
                     "label=RESET"
                     );
 
-                pin_name.b_alignment = Geda3.TextAlignment.MIDDLE_LEFT;
+                pin_name.alignment = Geda3.TextAlignment.MIDDLE_LEFT;
 
                 pin_number = new Geda3.TextItem.with_points(
                     ix - 50,
@@ -61,8 +61,8 @@ namespace Gschem3
                     "number=13"
                     );
 
-                pin_number.b_alignment = Geda3.TextAlignment.LOWER_RIGHT;
-                pin_number.b_color = Geda3.Color.ATTRIBUTE;
+                pin_number.alignment = Geda3.TextAlignment.LOWER_RIGHT;
+                pin_number.color = Geda3.Color.ATTRIBUTE;
 
                 m_state = State.S1;
             }
