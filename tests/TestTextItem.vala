@@ -124,7 +124,11 @@ namespace GedaTest.TextItem
 
         for (var i = 0; i < 100; i++)
         {
-            var size = Test.rand_int_range(0, int.MAX);
+            var size = Test.rand_int_range(
+                Geda3.TextSize.MIN,
+                Geda3.TextSize.MAX
+                );
+
             count = 0;
 
             item.size = size;

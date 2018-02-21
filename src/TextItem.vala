@@ -24,6 +24,9 @@ namespace Geda3
             }
             set
             {
+                return_if_fail(value >= 0);
+                return_if_fail(value < TextAlignment.COUNT);
+
                 invalidate();
 
                 b_alignment = value;
@@ -64,6 +67,8 @@ namespace Geda3
             }
             set
             {
+                return_if_fail(value >= 0);
+
                 b_color = value;
 
                 invalidate();
@@ -100,6 +105,9 @@ namespace Geda3
             }
             set
             {
+                return_if_fail(value >= 0);
+                return_if_fail(value < TextPresentation.COUNT);
+
                 b_presentation = value;
 
                 update_visible_text();
@@ -118,6 +126,9 @@ namespace Geda3
             }
             set
             {
+                return_if_fail(value >= TextSize.MIN);
+                return_if_fail(value <= TextSize.MAX);
+
                 invalidate();
 
                 b_size = value;
@@ -148,6 +159,9 @@ namespace Geda3
             }
             set
             {
+                return_if_fail(value >= 0);
+                return_if_fail(value < Visibility.COUNT);
+
                 invalidate();
 
                 b_visibility = value;
