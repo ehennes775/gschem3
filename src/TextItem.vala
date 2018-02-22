@@ -261,46 +261,48 @@ namespace Geda3
         /**
          * Create a new text item as an attribute
          *
-         * @param x1 The x coordinate of the insertion point
-         * @param y1 The y coordinate of the insertion point
+         * @param x The x coordinate of the insertion point
+         * @param y The y coordinate of the insertion point
          * @param name The name of the attribute
          * @param value The value of the attribute
-         * @param visibility1 The visibility of the attribute
-         * @param presentation1 Which portions of the attributes to present
-         * @param alignment1 The alignment of the text
-         * @param angle1 The rottion angle of the text
-         * @param color1 The text color
-         * @param size1 The size of the text
+         * @param visibility The visibility of the attribute
+         * @param presentation Which portions of the attributes to present
+         * @param alignment The alignment of the text
+         * @param angle The rottion angle of the text
+         * @param color The text color
+         * @param size The size of the text
          */
         public TextItem.as_attribute(
-            int x1,
-            int y1,
+            int x,
+            int y,
             string name,
             string @value,
-            Visibility visibility1 = Visibility.VISIBLE,
-            TextPresentation presentation1 = TextPresentation.BOTH,
-            TextAlignment alignment1 = TextAlignment.LOWER_LEFT,
-            int angle1 = 0,
-            int color1 = Color.ATTRIBUTE,
-            int size1 = 10
+            Visibility visibility = Visibility.VISIBLE,
+            TextPresentation presentation = TextPresentation.BOTH,
+            TextAlignment alignment = TextAlignment.LOWER_LEFT,
+            int angle = 0,
+            int color = Color.ATTRIBUTE,
+            int size = 10
             )
 
-        {
-            x = x1;
-            y = y1;
+            requires(visibility >= 0)
 
-            alignment = alignment1;
-            angle = angle1;
-            color = color1;
-            size = size1;
-            visibility = visibility1;
+        {
+            this.x = x;
+            this.y = y;
+
+            this.alignment = alignment;
+            this.angle = angle;
+            this.color = color;
+            this.size = size;
+            this.visibility = visibility;
 
             // These two function calls must be done in this order to
             // ensure the b_lines field is initialized before calling
             // update_visible_text().
 
             text = @"$(name)=$(@value)";
-            presentation = presentation1;
+            this.presentation = presentation;
         }
 
 
