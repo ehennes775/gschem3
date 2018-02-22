@@ -259,18 +259,48 @@ namespace Geda3
 
 
         /**
-         * Create a text item
+         * Create a new text item as an attribute
          *
-         * @param x The x coordinate of the insertion point
-         * @param y The y coordinate of the insertion point
-         * @param t The text
+         * @param x1 The x coordinate of the insertion point
+         * @param y1 The y coordinate of the insertion point
+         * @param name The name of the attribute
+         * @param value The value of the attribute
+         * @param visibility1 The visibility of the attribute
+         * @param presentation1 Which portions of the attributes to present
+         * @param alignment1 The alignment of the text
+         * @param angle1 The rottion angle of the text
+         * @param color1 The text color
+         * @param size1 The size of the text
          */
-        public TextItem.with_points(int x, int y, string t)
-        {
-            b_x = x;
-            b_y = y;
+        public TextItem.as_attribute(
+            int x1,
+            int y1,
+            string name,
+            string @value,
+            Visibility visibility1 = Visibility.VISIBLE,
+            TextPresentation presentation1 = TextPresentation.BOTH,
+            TextAlignment alignment1 = TextAlignment.LOWER_LEFT,
+            int angle1 = 0,
+            int color1 = Color.ATTRIBUTE,
+            int size1 = 10
+            )
 
-            text = t;
+        {
+            x = x1;
+            y = y1;
+
+            alignment = alignment1;
+            angle = angle1;
+            color = color1;
+            size = size1;
+            visibility = visibility1;
+
+            // These two function calls must be done in this order to
+            // ensure the b_lines field is initialized before calling
+            // update_visible_text().
+
+            text = @"$(name)=$(@value)";
+            presentation = presentation1;
         }
 
 

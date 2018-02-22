@@ -47,22 +47,31 @@ namespace Gschem3
                     iy
                     );
 
-                pin_name = new Geda3.TextItem.with_points(
+                pin_name = new Geda3.TextItem.as_attribute(
                     ix + 50,
                     iy,
-                    "label=RESET"
+                    "pinlabel",
+                    "RESET",
+                    Geda3.Visibility.VISIBLE,
+                    Geda3.TextPresentation.VALUE,
+                    Geda3.TextAlignment.MIDDLE_LEFT,
+                    0,
+                    Geda3.Color.TEXT
                     );
 
-                pin_name.alignment = Geda3.TextAlignment.MIDDLE_LEFT;
 
-                pin_number = new Geda3.TextItem.with_points(
+                pin_number = new Geda3.TextItem.as_attribute(
                     ix - 50,
-                    iy - 50,
-                    "number=13"
+                    iy + 50,
+                    "pinnumber",
+                    "13",
+                    Geda3.Visibility.VISIBLE,
+                    Geda3.TextPresentation.VALUE,
+                    Geda3.TextAlignment.LOWER_RIGHT,
+                    0,
+                    Geda3.Color.ATTRIBUTE,
+                    8
                     );
-
-                pin_number.alignment = Geda3.TextAlignment.LOWER_RIGHT;
-                pin_number.color = Geda3.Color.ATTRIBUTE;
 
                 m_state = State.S1;
             }
