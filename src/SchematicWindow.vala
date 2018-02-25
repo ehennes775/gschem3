@@ -125,13 +125,13 @@ namespace Gschem3
             schematic = new Geda3.Schematic();
             tag = null;
 
-            m_tools.@set(DrawingTool.ArcName, new DrawingToolArc());
+            m_tools.@set(DrawingTool.ArcName, new DrawingToolArc(this));
             m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(this));
             m_tools.@set(DrawingTool.BusName, new DrawingToolBus(this));
             m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(this));
             m_tools.@set(DrawingTool.LineName, new DrawingToolLine(this));
             m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
-            m_tools.@set(DrawingTool.PathName, new DrawingToolPath());
+            m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));
             m_tools.@set(DrawingTool.PinName, new DrawingToolPin(this));
             m_tools.@set(DrawingTool.SelectName, new DrawingToolSelect(this));
 
@@ -151,6 +151,9 @@ namespace Gschem3
             drawing.key_press_event.connect(on_key_press_event);
             drawing.key_release_event.connect(on_key_release_event);
             drawing.motion_notify_event.connect(on_motion_notify_event);
+
+            drawing.can_focus = true;
+            drawing.sensitive = true;
         }
 
 
@@ -612,6 +615,10 @@ namespace Gschem3
             requires(m_current_tool != null)
 
         {
+            // temporary until better solution
+
+            drawing.grab_focus();
+
             return m_current_tool.button_pressed(event);
         }
 

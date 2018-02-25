@@ -47,6 +47,12 @@ namespace Geda3
 
 
         /**
+         * The default color index for logic bubbles
+         */
+        public const int LOGIC_BUBBLE = 6;
+
+
+        /**
          * The default color index for major grid lines
          */
         public const int MAJOR_GRID = 22;

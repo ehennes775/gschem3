@@ -12,6 +12,8 @@ namespace Gschem3
          */
         public DrawingToolNet(SchematicWindow window)
         {
+            base(window);
+
             m_nets = null;
             m_state = State.S0;
             m_window = window;
@@ -119,6 +121,8 @@ namespace Gschem3
             requires(m_window != null)
 
         {
+            base.motion_notify(event);
+
             if (m_state == State.S1)
             {
                 var x = event.x;
@@ -231,12 +235,6 @@ namespace Gschem3
          * Stores the current state of the tool
          */
         private State m_state;
-
-
-        /**
-         * Stores the document window this tool is drawing into
-         */
-        private weak SchematicWindow m_window;
 
 
         /**

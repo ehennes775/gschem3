@@ -12,6 +12,8 @@ namespace Gschem3
          */
         public DrawingToolLine(SchematicWindow window)
         {
+            base(window);
+
             m_state = State.S0;
             m_window = window;
         }
@@ -100,6 +102,8 @@ namespace Gschem3
          */
         public override bool motion_notify(Gdk.EventMotion event)
         {
+            base.motion_notify(event);
+
             if (m_state == State.S1)
             {
                 m_x = event.x;
@@ -192,12 +196,6 @@ namespace Gschem3
          * The y coordinate of the last event in device coordinates
          */
         private double m_y;
-
-
-        /**
-         * Stores the document window this tool is drawing into
-         */
-        private weak SchematicWindow m_window;
 
 
         /**

@@ -75,6 +75,8 @@ namespace Geda3
 
         {
             m_attributes.add(attribute);
+
+            attribute.invalidate.connect(on_invalidate);
         }
 
 
@@ -98,6 +100,36 @@ namespace Geda3
             bounds.expand(expand, expand);
 
             return bounds;
+        }
+
+
+        /**
+         * Get the first attribute with the given name
+         */
+        public TextItem? get_attribute(string name)
+        {
+            foreach (var item in m_attributes)
+            {
+                var text = item as TextItem;
+
+                if ((text != null) && (text.name == name))
+                {
+                    return text;
+                }
+            }
+
+            return null;
+        }
+
+
+        public void get_point(int index, ref int x, ref int y)
+
+            requires(index >= 0)
+            requires(index < 2)
+
+        {
+            x = b_x[index];
+            y = b_y[index];
         }
 
 
@@ -194,12 +226,12 @@ namespace Geda3
             requires (index < 2)
 
         {
-            invalidate();
+            invalidate(this);
 
             b_x[index] = x;
             b_y[index] = y;
 
-            invalidate();
+            invalidate(this);
         }
 
 
@@ -267,5 +299,11 @@ namespace Geda3
          * Temporarily public for testing
          */
         public int b_y[2];
+
+
+        private void on_invalidate(SchematicItem item)
+        {
+            invalidate(item);
+        }
     }
 }

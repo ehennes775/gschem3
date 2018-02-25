@@ -166,5 +166,38 @@ namespace Geda3
 
             return result;
         }
+
+
+        /**
+         * Mirror the text alignment on the x axis
+         *
+         * @return The text alignment mirrored on the x axis
+         */
+        public TextAlignment mirror_x()
+        {
+            switch (this)
+            {
+                case LOWER_LEFT:
+                    return LOWER_RIGHT;
+
+                case MIDDLE_LEFT:
+                    return MIDDLE_RIGHT;
+
+                case UPPER_LEFT:
+                    return UPPER_RIGHT;
+
+                case LOWER_RIGHT:
+                    return LOWER_LEFT;
+
+                case MIDDLE_RIGHT:
+                    return MIDDLE_LEFT;
+
+                case UPPER_RIGHT:
+                    return UPPER_LEFT;
+
+                default:
+                    return this;
+            }
+        }
     }
 }

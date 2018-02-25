@@ -166,7 +166,7 @@ namespace Geda3
             requires (index < 4)
 
         {
-            invalidate();
+            invalidate(this);
 
             switch (index)
             {
@@ -195,7 +195,7 @@ namespace Geda3
                     break;
             }
 
-            invalidate();
+            invalidate(this);
         }
 
 

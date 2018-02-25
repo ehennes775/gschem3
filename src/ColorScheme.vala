@@ -64,6 +64,13 @@ namespace Geda3
                 });
 
             colors.@set(
+                Color.LOGIC_BUBBLE,
+                Gdk.RGBA()
+                {
+                    red = 0.0, green = 1.0, blue = 1.0, alpha = 1.0
+                });
+
+            colors.@set(
                 Color.TEXT,
                 Gdk.RGBA()
                 {

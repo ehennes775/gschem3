@@ -74,7 +74,11 @@ libgeda3_a_SOURCES = \
 	NetItem.vala \
 	NullMapper.vala \
 	ParseError.vala \
+	PinAttributeUpdater.vala \
+	PinItemGroup.vala \
+	PinSettings.vala \
 	PinType.vala \
+	PinUpdater.vala \
 	PointGrip.vala \
 	PrintDimension.vala \
 	PrintFormat.vala \

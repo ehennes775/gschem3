@@ -27,11 +27,11 @@ namespace Geda3
                 return_if_fail(value >= 0);
                 return_if_fail(value < TextAlignment.COUNT);
 
-                invalidate();
+                invalidate(this);
 
                 b_alignment = value;
 
-                invalidate();
+                invalidate(this);
             }
             default = TextAlignment.LOWER_LEFT;
         }
@@ -48,11 +48,11 @@ namespace Geda3
             }
             set
             {
-                invalidate();
+                invalidate(this);
 
                 b_angle = value;
 
-                invalidate();
+                invalidate(this);
             }
             default = 0;
         }
@@ -73,10 +73,20 @@ namespace Geda3
 
                 b_color = value;
 
-                invalidate();
+                invalidate(this);
             }
             //Doesn't get set when specified here???
             // default = Color.TEXT;
+        }
+
+
+        /**
+         * The attribute name
+         */
+        public string? name
+        {
+            get;
+            private set;
         }
 
 
@@ -134,11 +144,11 @@ namespace Geda3
                 return_if_fail(value >= TextSize.MIN);
                 return_if_fail(value <= TextSize.MAX);
 
-                invalidate();
+                invalidate(this);
 
                 b_size = value;
 
-                invalidate();
+                invalidate(this);
             }
             //Doesn't get set when specified here???
             // default = 12;
@@ -169,11 +179,11 @@ namespace Geda3
                 return_if_fail(value >= 0);
                 return_if_fail(value < Visibility.COUNT);
 
-                invalidate();
+                invalidate(this);
 
                 b_visibility = value;
 
-                invalidate();
+                invalidate(this);
             }
             //Doesn't get set when specified here???
             // default = Visibility.VISIBLE;
@@ -191,11 +201,11 @@ namespace Geda3
             }
             set
             {
-                invalidate();
+                invalidate(this);
 
                 b_x = value;
 
-                invalidate();
+                invalidate(this);
             }
             default = 0;
         }
@@ -212,11 +222,11 @@ namespace Geda3
             }
             set
             {
-                invalidate();
+                invalidate(this);
 
                 b_y = value;
 
-                invalidate();
+                invalidate(this);
             }
             default = 0;
         }
@@ -340,9 +350,9 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter, bool selected = false)
+        public override void draw(SchematicPainter painter, bool selected)
         {
-            if (b_visibility == Visibility.VISIBLE)
+            if ((b_visibility == Visibility.VISIBLE) || selected)
             {
                 painter.set_cap_type(CapType.NONE);
                 painter.set_color(Color.MAJOR_GRID);
@@ -351,7 +361,10 @@ namespace Geda3
 
                 painter.draw_x(b_x, b_y);
 
-                painter.set_color(selected ? Geda3.Color.SELECT : b_color);
+                painter.set_color(
+                    selected ? Geda3.Color.SELECT : b_color,
+                    (b_visibility != Visibility.VISIBLE)
+                    );
 
                 painter.draw_text(
                     b_x,
@@ -416,12 +429,12 @@ namespace Geda3
             requires (index == 0)
 
         {
-            invalidate();
+            invalidate(this);
 
             b_x = x;
             b_y = y;
 
-            invalidate();
+            invalidate(this);
         }
 
 
@@ -536,7 +549,7 @@ namespace Geda3
             requires (s_attribute_regex != null)
 
         {
-            invalidate();
+            invalidate(this);
 
             var local_text = string.joinv("\n", b_lines);
 
@@ -550,6 +563,8 @@ namespace Geda3
 
             if (b_attribute)
             {
+                name = match_info.fetch(1);
+
                 string? next_text;
 
                 switch (b_presentation)
@@ -574,10 +589,11 @@ namespace Geda3
             }
             else
             {
+                name = null;
                 visible_text = local_text;
             }
 
-            invalidate();
+            invalidate(this);
         }
     }
 }

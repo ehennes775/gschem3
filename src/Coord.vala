@@ -79,6 +79,30 @@ namespace Geda3
 
             return sign * result;
         }
+
+
+        /**
+         * Snap a line to an orthographic angle
+         *
+         * @param x0 The x coordinate of the first point
+         * @param y0 The y coordinate of the first point
+         * @param x1 The x coordinate of the second point
+         * @param y1 The y coordinate of the second point
+         */
+        public void snap_ortho(int x0, int y0, ref int x1, ref int y1)
+        {
+            var dx = (x1 - x0).abs();
+            var dy = (y1 - y0).abs();
+
+            if (dx < dy)
+            {
+                x1 = x0;
+            }
+            else
+            {
+                y1 = y0;
+            }
+        }
     }
 }
 

@@ -6,12 +6,12 @@ namespace Geda3
     public abstract class SchematicItem : Object
     {
         /**
-         * A signal requesting this item be redrawn
+         * A signal requesting an item be redrawn
          *
-         * This signal is emitted when the item needs to be redrawn in
+         * This signal is emitted when an item needs to be redrawn in
          * a GUI window.
          */
-        public signal void invalidate();
+        public signal void invalidate(SchematicItem item);
 
 
         /**
@@ -29,7 +29,7 @@ namespace Geda3
          * @param painter The painter to use for drawing
          * @param selected Paint the item as selected
          */
-        public abstract void draw(SchematicPainter painter, bool selected = false);
+        public abstract void draw(SchematicPainter painter, bool selected);
 
 
         /**

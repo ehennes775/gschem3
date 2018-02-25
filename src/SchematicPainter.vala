@@ -77,7 +77,7 @@ namespace Geda3
          *
          * @param index The color index in the color scheme
          */
-        public abstract void set_color(int index);
+        public abstract void set_color(int index, bool ghost = false);
 
 
         /**

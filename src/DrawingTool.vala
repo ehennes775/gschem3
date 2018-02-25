@@ -8,6 +8,13 @@ namespace Gschem3
         /**
          *
          */
+         [CCode(has_target=false)]
+        protected delegate bool KeyFunction(DrawingTool tool, Gdk.EventKey event);
+
+
+        /**
+         *
+         */
         public const string ArcName = "arc";
 
 
@@ -57,6 +64,17 @@ namespace Gschem3
          *
          */
         public const string SelectName = "select";
+
+
+        public DrawingTool(SchematicWindow window)
+        {
+            m_window = window;
+
+            m_key_map = new Gee.HashMap<uint,KeyFunction>();
+
+            m_key_map.@set(Gdk.Key.z, key_zoom_in);
+            m_key_map.@set(Gdk.Key.Z, key_zoom_out);
+        }
 
 
         /**
@@ -115,6 +133,18 @@ namespace Gschem3
         {
             stdout.printf("on_key_press_event\n");
 
+            uint keyval;
+
+            if (event.get_keyval(out keyval))
+            {
+                if (m_key_map.has_key(keyval))
+                {
+                    var function = m_key_map[keyval];
+
+                    return function(this, event);
+                }
+            }
+
             return false;
         }
 
@@ -139,7 +169,10 @@ namespace Gschem3
          */
         public virtual bool motion_notify(Gdk.EventMotion event)
         {
-            //stdout.printf("on_motion_notify_event\n");
+            stdout.printf("on_motion_notify_event\n");
+
+            m_x = (int) Math.round(event.x);
+            m_y = (int) Math.round(event.y);
 
             return false;
         }
@@ -154,5 +187,49 @@ namespace Gschem3
         {
             stdout.printf("reset\n");
         }
+
+
+        /**
+         *
+         */
+        protected Gee.Map<uint,KeyFunction> m_key_map;
+
+
+        /**
+         * The document window this tool is drawing into
+         */
+        protected weak SchematicWindow m_window;
+
+
+        /**
+         *
+         */
+        protected static bool key_zoom_in(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.zoom_in_point(tool.m_x, tool.m_y);
+
+            return true;
+        }
+
+
+        /**
+         *
+         */
+        protected static bool key_zoom_out(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.zoom_out_point(tool.m_x, tool.m_y);
+
+            return true;
+        }
+
+
+        private int m_x;
+        private int m_y;
     }
 }

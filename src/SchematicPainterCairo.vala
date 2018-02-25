@@ -285,7 +285,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void set_color(int index)
+        public override void set_color(int index, bool ghost = false)
 
             requires(cairo_context != null)
             requires(color_scheme != null)
@@ -294,12 +294,26 @@ namespace Geda3
         {
             var rgba = color_scheme[index];
 
-            cairo_context.set_source_rgba(
-                rgba.red,
-                rgba.green,
-                rgba.blue,
-                rgba.alpha
-                );
+            if (ghost)
+            {
+                var background = color_scheme[0];
+
+                cairo_context.set_source_rgba(
+                    (rgba.red + background.red) / 2.0,
+                    (rgba.green + background.green) / 2.0,
+                    (rgba.blue + background.blue) / 2.0,
+                    rgba.alpha
+                    );
+            }
+            else
+            {
+                cairo_context.set_source_rgba(
+                    rgba.red,
+                    rgba.green,
+                    rgba.blue,
+                    rgba.alpha
+                    );
+            }
         }
 
 

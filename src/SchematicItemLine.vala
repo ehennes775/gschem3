@@ -199,12 +199,12 @@ namespace Geda3
             requires (index < 2)
 
         {
-            invalidate();
+            invalidate(this);
 
             b_x[index] = x;
             b_y[index] = y;
 
-            invalidate();
+            invalidate(this);
         }
 
 

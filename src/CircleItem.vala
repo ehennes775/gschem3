@@ -26,6 +26,12 @@ namespace Geda3
     public class CircleItem : SchematicItem
     {
         /**
+         * The radius for logic bubbles
+         */
+        public const int BUBBLE_RADIUS = 50;
+
+
+        /**
          * The type code used in schematic files
          */
         public const string TYPE_ID = "V";
@@ -41,6 +47,29 @@ namespace Geda3
             b_radius = 0;
             b_color = Color.GRAPHIC;
             b_width = 10;
+            //b_cap_type = CapType.NONE;
+            b_dash_type = DashType.SOLID;
+            b_dash_length = DashType.DEFAULT_LENGTH;
+            b_dash_space = DashType.DEFAULT_SPACE;
+        }
+
+
+        /**
+         * Create a circle representing a logic bubble
+         *
+         * @param x0 The x coordinate of the center of the circle
+         * @param y0 The y coordinate of the center of the circle
+         * @param x0 The x coordinate of the center of the circle
+         * @param y0 The y coordinate of the center of the circle
+         */
+        public CircleItem.as_bubble(int x0, int y0, int x1, int y1)
+        {
+            b_radius = BUBBLE_RADIUS;
+
+            locate_bubble(x0, y0, ref x1, ref y1);
+
+            b_color = Color.LOGIC_BUBBLE;
+            b_width = NetItem.WIDTH;
             //b_cap_type = CapType.NONE;
             b_dash_type = DashType.SOLID;
             b_dash_length = DashType.DEFAULT_LENGTH;
@@ -110,6 +139,35 @@ namespace Geda3
 
 
         /**
+         *
+         *
+         */
+        public void locate_bubble(int x0, int y0, ref int x1, ref int y1)
+        {
+            invalidate(this);
+
+            var length = Coord.distance(x0, y0, x1, y1);
+
+            var u = -1.0;
+            var v = 0.0;
+
+            if (length > 0)
+            {
+                u = (x0 - x1) / length;
+                v = (y0 - y1) / length;
+            }
+
+            b_center_x = x1 + (int) Math.round(b_radius * u);
+            b_center_y = y1 + (int) Math.round(b_radius * v);
+
+            invalidate(this);
+
+            x1 += (int) Math.round(2.0 * b_radius * u);
+            y1 += (int) Math.round(2.0 * b_radius * v);
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override void draw(SchematicPainter painter, bool selected = false)
@@ -172,7 +230,7 @@ namespace Geda3
             requires (index < 2)
 
         {
-            invalidate();
+            invalidate(this);
 
             if (index == 0)
             {
@@ -188,7 +246,7 @@ namespace Geda3
                 return_if_reached();
             }
 
-            invalidate();
+            invalidate(this);
         }
 
 

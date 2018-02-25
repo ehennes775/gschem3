@@ -6,14 +6,36 @@ namespace Gschem3
     public class DrawingToolPin : DrawingTool
     {
         /**
+         * The settings for this pin tool
+         *
+         * Setting this property to null will assign the default
+         * pin tool settings.
+         */
+        public PinSettings settings
+        {
+            get
+            {
+                return b_settings;
+            }
+            set
+            {
+                b_settings = value ?? PinSettings.get_default();
+            }
+            default = null;
+        }
+
+
+        /**
          * Create a new pin drawing tool
          *
          * @param window The document window this tool is drawing into
          */
         public DrawingToolPin(SchematicWindow window)
         {
+            base(window);
+
+            items = null;
             m_state = State.S0;
-            m_window = window;
         }
 
 
@@ -22,72 +44,54 @@ namespace Gschem3
          */
         public override bool button_pressed(Gdk.EventButton event)
 
+            requires(b_settings != null)
             requires(m_window != null)
 
         {
             if (m_state == State.S0)
             {
-                m_x = event.x;
-                m_y = event.y;
-
-                var x = m_x;
-                var y = m_y;
+                var x = event.x;
+                var y = event.y;
 
                 m_window.device_to_user(ref x, ref y);
 
-                var ix = (int) Math.round(x);
-                var iy = (int) Math.round(y);
+                m_x[0] = (int) Math.round(x);
+                m_y[0] = (int) Math.round(y);
 
-                m_window.snap_point(ref ix, ref iy);
+                m_window.snap_point(ref m_x[0], ref m_y[0]);
 
-                pin = new Geda3.SchematicItemPin.with_points(
-                    ix,
-                    iy,
-                    ix,
-                    iy
-                    );
-
-                pin_name = new Geda3.TextItem.as_attribute(
-                    ix + 50,
-                    iy,
-                    "pinlabel",
-                    "RESET",
-                    Geda3.Visibility.VISIBLE,
-                    Geda3.TextPresentation.VALUE,
-                    Geda3.TextAlignment.MIDDLE_LEFT,
-                    0,
-                    Geda3.Color.TEXT
-                    );
-
-
-                pin_number = new Geda3.TextItem.as_attribute(
-                    ix - 50,
-                    iy + 50,
-                    "pinnumber",
-                    "13",
-                    Geda3.Visibility.VISIBLE,
-                    Geda3.TextPresentation.VALUE,
-                    Geda3.TextAlignment.LOWER_RIGHT,
-                    0,
-                    Geda3.Color.ATTRIBUTE,
-                    8
-                    );
+                items = b_settings.create_pin(m_x[0], m_y[0]);
 
                 m_state = State.S1;
             }
             else if (m_state == State.S1)
             {
-                return_val_if_fail(b_pin != null, false);
+                return_val_if_fail(items != null, false);
 
-                m_x = event.x;
-                m_y = event.y;
+                var x = event.x;
+                var y = event.y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                m_x[1] = (int) Math.round(x);
+                m_y[1] = (int) Math.round(y);
+
+                Gdk.ModifierType modifiers;
+
+                if (event.get_state(out modifiers))
+                {
+                    m_ortho = (modifiers & Gdk.ModifierType.SHIFT_MASK) == 0;
+                }
 
                 update();
 
-                pin.attach(pin_name);
-                pin.attach(pin_number);
-                m_window.add_item(pin);
+                m_window.add_item(items.pin);
 
+                if (items.bubble != null)
+                {
+                    m_window.add_item(items.bubble);
+                }
+                
                 reset();
             }
             else
@@ -104,9 +108,7 @@ namespace Gschem3
          */
         public override void cancel()
         {
-            pin = null;
-            pin_name = null;
-            pin_number = null;
+            items = null;
             m_state = State.S0;
         }
 
@@ -118,12 +120,29 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                return_if_fail(b_pin != null);
+                return_if_fail(items != null);
 
-                b_pin.draw(painter, true);
-                b_pin_name.draw(painter, true);
-                b_pin_number.draw(painter, true);
+                items.draw(painter, true);
             }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override bool key_pressed(Gdk.EventKey event)
+        {
+            uint keyval;
+
+            if (event.get_keyval(out keyval))
+            {
+                if (keyval == Gdk.Key.slash)
+                {
+                    b_settings.use_bubble = !b_settings.use_bubble;
+                }
+            }
+
+            return base.key_pressed(event);
         }
 
 
@@ -132,10 +151,24 @@ namespace Gschem3
          */
         public override bool motion_notify(Gdk.EventMotion event)
         {
+            base.motion_notify(event);
+
             if (m_state == State.S1)
             {
-                m_x = event.x;
-                m_y = event.y;
+                var x = event.x;
+                var y = event.y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                m_x[1] = (int) Math.round(x);
+                m_y[1] = (int) Math.round(y);
+
+                Gdk.ModifierType modifiers;
+
+                if (event.get_state(out modifiers))
+                {
+                    m_ortho = (modifiers & Gdk.ModifierType.SHIFT_MASK) == 0;
+                }
 
                 update();
             }
@@ -149,9 +182,7 @@ namespace Gschem3
          */
         public override void reset()
         {
-            pin = null;
-            pin_name = null;
-            pin_number = null;
+            items = null;
             m_state = State.S0;
         }
 
@@ -172,63 +203,19 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                return_if_fail(b_pin != null);
+                return_if_fail(b_items != null);
 
-                var x = m_x;
-                var y = m_y;
+                var x = m_x[1];
+                var y = m_y[1];
 
-                m_window.device_to_user(ref x, ref y);
+                m_window.snap_point(ref x, ref y);
 
-                var ix = (int) Math.round(x);
-                var iy = (int) Math.round(y);
-
-                m_window.snap_point(ref ix, ref iy);
-
-                b_pin.set_point(1, ix, iy);
-
-                var dx = b_pin.b_x[1] - b_pin.b_x[0];
-                var dy = b_pin.b_y[1] - b_pin.b_y[0];
-                var radians = Math.atan2(dy, dx);
-                var degrees = Geda3.Angle.from_radians(radians);
-                var normal = Geda3.Angle.normalize(degrees);
-
-                if ((normal > 90) && (normal <= 270))
+                if (m_ortho)
                 {
-                    b_pin_name.angle = 180 + degrees;
-                    b_pin_name.alignment = Geda3.TextAlignment.MIDDLE_RIGHT;
-                }
-                else
-                {
-                    b_pin_name.angle = degrees;
-                    b_pin_name.alignment = Geda3.TextAlignment.MIDDLE_LEFT;
+                    Geda3.Coord.snap_ortho(m_x[0], m_y[0], ref x, ref y);
                 }
 
-                var tx = ix + (int) Math.round(50 * Math.cos(radians));
-                var ty = iy + (int) Math.round(50 * Math.sin(radians));
-
-                b_pin_name.set_point(0, tx, ty);
-
-                if ((normal > 90) && (normal <= 270))
-                {
-                    b_pin_number.angle = 180 + degrees;
-                    b_pin_number.alignment = Geda3.TextAlignment.LOWER_LEFT;
-
-                    var nx = ix + (int) Math.round(-50 * Math.cos(radians) + 50 * Math.sin(radians));
-                    var ny = iy + (int) Math.round(-50 * Math.sin(radians) - 50 * Math.cos(radians));
-
-                    b_pin_number.set_point(0, nx, ny);
-                }
-                else
-                {
-                    b_pin_number.angle = degrees;
-                    b_pin_number.alignment = Geda3.TextAlignment.LOWER_RIGHT;
-
-                    var nx = ix + (int) Math.round(-50 * Math.cos(radians) - 50 * Math.sin(radians));
-                    var ny = iy + (int) Math.round(-50 * Math.sin(radians) + 50 * Math.cos(radians));
-
-                    b_pin_number.set_point(0, nx, ny);
-                }
-
+                items.update(x, y);
             }
         }
 
@@ -244,161 +231,77 @@ namespace Gschem3
 
 
         /**
-         * The pin currently being drawn
+         * Backing store for the current state of the tool
          */
-        private Geda3.SchematicItemPin b_pin = null;
+        private PinItemGroup? b_items;
 
 
         /**
-         * The pin name currently being drawn
+         * Backing store for the settings for the tool
          */
-        private Geda3.TextItem b_pin_name = null;
+        private PinSettings b_settings;
 
 
         /**
-         * The pin number currently being drawn
+         *
          */
-        private Geda3.TextItem b_pin_number = null;
+        private bool m_ortho = true;
 
 
         /**
-         * Stores the current state of the tool
+         * The current state of the tool
          */
         private State m_state;
 
 
         /**
-         * The x coordinate of the last event in device coordinates
+         * The x coordinate of events in document coordinates
          */
-        private double m_x;
+        private int m_x[2];
 
 
         /**
-         * The y coordinate of the last event in device coordinates
+         * The y coordinate of events in document coordinates
          */
-        private double m_y;
-
-
-        /**
-         * Stores the document window this tool is drawing into
-         */
-        private weak SchematicWindow m_window;
+        private int m_y[2];
 
 
         /**
          * The pin currently being drawn
          */
-        private Geda3.SchematicItemPin pin
+        private PinItemGroup? items
         {
             get
             {
-                return b_pin;
+                return b_items;
             }
             set
             {
-                if (b_pin != null)
+                if (b_items != null)
                 {
-                    if (m_window != null)
-                    {
-                        m_window.invalidate_item(b_pin);
-                    }
+                    //if (m_window != null)
+                    //{
+                    //    m_window.invalidate_item(b_pin);
+                    //}
 
-                    b_pin.invalidate.disconnect(on_invalidate);
+                    b_items.invalidate.disconnect(on_invalidate);
                 }
 
-                b_pin = value;
+                b_items = value;
 
-                if (b_pin != null)
-                {
-                    return_if_fail(m_window != null);
-
-                    b_pin.invalidate.connect(on_invalidate);
-                    m_window.invalidate_item(b_pin);
-                }
-            }
-        }
-
-
-        /**
-         * The pin name currently being drawn
-         */
-        private Geda3.TextItem pin_name
-        {
-            get
-            {
-                return b_pin_name;
-            }
-            set
-            {
-                if (b_pin_name != null)
-                {
-                    if (m_window != null)
-                    {
-                        m_window.invalidate_item(b_pin_name);
-                    }
-
-                    b_pin_name.invalidate.disconnect(on_invalidate);
-                }
-
-                b_pin_name = value;
-
-                if (b_pin_name != null)
+                if (b_items != null)
                 {
                     return_if_fail(m_window != null);
 
-                    b_pin_name.invalidate.connect(on_invalidate);
-                    m_window.invalidate_item(b_pin_name);
+                    b_items.invalidate.connect(on_invalidate);
+                    //m_window.invalidate_item(b_pin);
                 }
             }
         }
 
 
         /**
-         * The pin name currently being drawn
-         */
-        private Geda3.TextItem pin_number
-        {
-            get
-            {
-                return b_pin_number;
-            }
-            set
-            {
-                if (b_pin_number != null)
-                {
-                    if (m_window != null)
-                    {
-                        m_window.invalidate_item(b_pin_number);
-                    }
-
-                    b_pin_number.invalidate.disconnect(on_invalidate);
-                }
-
-                b_pin_number = value;
-
-                if (b_pin_number != null)
-                {
-                    return_if_fail(m_window != null);
-
-                    b_pin_number.invalidate.connect(on_invalidate);
-                    m_window.invalidate_item(b_pin_number);
-                }
-            }
-        }
-
-
-        /**
-         * Add the hidden attributes to the pin
-         *
-         * @param pin
-         */
-        private void add_hidden(Geda3.SchematicItemPin pin)
-        {
-        }
-
-
-        /**
-         * Redraw the current item
+         * Redraw an item
          */
         private void on_invalidate(Geda3.SchematicItem item)
 
