@@ -92,7 +92,7 @@ namespace Gschem3
             {
                 return_if_fail(b_box != null);
 
-                b_box.draw(painter, true);
+                b_box.draw(painter, true, true);
             }
         }
 

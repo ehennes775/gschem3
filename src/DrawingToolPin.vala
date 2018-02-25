@@ -122,7 +122,7 @@ namespace Gschem3
             {
                 return_if_fail(items != null);
 
-                items.draw(painter, true);
+                items.draw(painter, true, true);
             }
         }
 

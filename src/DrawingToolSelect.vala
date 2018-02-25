@@ -153,7 +153,7 @@ namespace Gschem3
 
             if (m_gripped != null)
             {
-                m_gripped.draw(painter, true);
+                m_gripped.draw(painter, true, true);
             }
 
             if (m_grips != null)

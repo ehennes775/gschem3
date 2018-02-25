@@ -86,7 +86,7 @@ namespace Geda3
         {
             foreach (var item in m_items)
             {
-                item.draw(painter, false);
+                item.draw(painter, false, false);
             }
         }
 

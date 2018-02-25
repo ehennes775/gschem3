@@ -139,7 +139,11 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter, bool selected = false)
+        public override void draw(
+            SchematicPainter painter,
+            bool reveal,
+            bool selected
+            )
         {
             painter.set_cap_type(b_line_cap);
             painter.set_color(selected ? Geda3.Color.SELECT : b_color);
@@ -361,41 +365,32 @@ namespace Geda3
         public CapType b_line_cap;
 
 
-
         /**
-         * Backing store for the lower x coordinate
-         *
-         * Temporarily public for testing
+         * The backing store for the lower x coordinate
          */
-        public int b_lower_x;
+        private int b_lower_x;
 
 
         /**
-         * Backing store for the lower y coordinate
-         *
-         * Temporarily public for testing
+         * The backing store for the lower y coordinate
          */
-        public int b_lower_y;
+        private int b_lower_y;
 
 
         /**
-         * Backing store for the upper x coordinate
-         *
-         * Temporarily public for testing
+         * The backing store for the upper x coordinate
          */
-        public int b_upper_x;
+        private int b_upper_x;
 
 
         /**
-         * Backing store for the upper y coordinate
-         *
-         * Temporarily public for testing
+         * The backing store for the upper y coordinate
          */
-        public int b_upper_y;
+        private int b_upper_y;
 
 
         /**
-         * Backing store for the perimeter line width
+         * The backing store for the perimeter line width
          */
         private int b_width;
     }

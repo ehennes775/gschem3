@@ -107,7 +107,7 @@ namespace Gschem3
 
                 foreach (var net in m_nets)
                 {
-                    net.draw(painter, true);
+                    net.draw(painter, true, true);
                 }
             }
         }

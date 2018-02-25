@@ -186,7 +186,11 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter, bool selected = false)
+        public override void draw(
+            SchematicPainter painter,
+            bool reveal,
+            bool selected
+            )
         {
             painter.set_cap_type(b_cap_type);
             painter.set_color(selected ? Geda3.Color.SELECT : b_color);

@@ -91,7 +91,7 @@ namespace Gschem3
             {
                 return_if_fail(b_circle != null);
 
-                b_circle.draw(painter, true);
+                b_circle.draw(painter, true, true);
             }
         }
 

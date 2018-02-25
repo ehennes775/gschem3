@@ -353,7 +353,11 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter, bool selected)
+        public override void draw(
+            SchematicPainter painter,
+            bool reveal,
+            bool selected
+            )
         {
             if ((b_visibility == Visibility.VISIBLE) || selected)
             {

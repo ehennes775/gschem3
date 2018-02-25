@@ -9,7 +9,19 @@ namespace Geda3
          * A signal requesting an item be redrawn
          *
          * This signal is emitted when an item needs to be redrawn in
-         * a GUI window.
+         * a GUI window. Schematic items forward requests from their
+         * child attributes.
+         *
+         * Schematic items that change geometrically send two requests.
+         * First request for invalidaton is at the old location and the
+         * bounds for it must be calculated immediately and added to
+         * the invalid region. Second request is at the new location.
+         *
+         * When not changing geometrically, one request may be sent.
+         * For example, changing the color will not change which pixels
+         * make up the item, so only one request is sent.
+         *
+         * @param item The schemaitc item requesting to be redrawn
          */
         public signal void invalidate(SchematicItem item);
 
@@ -18,10 +30,10 @@ namespace Geda3
          * Calculate the bounds of this object
          *
          * This function does not include the bounds of child attributes
-         * int the calculation.
+         * in the calculation.
          *
-         * @param painter The painter to use for drawing
-         * @param reveal Include hidden objects in bounds
+         * @param painter The painter to use for bounds calculation
+         * @param reveal Include invisible items in bounds calculation
          */
         public abstract Bounds calculate_bounds(
             SchematicPainter painter,
@@ -33,9 +45,14 @@ namespace Geda3
          * Draw this item using the given painter
          *
          * @param painter The painter to use for drawing
+         * @param reveal Draw invisible items
          * @param selected Paint the item as selected
          */
-        public abstract void draw(SchematicPainter painter, bool selected);
+        public abstract void draw(
+            SchematicPainter painter,
+            bool reveal,
+            bool selected
+            );
 
 
         /**

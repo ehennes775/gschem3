@@ -214,16 +214,16 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void draw(Geda3.SchematicPainterCairo painter, bool selected)
+        public void draw(Geda3.SchematicPainterCairo painter, bool reveal, bool selected)
 
             requires(b_pin != null)
 
         {
-            b_pin.draw(painter, selected);
+            b_pin.draw(painter, reveal, selected);
 
             if (b_bubble != null)
             {
-                b_bubble.draw(painter, selected);
+                b_bubble.draw(painter, reveal, selected);
             }
         }
 
