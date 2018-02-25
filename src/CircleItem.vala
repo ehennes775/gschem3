@@ -38,6 +38,50 @@ namespace Geda3
 
 
         /**
+         * The color
+         */
+        public int color
+        {
+            get
+            {
+                return b_color;
+            }
+            set
+            {
+                return_if_fail(value >= 0);
+
+                b_color = value;
+
+                invalidate(this);
+            }
+            default = Color.GRAPHIC;
+        }
+
+
+        /**
+         * The line width
+         */
+        public int width
+        {
+            get
+            {
+                return b_width;
+            }
+            set
+            {
+                return_if_fail(value >= 0);
+
+                invalidate(this);
+
+                b_width = value;
+
+                invalidate(this);
+            }
+            default = 10;
+        }
+
+
+        /**
          * Create a schematic bus
          */
         public CircleItem()

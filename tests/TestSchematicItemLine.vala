@@ -15,8 +15,8 @@ namespace GedaTest.SchematicItemLine
                 line0.b_y[0] = Test.rand_int();
                 line0.b_x[1] = Test.rand_int();
                 line0.b_y[1] = Test.rand_int();
-                line0.b_color = Test.rand_int_range(0, int.MAX);
-                line0.b_width = Test.rand_int_range(1, int.MAX);
+                line0.color = Test.rand_int_range(0, int.MAX);
+                line0.width = Test.rand_int_range(1, int.MAX);
                 line0.b_cap_type = (Geda3.CapType) Test.rand_int_range(0, Geda3.CapType.COUNT);
                 line0.b_dash_type = (Geda3.DashType) Test.rand_int_range(0, Geda3.DashType.COUNT);
                 line0.b_dash_length = Test.rand_int_range(1, int.MAX);
@@ -39,8 +39,8 @@ namespace GedaTest.SchematicItemLine
                 assert_true(line0.b_y[0] == line1.b_y[0]);
                 assert_true(line0.b_x[1] == line1.b_x[1]);
                 assert_true(line0.b_y[1] == line1.b_y[1]);
-                assert_true(line0.b_color == line1.b_color);
-                assert_true(line0.b_width == line1.b_width);
+                assert_true(line0.color == line1.color);
+                assert_true(line0.width == line1.width);
                 assert_true(line0.b_cap_type == line1.b_cap_type);
                 assert_true(line0.b_dash_type == line1.b_dash_type);
 
