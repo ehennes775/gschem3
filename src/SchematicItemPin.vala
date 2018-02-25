@@ -23,6 +23,52 @@ namespace Geda3
         }
 
 
+
+        /**
+         * The color of the text
+         */
+        public int color
+        {
+            get
+            {
+                return b_color;
+            }
+            set
+            {
+                return_if_fail(value >= 0);
+
+                b_color = value;
+
+                invalidate(this);
+            }
+            default = Color.PIN;
+        }
+
+
+        /**
+         * The type of pin
+         */
+        public PinType pin_type
+        {
+            get
+            {
+                return b_type;
+            }
+            set
+            {
+                return_if_fail(value >= 0);
+                return_if_fail(value < PinType.COUNT);
+
+                invalidate(this);
+
+                b_type = value;
+
+                invalidate(this);
+            }
+            default = PinType.NET;
+        }
+
+
         /**
          * GObject initialization
          */
@@ -45,6 +91,7 @@ namespace Geda3
             b_type = PinType.NET;
             b_end = 0;
         }
+
 
         /**
          * Create a schematic pin
@@ -125,7 +172,7 @@ namespace Geda3
         }
 
 
-        public void get_point(int index, ref int x, ref int y)
+        public void get_point(int index, out int x, out int y)
 
             requires(index >= 0)
             requires(index < 2)
@@ -259,17 +306,9 @@ namespace Geda3
 
 
         /**
-         * The attributes attached to this item
-         */
-        private Gee.LinkedList<AttributeChild> m_attributes;
-
-
-        /**
          * Backing store the color
-         *
-         * Temporarily public for testing
          */
-        public int b_color;
+        private int b_color;
 
 
         /**
@@ -282,10 +321,8 @@ namespace Geda3
 
         /**
          * Backing store for the pin type
-         *
-         * Temporarily public for testing
          */
-        public int b_type;
+        private PinType b_type;
 
 
         /**
@@ -304,6 +341,15 @@ namespace Geda3
         public int b_y[2];
 
 
+        /**
+         * The attributes attached to this item
+         */
+        private Gee.LinkedList<AttributeChild> m_attributes;
+
+
+        /**
+         * Signal handler to forward invalidate signals from attributes
+         */
         private void on_invalidate(SchematicItem item)
         {
             invalidate(item);

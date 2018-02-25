@@ -138,7 +138,7 @@ namespace Gschem3
                 m_y[2]
                 );
 
-            pin.b_type = b_settings.pin_type;
+            pin.pin_type = b_settings.pin_type;
 
             pin.attach(new Geda3.TextItem.as_attribute(
                 m_x[2] + 50,
@@ -306,7 +306,7 @@ namespace Gschem3
             requires(b_settings != null)
 
         {
-            b_pin.b_type = b_settings.pin_type;
+            b_pin.pin_type = b_settings.pin_type;
             
             update(m_x[2], m_y[2]);
         }
