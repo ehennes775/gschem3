@@ -101,7 +101,10 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override Bounds calculate_bounds(SchematicPainter painter)
+        public override Bounds calculate_bounds(
+            SchematicPainter painter,
+            bool reveal
+            )
         {
             var bounds = Bounds.with_points(
                 b_center_x - b_radius,

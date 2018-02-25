@@ -50,13 +50,16 @@ namespace Geda3
          *
          * @param painter The painter to use for bounds calculation
          */
-        public Bounds calculate_bounds(SchematicPainter painter)
+        public Bounds calculate_bounds(
+            SchematicPainter painter,
+            bool reveal
+            )
         {
             Geda3.Bounds bounds = Geda3.Bounds();
 
             foreach (var item in m_items)
             {
-                bounds.union(item.calculate_bounds(painter));
+                bounds.union(item.calculate_bounds(painter, reveal));
 
                 var parent = item as AttributeParent;
 
@@ -64,7 +67,7 @@ namespace Geda3
                 {
                     foreach (var child in parent.attributes)
                     {
-                        bounds.union(child.calculate_bounds(painter));
+                        bounds.union(child.calculate_bounds(painter, reveal));
                     }
                 }
             }

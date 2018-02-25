@@ -279,10 +279,10 @@ namespace Gschem3
             {
                 if (b_items != null)
                 {
-                    //if (m_window != null)
-                    //{
-                    //    m_window.invalidate_item(b_pin);
-                    //}
+                    if (m_window != null)
+                    {
+                        m_window.invalidate_item(b_items.pin);
+                    }
 
                     b_items.invalidate.disconnect(on_invalidate);
                 }

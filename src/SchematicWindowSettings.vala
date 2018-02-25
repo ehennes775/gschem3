@@ -22,6 +22,17 @@ namespace Gschem3
 
 
         /**
+         * Show hidden objects in all schematic windows
+         */
+        public bool reveal
+        {
+            get;
+            set;
+            default = false;
+        }
+
+
+        /**
          *
          */
         public Geda3.ColorScheme scheme

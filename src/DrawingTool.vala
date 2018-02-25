@@ -63,7 +63,7 @@ namespace Gschem3
         /**
          *
          */
-        public const string SelectName = "select";
+        public const string SELECT_NAME = "select";
 
 
         public DrawingTool(SchematicWindow window)
@@ -72,6 +72,14 @@ namespace Gschem3
 
             m_key_map = new Gee.HashMap<uint,KeyFunction>();
 
+            m_key_map.@set(Gdk.Key.Escape, key_cancel);
+
+            m_key_map.@set(Gdk.Key.Left, key_pan_left);
+            m_key_map.@set(Gdk.Key.Right, key_pan_right);
+            m_key_map.@set(Gdk.Key.Up, key_pan_up);
+            m_key_map.@set(Gdk.Key.Down, key_pan_down);
+
+            m_key_map.@set(Gdk.Key.x, key_pan);
             m_key_map.@set(Gdk.Key.z, key_zoom_in);
             m_key_map.@set(Gdk.Key.Z, key_zoom_out);
         }
@@ -125,9 +133,9 @@ namespace Gschem3
 
 
         /**
+         * Process a key pressed event
          *
-         *
-         * @param next_file the file to read the schematic from
+         * @param event The key released event to process
          */
         public virtual bool key_pressed(Gdk.EventKey event)
         {
@@ -150,9 +158,9 @@ namespace Gschem3
 
 
         /**
+         * Process a key released event
          *
-         *
-         * @param next_file the file to read the schematic from
+         * @param event The key released event to process
          */
         public virtual bool key_released(Gdk.EventKey event)
         {
@@ -163,14 +171,14 @@ namespace Gschem3
 
 
         /**
+         * Process a mouse motion event
          *
+         * Overridden methods must chain up to the base method.
          *
-         * @param next_file the file to read the schematic from
+         * @param event The mouse motion event to process
          */
         public virtual bool motion_notify(Gdk.EventMotion event)
         {
-            stdout.printf("on_motion_notify_event\n");
-
             m_x = (int) Math.round(event.x);
             m_y = (int) Math.round(event.y);
 
@@ -199,6 +207,90 @@ namespace Gschem3
          * The document window this tool is drawing into
          */
         protected weak SchematicWindow m_window;
+
+
+        /**
+         *
+         */
+        protected static bool key_cancel(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.select_tool(SELECT_NAME);
+
+            return true;
+        }
+
+
+        /**
+         *
+         */
+        protected static bool key_pan(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.pan_point(tool.m_x, tool.m_y);
+
+            return true;
+        }
+
+
+        /**
+         *
+         */
+        protected static bool key_pan_down(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.pan_delta(0, -1);
+
+            return true;
+        }
+
+
+        /**
+         *
+         */
+        protected static bool key_pan_left(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.pan_delta(1, 0);
+
+            return true;
+        }
+
+
+        /**
+         *
+         */
+        protected static bool key_pan_right(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.pan_delta(-1, 0);
+
+            return true;
+        }
+
+
+        /**
+         *
+         */
+        protected static bool key_pan_up(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.pan_delta(0, 1);
+
+            return true;
+        }
 
 
         /**

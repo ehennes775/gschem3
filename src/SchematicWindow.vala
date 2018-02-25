@@ -133,9 +133,9 @@ namespace Gschem3
             m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
             m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));
             m_tools.@set(DrawingTool.PinName, new DrawingToolPin(this));
-            m_tools.@set(DrawingTool.SelectName, new DrawingToolSelect(this));
+            m_tools.@set(DrawingTool.SELECT_NAME, new DrawingToolSelect(this));
 
-            m_current_tool = m_tools[DrawingTool.SelectName];
+            m_current_tool = m_tools[DrawingTool.SELECT_NAME];
 
             drawing.add_events(
                 Gdk.EventMask.BUTTON_PRESS_MASK |
@@ -271,7 +271,8 @@ namespace Gschem3
          */
         public void invalidate_item(Geda3.SchematicItem item)
         {
-            var bounds = item.calculate_bounds(painter);
+            // fixme
+            var bounds = item.calculate_bounds(painter, true);
 
             invalidate_user(bounds);
         }
@@ -327,6 +328,46 @@ namespace Gschem3
 
 
         /**
+         * Pan a point to the center of the window
+         *
+         * @param x The x displacement in steps
+         * @param y The y displacement in steps
+         */
+        public void pan_delta(int dx, int dy)
+        {
+            pan_displacement(
+                50 * dx,
+                50 * dy
+                );
+        }
+
+
+        /**
+         * Pan a point to the center of the window
+         *
+         * @param x The x coordinate in device units
+         * @param y The y coordinate in device units
+         */
+        public void pan_point(int x, int y)
+
+            requires(x >= 0)
+            requires(y >= 0)
+
+        {
+            var width = drawing.get_allocated_width();
+            var height = drawing.get_allocated_height();
+
+            return_if_fail(x < width);
+            return_if_fail(y < height);
+
+            var dx = (width / 2) - x;
+            var dy = (height / 2) - y;
+
+            pan_displacement(dx, dy);
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public void save_as(Gtk.Window? parent) throws Error
@@ -361,6 +402,16 @@ namespace Gschem3
             }
 
             dialog.destroy();
+        }
+
+
+        public void scale_grid_down()
+        {
+        }
+
+
+        public void scale_grid_up()
+        {
         }
 
 
@@ -750,6 +801,18 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private void pan_displacement(int dx, int dy)
+        {
+            matrix.x0 += dx;
+            matrix.y0 += dy;
+
+            drawing.queue_draw();
+        }
+
+
+        /**
          * Read the schematic from a file
          *
          * @param next_file the file to read the schematic from
@@ -848,6 +911,7 @@ namespace Gschem3
          */
         private void zoom_extents_no_redraw()
 
+            requires(b_settings != null)
             requires(drawing != null)
             requires(painter != null)
             requires(schematic != null)
@@ -865,7 +929,10 @@ namespace Gschem3
                     Math.round(height / 2.0)
                     );
 
-                var bounds = schematic.calculate_bounds(painter);
+                var bounds = schematic.calculate_bounds(
+                    painter,
+                    b_settings.reveal
+                    );
 
                 if (bounds.empty())
                 {

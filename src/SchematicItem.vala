@@ -15,12 +15,18 @@ namespace Geda3
 
 
         /**
-         * Draw this item using the given painter
+         * Calculate the bounds of this object
+         *
+         * This function does not include the bounds of child attributes
+         * int the calculation.
          *
          * @param painter The painter to use for drawing
-         * @param selected Paint the item as selected
+         * @param reveal Include hidden objects in bounds
          */
-        public abstract Bounds calculate_bounds(SchematicPainter painter);
+        public abstract Bounds calculate_bounds(
+            SchematicPainter painter,
+            bool reveal
+            );
 
 
         /**
