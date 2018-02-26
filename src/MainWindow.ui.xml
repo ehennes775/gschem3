@@ -45,6 +45,9 @@
     <object class="GtkImage" id="icon-tool-select-7">
         <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
     </object>
+    <object class="GtkImage" id="icon-project-switch">
+        <property name="resource">/com/github/ehennes775/gschem3/OrangeFolder.svg</property>
+    </object>
     <template class="Gschem3MainWindow" parent="GtkApplicationWindow">
         <child>
             <object class ="GtkBox" id="box">
@@ -52,130 +55,75 @@
                 <child>
                     <object class="GtkToolbar" id="toolbar">
                         <child>
-                            <object class="GtkToolItem" id="tool-testing">
-                                <child>
-                                    <object class="GtkGrid" id="tool-testing-label">
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-select">
-                                                <property name="label">Select</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'select'</property>
-                                                <property name="icon-widget">icon-tool-select</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">0</property>
-                                                <property name="top-attach">0</property>
-                                                <property name="height">2</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-arc">
-                                                <property name="label">Arc</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'arc'</property>
-                                                <property name="icon-widget">icon-tool-arc</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">1</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-box">
-                                                <property name="label">Box</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'box'</property>
-                                                <property name="icon-widget">icon-tool-box</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">2</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-circle">
-                                                <property name="label">Circle</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'circle'</property>
-                                                <property name="icon-widget">icon-tool-circle</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">3</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-line">
-                                                <property name="label">Line</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'line'</property>
-                                                <property name="icon-widget">icon-tool-line</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">4</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-path">
-                                                <property name="label">Path</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'path'</property>
-                                                <property name="icon-widget">icon-tool-path</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">5</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-bus">
-                                                <property name="label">Bus</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'bus'</property>
-                                                <property name="icon-widget">icon-tool-bus</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">1</property>
-                                                <property name="top-attach">1</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-net">
-                                                <property name="label">Net</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'net'</property>
-                                                <property name="icon-widget">icon-tool-net</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">2</property>
-                                                <property name="top-attach">1</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkToggleToolButton" id="tool-pin">
-                                                <property name="label">Pin</property>
-                                                <property name="action-name">win.select-tool</property>
-                                                <property name="action-target">'pin'</property>
-                                                <property name="icon-widget">icon-tool-pin</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">3</property>
-                                                <property name="top-attach">1</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkLabel" id="dddd">
-                                                <property name="label">Drawing</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">0</property>
-                                                <property name="top-attach">2</property>
-                                                <property name="width">6</property>
-                                            </packing>
-                                        </child>
-                                    </object>
-                                </child>
+                            <object class="GtkToggleToolButton" id="tool-select">
+                                <property name="label">Select</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'select'</property>
+                                <property name="icon-widget">icon-tool-select</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-arc">
+                                <property name="label">Arc</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'arc'</property>
+                                <property name="icon-widget">icon-tool-arc</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-box">
+                                <property name="label">Box</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'box'</property>
+                                <property name="icon-widget">icon-tool-box</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-circle">
+                                <property name="label">Circle</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'circle'</property>
+                                <property name="icon-widget">icon-tool-circle</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-line">
+                                <property name="label">Line</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'line'</property>
+                                <property name="icon-widget">icon-tool-line</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-path">
+                                <property name="label">Path</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'path'</property>
+                                <property name="icon-widget">icon-tool-path</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-bus">
+                                <property name="label">Bus</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'bus'</property>
+                                <property name="icon-widget">icon-tool-bus</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-net">
+                                <property name="label">Net</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'net'</property>
+                                <property name="icon-widget">icon-tool-net</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="tool-pin">
+                                <property name="label">Pin</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'pin'</property>
+                                <property name="icon-widget">icon-tool-pin</property>
                             </object>
                         </child>
                         <child>
@@ -184,18 +132,21 @@
                         </child>
                         <child>
                             <object class="GtkToolButton" id="zoom-in">
+                                <property name="label">Zoom In</property>
                                 <property name="icon-name">zoom-in</property>
                                 <property name="action-name">win.zoom-in</property>
                             </object>
                         </child>
                         <child>
                             <object class="GtkToolButton" id="zoom-out">
+                                <property name="label">Zoom Out</property>
                                 <property name="icon-name">zoom-out</property>
                                 <property name="action-name">win.zoom-out</property>
                             </object>
                         </child>
                         <child>
                             <object class="GtkToolButton" id="zoom-extents">
+                                <property name="label">Zoom Extents</property>
                                 <property name="icon-name">zoom-fit-best</property>
                                 <property name="action-name">win.zoom-extents</property>
                             </object>
@@ -212,9 +163,40 @@
                     <object class="GtkPaned" id="paned">
                         <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
                         <child>
-                            <object class="Gschem3ProjectWidget" id="project">
-                                <property name="hexpand">true</property>
-                                <property name="vexpand">true</property>
+                            <object class="GtkBox" id="switcher-box">
+                                <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                                <child>
+                                    <object class="GtkStackSwitcher" id="side-stack-switcher">
+                                        <property name="stack">side-stack</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkStack" id="side-stack">
+                                        <child>
+                                            <object class="Gschem3ProjectWidget" id="project">
+                                                <property name="hexpand">true</property>
+                                                <property name="vexpand">true</property>
+                                            </object>
+                                            <packing>
+                                                <property name="name">project</property>
+                                                <property name="title">Project</property>
+                                                <!--<property name="icon-name">zoom-out</property>-->
+                                            </packing>
+                                        </child>
+                                        <!--
+                                        <child>
+                                            <object class="GtkLabel" id="test">
+                                                <property name="hexpand">true</property>
+                                                <property name="vexpand">true</property>
+                                            </object>
+                                            <packing>
+                                                <property name="name">Goodbye</property>
+                                                <property name="title">Goodbye</property>
+                                            </packing>
+                                        </child>
+                                        -->
+                                    </object>
+                                </child>
                             </object>
                             <packing>
                                 <property name="resize">false</property>
