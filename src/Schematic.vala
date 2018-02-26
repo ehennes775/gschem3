@@ -80,13 +80,14 @@ namespace Geda3
         /**
          * Draw the schematic
          *
-         * @param painter the painter to use for drawing
+         * @param painter The painter to use for drawing
+         * @param reveal Draw invisible items
          */
-        public void draw(SchematicPainter painter)
+        public void draw(SchematicPainter painter, bool reveal)
         {
             foreach (var item in m_items)
             {
-                item.draw(painter, false, false);
+                item.draw(painter, reveal, false);
             }
         }
 

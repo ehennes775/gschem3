@@ -738,7 +738,7 @@ namespace Gschem3
 
             painter.cairo_context = context;
             painter.color_scheme = b_settings.scheme;
-            schematic.draw(painter);
+            schematic.draw(painter, b_settings.reveal);
             m_current_tool.draw(painter);
 
             painter.cairo_context = null;

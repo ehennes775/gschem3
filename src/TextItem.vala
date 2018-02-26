@@ -326,7 +326,7 @@ namespace Geda3
         {
             var bounds = Bounds();
 
-            if (b_visibility == Visibility.VISIBLE)
+            if ((b_visibility == Visibility.VISIBLE) || reveal)
             {
                 bounds = painter.calculate_text_bounds(
                     b_x,
@@ -359,7 +359,7 @@ namespace Geda3
             bool selected
             )
         {
-            if ((b_visibility == Visibility.VISIBLE) || selected)
+            if ((b_visibility == Visibility.VISIBLE) || reveal)
             {
                 painter.set_cap_type(CapType.NONE);
                 painter.set_color(Color.MAJOR_GRID);

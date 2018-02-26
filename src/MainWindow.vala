@@ -305,6 +305,7 @@ namespace Gschem3
             { "project-open", on_project_open, null, null, null },
             { "project-new", on_project_new, null, null, null },
             { "select-grid", null, "s", "'mesh'", on_grid_change },
+            { "view-reveal", null, null, "false", on_view_reveal_change }
         };
 
 
@@ -874,7 +875,7 @@ namespace Gschem3
          * Signal handler when the user changes the drawing tool
          *
          * @param action the action that activated this function call
-         * @param parameter The name of the tool as a string
+         * @param state The name of the tool as a string
          */
         private void on_tool_change(SimpleAction action, Variant? state)
 
@@ -901,6 +902,32 @@ namespace Gschem3
             {
                 page.select_tool(m_current_tool);
             }
+        }
+
+
+        /**
+         * Reveal hidden items on schematics
+         *
+         * @param action the action that activated this function call
+         * @param state The boolean state of the action
+         */
+        private void on_view_reveal_change(SimpleAction action, Variant? state)
+
+            requires(state != null)
+            requires(state.is_of_type(VariantType.BOOLEAN))
+
+        {
+            var settings = SchematicWindowSettings.get_default();
+
+            return_if_fail(settings != null);
+
+            settings.reveal = state.get_boolean();
+
+            // Since a signal handler was added to the change_state
+            // signal, this function is responsibe for setting the
+            // state of the action.
+
+            action.set_state(state);
         }
 
 
