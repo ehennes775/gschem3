@@ -69,7 +69,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-arc">
+                                            <object class="GtkToggleToolButton" id="tool-arc">
                                                 <property name="label">Arc</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'arc'</property>
@@ -81,7 +81,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-box">
+                                            <object class="GtkToggleToolButton" id="tool-box">
                                                 <property name="label">Box</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'box'</property>
@@ -93,7 +93,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-circle">
+                                            <object class="GtkToggleToolButton" id="tool-circle">
                                                 <property name="label">Circle</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'circle'</property>
@@ -105,7 +105,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-line">
+                                            <object class="GtkToggleToolButton" id="tool-line">
                                                 <property name="label">Line</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'line'</property>
@@ -117,7 +117,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-path">
+                                            <object class="GtkToggleToolButton" id="tool-path">
                                                 <property name="label">Path</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'path'</property>
@@ -129,7 +129,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-bus">
+                                            <object class="GtkToggleToolButton" id="tool-bus">
                                                 <property name="label">Bus</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'bus'</property>
@@ -141,7 +141,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-net">
+                                            <object class="GtkToggleToolButton" id="tool-net">
                                                 <property name="label">Net</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'net'</property>
@@ -153,7 +153,7 @@
                                             </packing>
                                         </child>
                                         <child>
-                                            <object class="GtkRadioToolButton" id="tool-pin">
+                                            <object class="GtkToggleToolButton" id="tool-pin">
                                                 <property name="label">Pin</property>
                                                 <property name="action-name">win.select-tool</property>
                                                 <property name="action-target">'pin'</property>
@@ -198,6 +198,12 @@
                             <object class="GtkToolButton" id="zoom-extents">
                                 <property name="icon-name">zoom-fit-best</property>
                                 <property name="action-name">win.zoom-extents</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="view-reveal-2">
+                                <property name="label">RI</property>
+                                <property name="action-name">win.view-reveal</property>
                             </object>
                         </child>
                     </object>

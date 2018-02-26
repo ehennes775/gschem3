@@ -295,6 +295,13 @@ namespace Gschem3
             { "zoom-extents", on_zoom_extents, null, null, null },
             { "zoom-in", on_zoom_in, null, null, null },
             { "zoom-out", on_zoom_out, null, null, null },
+            { "edit-delete", on_edit_delete, null, null, null },
+            { "edit-undo", on_edit_undo, null, null, null },
+            { "edit-redo", on_edit_redo, null, null, null },
+            { "edit-paste", on_edit_paste, null, null, null },
+            { "edit-cut", on_edit_cut, null, null, null },
+            { "edit-copy", on_edit_copy, null, null, null },
+            { "edit-select-all", on_edit_select_all, null, null, null },
             { "file-save", on_file_save, null, null, null },
             { "file-save-all", on_file_save_all, null, null, null },
             { "file-save-as", on_file_save_as, null, null, null },
@@ -497,6 +504,90 @@ namespace Gschem3
         private bool on_delete_event(Gdk.EventAny event)
         {
             return false;
+        }
+
+
+        /**
+         * Copy the selection to the clipboard
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_copy(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_edit_copy\n");
+        }
+
+
+        /**
+         * Move the selection the clipboard
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_cut(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_edit_cut\n");
+        }
+
+
+        /**
+         * Delete the selection
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_delete(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_edit_delete\n");
+        }
+
+
+        /**
+         * Paste from the clipboard
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_paste(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_edit_paste\n");
+        }
+
+
+        /**
+         * Redo the last undo
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_redo(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_edit_redo\n");
+        }
+
+
+        /**
+         * Select all in the document
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_select_all(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_edit_select_all\n");
+        }
+
+
+        /**
+         * Undo the last action
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_undo(SimpleAction action, Variant? parameter)
+        {
+            stdout.printf("on_edit_undo\n");
         }
 
 
@@ -801,7 +892,7 @@ namespace Gschem3
             requires(project != null)
 
         {
-            // warn_if_fail(can_project_save);
+            //warn_if_fail(can_project_save);
 
             try
             {
