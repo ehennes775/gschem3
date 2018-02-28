@@ -2,6 +2,13 @@ namespace Gschem3
 {
     /**
      *
+     * Checking the ModifierType, for the shift key, in the motion
+     * notify event requires an additional motion notify event to
+     * register when the shift key is pressed or released. Checking the
+     * ModifierType in the key pressed and key released events results
+     * in the value before the key event, causing the value to lag.
+     * So, the state of the shift key is maintained in the button
+     * event by checking the keyval.
      */
     public class DrawingToolPin : DrawingTool
     {
@@ -136,13 +143,40 @@ namespace Gschem3
 
             if (event.get_keyval(out keyval))
             {
-                if (keyval == Gdk.Key.slash)
+                if ((keyval == Gdk.Key.Shift_L) || (keyval == Gdk.Key.Shift_R))
+                {
+                    m_ortho = false;
+
+                    update();
+                }
+                else if (keyval == Gdk.Key.slash)
                 {
                     b_settings.use_bubble = !b_settings.use_bubble;
                 }
             }
 
             return base.key_pressed(event);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override bool key_released(Gdk.EventKey event)
+        {
+            uint keyval;
+
+            if (event.get_keyval(out keyval))
+            {
+                if ((keyval == Gdk.Key.Shift_L) || (keyval == Gdk.Key.Shift_R))
+                {
+                    m_ortho = true;
+
+                    update();
+                }
+            }
+
+            return base.key_released(event);
         }
 
 
@@ -162,13 +196,6 @@ namespace Gschem3
 
                 m_x[1] = (int) Math.round(x);
                 m_y[1] = (int) Math.round(y);
-
-                Gdk.ModifierType modifiers;
-
-                if (event.get_state(out modifiers))
-                {
-                    m_ortho = (modifiers & Gdk.ModifierType.SHIFT_MASK) == 0;
-                }
 
                 update();
             }
