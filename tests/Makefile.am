@@ -16,6 +16,7 @@ check_PROGRAMS = \
 	test_color \
 	test_color_scheme \
 	test_coord \
+	test_line_style \
 	test_print_dimension \
 	test_print_units \
 	test_schematic \
@@ -40,6 +41,9 @@ test_color_scheme_LDADD = ../src/libgeda3.a ../src/libgschem3.a -lm $(DEPS_LIBS)
 
 test_coord_SOURCES = TestCoord.vala ../src/libgeda3.vapi
 test_coord_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+
+test_line_style_SOURCES = TestLineStyle.vala ../src/libgeda3.vapi
+test_line_style_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
 test_print_dimension_SOURCES = TestPrintDimension.vala ../src/libgeda3.vapi
 test_print_dimension_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
@@ -74,6 +78,7 @@ TESTS = \
 	test_color \
 	test_color_scheme \
 	test_coord \
+	test_line_style \
 	test_print_dimension \
 	test_print_units \
 	test_schematic \
