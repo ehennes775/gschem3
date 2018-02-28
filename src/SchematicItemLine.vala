@@ -47,7 +47,7 @@ namespace Geda3
             {
                 if (b_line_style != null)
                 {
-                    b_line_style.notify.connect(on_notify_style);
+                    b_line_style.notify.disconnect(on_notify_style);
                 }
 
                 b_line_style = value ?? new LineStyle();
