@@ -4,7 +4,8 @@ namespace Geda3
      * The line style for graphic items
      *
      * Since the line style does not change the bounds of the object,
-     * items can use the notify signal to determine when to invalidate.
+     * items can use the notify signal from these properties to
+     * determine when to invalidate.
      */
     public class LineStyle : Object
     {
@@ -17,7 +18,7 @@ namespace Geda3
             {
                 return b_cap_type;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
                 return_if_fail(value < CapType.COUNT);
@@ -30,6 +31,11 @@ namespace Geda3
 
         /**
          * The length of dashes
+         *
+         * If the dash type does not require a length, this contains
+         * the last used length or the default length. This value will
+         * not assume a value of -1 for an unused length, as specified
+         * in the file format.
          */
         public int dash_length
         {
@@ -37,19 +43,23 @@ namespace Geda3
             {
                 return b_dash_length;
             }
-            set
+            construct set
             {
-                //return_if_fail(value >= 0);
+                return_if_fail(value >= 0);
 
                 b_dash_length = value;
             }
-            // fails to initiaize here with custom getter and setter
-            // default = DashType.DEFAULT_LENGTH;
+            default = DashType.DEFAULT_LENGTH;
         }
 
 
         /**
          * The spacing between dashes
+         *
+         * If the dash type does not require a spacing, this contains
+         * the last used spacing or the default spacing. This value
+         * will not assume a value of -1 for an unused spacing, as
+         * specified in the file format.
          */
         public int dash_space
         {
@@ -57,14 +67,13 @@ namespace Geda3
             {
                 return b_dash_space;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
 
                 b_dash_space = value;
             }
-            // fails to initiaize here with custom getter and setter
-            // default = DashType.DEFAULT_SPACE;
+            default = DashType.DEFAULT_SPACE;
         }
 
 
@@ -77,7 +86,7 @@ namespace Geda3
             {
                 return b_dash_type;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
                 return_if_fail(value < DashType.COUNT);
@@ -85,15 +94,6 @@ namespace Geda3
                 b_dash_type = value;
             }
             default = DashType.SOLID;
-        }
-
-
-        construct
-        {
-            //cap_type = CapType.NONE;
-            dash_length = DashType.DEFAULT_LENGTH;
-            dash_space = DashType.DEFAULT_SPACE;
-            //dash_type = DashType.SOLID;
         }
 
 
