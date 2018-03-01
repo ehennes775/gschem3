@@ -35,6 +35,31 @@ namespace Geda3
 
 
         /**
+         * The line style
+         */
+        public LineStyle line_style
+        {
+            get
+            {
+                return b_line_style;
+            }
+            construct set
+            {
+                if (b_line_style != null)
+                {
+                    b_line_style.notify.disconnect(on_notify_style);
+                }
+
+                b_line_style = value ?? new LineStyle();
+
+                b_line_style.notify.connect(on_notify_style);
+
+                invalidate(this);
+            }
+        }
+
+
+        /**
          * The line width
          */
         public int width
@@ -68,10 +93,6 @@ namespace Geda3
             b_upper_y = 0;
             b_color = Color.GRAPHIC;
             b_width = 10;
-            //b_cap_type = CapType.NONE;
-            b_dash_type = DashType.SOLID;
-            b_dash_length = DashType.DEFAULT_LENGTH;
-            b_dash_space = DashType.DEFAULT_SPACE;
         }
 
 
@@ -86,10 +107,6 @@ namespace Geda3
             b_upper_y = y1;
             b_color = Color.GRAPHIC;
             b_width = 10;
-            //b_cap_type = CapType.NONE;
-            b_dash_type = DashType.SOLID;
-            b_dash_length = DashType.DEFAULT_LENGTH;
-            b_dash_space = DashType.DEFAULT_SPACE;
         }
 
 
@@ -145,9 +162,13 @@ namespace Geda3
             bool selected
             )
         {
-            painter.set_cap_type(b_line_cap);
+            painter.set_cap_type(line_style.cap_type);
             painter.set_color(selected ? Geda3.Color.SELECT : b_color);
-            painter.set_dash(b_dash_type, b_dash_length, b_dash_space);
+            painter.set_dash(
+                line_style.dash_type,
+                line_style.dash_length,
+                line_style.dash_space
+                );
             painter.set_width(b_width);
 
             painter.draw_box(b_lower_x, b_lower_y, b_upper_x, b_upper_y);
@@ -180,10 +201,10 @@ namespace Geda3
 
             b_color = Color.parse(params[5]);
             b_width = Coord.parse(params[6]);
-            b_line_cap = CapType.parse(params[7]);
-            b_dash_type = DashType.parse(params[8]);
-            b_dash_length = b_dash_type.parse_length(params[9]);
-            b_dash_space = b_dash_type.parse_space(params[10]);
+            line_style.cap_type = CapType.parse(params[7]);
+            line_style.dash_type = DashType.parse(params[8]);
+            line_style.dash_length = line_style.dash_type.parse_length(params[9]);
+            line_style.dash_space = line_style.dash_type.parse_space(params[10]);
             b_fill_type = FillType.parse(params[11]);
             b_fill_width = Coord.parse(params[12]);
             b_fill_angle_1 = Angle.parse(params[13]);
@@ -263,10 +284,10 @@ namespace Geda3
                 (b_upper_y - b_lower_y).abs(),
                 b_color,
                 b_width,
-                b_line_cap,
-                b_dash_type,
-                b_dash_type.uses_length() ? b_dash_length : -1,
-                b_dash_type.uses_space() ? b_dash_space : -1,
+                line_style.cap_type,
+                line_style.dash_type,
+                line_style.dash_type.uses_length() ? line_style.dash_length : -1,
+                line_style.dash_type.uses_space() ? line_style.dash_space : -1,
                 b_fill_type,
                 b_fill_width,
                 b_fill_angle_1,
@@ -283,30 +304,6 @@ namespace Geda3
          * The backing store for the color
          */
         private int b_color;
-
-
-        /**
-         * Backing store for the dash length
-         *
-         * Temporarily public for testing
-         */
-        public int b_dash_length;
-
-
-        /**
-         * Backing store for the spacing between dashes
-         *
-         * Temporarily public for testing
-         */
-        public int b_dash_space;
-
-
-        /**
-         * Backing store for the dash type
-         *
-         * Temporarily public for testing
-         */
-        public DashType b_dash_type;
 
 
         /**
@@ -358,11 +355,9 @@ namespace Geda3
 
 
         /**
-         * Backing store for the line cap
-         *
-         * Temporarily public for testing
+         * The backing store for the line style
          */
-        public CapType b_line_cap;
+        private LineStyle b_line_style;
 
 
         /**
@@ -393,5 +388,14 @@ namespace Geda3
          * The backing store for the perimeter line width
          */
         private int b_width;
+
+
+        /**
+         * Signal handler when a line style property changes
+         */
+        private void on_notify_style(ParamSpec param)
+        {
+            invalidate(this);
+        }
     }
 }
