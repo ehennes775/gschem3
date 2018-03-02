@@ -60,8 +60,8 @@ namespace GedaTest.LineStyle
     {
         Test.init(ref args);
 
-        Test.add_func("/geda/libgeda/bounds/construct", check_construct);
-        Test.add_func("/geda/libgeda/bounds/getset", check_get_set);
+        Test.add_func("/geda/libgeda/linestyle/construct", check_construct);
+        Test.add_func("/geda/libgeda/linestyle/getset", check_get_set);
 
         return Test.run();
     }
