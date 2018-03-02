@@ -22,7 +22,7 @@ namespace Geda3
             {
                 return b_color;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
 
@@ -93,7 +93,7 @@ namespace Geda3
             {
                 return b_width;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
 
@@ -116,8 +116,6 @@ namespace Geda3
             b_lower_y = 0;
             b_upper_x = 0;
             b_upper_y = 0;
-            b_color = Color.GRAPHIC;
-            b_width = 10;
         }
 
 
@@ -130,8 +128,6 @@ namespace Geda3
             b_lower_y = y0;
             b_upper_x = x1;
             b_upper_y = y1;
-            b_color = Color.GRAPHIC;
-            b_width = 10;
         }
 
 
