@@ -72,5 +72,22 @@ namespace Geda3
             return (FillType) result2;
         }
 
+
+        /**
+         * Indicates fill type uses first angle, pitch, and width
+         */
+        public bool uses_first_set()
+        {
+            return (this == HATCH) || (this == MESH);
+        }
+
+
+        /**
+         * Indicates fill type uses second angle, and pitch
+         */
+        public bool uses_second_set()
+        {
+            return (this == MESH);
+        }
     }
 }

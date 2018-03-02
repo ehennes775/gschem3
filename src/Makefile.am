@@ -59,6 +59,7 @@ libgeda3_a_SOURCES = \
 	DashType.vala \
 	Fileable.vala \
 	FileVersion.vala \
+	FillStyle.vala \
 	FillType.vala \
 	GeeEx.vala \
 	Grip.vala \
