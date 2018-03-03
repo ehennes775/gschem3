@@ -151,6 +151,58 @@ namespace Geda3
 
 
         /**
+         * Set the fill style using parameters
+         *
+         * Uses parameters, as from an input file, to set the fill
+         * style. If an error occurs parsing the parameters, the fill
+         * style will remain unchanged.
+         *
+         * ||0||Fill type||
+         * ||1||Width||
+         * ||2||Angle 1||
+         * ||3||Pitch 1||
+         * ||4||Angle 2||
+         * ||5||Pitch 2||
+         *
+         * @param params The parameters
+         * @throw ParseError A parameter was invalid
+         */
+        public void set_from_params(string[] params) throws ParseError
+
+            requires(params.length == 6)
+
+        {
+            var temp_fill_type = FillType.parse(params[0]);
+
+            var temp_fill_width = FillStyle.DEFAULT_WIDTH;
+            var temp_fill_angle_1 = FillStyle.DEFAULT_ANGLE_1;
+            var temp_fill_pitch_1 = FillStyle.DEFAULT_PITCH_1;
+
+            if (temp_fill_type.uses_first_set())
+            {
+                temp_fill_width = Coord.parse(params[1]);
+                temp_fill_angle_1 = Angle.parse(params[2]);
+                temp_fill_pitch_1 = Coord.parse(params[3]);
+            }
+
+            var temp_fill_angle_2 = FillStyle.DEFAULT_ANGLE_2;
+            var temp_fill_pitch_2 = FillStyle.DEFAULT_PITCH_2;
+
+            if (temp_fill_type.uses_second_set())
+            {
+                temp_fill_angle_2 = Angle.parse(params[4]);
+                temp_fill_pitch_2 = Coord.parse(params[5]);
+            }
+
+            fill_type = temp_fill_type;
+            fill_angle_1 = temp_fill_angle_1;
+            fill_pitch_1 = temp_fill_pitch_1;
+            fill_angle_2 = temp_fill_angle_2;
+            fill_pitch_2 = temp_fill_pitch_2;
+        }
+
+
+        /**
          * Backing store for the first fill angle
          */
         private int b_fill_angle_1;

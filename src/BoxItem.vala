@@ -227,14 +227,7 @@ namespace Geda3
             line_style.dash_length = line_style.dash_type.parse_length(params[9]);
             line_style.dash_space = line_style.dash_type.parse_space(params[10]);
 
-            var fill_type = FillType.parse(params[11]);
-            fill_style.fill_type = fill_type;
-
-            fill_style.fill_width = fill_type.uses_first_set() ? Coord.parse(params[12]) : FillStyle.DEFAULT_WIDTH;
-            fill_style.fill_angle_1 = fill_type.uses_first_set() ? Angle.parse(params[13]) : FillStyle.DEFAULT_ANGLE_1;
-            fill_style.fill_pitch_1 = fill_type.uses_first_set() ? Coord.parse(params[14]) : FillStyle.DEFAULT_PITCH_1;
-            fill_style.fill_angle_2 = fill_type.uses_second_set() ? Angle.parse(params[15]) : FillStyle.DEFAULT_ANGLE_2;
-            fill_style.fill_pitch_2 = fill_type.uses_second_set() ? Coord.parse(params[16]) : FillStyle.DEFAULT_PITCH_2;
+            fill_style.set_from_params(params[11:17]);
         }
 
 
