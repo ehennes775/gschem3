@@ -98,6 +98,38 @@ namespace Geda3
 
 
         /**
+         * Set the line style using parameters
+         *
+         * Uses parameters, as from an input file, to set the line
+         * style. If an error occurs parsing the parameters, the line
+         * style will remain unchanged.
+         *
+         * ||0||Cap type||
+         * ||1||Dash type||
+         * ||2||Dash length||
+         * ||3||Dash Space||
+         *
+         * @param params The parameters
+         * @throw ParseError A parameter was invalid
+         */
+        public void set_from_params(string[] params) throws ParseError
+
+            requires(params.length == 4)
+
+        {
+            var temp_cap_type = CapType.parse(params[0]);
+            var temp_dash_type = DashType.parse(params[1]);
+            var temp_dash_length = temp_dash_type.parse_length(params[2]);
+            var temp_dash_space = temp_dash_type.parse_space(params[3]);
+
+            cap_type = temp_cap_type;
+            dash_type = temp_dash_type;
+            dash_length = temp_dash_length;
+            dash_space = temp_dash_space;
+        }
+
+
+        /**
          * Backing store for the cap type
          */
         private CapType b_cap_type;

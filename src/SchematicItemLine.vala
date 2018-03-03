@@ -245,10 +245,8 @@ namespace Geda3
             b_y[1] = Coord.parse(params[4]);
             b_color = Color.parse(params[5]);
             b_width = Coord.parse(params[6]);
-            line_style.cap_type = CapType.parse(params[7]);
-            line_style.dash_type = DashType.parse(params[8]);
-            line_style.dash_length = line_style.dash_type.parse_length(params[9]);
-            line_style.dash_space = line_style.dash_type.parse_space(params[10]);
+
+            line_style.set_from_params(params[7:11]);
         }
 
 
