@@ -3,6 +3,24 @@ namespace Geda3
     public abstract class SchematicPainter
     {
         /**
+         * Draw an arc
+         *
+         * @param center_x The x coordinate of the center
+         * @param center_y The y coordinate of the center
+         * @param radius The radius of the arc
+         * @param start The starting angle in degrees
+         * @param sweep The sweep in degrees
+         */
+        public abstract void draw_arc(
+            int center_x,
+            int center_y,
+            int radius,
+            int start,
+            int sweep
+            );
+
+
+        /**
          * Draw a box
          *
          * @param x0 The x coordinate of the first corner

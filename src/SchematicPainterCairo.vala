@@ -80,6 +80,43 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void draw_arc(
+            int center_x,
+            int center_y,
+            int radius,
+            int start,
+            int sweep
+            )
+
+            requires(cairo_context != null)
+
+        {
+            double radians0;
+            double radians1;
+
+            if (sweep >=0)
+            {
+                radians0 = Angle.to_radians(start);
+                radians1 = Angle.to_radians(start + sweep);
+            }
+            else
+            {
+                radians0 = Angle.to_radians(start + sweep);
+                radians1 = Angle.to_radians(start);
+            }
+
+            var x0 = center_x + radius * Math.cos(radians0);
+            var y0 = center_x + radius * Math.sin(radians0);
+
+            cairo_context.move_to(center_x + radius, center_y);
+            cairo_context.arc(center_x, center_y, radius, radians0, radians1);
+            cairo_context.stroke();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw_circle(int center_x, int center_y, int radius)
 
             requires(cairo_context != null)
