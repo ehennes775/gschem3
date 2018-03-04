@@ -134,6 +134,7 @@ namespace Gschem3
             m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));
             m_tools.@set(DrawingTool.PinName, new DrawingToolPin(this));
             m_tools.@set(DrawingTool.SELECT_NAME, new DrawingToolSelect(this));
+            m_tools.@set(DrawingTool.ZOOM_NAME, new ZoomTool(this));
 
             m_current_tool = m_tools[DrawingTool.SELECT_NAME];
 
@@ -460,6 +461,38 @@ namespace Gschem3
 
 
         /**
+         * Select a drawing tool for this window and start an operation
+         *
+         * The m_current_tool should not be null, but this function
+         * woould need to execute to correct the issue. Otherwise, the
+         * value would be 'stuck' at null. So, this function treats
+         * m_current_tool equal to null as a valid precondition.
+         *
+         * @param name The name of the tool to select
+         * @param x The x coordinate to start the tool operation
+         * @param y The y coordinate to start the tool operation
+         */
+        public void select_tool_with_point(string name, double x, double y)
+
+            requires(m_tools != null)
+            requires(m_tools.has_key(name))
+            ensures(m_current_tool != null)
+
+        {
+            if (m_current_tool != null)
+            {
+                m_current_tool.cancel();
+            }
+
+            m_current_tool = m_tools[name];
+
+            return_if_fail(m_current_tool != null);
+
+            m_current_tool.reset_with_point(x, y);
+        }
+
+
+        /**
          * Snap a point to the grid of this window
          *
          * The coordinates must be user coordinates.
@@ -471,6 +504,39 @@ namespace Gschem3
         {
             x = Geda3.Coord.snap(x, 100);
             y = Geda3.Coord.snap(y, 100);
+        }
+
+
+        /**
+         * Zoom to a box
+         */
+        public void zoom_box(double x0, double y0, double x1, double y1)
+
+            requires(drawing != null)
+
+        {
+            var dx = Math.fabs(x1 - x0);
+            var dy = Math.fabs(y1 - y0);
+
+            if ((dx > 0.0) && (dy > 0.0))
+            {
+                var width = drawing.get_allocated_width();
+                var height = drawing.get_allocated_height();
+
+                var zoom_x = width / dx;
+                var zoom_y = height / dy;
+
+                var zoom = double.min(zoom_x, zoom_y);
+
+                var center_x = (x1 + x0) / 2.0;
+                var center_y = (y1 + y0) / 2.0;
+
+                zoom_point(
+                    (int) Math.round(center_x),
+                    (int) Math.round(center_y),
+                    zoom
+                    );
+            }
         }
 
 

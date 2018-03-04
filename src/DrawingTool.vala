@@ -66,6 +66,12 @@ namespace Gschem3
         public const string SELECT_NAME = "select";
 
 
+        /**
+         *
+         */
+        public const string ZOOM_NAME = "zoom";
+
+
         public DrawingTool(SchematicWindow window)
         {
             m_window = window;
@@ -82,6 +88,7 @@ namespace Gschem3
             m_key_map.@set(Gdk.Key.x, key_pan);
             m_key_map.@set(Gdk.Key.z, key_zoom_in);
             m_key_map.@set(Gdk.Key.Z, key_zoom_out);
+            m_key_map.@set(Gdk.Key.w, key_zoom_tool);
         }
 
 
@@ -194,6 +201,15 @@ namespace Gschem3
         public virtual void reset()
         {
             stdout.printf("reset\n");
+        }
+
+
+        /**
+         *
+         */
+        public virtual void reset_with_point(double x, double y)
+        {
+            stdout.printf("reset_with_point\n");
         }
 
 
@@ -316,6 +332,24 @@ namespace Gschem3
 
         {
             tool.m_window.zoom_out_point(tool.m_x, tool.m_y);
+
+            return true;
+        }
+
+
+        /**
+         *
+         */
+        protected static bool key_zoom_tool(DrawingTool tool, Gdk.EventKey event)
+
+            requires(tool.m_window != null)
+
+        {
+            tool.m_window.select_tool_with_point(
+                ZOOM_NAME,
+                tool.m_x,
+                tool.m_y
+                );
 
             return true;
         }

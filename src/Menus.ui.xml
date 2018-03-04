@@ -200,6 +200,13 @@
                         <attribute name="target">pin</attribute>
                     </item>
                 </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Zoom</attribute>
+                        <attribute name="action">win.select-tool</attribute>
+                        <attribute name="target">zoom</attribute>
+                    </item>
+                </section>
             </submenu>
         </section>
         <section>

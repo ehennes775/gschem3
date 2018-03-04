@@ -43,6 +43,7 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
+	ArcItem.vala \
 	Angle.vala \
 	AttributeChild.vala \
 	AttributeParent.vala \
@@ -149,7 +150,8 @@ libgschem3_a_SOURCES = \
 	Savable.vala \
 	SchematicWindow.vala \
 	SchematicWindowSettings.vala \
-	Zoomable.vala
+	Zoomable.vala \
+	ZoomTool.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \
