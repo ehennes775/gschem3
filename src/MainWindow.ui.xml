@@ -48,6 +48,9 @@
     <object class="GtkImage" id="icon-project-switch">
         <property name="resource">/com/github/ehennes775/gschem3/OrangeFolder.svg</property>
     </object>
+    <object class="GtkImage" id="icon-tool-zoom">
+        <property name="resource">/com/github/ehennes775/gschem3/ZoomTool.svg</property>
+    </object>
     <template class="Gschem3MainWindow" parent="GtkApplicationWindow">
         <child>
             <object class ="GtkBox" id="box">
@@ -149,6 +152,14 @@
                                 <property name="label">Zoom Extents</property>
                                 <property name="icon-name">zoom-fit-best</property>
                                 <property name="action-name">win.zoom-extents</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkToggleToolButton" id="zoom-box">
+                                <property name="label">Zoom Extents</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'zoom'</property>
+                                <property name="icon-widget">icon-tool-zoom</property>
                             </object>
                         </child>
                         <child>

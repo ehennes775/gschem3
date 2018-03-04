@@ -25,5 +25,6 @@
         <file>Schematic.svg</file>
         <file>SchematicWindow.ui.xml</file>
         <file>Symbol.svg</file>
+        <file>ZoomTool.svg</file>
     </gresource>
 </gresources>
