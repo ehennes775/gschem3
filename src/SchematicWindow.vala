@@ -509,6 +509,11 @@ namespace Gschem3
 
         /**
          * Zoom to a box
+         *
+         * @param x0 The x coordinate of the first corner
+         * @param y0 The y coordinate of the first corner
+         * @param x1 The x coordinate of the second corner
+         * @param y1 The y coordinate of the second corner
          */
         public void zoom_box(double x0, double y0, double x1, double y1)
 
@@ -518,7 +523,7 @@ namespace Gschem3
             var dx = Math.fabs(x1 - x0);
             var dy = Math.fabs(y1 - y0);
 
-            if ((dx > 0.0) && (dy > 0.0))
+            if ((dx >= 1.0) && (dy >= 1.0))
             {
                 var width = drawing.get_allocated_width();
                 var height = drawing.get_allocated_height();

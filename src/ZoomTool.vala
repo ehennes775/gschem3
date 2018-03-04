@@ -43,19 +43,10 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public override bool button_pressed(Gdk.EventButton event)
-
-            requires(m_window != null)
-
         {
             if (m_state == State.S0)
             {
-                m_state = State.S1;
-
-                m_x[0] = event.x;
-                m_y[0] = event.y;
-
-                m_x[1] = event.x;
-                m_y[1] = event.y;
+                reset_with_point(event.x, event.y);
             }
 
             return true;
@@ -75,7 +66,7 @@ namespace Gschem3
                 m_x[1] = event.x;
                 m_y[1] = event.y;
 
-                invalidate();
+                update();
 
                 m_window.zoom_box(m_x[0], m_y[0], m_x[1], m_y[1]);
 
@@ -135,6 +126,8 @@ namespace Gschem3
          */
         public override void reset()
         {
+            invalidate();
+
             m_state = State.S0;
         }
 
@@ -144,6 +137,8 @@ namespace Gschem3
          */
         public override void reset_with_point(double x, double y)
         {
+            invalidate();
+
             m_state = State.S1;
 
             m_x[0] = x;
@@ -160,6 +155,9 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public void update()
+
+            requires(m_window != null)
+
         {
             if (m_state == State.S1)
             {
