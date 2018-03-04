@@ -146,10 +146,10 @@ namespace Geda3
             var radians1 = Angle.to_radians(b_start_angle + b_sweep_angle);
 
             var x0 = b_center_x + b_radius * Math.cos(radians0);
-            var y0 = b_center_x + b_radius * Math.sin(radians0);
+            var y0 = b_center_y + b_radius * Math.sin(radians0);
 
             var x1 = b_center_x + b_radius * Math.cos(radians1);
-            var y1 = b_center_x + b_radius * Math.sin(radians1);
+            var y1 = b_center_y + b_radius * Math.sin(radians1);
 
             var bounds = Bounds.with_fpoints(x0, y0, x1, y1);
 
@@ -167,22 +167,22 @@ namespace Geda3
                 end = start - b_sweep_angle;
             }
 
-            if (start < 90 && end > 90)
+            if ((start < 90 && end > 90) || (start < 450 && end > 450))
             {
                 bounds.max_y = b_center_y + b_radius;
             }
 
-            if (start < 180 && end > 180)
+            if ((start < 180 && end > 180) || (start < 540 && end > 540))
             {
                 bounds.min_x = b_center_x - b_radius;
             }
 
-            if (start < 270 && end > 270)
+            if ((start < 270 && end > 270) || (start < 630 && end > 630))
             {
                 bounds.min_y = b_center_y - b_radius;
             }
 
-            if (start < 360 && end < 360)
+            if (start < 360 && end > 360)
             {
                 bounds.max_x = b_center_x + b_radius;
             }
@@ -283,7 +283,7 @@ namespace Geda3
         public void set_point(int index, int x, int y)
 
             requires (index >= 0)
-            requires (index < 2)
+            requires (index < 3)
 
         {
             invalidate(this);
@@ -296,6 +296,40 @@ namespace Geda3
             else if (index == 1)
             {
                 b_radius = (int) Math.round(Coord.distance(b_center_x, b_center_y, x, y));
+
+                if (b_radius > 0)
+                {
+                    var radians = Math.atan2(y - b_center_y, x - b_center_x);
+
+                    b_start_angle = Angle.normalize(Angle.from_radians(radians));
+                }
+                else
+                {
+                    b_start_angle = 0;
+                }
+            }
+            else if (index == 2)
+            {
+                var radius = (int) Math.round(Coord.distance(b_center_x, b_center_y, x, y));
+
+                if (radius > 0)
+                {
+                    var radians = Math.atan2(y - b_center_y, x - b_center_x);
+                    var degrees = Angle.normalize(Angle.from_radians(radians));
+
+                    var da = degrees - b_start_angle;
+
+                    if (da <= 0)
+                    {
+                        da += 360;
+                    }
+
+                    b_sweep_angle = da;
+                }
+                else
+                {
+                    b_start_angle = 0;
+                }
             }
             else
             {

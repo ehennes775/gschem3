@@ -106,9 +106,9 @@ namespace Geda3
             }
 
             var x0 = center_x + radius * Math.cos(radians0);
-            var y0 = center_x + radius * Math.sin(radians0);
+            var y0 = center_y + radius * Math.sin(radians0);
 
-            cairo_context.move_to(center_x + radius, center_y);
+            cairo_context.move_to(x0, y0);
             cairo_context.arc(center_x, center_y, radius, radians0, radians1);
             cairo_context.stroke();
         }

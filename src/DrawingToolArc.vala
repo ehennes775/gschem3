@@ -53,6 +53,15 @@ namespace Gschem3
             }
             else if (m_state == State.S1)
             {
+                m_x = event.x;
+                m_y = event.y;
+
+                update();
+
+                m_state = State.S2;
+            }
+            else if (m_state == State.S2)
+            {
                 return_val_if_fail(b_arc != null, false);
 
                 m_x = event.x;
@@ -88,7 +97,7 @@ namespace Gschem3
          */
         public override void draw(Geda3.SchematicPainterCairo painter)
         {
-            if (m_state == State.S1)
+            if (m_state != State.S0)
             {
                 return_if_fail(b_arc != null);
 
@@ -104,7 +113,7 @@ namespace Gschem3
         {
             base.motion_notify(event);
 
-            if (m_state == State.S1)
+            if (m_state != State.S0)
             {
                 m_x = event.x;
                 m_y = event.y;
@@ -156,6 +165,22 @@ namespace Gschem3
 
                 b_arc.set_point(1, ix, iy);
             }
+            else if (m_state == State.S2)
+            {
+                return_if_fail(b_arc != null);
+
+                var x = m_x;
+                var y = m_y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                b_arc.set_point(2, ix, iy);
+            }
         }
 
 
@@ -165,7 +190,8 @@ namespace Gschem3
         private enum State
         {
             S0,
-            S1
+            S1,
+            S2
         }
 
 
