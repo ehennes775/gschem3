@@ -48,6 +48,15 @@
     <object class="GtkImage" id="icon-project-switch">
         <property name="resource">/com/github/ehennes775/gschem3/OrangeFolder.svg</property>
     </object>
+    <object class="GtkImage" id="icon-zoom-extents">
+        <property name="resource">/com/github/ehennes775/gschem3/ZoomExtents.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-zoom-in">
+        <property name="resource">/com/github/ehennes775/gschem3/ZoomIn.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-zoom-out">
+        <property name="resource">/com/github/ehennes775/gschem3/ZoomOut.svg</property>
+    </object>
     <object class="GtkImage" id="icon-tool-zoom">
         <property name="resource">/com/github/ehennes775/gschem3/ZoomTool.svg</property>
     </object>
@@ -138,6 +147,7 @@
                                 <property name="label">Zoom In</property>
                                 <property name="icon-name">zoom-in</property>
                                 <property name="action-name">win.zoom-in</property>
+                                <property name="icon-widget">icon-zoom-in</property>
                             </object>
                         </child>
                         <child>
@@ -145,6 +155,7 @@
                                 <property name="label">Zoom Out</property>
                                 <property name="icon-name">zoom-out</property>
                                 <property name="action-name">win.zoom-out</property>
+                                <property name="icon-widget">icon-zoom-out</property>
                             </object>
                         </child>
                         <child>
@@ -152,6 +163,7 @@
                                 <property name="label">Zoom Extents</property>
                                 <property name="icon-name">zoom-fit-best</property>
                                 <property name="action-name">win.zoom-extents</property>
+                                <property name="icon-widget">icon-zoom-extents</property>
                             </object>
                         </child>
                         <child>
