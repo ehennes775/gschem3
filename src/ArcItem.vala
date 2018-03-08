@@ -270,11 +270,40 @@ namespace Geda3
 
 
         /**
+         * Reverse the direction of the ard
+         */
+        public void reverse()
+        {
+            invalidate(this);
+
+            var a1 = b_start_angle + b_sweep_angle;
+
+            if (b_sweep_angle < 0)
+            {
+                b_sweep_angle = Angle.calc_sweep(
+                    b_start_angle,
+                    a1
+                    );
+            }
+            else
+            {
+                b_sweep_angle = -Angle.calc_sweep(
+                    a1,
+                    b_start_angle
+                    );
+            }
+
+            invalidate(this);
+        }
+
+
+        /**
          * Change a point on the circle
          *
          * ||''index''||''Description''||
          * ||0||The center point of the circle||
          * ||1||A point on the circumference of the circle||
+         * ||2||The point at the end of the sweep||
          *
          * @param index The index of the point
          * @param x The new x coordinate for the point
@@ -315,20 +344,25 @@ namespace Geda3
                 if (radius > 0)
                 {
                     var radians = Math.atan2(y - b_center_y, x - b_center_x);
-                    var degrees = Angle.normalize(Angle.from_radians(radians));
 
-                    var da = degrees - b_start_angle;
-
-                    if (da <= 0)
+                    if (b_sweep_angle >= 0)
                     {
-                        da += 360;
+                        b_sweep_angle = Angle.calc_sweep(
+                            b_start_angle,
+                            Angle.from_radians(radians)
+                            );
                     }
-
-                    b_sweep_angle = da;
+                    else
+                    {
+                        b_sweep_angle = -Angle.calc_sweep(
+                            Angle.from_radians(radians),
+                            b_start_angle
+                            );
+                    }
                 }
                 else
                 {
-                    b_start_angle = 0;
+                    b_sweep_angle = 0;
                 }
             }
             else

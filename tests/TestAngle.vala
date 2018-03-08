@@ -1,5 +1,20 @@
 namespace GedaTest.Angle
 {
+    void check_calc_sweep()
+    {
+        for (var count = 0; count < 1000; count++)
+        {
+            var a0 = Test.rand_int();
+            var a1 = Test.rand_int();
+
+            var sweep = Geda3.Angle.calc_sweep(a0, a1);
+
+            assert_true(sweep > 0);
+            assert_true(sweep <= 360);
+        }
+    }
+
+
     void check_convert()
     {
         for (int count = 0; count < 10000; count++)
@@ -184,6 +199,7 @@ namespace GedaTest.Angle
     {
         Test.init(ref args);
 
+        Test.add_func("/geda/libgeda/angle/calcsweep", check_calc_sweep);
         Test.add_func("/geda/libgeda/angle/convert", check_convert);
         Test.add_func("/geda/libgeda/angle/parse", check_parse);
         Test.add_func("/geda/libgeda/angle/parseinvalidinteger", check_parse_invalid_integer);

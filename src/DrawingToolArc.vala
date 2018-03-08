@@ -109,6 +109,30 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
+        public override bool key_pressed(Gdk.EventKey event)
+        {
+            if (m_state != State.S0)
+            {
+                return_if_fail(b_arc != null);
+
+                uint keyval;
+
+                if (event.get_keyval(out keyval))
+                {
+                    if (keyval == Gdk.Key.slash)
+                    {
+                        b_arc.reverse();
+                    }
+                }
+            }
+
+            return base.key_pressed(event);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override bool motion_notify(Gdk.EventMotion event)
         {
             base.motion_notify(event);

@@ -6,6 +6,34 @@ namespace Geda3
     namespace Angle
     {
         /**
+         * Calculate the sweep between two angles
+         *
+         * Calculates the sweep from a0, counterclockwise to a1.
+         *
+         * @param a0 The starting angle
+         * @param a1 The ending angle
+         */
+        public int calc_sweep(int a0, int a1)
+
+            ensures(result > 0)
+            ensures(result <= 360)
+
+        {
+            var na0 = Angle.normalize(a0);
+            var na1 = Angle.normalize(a1);
+
+            var sweep = na1 - na0;
+
+            if (sweep <= 0)
+            {
+                sweep += 360;
+            }
+
+            return sweep;
+        }
+
+
+        /**
          * Convert radians to degrees
          *
          * @param radians the angle in radians
