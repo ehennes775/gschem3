@@ -3,14 +3,14 @@ namespace Gschem3
     /**
      * A tool for drawing graphic lines on the schematic
      */
-    public class DrawingToolLine : DrawingTool
+    public class LineTool : DrawingTool
     {
         /**
          * Create a new line drawing tool
          *
          * @param window The document window this tool is drawing into
          */
-        public DrawingToolLine(SchematicWindow window)
+        public LineTool(SchematicWindow window)
         {
             base(window);
 
@@ -42,7 +42,7 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                line = new Geda3.SchematicItemLine.with_points(
+                line = new Geda3.LineItem.with_points(
                     ix,
                     iy,
                     ix,
@@ -177,7 +177,7 @@ namespace Gschem3
         /**
          * The line currently being drawn
          */
-        private Geda3.SchematicItemLine b_line = null;
+        private Geda3.LineItem b_line = null;
 
 
         /**
@@ -201,7 +201,7 @@ namespace Gschem3
         /**
          * The line currently being drawn
          */
-        private Geda3.SchematicItemLine line
+        private Geda3.LineItem line
         {
             get
             {

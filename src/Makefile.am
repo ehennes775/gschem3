@@ -71,6 +71,7 @@ libgeda3_a_SOURCES = \
 	KeyFileSymbolFolder.vala \
 	KeyFileSymbolLibrary.vala \
 	KeyProjectFileMapper.vala \
+	LineItem.vala \
 	LineStyle.vala \
 	Mapper.vala \
 	MapError.vala \
@@ -99,7 +100,6 @@ libgeda3_a_SOURCES = \
 	Schematic.vala \
 	SchematicFile.vala \
 	SchematicItem.vala \
-	SchematicItemLine.vala \
 	SchematicItemPin.vala \
 	SchematicList.vala \
 	SchematicPainter.vala \
@@ -129,7 +129,6 @@ libgschem3_a_SOURCES = \
 	DrawingToolBox.vala \
 	DrawingToolBus.vala \
 	DrawingToolCircle.vala \
-	DrawingToolLine.vala \
 	DrawingToolNet.vala \
 	DrawingToolPath.vala \
 	DrawingToolPin.vala \
@@ -141,6 +140,7 @@ libgschem3_a_SOURCES = \
 	ExportNetlistDialog.vala \
 	ExportSchematics.vala \
 	Grid.vala \
+	LineTool.vala \
 	MainWindow.vala \
 	MeshGrid.vala \
 	NewProjectDialog.vala \

@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Represents a graphical line in a schematic or symbol file
      */
-    public class SchematicItemLine : SchematicItem,
+    public class LineItem : SchematicItem,
         Grippable,
         GrippablePoints
     {
@@ -85,7 +85,7 @@ namespace Geda3
         /**
          * Create a schematic graphical line
          */
-        public SchematicItemLine()
+        public LineItem()
         {
             b_x[0] = 0;
             b_x[1] = 0;
@@ -102,7 +102,7 @@ namespace Geda3
          * @param x1 The x coordinate of the second point
          * @param y1 The y coordinate of the second point
          */
-        public SchematicItemLine.with_points(int x0, int y0, int x1, int y1)
+        public LineItem.with_points(int x0, int y0, int x1, int y1)
         {
             b_x[0] = x0;
             b_x[1] = x1;

@@ -30,8 +30,8 @@ namespace Geda3
                 );
 
             types.@set(
-                SchematicItemLine.TYPE_ID,
-                typeof(SchematicItemLine)
+                LineItem.TYPE_ID,
+                typeof(LineItem)
                 );
 
             types.@set(
