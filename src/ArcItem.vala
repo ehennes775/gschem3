@@ -270,28 +270,15 @@ namespace Geda3
 
 
         /**
-         * Reverse the direction of the ard
+         * Reverse the direction of the arc
+         *
+         * Changes the arc to an alternate form for drawing operations.
          */
         public void reverse()
         {
             invalidate(this);
 
-            var a1 = b_start_angle + b_sweep_angle;
-
-            if (b_sweep_angle < 0)
-            {
-                b_sweep_angle = Angle.calc_sweep(
-                    b_start_angle,
-                    a1
-                    );
-            }
-            else
-            {
-                b_sweep_angle = -Angle.calc_sweep(
-                    a1,
-                    b_start_angle
-                    );
-            }
+            b_sweep_angle = Sweep.reverse(b_sweep_angle);
 
             invalidate(this);
         }

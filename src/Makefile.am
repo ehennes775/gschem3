@@ -105,6 +105,7 @@ libgeda3_a_SOURCES = \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
 	SchematicReader.vala \
+	Sweep.vala \
 	SymbolLibrary.vala \
 	TextAlignment.vala \
 	TextItem.vala \
