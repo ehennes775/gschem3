@@ -132,7 +132,7 @@ namespace Gschem3
             m_tools.@set(DrawingTool.LineName, new LineTool(this));
             m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
             m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));
-            m_tools.@set(DrawingTool.PinName, new DrawingToolPin(this));
+            m_tools.@set(DrawingTool.PinName, new PinTool(this));
             m_tools.@set(DrawingTool.SELECT_NAME, new DrawingToolSelect(this));
             m_tools.@set(DrawingTool.ZOOM_NAME, new ZoomTool(this));
 

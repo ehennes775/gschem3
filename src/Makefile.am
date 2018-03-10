@@ -79,6 +79,7 @@ libgeda3_a_SOURCES = \
 	NullMapper.vala \
 	ParseError.vala \
 	PinAttributeUpdater.vala \
+	PinItem.vala \
 	PinItemGroup.vala \
 	PinSettings.vala \
 	PinType.vala \
@@ -100,7 +101,6 @@ libgeda3_a_SOURCES = \
 	Schematic.vala \
 	SchematicFile.vala \
 	SchematicItem.vala \
-	SchematicItemPin.vala \
 	SchematicList.vala \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
@@ -131,7 +131,6 @@ libgschem3_a_SOURCES = \
 	DrawingToolCircle.vala \
 	DrawingToolNet.vala \
 	DrawingToolPath.vala \
-	DrawingToolPin.vala \
 	DrawingToolSelect.vala \
 	ErrorDialog.vala \
 	ExportBillOfMaterial.vala \
@@ -145,6 +144,7 @@ libgschem3_a_SOURCES = \
 	MeshGrid.vala \
 	NewProjectDialog.vala \
 	NoGrid.vala \
+	PinTool.vala \
 	ProjectAdapter.vala \
 	ProjectWidget.vala \
 	Reloadable.vala \

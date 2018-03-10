@@ -95,7 +95,7 @@ namespace Gschem3
          *
          * @param pin The pin with the attribute to update
          */
-        public void update(Geda3.SchematicItemPin pin, int[] x, int[] y)
+        public void update(Geda3.PinItem pin, int[] x, int[] y)
         {
             var attribute = pin.get_attribute(name);
 

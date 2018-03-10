@@ -44,7 +44,7 @@ namespace Gschem3
         /**
          * The pin within this group
          */
-        public Geda3.SchematicItemPin pin
+        public Geda3.PinItem pin
         {
             get
             {
@@ -131,7 +131,7 @@ namespace Gschem3
                 m_y[2]
                 );
 
-            pin = new Geda3.SchematicItemPin.with_points(
+            pin = new Geda3.PinItem.with_points(
                 m_x[0],
                 m_y[0],
                 m_x[2],
@@ -259,7 +259,7 @@ namespace Gschem3
         /**
          * The backing store for the pin
          */
-        private Geda3.SchematicItemPin b_pin;
+        private Geda3.PinItem b_pin;
 
 
         /**

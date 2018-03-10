@@ -51,7 +51,7 @@ namespace Gschem3
         }
 
 
-        public void update(Geda3.SchematicItemPin pin, int[] x, int[] y)
+        public void update(Geda3.PinItem pin, int[] x, int[] y)
         {
             pin.set_point(1, x[1], y[1]);
 

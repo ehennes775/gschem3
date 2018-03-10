@@ -15,11 +15,6 @@ namespace Geda3
                 );
 
             types.@set(
-                CircleItem.TYPE_ID,
-                typeof(CircleItem)
-                );
-
-            types.@set(
                 BoxItem.TYPE_ID,
                 typeof(BoxItem)
                 );
@@ -27,6 +22,11 @@ namespace Geda3
             types.@set(
                 BusItem.TYPE_ID,
                 typeof(BusItem)
+                );
+
+            types.@set(
+                CircleItem.TYPE_ID,
+                typeof(CircleItem)
                 );
 
             types.@set(
@@ -40,8 +40,8 @@ namespace Geda3
                 );
 
             types.@set(
-                SchematicItemPin.TYPE_ID,
-                typeof(SchematicItemPin)
+                PinItem.TYPE_ID,
+                typeof(PinItem)
                 );
 
             types.@set(

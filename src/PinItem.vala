@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * Represents a pin on a schematic
      */
-    public class SchematicItemPin : SchematicItem, AttributeParent
+    public class PinItem : SchematicItem, AttributeParent
     {
         /**
          * The type code, for a pin, used in schematic files
@@ -81,7 +81,7 @@ namespace Geda3
         /**
          * Create a schematic pin
          */
-        public SchematicItemPin()
+        public PinItem()
         {
             b_x[0] = 0;
             b_x[1] = 0;
@@ -101,7 +101,7 @@ namespace Geda3
          * @param x1 The x coordinate of the second point
          * @param y1 The y coordinate of the second point
          */
-        public SchematicItemPin.with_points(int x0, int y0, int x1, int y1)
+        public PinItem.with_points(int x0, int y0, int x1, int y1)
         {
             b_x[0] = x0;
             b_x[1] = x1;
