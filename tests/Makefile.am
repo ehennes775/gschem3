@@ -13,18 +13,18 @@ AM_VALAFLAGS = \
 check_PROGRAMS = \
 	test_angle \
 	test_bounds \
+	test_bus_item \
 	test_color \
 	test_color_scheme \
 	test_coord \
 	test_fill_style \
+	test_line_item \
 	test_line_style \
+	test_net_item \
+	test_pin_item \
 	test_print_dimension \
 	test_print_units \
 	test_schematic \
-	test_schematic_item_bus \
-	test_schematic_item_line \
-	test_schematic_item_net \
-	test_schematic_item_pin \
 	test_schematic_reader \
 	test_sweep \
 	test_text_item
@@ -59,17 +59,17 @@ test_print_units_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 test_schematic_SOURCES = TestSchematic.vala ../src/libgeda3.vapi
 test_schematic_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
-test_schematic_item_bus_SOURCES = TestSchematicItemBus.vala ../src/libgeda3.vapi
-test_schematic_item_bus_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+test_bus_item_SOURCES = TestBusItem.vala ../src/libgeda3.vapi
+test_bus_item_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
-test_schematic_item_line_SOURCES = TestSchematicItemLine.vala ../src/libgeda3.vapi
-test_schematic_item_line_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+test_line_item_SOURCES = TestLineItem.vala ../src/libgeda3.vapi
+test_line_item_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
-test_schematic_item_net_SOURCES = TestSchematicItemNet.vala ../src/libgeda3.vapi
-test_schematic_item_net_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+test_net_item_SOURCES = TestNetItem.vala ../src/libgeda3.vapi
+test_net_item_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
-test_schematic_item_pin_SOURCES = TestSchematicItemPin.vala ../src/libgeda3.vapi
-test_schematic_item_pin_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+test_pin_item_SOURCES = TestPinItem.vala ../src/libgeda3.vapi
+test_pin_item_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
 test_schematic_reader_SOURCES = TestSchematicReader.vala ../src/libgeda3.vapi
 test_schematic_reader_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
@@ -83,18 +83,18 @@ test_text_item_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 TESTS = \
 	test_angle \
 	test_bounds \
+	test_bus_item \
 	test_color \
 	test_color_scheme \
 	test_coord \
 	test_fill_style \
+	test_line_item \
 	test_line_style \
+	test_net_item \
+	test_pin_item \
 	test_print_dimension \
 	test_print_units \
 	test_schematic \
-	test_schematic_item_bus \
-	test_schematic_item_line \
-	test_schematic_item_net \
-	test_schematic_item_pin \
 	test_schematic_reader \
 	test_sweep \
 	test_text_item

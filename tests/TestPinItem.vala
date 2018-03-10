@@ -2,7 +2,7 @@ namespace GedaTest.SchematicItemPin
 {
     void check_construct()
     {
-        var pin = new Geda3.SchematicItemPin();
+        var pin = new Geda3.PinItem();
 
         for (var index = 0; index < 2; index++)
         {
@@ -30,7 +30,7 @@ namespace GedaTest.SchematicItemPin
             y[index] = Test.rand_int();
         }
         
-        var pin = new Geda3.SchematicItemPin.with_points(
+        var pin = new Geda3.PinItem.with_points(
             x[0],
             y[0],
             x[1],
@@ -55,7 +55,7 @@ namespace GedaTest.SchematicItemPin
     void check_get_set_color()
     {
         int count = 0;
-        var pin = new Geda3.SchematicItemPin();
+        var pin = new Geda3.PinItem();
 
         pin.invalidate.connect(() => { count++; });
 
@@ -75,7 +75,7 @@ namespace GedaTest.SchematicItemPin
     void check_get_set_pin_type()
     {
         int count = 0;
-        var pin = new Geda3.SchematicItemPin();
+        var pin = new Geda3.PinItem();
 
         pin.invalidate.connect(() => { count++; });
 
@@ -94,7 +94,7 @@ namespace GedaTest.SchematicItemPin
 
     void check_get_set_points()
     {        
-        var pin = new Geda3.SchematicItemPin();
+        var pin = new Geda3.PinItem();
 
         for (var count = 0; count < 100; count++)
         {
@@ -131,7 +131,7 @@ namespace GedaTest.SchematicItemPin
                 var memory_stream = new MemoryOutputStream.resizable();
                 var output_stream = new DataOutputStream(memory_stream);
 
-                var pin0 = new Geda3.SchematicItemPin();
+                var pin0 = new Geda3.PinItem();
 
                 pin0.b_x[0] = Test.rand_int();
                 pin0.b_y[0] = Test.rand_int();
@@ -151,7 +151,7 @@ namespace GedaTest.SchematicItemPin
                         )
                     );
 
-                var pin1 = new Geda3.SchematicItemPin();
+                var pin1 = new Geda3.PinItem();
                 pin1.read(input_stream);
 
                 assert_true(pin0.b_x[0] == pin1.b_x[0]);

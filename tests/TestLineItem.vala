@@ -2,7 +2,7 @@ namespace GedaTest.SchematicItemLine
 {
     void check_construct()
     {
-        var line = new Geda3.SchematicItemLine();
+        var line = new Geda3.LineItem();
 
         assert_true(line.b_x[0] == 0);
         assert_true(line.b_y[0] == 0);
@@ -27,7 +27,7 @@ namespace GedaTest.SchematicItemLine
                 var memory_stream = new MemoryOutputStream.resizable();
                 var output_stream = new DataOutputStream(memory_stream);
 
-                var line0 = new Geda3.SchematicItemLine();
+                var line0 = new Geda3.LineItem();
 
                 line0.b_x[0] = Test.rand_int();
                 line0.b_y[0] = Test.rand_int();
@@ -50,7 +50,7 @@ namespace GedaTest.SchematicItemLine
                         )
                     );
 
-                var line1 = new Geda3.SchematicItemLine();
+                var line1 = new Geda3.LineItem();
                 line1.read(input_stream);
 
                 assert_true(line0.b_x[0] == line1.b_x[0]);
@@ -83,7 +83,7 @@ namespace GedaTest.SchematicItemLine
     void check_get_set()
     {
         int invalidate_count = 0;
-        var line = new Geda3.SchematicItemLine();
+        var line = new Geda3.LineItem();
 
         line.invalidate.connect(() => { invalidate_count++; });
 
