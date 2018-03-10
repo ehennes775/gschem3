@@ -122,10 +122,10 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
+	ArcTool.vala \
 	DocumentTab.vala \
 	DocumentWindow.vala \
 	DrawingTool.vala \
-	DrawingToolArc.vala \
 	DrawingToolBox.vala \
 	DrawingToolBus.vala \
 	DrawingToolCircle.vala \

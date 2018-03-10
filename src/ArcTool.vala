@@ -3,14 +3,14 @@ namespace Gschem3
     /**
      *
      */
-    public class DrawingToolArc : DrawingTool
+    public class ArcTool : DrawingTool
     {
         /**
          * Create a new arc drawing tool
          *
          * @param window The document window this tool is drawing into
          */
-        public DrawingToolArc(SchematicWindow window)
+        public ArcTool(SchematicWindow window)
         {
             base(window);
 
@@ -28,28 +28,7 @@ namespace Gschem3
         {
             if (m_state == State.S0)
             {
-                m_x = event.x;
-                m_y = event.y;
-
-                var x = m_x;
-                var y = m_y;
-
-                m_window.device_to_user(ref x, ref y);
-
-                var ix = (int) Math.round(x);
-                var iy = (int) Math.round(y);
-
-                m_window.snap_point(ref ix, ref iy);
-
-                arc = new Geda3.ArcItem.with_points(
-                    ix,
-                    iy,
-                    0,
-                    0,
-                    180
-                    );
-
-                m_state = State.S1;
+                reset_with_point(event.x, event.y);
             }
             else if (m_state == State.S1)
             {
@@ -156,6 +135,36 @@ namespace Gschem3
         {
             arc = null;
             m_state = State.S0;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void reset_with_point(double x, double y)
+
+            requires(m_window != null)
+
+        {
+            m_x = x;
+            m_y = y;
+
+            m_window.device_to_user(ref x, ref y);
+
+            var ix = (int) Math.round(x);
+            var iy = (int) Math.round(y);
+
+            m_window.snap_point(ref ix, ref iy);
+
+            arc = new Geda3.ArcItem.with_points(
+                ix,
+                iy,
+                0,
+                0,
+                180
+                );
+
+            m_state = State.S1;
         }
 
 

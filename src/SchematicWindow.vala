@@ -125,7 +125,7 @@ namespace Gschem3
             schematic = new Geda3.Schematic();
             tag = null;
 
-            m_tools.@set(DrawingTool.ArcName, new DrawingToolArc(this));
+            m_tools.@set(DrawingTool.ArcName, new ArcTool(this));
             m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(this));
             m_tools.@set(DrawingTool.BusName, new DrawingToolBus(this));
             m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(this));
