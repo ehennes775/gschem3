@@ -26,6 +26,7 @@ check_PROGRAMS = \
 	test_print_units \
 	test_schematic \
 	test_schematic_reader \
+	test_symbol_library \
 	test_sweep \
 	test_text_item
 
@@ -74,6 +75,9 @@ test_pin_item_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 test_schematic_reader_SOURCES = TestSchematicReader.vala ../src/libgeda3.vapi
 test_schematic_reader_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
+test_symbol_library_SOURCES = TestSymbolLibrary.vala ../src/libgeda3.vapi
+test_symbol_library_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
+
 test_sweep_SOURCES = TestSweep.vala ../src/libgeda3.vapi
 test_sweep_LDADD = ../src/libgeda3.a -lm $(DEPS_LIBS)
 
@@ -96,5 +100,6 @@ TESTS = \
 	test_print_units \
 	test_schematic \
 	test_schematic_reader \
+	test_symbol_library \
 	test_sweep \
 	test_text_item
