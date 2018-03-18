@@ -206,18 +206,17 @@
                                                 <!--<property name="icon-name">zoom-out</property>-->
                                             </packing>
                                         </child>
-                                        <!--
                                         <child>
-                                            <object class="GtkLabel" id="test">
+                                            <object class="Gschem3LibraryWidget" id="library">
                                                 <property name="hexpand">true</property>
                                                 <property name="vexpand">true</property>
                                             </object>
                                             <packing>
-                                                <property name="name">Goodbye</property>
-                                                <property name="title">Goodbye</property>
+                                                <property name="name">library</property>
+                                                <property name="title">Library</property>
+                                                <!--<property name="icon-name">zoom-out</property>-->
                                             </packing>
                                         </child>
-                                        -->
                                     </object>
                                 </child>
                             </object>

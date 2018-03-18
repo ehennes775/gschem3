@@ -86,6 +86,7 @@ namespace GedaTest.SymbolLibrary
         assert_true("symbol_name" == destroyed);
     }
 
+
     public static int main(string[] args)
     {
         Test.init(ref args);

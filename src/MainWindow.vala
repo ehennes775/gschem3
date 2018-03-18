@@ -28,6 +28,7 @@ namespace Gschem3
          */
         static construct
         {
+            stdout.printf("%s\n",typeof(LibraryWidget).name());
             stdout.printf("%s\n",typeof(ProjectWidget).name());
         }
 

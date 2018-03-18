@@ -10,6 +10,7 @@
         <file>DocumentTab.ui.xml</file>
         <file>ExportBillOfMaterialDialog.ui.xml</file>
         <file>ExportNetlistDialog.ui.xml</file>
+        <file>LibraryWidget.ui.xml</file>
         <file>LineTool.svg</file>
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
