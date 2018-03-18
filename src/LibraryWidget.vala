@@ -53,11 +53,11 @@ namespace Gschem3
         /**
          * Adjusts sorting in response to tree column clicks
          *
-         * Clicking on an tree column that is not sorted will make the
+         * Clicking on an tree column that is not sorted will make that
          * column the sorted column. Clicking on a tree column that is
          * sorted will toggle the sort ordering.
          *
-         * If the current Gtk.TreeView model, does not implement
+         * If the current Gtk.TreeView model does not implement
          * Gtk.TreeSortable, then the column sort indicator and column
          * sort order must be updated manually. If the Gtk.TreeView
          * model implements TreeSortable, then the column sort indicator
@@ -80,17 +80,25 @@ namespace Gschem3
                     sort_order = Gtk.SortType.ASCENDING;
                 }
 
-                // Needed if the Gtk.TreeView model isn't Gtk.TreeSortable
-                // column.sort_order = sort_order
-            }
-            // else
-            // {
-                // Needed if the Gtk.TreeView model isn't Gtk.TreeSortable
+                // Not needed if the Gtk.TreeView model implements
+                // Gtk.TreeSortable. But, if the property values are
+                // correct, then the property setters won't trigger
+                // superfluous signals.
 
-                // m_description_column.sort_indicator = false;
-                // m_name_column.sort_indicator = false;
-                // column.sort_indicator = true;
-            // }
+                column.sort_order = sort_order;
+            }
+            else
+            {
+                // Not needed if the Gtk.TreeView model implements
+                // Gtk.TreeSortable. But, if the property values are
+                // correct, then the property setters won't trigger
+                // superfluous signals.
+
+                m_description_column.sort_indicator = false;
+                m_name_column.sort_indicator = false;
+
+                column.sort_indicator = true;
+            }
 
             m_sort_model.set_sort_column_id(
                 column.sort_column_id,
