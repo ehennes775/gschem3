@@ -5,6 +5,31 @@ namespace Geda3
      */
     public class SymbolLibrary
     {
+        /**
+         * Indicates a node changed in the library
+         *
+         * @param node The new node inserted into the library
+         */
+        public signal void node_changed(void* node);
+
+
+        /**
+         * Indicates a new node inserted into the library
+         *
+         * @param node The new node inserted into the library
+         */
+        public signal void node_inserted(void* node);
+
+
+        /**
+         * Indicates a node has been removed from the library
+         *
+         * @param parent The parent of the removed node
+         * @param index The location of the node before removal
+         */
+        public signal void node_removed(void* parent, int index);
+
+
 
         public signal void symbol_used(Symbol symbol);
         public signal void symbol_unused(string name);
@@ -12,6 +37,8 @@ namespace Geda3
 
         public SymbolLibrary()
         {
+            m_root = new Node<LibraryItem>(s_dummy);
+
             m_names = new Gee.HashMap<void*,string>();
             m_symbols = new Gee.HashMap<string,weak Symbol>();
         }
@@ -57,9 +84,113 @@ namespace Geda3
 
 
         /**
+         * Returns index of the child
+         *
+         * @param child The child to determince the index of
+         */
+        public int child_position(void* child)
+
+            requires(child != null)
+
+        {
+            var temp_child = (Node<LibraryItem>*) child;
+
+            return_val_if_fail(temp_child->parent != null, -1);
+
+            return temp_child->parent.child_position(temp_child);
+        }
+
+
+        /**
+         * Returns the item for this node
+         *
+         * @param node The iterator for the node
+         */
+        public LibraryItem get_item(void* node)
+        {
+            var temp = (Node<LibraryItem>*) node ?? m_root;
+
+            return temp->data;
+        }
+
+
+        /**
+         * Returns the parent node
+         *
+         * @param child The child node
+         */
+        public void* get_parent(void* child)
+
+            requires(child != null)
+
+        {
+            var temp_child = (Node<LibraryItem>*) child;
+
+            return temp_child->parent;
+        }
+
+
+        /**
+         * Is the given node a leaf node
+         *
+         * @param node The node to test
+         */
+        public bool is_leaf(void *node)
+        {
+            var temp = (Node<LibraryItem>*) node ?? m_root;
+
+            return temp->is_leaf();
+        }
+
+
+        /**
+         * Get the number of children of a parent
+         *
+         * @param parent The iterator for the parent
+         */
+        public int n_children(void *parent)
+        {
+            var temp = (Node<LibraryItem>*) parent ?? m_root;
+
+            return (int)temp->n_children();
+        }
+
+
+        /**
+         * Get an indexed child of a parent
+         *
+         * @param parent The iterator for the parent
+         * @param index The index of the child
+         */
+        public void* nth_child(void* parent, int index)
+        {
+            var temp = (Node<LibraryItem>*) parent ?? m_root;
+
+            return temp->nth_child(index);
+        }
+
+
+        /**
+         * A dummy project item to use in the root node
+         *
+         * This dummy item allows the node to use a non-nullable type.
+         */
+        private static LibraryItem s_dummy = null; //new ProjectFolder();
+
+
+        /**
          * Lookup table to get the name of finalized objects
          */
         private Gee.HashMap<void*,string> m_names;
+
+
+        /**
+         * The root node in the project tree
+         *
+         * Children of the root node store the project data. Data
+         * inside the root node is ignored.
+         */
+        private Node<LibraryItem> m_root;
 
 
         /**

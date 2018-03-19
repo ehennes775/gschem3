@@ -7,19 +7,49 @@ namespace Gschem3
     public class LibraryWidget : Gtk.Box
     {
         /**
+         * The symbol library
+         */
+        public Geda3.SymbolLibrary? library
+        {
+            get
+            {
+                return b_library;
+            }
+            construct set
+            {
+                b_library = value;
+            }
+            default = null;
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct
         {
-            // temporary for testing
-            var model = new Gtk.TreeStore(2, typeof(string), typeof(string));
+            m_adapter = new LibraryAdapter();
 
-            m_sort_model = new Gtk.TreeModelSort.with_model(model);
+            m_sort_model = new Gtk.TreeModelSort.with_model(m_adapter);
             m_tree_view.model = m_sort_model;
 
             m_description_column.clicked.connect(on_clicked_column);
             m_name_column.clicked.connect(on_clicked_column);
         }
+
+
+        /**
+         * The backing store for the symbol library
+         */
+        private Geda3.SymbolLibrary? b_library;
+
+
+        /**
+         * An adapter for the symbol library
+         *
+         * Adapts the SymbolLibrary to a Gtk.TreeModel
+         */
+        private LibraryAdapter m_adapter;
 
 
         /**

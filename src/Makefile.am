@@ -71,6 +71,7 @@ libgeda3_a_SOURCES = \
 	KeyFileSymbolFolder.vala \
 	KeyFileSymbolLibrary.vala \
 	KeyProjectFileMapper.vala \
+	LibraryItem.vala \
 	LineItem.vala \
 	LineStyle.vala \
 	Mapper.vala \
@@ -141,6 +142,7 @@ libgschem3_a_SOURCES = \
 	ExportSchematics.vala \
 	Grid.vala \
 	LineTool.vala \
+	LibraryAdapter.vala \
 	LibraryWidget.vala \
 	MainWindow.vala \
 	MeshGrid.vala \
