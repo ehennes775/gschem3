@@ -102,6 +102,40 @@ namespace Geda3
 
 
         /**
+         * Returns a description for this node
+         *
+         * @param node The iterator for the node
+         */
+        public string get_description(void* node)
+        {
+            var temp_node = (Node<LibraryItem>*) node;
+
+            var item = temp_node->data;
+
+            return_val_if_fail(item != null, false);
+
+            return item.description ?? "";
+        }
+
+
+        /**
+         * Returns an icon for this node
+         *
+         * @param node The iterator for the node
+         */
+        public Geda3.ProjectIcon get_icon(void* node)
+        {
+            var temp_node = (Node<LibraryItem>*) node;
+
+            var item = temp_node->data;
+
+            return_val_if_fail(item != null, false);
+
+            return item.icon;
+        }
+
+
+        /**
          * Returns the item for this node
          *
          * @param node The iterator for the node
@@ -111,6 +145,23 @@ namespace Geda3
             var temp = (Node<LibraryItem>*) node ?? m_root;
 
             return temp->data;
+        }
+
+
+        /**
+         * Returns a name for this node
+         *
+         * @param node The iterator for the node
+         */
+        public string get_name(void* node)
+        {
+            var temp_node = (Node<LibraryItem>*) node;
+
+            var item = temp_node->data;
+
+            return_val_if_fail(item != null, false);
+
+            return item.tab;
         }
 
 
@@ -127,6 +178,27 @@ namespace Geda3
             var temp_child = (Node<LibraryItem>*) child;
 
             return temp_child->parent;
+
+        }
+
+
+        /**
+         * Returns if the node contains a renamable item
+         *
+         * @param node The node to test for reamability
+         */
+        public bool get_renamable(void* node)
+
+            requires(node != null)
+
+        {
+            var temp_node = (Node<LibraryItem>*) node;
+
+            var item = temp_node->data;
+
+            return_val_if_fail(item != null, false);
+
+            return Geda3.LibraryItem.is_renamable(item);
         }
 
 

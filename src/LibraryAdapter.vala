@@ -1,7 +1,7 @@
 namespace Gschem3
 {
     /**
-     * Adapts a project to a tree model
+     * Adapts a symbol library to a tree model
      */
     public class LibraryAdapter : Object, Gtk.TreeModel
     {
@@ -21,17 +21,22 @@ namespace Gschem3
         public enum Column
         {
             /**
-             * A Gdk.PixBuf used as an icon for the Geda3.ProjectItem
+             * An index to an icon for the Geda3.LibraryItem
              */
             ICON,
 
             /**
-             * A short name for the Geda3.ProjectItem
+             * A short name for the Geda3.LibraryItem
              */
             NAME,
 
             /**
-             * The Geda3.ProjectItem
+             * A description of the Geda3.LibraryItem
+             */
+            DESCRIPTION,
+
+            /**
+             * The Geda3.LibraryItem
              */
             ITEM,
 
@@ -50,7 +55,7 @@ namespace Gschem3
         /**
          * The project adapted to the tree model
          */
-        public Geda3.SymbolLibrary? project
+        public Geda3.SymbolLibrary? library
         {
             get
             {
@@ -119,7 +124,7 @@ namespace Gschem3
          */
         construct
         {
-            notify["project"].connect(on_notify_project);
+            notify["library"].connect(on_notify_library);
         }
 
 
@@ -256,26 +261,26 @@ namespace Gschem3
             requires(s_icons != null)
 
         {
-            var item = m_library.get_item(iter.user_data);
-
-            return_if_fail(item != null);
-
             switch (column)
             {
+                case Column.DESCRIPTION:
+                    contents = m_library.get_description(iter.user_data);
+                    break;
+
                 case Column.ICON:
-                    contents = s_icons[item.icon];
+                    contents = s_icons[m_library.get_icon(iter.user_data)];
                     break;
 
                 case Column.NAME:
-                    contents = item.tab;
+                    contents = m_library.get_name(iter.user_data);
                     break;
 
                 case Column.ITEM:
-                    contents = item;
+                    contents = m_library.get_item(iter.user_data);;
                     break;
 
                 case Column.RENAMABLE:
-                    contents = Geda3.LibraryItem.is_renamable(item);
+                    contents = m_library.get_renamable(iter.user_data);
                     break;
 
                 default:
@@ -504,7 +509,7 @@ namespace Gschem3
                 return_val_if_reached(false);
             }
 
-            return make_iter(out parent, ((Node<string>*)node)->parent);
+            return make_iter(out parent, m_library.get_parent(node));
         }
 
 
@@ -562,9 +567,9 @@ namespace Gschem3
 
 
         /**
-         * Signal handler for when the project property changes
+         * Signal handler for when the library property changes
          */
-        private void on_notify_project(ParamSpec param)
+        private void on_notify_library(ParamSpec param)
         {
             refresh();
         }

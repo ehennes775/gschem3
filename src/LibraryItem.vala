@@ -12,6 +12,19 @@ namespace Geda3
 
 
         /**
+         * A description of the item
+         *
+         * If the description is null, then the description is not
+         * available at the moment.
+         */
+        public abstract string? description
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * An icon to display next to the short name
          */
         public abstract ProjectIcon icon
