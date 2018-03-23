@@ -28,15 +28,12 @@ namespace Gschem3
         construct
         {
             m_adapter = new LibraryAdapter();
-
-            // before model assignment until refresh signal handling
-            library = new Geda3.SymbolLibrary();
+            m_adapter.refresh.connect(on_refresh_adapter);
 
             m_sort_model = new Gtk.TreeModelSort.with_model(m_adapter);
             m_tree_view.model = m_sort_model;
 
-            m_description_column.clicked.connect(on_clicked_column);
-            m_name_column.clicked.connect(on_clicked_column);
+            library = new Geda3.SymbolLibrary();
         }
 
 
@@ -84,6 +81,11 @@ namespace Gschem3
 
         /**
          * Adjusts sorting in response to tree column clicks
+         *
+         * If the Gtk.TreeView model property implements
+         * Gtk.TreeSortable, then this functionality is built-in. Not
+         * sure what happens if an adapter is in between, so this code
+         * is kept around.
          *
          * Clicking on an tree column that is not sorted will make that
          * column the sorted column. Clicking on a tree column that is
@@ -136,6 +138,17 @@ namespace Gschem3
                 column.sort_column_id,
                 sort_order
                 );
+        }
+
+
+        /**
+         * Signal handler for when the tree view needs a complete
+         * refresh
+         */
+        private void on_refresh_adapter()
+        {
+            m_tree_view.model = null;
+            m_tree_view.model = m_sort_model;
         }
     }
 }

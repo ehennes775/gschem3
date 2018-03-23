@@ -12,6 +12,7 @@
                             <object class="GtkTreeViewColumn" id="column-name">
                                 <property name="clickable">TRUE</property>
                                 <property name="resizable">TRUE</property>
+                                <property name="sort-column-id">1</property>
                                 <property name="title">Name</property>
                                 <child>
                                     <object class="GtkCellRendererPixbuf" id="column-name-renderer-icon">
@@ -34,6 +35,7 @@
                             <object class="GtkTreeViewColumn" id="column-description">
                                 <property name="clickable">TRUE</property>
                                 <property name="resizable">FALSE</property>
+                                <property name="sort-column-id">2</property>
                                 <property name="title">Description</property>
                                 <child>
                                     <object class="GtkCellRendererText" id="column-description-renderer">
