@@ -15,7 +15,10 @@ namespace Geda3
          * A description of the item
          *
          * If the description is null, then the description is not
-         * available at the moment.
+         * available at the moment, but should be at a later time.
+         *
+         * If the description is an empty string, then no description
+         * is available for this item.
          */
         public abstract string? description
         {
@@ -49,6 +52,7 @@ namespace Geda3
          */
         construct
         {
+            notify["description"].connect(on_notify);
             notify["icon"].connect(on_notify);
             notify["tab"].connect(on_notify);
         }
