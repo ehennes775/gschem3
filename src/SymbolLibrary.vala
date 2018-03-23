@@ -41,6 +41,20 @@ namespace Geda3
 
             m_names = new Gee.HashMap<void*,string>();
             m_symbols = new Gee.HashMap<string,weak Symbol>();
+
+            // add some data for testing
+
+            m_root.append(new Node<LibraryItem>(
+                new LibraryFile(File.new_for_path("/home/ehennes/Projects/edalib/symbols/ech-capacitor-non-1.sym"))
+                ));
+
+            m_root.append(new Node<LibraryItem>(
+                new LibraryFile(File.new_for_path("/home/ehennes/Projects/edalib/symbols/ech-capacitor-non-2.sym"))
+                ));
+
+            m_root.append(new Node<LibraryItem>(
+                new LibraryFile(File.new_for_path("/home/ehennes/Projects/edalib/symbols/ech-capacitor-pol-2.sym"))
+                ));
         }
 
 

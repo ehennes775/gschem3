@@ -13,13 +13,12 @@ namespace Gschem3
         {
             get
             {
-                return b_library;
+                return m_adapter.library;
             }
-            construct set
+            /*construct*/ set
             {
-                b_library = value;
+                m_adapter.library = value;
             }
-            default = null;
         }
 
 
@@ -29,6 +28,9 @@ namespace Gschem3
         construct
         {
             m_adapter = new LibraryAdapter();
+
+            // before model assignment until refresh signal handling
+            library = new Geda3.SymbolLibrary();
 
             m_sort_model = new Gtk.TreeModelSort.with_model(m_adapter);
             m_tree_view.model = m_sort_model;
@@ -41,7 +43,7 @@ namespace Gschem3
         /**
          * The backing store for the symbol library
          */
-        private Geda3.SymbolLibrary? b_library;
+        // private Geda3.SymbolLibrary? b_library;
 
 
         /**

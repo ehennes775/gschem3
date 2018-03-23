@@ -140,6 +140,9 @@ namespace Gschem3
         {
             switch (column)
             {
+                case Column.DESCRIPTION:
+                    return typeof(string);
+
                 case Column.ICON:
                     return typeof(Gdk.Pixbuf);
 
@@ -338,7 +341,9 @@ namespace Gschem3
          */
         public int iter_n_children(Gtk.TreeIter? parent)
 
-            requires((parent == null) || (parent.stamp == m_stamp))
+            // Vala Bug 703666 - both sides of boolean operator evaluate
+            // generating a SIGSEGV.
+            // requires((parent == null) || (parent.stamp == m_stamp))
             ensures(result >= 0)
 
         {
@@ -354,6 +359,8 @@ namespace Gschem3
             }
             else
             {
+                return_if_fail(parent.stamp == m_stamp);
+
                 stdout.printf("    node %p\n", parent.user_data);
 
                 var node = (Node<string>*) parent.user_data;
