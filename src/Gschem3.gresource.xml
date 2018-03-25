@@ -10,6 +10,7 @@
         <file>DocumentTab.ui.xml</file>
         <file>ExportBillOfMaterialDialog.ui.xml</file>
         <file>ExportNetlistDialog.ui.xml</file>
+        <file>GreenFolder.svg</file>
         <file>LibraryWidget.ui.xml</file>
         <file>LineTool.svg</file>
         <file>MainWindow.ui.xml</file>
@@ -20,12 +21,15 @@
         <file>OrangeFolder.svg</file>
         <file>PathTool.svg</file>
         <file>PinTool.svg</file>
+        <file>PlumFolder.svg</file>
         <file>ProjectWidget.ui.xml</file>
         <file>ProjectWidgetMenu.ui.xml</file>
+        <file>RedFolder.svg</file>
         <file>SelectTool.svg</file>
         <file>Schematic.svg</file>
         <file>SchematicWindow.ui.xml</file>
         <file>Symbol.svg</file>
+        <file>YellowFolder.svg</file>
         <file>ZoomExtents.svg</file>
         <file>ZoomIn.svg</file>
         <file>ZoomOut.svg</file>
