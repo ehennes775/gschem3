@@ -116,6 +116,22 @@ namespace Gschem3
             s_icons[Geda3.ProjectIcon.SYMBOL] = new Gdk.Pixbuf.from_resource(
                 "/com/github/ehennes775/gschem3/Symbol.svg"
                 );
+
+            s_icons[Geda3.ProjectIcon.RED_FOLDER] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/RedFolder.svg"
+                );
+                
+            s_icons[Geda3.ProjectIcon.GREEN_FOLDER] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/GreenFolder.svg"
+                );
+                
+            s_icons[Geda3.ProjectIcon.PLUM_FOLDER] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/PlumFolder.svg"
+                );
+                
+            s_icons[Geda3.ProjectIcon.YELLOW_FOLDER] = new Gdk.Pixbuf.from_resource(
+                "/com/github/ehennes775/gschem3/YellowFolder.svg"
+                );
         }
 
 
@@ -342,35 +358,26 @@ namespace Gschem3
         public int iter_n_children(Gtk.TreeIter? parent)
 
             // Vala Bug 703666 - both sides of boolean operator evaluate
-            // generating a SIGSEGV.
+            // generating a SIGSEGV. The precondition check has been
+            // moved into the function body.
             // requires((parent == null) || (parent.stamp == m_stamp))
             ensures(result >= 0)
 
         {
             var retval = 0;
             
-            stdout.printf("iter_n_children()\n");
-
             if (parent == null)
             {
-                stdout.printf("    root\n");
-
                 retval = m_library.n_children(null);
             }
             else
             {
                 return_if_fail(parent.stamp == m_stamp);
 
-                stdout.printf("    node %p\n", parent.user_data);
-
                 var node = (Node<string>*) parent.user_data;
-
-                stdout.printf("    node %s\n", (string)node->data);
 
                 retval = m_library.n_children(node);
             }
-
-            stdout.printf("    count = %d\n", retval);
 
             return retval;
         }

@@ -20,6 +20,13 @@ namespace Geda3
         BLUE_FOLDER,
 
         /**
+         * A green folder
+         *
+         * {{GreenFolder.svg}}
+         */
+        GREEN_FOLDER,
+
+        /**
          * A missing document
          *
          * {{Missing.svg}}
@@ -34,6 +41,20 @@ namespace Geda3
         ORANGE_FOLDER,
 
         /**
+         * A plum folder
+         *
+         * {{PlumFolder.svg}}
+         */
+        PLUM_FOLDER,
+
+        /**
+         * A red folder
+         *
+         * {{RedFolder.svg}}
+         */
+        RED_FOLDER,
+
+        /**
          * An schematic file
          *
          * {{Schematic.svg}}
@@ -46,6 +67,13 @@ namespace Geda3
          * {{Symbol.svg}}
          */
         SYMBOL,
+
+        /**
+         * A yellow folder
+         *
+         * {{YellowFolder.svg}}
+         */
+        YELLOW_FOLDER,
 
         /**
          * The number of icons available

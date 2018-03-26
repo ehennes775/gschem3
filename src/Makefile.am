@@ -72,6 +72,7 @@ libgeda3_a_SOURCES = \
 	KeyFileSymbolLibrary.vala \
 	KeyProjectFileMapper.vala \
 	LibraryFile.vala \
+	LibraryFolder.vala \
 	LibraryItem.vala \
 	LineItem.vala \
 	LineStyle.vala \

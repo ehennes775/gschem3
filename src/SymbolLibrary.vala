@@ -44,17 +44,21 @@ namespace Geda3
 
             // add some data for testing
 
-            m_root.append(new Node<LibraryItem>(
-                new LibraryFile(File.new_for_path("/home/ehennes/Projects/edalib/symbols/ech-capacitor-non-1.sym"))
+            var folder = new LibraryFolder(File.new_for_path("/home/ehennes/Projects/testlib/symbols"));
+
+            folder.request_insertion.connect(on_request_insertion);
+            folder.request_update.connect(on_request_update);
+
+            unowned Node<LibraryItem> folder_node = m_root.append(new Node<LibraryItem>(
+                folder
                 ));
 
-            m_root.append(new Node<LibraryItem>(
-                new LibraryFile(File.new_for_path("/home/ehennes/Projects/edalib/symbols/ech-capacitor-non-2.sym"))
-                ));
-
-            m_root.append(new Node<LibraryItem>(
-                new LibraryFile(File.new_for_path("/home/ehennes/Projects/edalib/symbols/ech-capacitor-pol-2.sym"))
-                ));
+            foreach (var item in folder.enumerate())
+            {
+                folder_node.append(new Node<LibraryItem>(
+                    item
+                    ));
+            }
         }
 
 
@@ -283,6 +287,99 @@ namespace Geda3
          * Interned symbols
          */
         private Gee.HashMap<string,weak Symbol> m_symbols;
+
+
+
+        /**
+         *
+         *
+         *
+         */
+        private void on_request_insertion(LibraryItem parent, LibraryItem item)
+        {
+            unowned Node<LibraryItem>? parent_node = m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                parent
+                );
+
+            return_if_fail(parent_node != null);
+
+            unowned Node<LibraryItem> item_node = parent_node.append(
+                new Node<LibraryItem>(item)
+                );
+
+            return_if_fail(item_node != null);
+
+            item.request_insertion.connect(on_request_insertion);
+            item.request_removal.connect(on_request_removal);
+            item.request_update.connect(on_request_update);
+
+            node_inserted(item_node);
+        }
+
+
+        /**
+         * 
+         *
+         *
+         */
+        private void on_request_removal(LibraryItem item)
+        {
+            unowned Node<LibraryItem>? node = m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                item
+                );
+
+            return_if_fail(node != null);
+
+            unowned Node<LibraryItem>? parent = node.parent;
+            return_if_fail(parent != null);
+
+            var index = parent.child_position(node);
+            return_if_fail(index >= 0);
+
+            node.unlink();
+
+            item.request_insertion.disconnect(on_request_insertion);
+            item.request_removal.disconnect(on_request_removal);
+            item.request_update.disconnect(on_request_update);
+
+            node_removed(parent, index);            
+        }
+
+
+        /**
+         *
+         *
+         * 
+         */
+        private void on_request_update(LibraryItem item, void* updater)
+        {
+            unowned Node<LibraryItem>? node = m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                item
+                );
+
+            return_if_fail(node != null);
+
+            var items = new Gee.ArrayList<LibraryItem>();
+
+            unowned Node<LibraryItem>? iter = node.first_child();
+
+            while (iter != null)
+            {
+                items.add(get_item(iter));
+
+                iter = iter.next_sibling();
+            }
+
+            var temp_updater = (LibraryItem.Updater) updater;
+
+            temp_updater(items);
+        }
 
 
         /**

@@ -1,11 +1,13 @@
 namespace Geda3
 {
     /**
-     * Represents a file in the project tree
+     * Represents a folder in the project tree
      */
-    public class LibraryFile : LibraryItem,
+    public class LibraryFolder : LibraryItem,
         RenamableItem
     {
+        public delegate void Updater(Gee.List<LibraryItem> items);
+
         /**
          * Indicates this file can be opened
          *
@@ -96,6 +98,36 @@ namespace Geda3
 
 
         /**
+         * A monitor for changes to the directory
+         *
+         * This property is set by the notify signal handler of the
+         * {@link file} property. Changing the {@link file} property
+         * will update this value.
+         */
+        public FileMonitor? monitor
+        {
+            get
+            {
+                return b_monitor;
+            }
+            private set
+            {
+                if (b_monitor != null)
+                {
+                    b_monitor.changed.disconnect(on_changed);
+                }
+
+                b_monitor = value;
+
+                if (b_monitor != null)
+                {
+                    b_monitor.changed.connect(on_changed);
+                }
+            }
+        }
+
+
+        /**
          * {@inheritDoc}
          *
          * To facilitate renaming the file, this property contains the
@@ -126,7 +158,7 @@ namespace Geda3
          *
          * @param file The underlying file this item represents
          */
-        public LibraryFile(File file)
+        public LibraryFolder(File file)
         {
             Object(
                 file : file
@@ -151,9 +183,21 @@ namespace Geda3
             {
                 file = file.set_display_name(new_name);
 
-                // request_update();
+                //request_update();
             }
         }
+
+
+        /**
+         * Backing store for the directory monitor 
+         */
+        private FileMonitor? b_monitor = null;
+
+
+        /**
+         *
+         */
+        private PatternSpec m_pattern = new PatternSpec("*.sym");
 
 
         /**
@@ -167,6 +211,102 @@ namespace Geda3
             FileAttribute.ID_FILE,
             FileAttribute.STANDARD_EDIT_NAME
             );
+
+
+        /**
+         * A signal handler for
+         *
+         * When a file is added to the folder, a CREATED event will
+         * occur.
+         *
+         * When a file is deleted from the folder, a DELETE event will
+         * occur.
+         *
+         * When a file is renamed in the folder, a DELETE event followed
+         * by a CREATED event will occur.
+         *
+         * @param param unused
+         */
+        private void on_changed(File a, File? b, FileMonitorEvent event)
+        {
+            switch (event)
+            {
+                case FileMonitorEvent.CREATED:
+                    on_changed_created(a);
+                    break;
+
+                case FileMonitorEvent.DELETED:
+                    on_changed_deleted(a);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+
+        /**
+         *
+         *
+         * @param file The file that was created
+         */
+        private void on_changed_created(File file)
+        {
+            var file_type = file.query_file_type(
+                FileQueryInfoFlags.NONE
+                );
+
+            if (file_type == FileType.REGULAR)
+            {
+                var basename = file.get_basename();
+
+                var match = m_pattern.match_string(basename);
+
+                if (match)
+                {
+                    request_insertion(
+                        this,
+                        new LibraryFile(file)
+                        );
+                }
+            }
+        }
+
+
+        /**
+         *
+         * @param file The file that was deleted
+         */
+        private void on_changed_deleted(File file)
+        {
+            Updater updater = (items) =>
+            {
+                foreach (var item in items)
+                {
+                    stdout.printf("A\n");
+                    
+                    var file_item = item as LibraryFile;
+
+                    if (file_item == null)
+                    {
+                        continue;
+                    }
+
+                    stdout.printf(@"B $(file.get_path())\n");
+
+                    if (file.equal(file_item.file))
+                    {
+                        stdout.printf("C\n");
+
+                        request_removal(item);
+
+                        stdout.printf("D\n");
+                    }
+                }
+            };
+
+            request_update(this, (void*) updater);
+        }
 
 
         /**
@@ -197,8 +337,12 @@ namespace Geda3
                         FileAttribute.ACCESS_CAN_RENAME
                         );
 
-                    icon = ProjectIcon.SYMBOL;
+                    icon = ProjectIcon.GREEN_FOLDER;
                     tab = file_info.get_edit_name();
+
+                    monitor = file.monitor_directory(
+                        FileMonitorFlags.NONE
+                        );
                 }
                 else
                 {
@@ -207,6 +351,7 @@ namespace Geda3
                     file_id = null;
                     icon = ProjectIcon.BLANK;
                     tab = "Unknown";
+                    monitor = null;
                 }
             }
             catch (Error error)
@@ -215,6 +360,7 @@ namespace Geda3
                 can_rename = false;
                 file_id = null;
                 icon = ProjectIcon.MISSING;
+                monitor = null;
 
                 if (file != null)
                 {
@@ -225,6 +371,49 @@ namespace Geda3
                     tab = "Error";
                 }
             }
+
+            enumerate();
+        }
+
+
+        /**
+         * A function for populating the folder with test data
+         */
+        public Gee.ArrayList<LibraryItem> enumerate()
+
+            requires(file != null)
+
+        {
+            var list = new Gee.ArrayList<LibraryItem>();
+
+            try
+            {
+                var iter = file.enumerate_children(
+                    "standard::*",
+                    FileQueryInfoFlags.NOFOLLOW_SYMLINKS
+                    );
+
+                var info = iter.next_file();
+
+                while (info != null)
+                {
+                    stdout.printf("thsi = %s\n", info.get_name());
+                    
+                    if (m_pattern.match_string(info.get_name()))
+                    {
+                        var file1 = file.resolve_relative_path(info.get_name());
+
+                        list.add(new LibraryFile(file1));
+                    }
+                    
+                    info = iter.next_file();
+                }
+            }
+            catch (Error error)
+            {
+            }
+
+            return list;
         }
     }
 }

@@ -6,9 +6,44 @@ namespace Geda3
     public abstract class LibraryItem : Object
     {
         /**
+         *
+         * 
+         */
+        public delegate void Updater(Gee.List<LibraryItem> items);
+
+
+        /**
          * Indicates the appearance of the item has changed
          */
         public signal void item_changed();
+
+
+        /**
+         * Request a new item be inserted into the library tree
+         *
+         * @param parent The parent item
+         * @param item The new item to insert
+         */
+        public signal void request_insertion(LibraryItem parent, LibraryItem item);
+
+
+        /**
+         * Request an item be removed from the library tree
+         *
+         * @param item The item to be removed
+         */
+        public signal void request_removal(LibraryItem item);
+
+
+        /**
+         *
+         * The updater parameter is a delegate of type Updater, cast to
+         * a void pointer to workaround Vala bug 650836.
+         *
+         * @param item The library item requesting an update
+         * @param updater The delegate to perform the update
+         */
+        public signal void request_update(LibraryItem item, void* updater);
 
 
         /**
