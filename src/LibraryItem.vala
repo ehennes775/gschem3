@@ -28,11 +28,11 @@ namespace Geda3
 
 
         /**
-         * Request an item be removed from the library tree
+         * Request a refresh of the children of an item
          *
-         * @param item The item to be removed
+         * @param item The item requesting refresh
          */
-        public signal void request_removal(LibraryItem item);
+        public signal void request_refresh(LibraryItem item);
 
 
         /**
@@ -44,6 +44,7 @@ namespace Geda3
          * @param updater The delegate to perform the update
          */
         public signal void request_update(LibraryItem item, void* updater);
+
 
 
         /**
@@ -111,6 +112,22 @@ namespace Geda3
                 (renamable_item != null) &&
                 renamable_item.can_rename
                 );
+        }
+
+
+        /**
+         * Refresh the children of this node
+         *
+         * @param library The library needing refreshing
+         */
+        public virtual void perform_refresh(SymbolLibrary library)
+        {
+        }
+
+
+        public virtual void refresh()
+        {
+            request_refresh(this);
         }
 
 

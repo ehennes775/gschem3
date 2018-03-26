@@ -167,6 +167,55 @@ namespace Geda3
 
 
         /**
+         *
+         *
+         */
+        public override void perform_refresh(SymbolLibrary library)
+        {
+            var node = library.find_item(this);
+            return_if_fail(node != null);
+
+            var files = get_files();
+            var iter = library.nth_child(node, 0);
+
+            while (iter != null)
+            {
+                var item = library.get_item(iter);
+                var file_item = item as LibraryFile;
+
+                if ((file_item == null) || (file_item.file == null))
+                {
+                    iter = library.next_sibling(iter);
+                    continue;
+                }
+
+                var basename = file_item.file.get_basename();
+
+                if (files.contains(basename))
+                {
+                    files.remove(basename);
+                }
+                else
+                {
+                    library.remove_node(iter);
+                }
+
+                iter = library.next_sibling(iter);
+            }
+
+            foreach (var basename in files)
+            {
+                var new_file = file.resolve_relative_path(basename);
+
+                request_insertion(
+                    this,
+                    new LibraryFile(new_file)
+                    );
+            }
+        }
+
+
+        /**
          * {@inheritDoc}
          *
          * @param new_name The new filename, in UTF-8. This value can
@@ -195,7 +244,7 @@ namespace Geda3
 
 
         /**
-         *
+         * The glob pattern for symbol files
          */
         private PatternSpec m_pattern = new PatternSpec("*.sym");
 
@@ -275,37 +324,12 @@ namespace Geda3
 
         /**
          *
+         *
          * @param file The file that was deleted
          */
         private void on_changed_deleted(File file)
         {
-            Updater updater = (items) =>
-            {
-                foreach (var item in items)
-                {
-                    stdout.printf("A\n");
-                    
-                    var file_item = item as LibraryFile;
-
-                    if (file_item == null)
-                    {
-                        continue;
-                    }
-
-                    stdout.printf(@"B $(file.get_path())\n");
-
-                    if (file.equal(file_item.file))
-                    {
-                        stdout.printf("C\n");
-
-                        request_removal(item);
-
-                        stdout.printf("D\n");
-                    }
-                }
-            };
-
-            request_update(this, (void*) updater);
+            request_refresh(this);
         }
 
 
@@ -371,20 +395,12 @@ namespace Geda3
                     tab = "Error";
                 }
             }
-
-            enumerate();
         }
 
 
-        /**
-         * A function for populating the folder with test data
-         */
-        public Gee.ArrayList<LibraryItem> enumerate()
-
-            requires(file != null)
-
+        private Gee.Set<string> get_files()
         {
-            var list = new Gee.ArrayList<LibraryItem>();
+            var @set = new Gee.HashSet<string>();
 
             try
             {
@@ -397,15 +413,20 @@ namespace Geda3
 
                 while (info != null)
                 {
-                    stdout.printf("thsi = %s\n", info.get_name());
-                    
-                    if (m_pattern.match_string(info.get_name()))
+                    if (info.get_file_type() != FileType.REGULAR)
                     {
-                        var file1 = file.resolve_relative_path(info.get_name());
-
-                        list.add(new LibraryFile(file1));
+                        info = iter.next_file();
+                        continue;
                     }
-                    
+
+                    var basename = info.get_name();
+                    var match = m_pattern.match_string(basename);
+
+                    if (match)
+                    {
+                        @set.add(basename);
+                    }
+
                     info = iter.next_file();
                 }
             }
@@ -413,7 +434,7 @@ namespace Geda3
             {
             }
 
-            return list;
+            return @set;
         }
     }
 }

@@ -47,18 +47,14 @@ namespace Geda3
             var folder = new LibraryFolder(File.new_for_path("/home/ehennes/Projects/testlib/symbols"));
 
             folder.request_insertion.connect(on_request_insertion);
+            folder.request_refresh.connect(on_request_refresh);
             folder.request_update.connect(on_request_update);
 
             unowned Node<LibraryItem> folder_node = m_root.append(new Node<LibraryItem>(
                 folder
                 ));
 
-            foreach (var item in folder.enumerate())
-            {
-                folder_node.append(new Node<LibraryItem>(
-                    item
-                    ));
-            }
+            folder.refresh();
         }
 
 
@@ -70,6 +66,17 @@ namespace Geda3
         public virtual bool add(File library)
         {
             return false;
+        }
+
+
+
+        public void* find_item(LibraryItem item)
+        {
+            return m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                item
+                );
         }
 
 
@@ -246,6 +253,17 @@ namespace Geda3
         }
 
 
+        public void* next_sibling(void *node)
+
+            requires(node != null)
+
+        {
+            var temp_node = (Node<LibraryItem>*) node;
+
+            return temp_node->next_sibling();
+        }
+
+
         /**
          * Get an indexed child of a parent
          *
@@ -257,6 +275,32 @@ namespace Geda3
             var temp = (Node<LibraryItem>*) parent ?? m_root;
 
             return temp->nth_child(index);
+        }
+
+
+        public void remove_node(void* node)
+
+            requires(node != null)
+
+        {
+            var temp_node = (Node<LibraryItem>*) node;
+
+            unowned Node<LibraryItem>? parent = temp_node->parent;
+            return_if_fail(parent != null);
+
+            var item = temp_node->data;
+            return_if_fail(item != null);
+
+            item.request_insertion.disconnect(on_request_insertion);
+            item.request_refresh.disconnect(on_request_refresh);
+            item.request_update.disconnect(on_request_update);
+
+            var index = parent.child_position(temp_node);
+            return_if_fail(index >= 0);
+
+            temp_node->unlink();
+
+            node_removed(parent, index);            
         }
 
 
@@ -312,7 +356,7 @@ namespace Geda3
             return_if_fail(item_node != null);
 
             item.request_insertion.connect(on_request_insertion);
-            item.request_removal.connect(on_request_removal);
+            item.request_refresh.connect(on_request_refresh);
             item.request_update.connect(on_request_update);
 
             node_inserted(item_node);
@@ -324,29 +368,31 @@ namespace Geda3
          *
          *
          */
-        private void on_request_removal(LibraryItem item)
+        private void on_request_refresh(LibraryItem item)
         {
-            unowned Node<LibraryItem>? node = m_root.find(
-                TraverseType.LEVEL_ORDER,
-                TraverseFlags.ALL,
-                item
-                );
+            item.perform_refresh(this);
+            
+//            unowned Node<LibraryItem>? node = m_root.find(
+//                TraverseType.LEVEL_ORDER,
+//                TraverseFlags.ALL,
+//                item
+//                );
 
-            return_if_fail(node != null);
+//            return_if_fail(node != null);
 
-            unowned Node<LibraryItem>? parent = node.parent;
-            return_if_fail(parent != null);
+//            unowned Node<LibraryItem>? parent = node.parent;
+//            return_if_fail(parent != null);
 
-            var index = parent.child_position(node);
-            return_if_fail(index >= 0);
+//            var index = parent.child_position(node);
+//            return_if_fail(index >= 0);
 
-            node.unlink();
+//            node.unlink();
 
-            item.request_insertion.disconnect(on_request_insertion);
-            item.request_removal.disconnect(on_request_removal);
-            item.request_update.disconnect(on_request_update);
+//            item.request_insertion.disconnect(on_request_insertion);
+//            item.request_refresh.disconnect(on_request_refresh);
+//            item.request_update.disconnect(on_request_update);
 
-            node_removed(parent, index);            
+//            node_removed(parent, index);            
         }
 
 
