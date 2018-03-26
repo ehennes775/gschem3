@@ -48,7 +48,6 @@ namespace Geda3
 
             folder.request_insertion.connect(on_request_insertion);
             folder.request_refresh.connect(on_request_refresh);
-            folder.request_update.connect(on_request_update);
 
             unowned Node<LibraryItem> folder_node = m_root.append(new Node<LibraryItem>(
                 folder
@@ -293,7 +292,6 @@ namespace Geda3
 
             item.request_insertion.disconnect(on_request_insertion);
             item.request_refresh.disconnect(on_request_refresh);
-            item.request_update.disconnect(on_request_update);
 
             var index = parent.child_position(temp_node);
             return_if_fail(index >= 0);
@@ -357,7 +355,6 @@ namespace Geda3
 
             item.request_insertion.connect(on_request_insertion);
             item.request_refresh.connect(on_request_refresh);
-            item.request_update.connect(on_request_update);
 
             node_inserted(item_node);
         }
@@ -371,60 +368,6 @@ namespace Geda3
         private void on_request_refresh(LibraryItem item)
         {
             item.perform_refresh(this);
-            
-//            unowned Node<LibraryItem>? node = m_root.find(
-//                TraverseType.LEVEL_ORDER,
-//                TraverseFlags.ALL,
-//                item
-//                );
-
-//            return_if_fail(node != null);
-
-//            unowned Node<LibraryItem>? parent = node.parent;
-//            return_if_fail(parent != null);
-
-//            var index = parent.child_position(node);
-//            return_if_fail(index >= 0);
-
-//            node.unlink();
-
-//            item.request_insertion.disconnect(on_request_insertion);
-//            item.request_refresh.disconnect(on_request_refresh);
-//            item.request_update.disconnect(on_request_update);
-
-//            node_removed(parent, index);            
-        }
-
-
-        /**
-         *
-         *
-         * 
-         */
-        private void on_request_update(LibraryItem item, void* updater)
-        {
-            unowned Node<LibraryItem>? node = m_root.find(
-                TraverseType.LEVEL_ORDER,
-                TraverseFlags.ALL,
-                item
-                );
-
-            return_if_fail(node != null);
-
-            var items = new Gee.ArrayList<LibraryItem>();
-
-            unowned Node<LibraryItem>? iter = node.first_child();
-
-            while (iter != null)
-            {
-                items.add(get_item(iter));
-
-                iter = iter.next_sibling();
-            }
-
-            var temp_updater = (LibraryItem.Updater) updater;
-
-            temp_updater(items);
         }
 
 

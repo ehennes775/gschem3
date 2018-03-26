@@ -6,8 +6,6 @@ namespace Geda3
     public class LibraryFolder : LibraryItem,
         RenamableItem
     {
-        public delegate void Updater(Gee.List<LibraryItem> items);
-
         /**
          * Indicates this file can be opened
          *

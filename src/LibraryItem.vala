@@ -6,13 +6,6 @@ namespace Geda3
     public abstract class LibraryItem : Object
     {
         /**
-         *
-         * 
-         */
-        public delegate void Updater(Gee.List<LibraryItem> items);
-
-
-        /**
          * Indicates the appearance of the item has changed
          */
         public signal void item_changed();
@@ -30,21 +23,12 @@ namespace Geda3
         /**
          * Request a refresh of the children of an item
          *
+         * This function adds missing items from the tree and removes
+         * deleted items from the tree.
+         *
          * @param item The item requesting refresh
          */
         public signal void request_refresh(LibraryItem item);
-
-
-        /**
-         *
-         * The updater parameter is a delegate of type Updater, cast to
-         * a void pointer to workaround Vala bug 650836.
-         *
-         * @param item The library item requesting an update
-         * @param updater The delegate to perform the update
-         */
-        public signal void request_update(LibraryItem item, void* updater);
-
 
 
         /**
@@ -118,6 +102,10 @@ namespace Geda3
         /**
          * Refresh the children of this node
          *
+         * The base class provides this function to workaround Vala bug
+         * 650836 -- delegates currently cannot be used as parameters
+         * in signals.
+         *
          * @param library The library needing refreshing
          */
         public virtual void perform_refresh(SymbolLibrary library)
@@ -125,6 +113,9 @@ namespace Geda3
         }
 
 
+        /**
+         * Process a refresh on this node only
+         */
         public virtual void refresh()
         {
             request_refresh(this);
