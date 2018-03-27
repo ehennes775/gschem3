@@ -7,15 +7,11 @@ namespace Geda3
     {
         /**
          * {@inheritDoc}
-         *
-         * This property is set by the notify signal handler of the
-         * {@link file} property. Changing the {@link file} property
-         * will update this value.
          */
         public override string? description
         {
             get;
-            protected set;
+            set;
             default = null;
         }
 

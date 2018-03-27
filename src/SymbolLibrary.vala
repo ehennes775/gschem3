@@ -136,7 +136,7 @@ namespace Geda3
 
             var item = temp_node->data;
 
-            return_val_if_fail(item != null, false);
+            return_val_if_fail(item != null, "");
 
             return item.description ?? "";
         }
