@@ -5,11 +5,19 @@ project provides GUI functionality and uses
 [lepton-eda](https://github.com/lepton-eda)
 for the rest.
 
-The following screenshot shows a development version of Gschem3.
-Current deveopment focuses on getting the drawing tools for
-schematics operational.
+Current deveopment focuses on getting the symbol library operational.
 
-![Screenshot of Gschem3](gschem3.png)
+### Project
+
+The following screenshot shows a development version of Gschem3 with the project manager.
+
+![Screenshot of Gschem3](gschem3-project.png)
+
+### Library
+
+The following screenshot shows a development version of Gschem3 with the symbol library manager.
+
+![Screenshot of Gschem3 Library Widget](gschem3-library.png)
 
 ## Links
 - [Coding Standards](coding.md)
