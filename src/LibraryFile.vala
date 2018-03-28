@@ -113,6 +113,24 @@ namespace Geda3
 
 
         /**
+         * Initialize the class
+         */
+        static construct
+        {
+            try
+            {
+                s_regex = new Regex(
+                    "description=(.*)"
+                    );
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct
@@ -170,6 +188,25 @@ namespace Geda3
 
 
         /**
+         * For extracting the description from a symbol file
+         */
+        private static Regex s_regex;
+
+
+        /**
+         * The priority to use for fetching the description in the
+         * background.
+         */
+        private const int FETCH_PRIORITY = Priority.LOW;
+
+
+        /**
+         * For cancelling the background async function
+         */
+        private Cancellable m_cancel = null;
+
+
+        /**
          * A signal handler when the {@link file} property changes
          *
          * @param param unused
@@ -199,6 +236,8 @@ namespace Geda3
 
                     icon = ProjectIcon.SYMBOL;
                     tab = file_info.get_edit_name();
+
+                    fetch_description.begin();
                 }
                 else
                 {
@@ -226,6 +265,48 @@ namespace Geda3
                 }
             }
         }
+
+
+        /**
+         * Fetch the description from the symbol file
+         */
+        private async void fetch_description()
+        {
+            try
+            {
+                if (m_cancel != null)
+                {
+                    m_cancel.cancel();
+                }
+
+                m_cancel = new Cancellable();
+
+                description = null;
+
+                var stream = yield file.read_async(FETCH_PRIORITY, m_cancel);
+                var data = new DataInputStream(stream);
+                var line = yield data.read_line_async(FETCH_PRIORITY, m_cancel);
+
+                while ((line != null) && !m_cancel.is_cancelled())
+                {
+                    MatchInfo info;
+
+                    var success = s_regex.match(line, 0, out info);
+
+                    if (success)
+                    {
+                        description = info.fetch(1) ?? "";
+
+                        break;
+                    }
+
+                    line = yield data.read_line_async(FETCH_PRIORITY, m_cancel);
+                }
+            }
+            catch (Error error)
+            {
+                warning(error.message);
+            }
+        }
     }
 }
-

@@ -46,6 +46,7 @@ namespace Geda3
 
             var folder = new LibraryFolder(File.new_for_path("/home/ehennes/Projects/testlib/symbols"));
 
+            folder.item_changed.connect(on_item_changed);
             folder.request_insertion.connect(on_request_insertion);
             folder.request_refresh.connect(on_request_refresh);
 
@@ -290,6 +291,7 @@ namespace Geda3
             var item = temp_node->data;
             return_if_fail(item != null);
 
+            item.item_changed.disconnect(on_item_changed);
             item.request_insertion.disconnect(on_request_insertion);
             item.request_refresh.disconnect(on_request_refresh);
 
@@ -332,6 +334,20 @@ namespace Geda3
 
 
 
+        private void on_item_changed(LibraryItem item)
+        {
+            unowned Node<LibraryItem>? node = m_root.find(
+                TraverseType.LEVEL_ORDER,
+                TraverseFlags.ALL,
+                item
+                );
+
+            return_if_fail(node != null);
+
+            node_changed(node);
+        }
+
+
         /**
          *
          *
@@ -353,6 +369,7 @@ namespace Geda3
 
             return_if_fail(item_node != null);
 
+            item.item_changed.connect(on_item_changed);
             item.request_insertion.connect(on_request_insertion);
             item.request_refresh.connect(on_request_refresh);
 

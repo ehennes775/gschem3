@@ -206,6 +206,16 @@ namespace Geda3
 
 
         /**
+         * Process a file or folder attribute change
+         *
+         * @param created_file The file or folder that was changed
+         */
+        private void file_changed(File created_file)
+        {
+        }
+
+
+        /**
          * Process a file or folder creation
          *
          * @param created_file The file or folder that was created
@@ -274,6 +284,11 @@ namespace Geda3
         {
             switch (event)
             {
+                case FileMonitorEvent.ATTRIBUTE_CHANGED:
+                    warn_if_fail(b != null);
+                    file_changed(a);
+                    break;
+
                 case FileMonitorEvent.CREATED:
                     warn_if_fail(b != null);
                     file_created(a);
