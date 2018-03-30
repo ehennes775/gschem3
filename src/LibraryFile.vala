@@ -1,7 +1,7 @@
 namespace Geda3
 {
     /**
-     * Represents a file in the project tree
+     * Represents a symbol file in the symbol library tree
      */
     public class LibraryFile : LibraryItem,
         RenamableItem
@@ -173,6 +173,12 @@ namespace Geda3
             }
         }
 
+        /**
+         * Used for the description peroperty when no description is
+         * available.
+         */
+        private const string EMPTY_DESCRIPTION = "";
+
 
         /**
          * The attributes needed for the file info query in
@@ -237,7 +243,7 @@ namespace Geda3
                     icon = ProjectIcon.SYMBOL;
                     tab = file_info.get_edit_name();
 
-                    fetch_description.begin();
+                    update_description();
                 }
                 else
                 {
@@ -269,43 +275,79 @@ namespace Geda3
 
         /**
          * Fetch the description from the symbol file
+         *
+         * @param file
+         * @param cancellable
+         * @return The description attribute value from the symbol file.
          */
-        private async void fetch_description()
+        private static async string fetch_description(File file, Cancellable cancellable) throws Error
         {
-            try
+            var stream = yield file.read_async(FETCH_PRIORITY, cancellable);
+            var data = new DataInputStream(stream);
+            var line = yield data.read_line_async(FETCH_PRIORITY, cancellable);
+
+            while ((line != null) && !cancellable.is_cancelled())
             {
-                if (m_cancel != null)
+                MatchInfo info;
+
+                var success = s_regex.match(line, 0, out info);
+
+                if (success)
                 {
-                    m_cancel.cancel();
+                    return info.fetch(1) ?? EMPTY_DESCRIPTION;
                 }
 
-                m_cancel = new Cancellable();
-
-                description = null;
-
-                var stream = yield file.read_async(FETCH_PRIORITY, m_cancel);
-                var data = new DataInputStream(stream);
-                var line = yield data.read_line_async(FETCH_PRIORITY, m_cancel);
-
-                while ((line != null) && !m_cancel.is_cancelled())
-                {
-                    MatchInfo info;
-
-                    var success = s_regex.match(line, 0, out info);
-
-                    if (success)
-                    {
-                        description = info.fetch(1) ?? "";
-
-                        break;
-                    }
-
-                    line = yield data.read_line_async(FETCH_PRIORITY, m_cancel);
-                }
+                line = yield data.read_line_async(FETCH_PRIORITY, cancellable);
             }
-            catch (Error error)
+
+            return EMPTY_DESCRIPTION;
+        }
+
+
+        /**
+         * Update the description property from the symbol file
+         */
+        private void update_description()
+        {
+            if (m_cancel != null)
             {
-                warning(error.message);
+                m_cancel.cancel();
+            }
+
+            m_cancel = new Cancellable();
+
+            if (file == null)
+            {
+                description = EMPTY_DESCRIPTION;
+            }
+            else
+            {
+                fetch_description.begin(file, m_cancel, (object, result) =>
+                    {
+                        try
+                        {
+                            description = fetch_description.end(result);
+                        }
+                        catch (IOError error)
+                        {
+                            if (error is IOError.CANCELLED)
+                            {
+                            }
+                            else if (error is IOError.NOT_FOUND)
+                            {
+                            }
+                            else
+                            {
+                                throw error;
+                            }
+                        }
+                        catch (Error error)
+                        {
+                            description = EMPTY_DESCRIPTION;
+
+                            warning(error.message);
+                        }
+                    });
             }
         }
     }
