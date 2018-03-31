@@ -169,10 +169,20 @@ namespace Gschem3
 
         /**
          * Create a schematic window and load the given schematic file
+         *
+         * With this function as a constructor, an error would generate
+         * assertion for freeing a floating object.
+         *
+         * @param file The schematic file to load
+         * @return The schematic window
          */
-        public SchematicWindow.with_file(File file) throws Error
+        public static SchematicWindow create(File file) throws Error
         {
-            read(file);
+            var window = new SchematicWindow();
+            
+            window.read(file);
+
+            return window;
         }
 
 

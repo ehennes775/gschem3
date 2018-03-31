@@ -207,7 +207,7 @@ namespace Gschem3
 
                     if (window == null)
                     {
-                        window = new SchematicWindow.with_file(file);
+                        window = SchematicWindow.create(file);
                         window.show_all();
                         var tab = new DocumentTab(window);
                         tab.show_all();
