@@ -7,44 +7,44 @@ namespace Geda3
          */
         public SchematicReader()
         {
-            types = new Gee.HashMap<string,Type>();
+            m_types = new Gee.HashMap<string,Type>();
 
-            types.@set(
+            m_types.@set(
                 ArcItem.TYPE_ID,
                 typeof(ArcItem)
                 );
 
-            types.@set(
+            m_types.@set(
                 BoxItem.TYPE_ID,
                 typeof(BoxItem)
                 );
 
-            types.@set(
+            m_types.@set(
                 BusItem.TYPE_ID,
                 typeof(BusItem)
                 );
 
-            types.@set(
+            m_types.@set(
                 CircleItem.TYPE_ID,
                 typeof(CircleItem)
                 );
 
-            types.@set(
+            m_types.@set(
                 LineItem.TYPE_ID,
                 typeof(LineItem)
                 );
 
-            types.@set(
+            m_types.@set(
                 NetItem.TYPE_ID,
                 typeof(NetItem)
                 );
 
-            types.@set(
+            m_types.@set(
                 PinItem.TYPE_ID,
                 typeof(PinItem)
                 );
 
-            types.@set(
+            m_types.@set(
                 TextItem.TYPE_ID,
                 typeof(TextItem)
                 );
@@ -54,91 +54,82 @@ namespace Geda3
         /**
          * Read a schematic item from an input stream
          *
+         * @param line the next line to be read as a lookahead
          * @param stream the stream to read the schematic item from
          * @return the schematic item or null for no more items
          * @throws Error TBD
          * @throws ParseError TBD
          */
-        public SchematicItem read(DataInputStream stream) throws Error, ParseError
+        public SchematicItem read(ref string line, DataInputStream stream) throws Error, ParseError
 
-            requires(types != null)
+            requires(line != null)
+            requires(m_types != null)
 
         {
-            var id = peek_token(stream);
+            var params = line.split(" ");
 
-            if (id == null)
+            var id = params[0];
+
+            var item = read_item(params, stream);
+
+            line = stream.read_line(null);
+
+            if (line == null)
             {
-                return null;
+                return item;
             }
+            
+            params = line.split(" ");
 
-            if (!types.has_key(id))
-            {
-                throw new ParseError.UNKNOWN_ITEM_TYPE(
-                    @"Unknown item type '$id'"
-                    );
-            }
+            id = params[0];
 
-            var type = types[id];
-
-            var item = Object.@new(type) as SchematicItem;
-            return_val_if_fail(item != null, null);
-            item.read(stream);
-
-            id = peek_token(stream);
-
-            if ((id != null) && (id == "{"))
+            if (id == "{")
             {
                 var parent_item = item as AttributeParent;
 
                 if (parent_item == null)
                 {
                     throw new ParseError.UNKNOWN_ITEM_TYPE(
-                        @"001 Unknown item type '$id'"
+                        @"Type '$id' cannot have attributes"
                         );
                 }
 
-                stream.read_line(null);
+                line = stream.read_line(null);
 
-                id = peek_token(stream);
-
-                if (id == null)
+                if (line == null)
                 {
                     // unexpected end of file
                 }
 
+                params = line.split(" ");
+
+                id = params[0];
+
                 while (id != "}")
                 {
-                    if (!types.has_key(id))
-                    {
-                        throw new ParseError.UNKNOWN_ITEM_TYPE(
-                            @"002 Unknown item type '$id'"
-                            );
-                    }
+                    var child_item = read_item(params, stream) as AttributeChild;
 
-                    var child_item = Object.@new(types[id]) as AttributeChild;
-                    
                     if (child_item == null)
                     {
-                        throw new ParseError.UNKNOWN_ITEM_TYPE(
-                            @"003 Unknown item type '$id'"
-                            );
                     }
-
-                    child_item.read(stream);
 
                     parent_item.attach(child_item);
 
-                    id = peek_token(stream);
+                    line = stream.read_line(null);
 
-                    if (id == null)
+                    if (line == null)
                     {
                         // unexpected end of file
                     }
+
+                    params = line.split(" ");
+
+                    id = params[0];
                 }
 
                 if (id == "}")
                 {
-                    stream.read_line(null);
+                    line = stream.read_line(null);
                 }
             }
 
@@ -146,64 +137,47 @@ namespace Geda3
         }
 
 
+
         /**
-         * Peek at the next token in the input stream
+         * Read a single iten from the input stream
          *
-         * @param stream the stream to get the token from
-         * @return the token at the front of the stream
-         * @return null if no more tokens or end of file
+         * @param params The parameters found on the first line
+         * @param stream The input stream located after the first line
+         * @return The schematic item read from the stream
          */
-        public static string? peek_token(DataInputStream stream) throws Error
+        private SchematicItem read_item(string[] params, DataInputStream stream) throws Error, ParseError
         {
-            string token = null;
+            var id = params[0];
 
-            stream.fill(100);
-            var data = (string) stream.peek_buffer();
-
-            unichar character;
-            int index = 0;
-            int index0 = 0;
-
-            var success = data.get_next_char(ref index, out character);
-
-            while (success && character.isspace())
+            if (!m_types.has_key(id))
             {
-                index0 = index;
-
-                if (true)
-                {
-                    var status = stream.fill(10);
-                    data = (string) stream.peek_buffer();
-                }
-
-                success = data.get_next_char(ref index, out character);
+                throw new ParseError.UNKNOWN_ITEM_TYPE(
+                    @"Unknown item type '$id'"
+                    );
             }
 
-            if (success)
-            {
-                var busy = true;
-                var index1 = index;
+            var type = m_types[id];
 
-                while (busy && !character.isspace())
-                {
-                    index1 = index;
+            var item = Object.@new(type) as SchematicItem;
 
-                    if (true)
-                    {
-                        var status = stream.fill(10);
-                        data = (string) stream.peek_buffer();
-                    }
+            return_val_if_fail(item != null, null);
 
-                    busy = data.get_next_char(ref index, out character);
-                }
+            item.read_with_params(params, stream);
 
-                token = data.slice(index0, index1);
-            }
-
-            return token;
+            return item;
         }
 
 
-        private Gee.HashMap<string,Type> types;
+        /**
+         * A map of the schematic item types
+         *
+         * The key contains the string that represents the item type
+         * in the schematic file.
+         *
+         * The value contains the type of object to instantiate for
+         * the schematic item. This type must derive from
+         * SchematicItem.
+         */
+        private Gee.HashMap<string,Type> m_types;
     }
 }

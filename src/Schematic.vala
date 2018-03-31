@@ -121,13 +121,13 @@ namespace Geda3
 
             version = FileVersion.read(stream);
 
-            var item = reader.read(stream);
+            var line = stream.read_line();
 
-            while (item != null)
+            while (line != null)
             {
-                add(item);
+                var item = reader.read(ref line, stream);
 
-                item = reader.read(stream);
+                add(item);
             }
         }
 
