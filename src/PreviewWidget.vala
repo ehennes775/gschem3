@@ -201,7 +201,7 @@ namespace Gschem3
 
                 m_initial_zoom = false;
             }
-            
+
             var background = b_settings.scheme[0];
 
             context.set_source_rgba(
@@ -219,6 +219,14 @@ namespace Gschem3
                 );
 
             context.fill();
+
+            // Assigning an uninvertable matrix to a cairo context
+            // causes other widgets to fail during redraw. This check
+            // ensures a failure in this widget does not propagate to
+            // other widgets.
+            var temp_matrix = m_matrix;
+            var status = temp_matrix.invert();
+            return_if_fail(status == Cairo.Status.SUCCESS);
 
             context.translate(0.5, 0.5);
 
