@@ -52,7 +52,10 @@ namespace Gschem3
             m_adapter = new LibraryAdapter();
             m_adapter.refresh.connect(on_refresh_adapter);
 
-            m_sort_model = new Gtk.TreeModelSort.with_model(m_adapter);
+            m_filter_model = new Gtk.TreeModelFilter(m_adapter, null);
+            m_filter_model.set_visible_func(is_row_visible);
+
+            m_sort_model = new Gtk.TreeModelSort.with_model(m_filter_model);
             m_tree_view.model = m_sort_model;
 
             library = new Geda3.SymbolLibrary();
@@ -139,10 +142,22 @@ namespace Gschem3
 
 
         /**
+         * Provides sorting functionality for library items
+         */
+        private Gtk.TreeModelFilter m_filter_model;
+
+
+        /**
          * The column for the library item name
          */
         [GtkChild(name="column-name")]
         private Gtk.TreeViewColumn m_name_column;
+
+
+        /**
+         * A pattern used to filter items in the tree
+         */
+        private PatternSpec? m_pattern = null;
 
 
         /**
@@ -169,6 +184,65 @@ namespace Gschem3
          */
         [GtkChild(name="tree")]
         private Gtk.TreeView m_tree_view;
+
+
+        /**
+         * Check if a row is visible in the filter model
+         *
+         * @param model The tree model
+         * @param iter the iterator to test for visibility.
+         * @return If the row is visible, this returns true.
+         */
+        private bool is_row_visible(Gtk.TreeModel model, Gtk.TreeIter iter)
+        {
+            var visible = (m_pattern == null);
+
+            if (!visible && model.iter_has_child(iter))
+            {
+                Gtk.TreeIter child_iter;
+                var success = model.iter_children(out child_iter, iter);
+
+                while (success)
+                {
+                    visible = is_row_visible(model, child_iter);
+
+                    if (visible)
+                    {
+                        break;
+                    }
+
+                    success = model.iter_next(ref child_iter);
+                } 
+            }
+
+            if (!visible)
+            {
+                Geda3.LibraryItem? item = null;
+
+                model.get(
+                    iter,
+                    LibraryAdapter.Column.ITEM, &item
+                    );
+
+                return_val_if_fail(item != null, visible);
+
+                var tab = item.tab;
+
+                visible = m_pattern.match_string(tab);
+
+                if (!visible)
+                {
+                    var description = item.description;
+
+                    if (description != null)
+                    {
+                        visible = m_pattern.match_string(description);
+                    }
+                }
+            }
+
+            return visible;
+        }
 
 
         /**
