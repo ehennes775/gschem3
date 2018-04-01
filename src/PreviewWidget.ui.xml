@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+    <template class="Gschem3PreviewWidget" parent="GtkBin">
+        <child>
+            <object class="GtkDrawingArea" id="preview-drawing">
+            </object>
+        </child>
+    </template>
+</interface>

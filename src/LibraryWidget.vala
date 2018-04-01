@@ -4,8 +4,30 @@ namespace Gschem3
      * Provides a user interface for the symbol library
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/LibraryWidget.ui.xml")]
-    public class LibraryWidget : Gtk.Box
+    public class LibraryWidget : Gtk.Bin
     {
+        /**
+         * Requests files to be opened in an editor
+         *
+         * @param files The files to open in an editor
+         */
+        public signal void open_files(File[] files);
+
+
+        /**
+         * Indicates files can be opened from the project
+         */
+        public bool can_open_files
+        {
+            get;
+            private set;
+
+            // The default value establishes the initial value of the
+            // "enabled" property on the action.
+            default = false;
+        }
+
+
         /**
          * The symbol library
          */
@@ -34,6 +56,64 @@ namespace Gschem3
             m_tree_view.model = m_sort_model;
 
             library = new Geda3.SymbolLibrary();
+
+            // set up tree selection
+
+            m_selection = m_tree_view.get_selection();
+            m_selection.mode = Gtk.SelectionMode.MULTIPLE;
+            m_selection.changed.connect(on_changed_selection);
+        }
+
+
+        /**
+         * Gets the selected items from the library tree
+         */
+        private Gee.Collection<Geda3.LibraryItem> get_selected_items()
+
+            requires(m_selection != null)
+
+        {
+            var items = new Gee.ArrayList<Geda3.LibraryItem>();
+
+            m_selection.selected_foreach((model, path, iter) =>
+                {
+                    Geda3.LibraryItem? item = null;
+
+                    model.get(
+                        iter,
+                        LibraryAdapter.Column.ITEM, &item
+                        );
+
+                    if (item is Geda3.LibraryItem)
+                    {
+                        items.add(item);
+                    }
+                    else
+                    {
+                        warning("LibraryAdapter contans invalid item");
+                    }
+                }
+                );
+
+            return items;
+        }
+
+
+        /**
+         * Determines if the item is openable
+         *
+         * @param item The item to check if it can be opened
+         * @return This function returns true when the item is openable
+         */
+        private bool is_openable(Geda3.LibraryItem item)
+        {
+            var file_item = item as Geda3.LibraryFile;
+
+            return (
+                (file_item != null) &&
+                (file_item.file != null) &&
+                file_item.can_open
+                );
         }
 
 
@@ -65,6 +145,12 @@ namespace Gschem3
         private Gtk.TreeViewColumn m_name_column;
 
 
+        /**
+         * The column for the library item name
+         */
+        [GtkChild(name="preview-widget")]
+        private PreviewWidget m_preview_widget;
+
 
         /**
          * Provides sorting functionality for library items
@@ -73,10 +159,29 @@ namespace Gschem3
 
 
         /**
+         * The selection from the Gtk.TreeView widget
+         */
+        private Gtk.TreeSelection m_selection;
+
+
+        /**
          * The TreeView containing the library items
          */
         [GtkChild(name="tree")]
         private Gtk.TreeView m_tree_view;
+
+
+        /**
+         *
+         *
+         */
+        private void on_changed_selection()
+        {
+            var items = get_selected_items();
+
+            update_preview(items);
+            update_sensitivities(items);
+        }
 
 
         /**
@@ -149,6 +254,75 @@ namespace Gschem3
         {
             m_tree_view.model = null;
             m_tree_view.model = m_sort_model;
+        }
+
+
+        /**
+         *
+         *
+         * @param items The selected items
+         */
+        private void update_preview(Gee.Collection<Geda3.LibraryItem> items)
+
+            requires(items != null)
+            requires(m_preview_widget != null)
+
+        {
+            var previewable = Geda3.GeeEx.one_match(
+                items,
+                is_openable
+                );
+
+            if (previewable)
+            {
+                // available in Gee 19.91
+                // var item = items.first_match(is_openable);
+
+                Geda3.LibraryItem? item = null;
+
+                foreach (var iter in items)
+                {
+                    if (is_openable(iter))
+                    {
+                        item = iter;
+                        break;
+                    }
+                }
+
+                return_if_fail(item != null);
+
+                var file_item = item as Geda3.LibraryFile;
+                return_if_fail(file_item != null);
+
+                m_preview_widget.load(file_item.file);
+            }
+        }
+
+
+        /**
+         * Update senstitivities for actions in this widget
+         *
+         * @param items The selected items
+         */
+        private void update_sensitivities(Gee.Collection<Geda3.LibraryItem> items)
+
+            requires(items != null)
+
+        {
+            can_open_files = Geda3.GeeEx.any_match(
+                items,
+                is_openable
+                );
+
+            //can_remove_files = Geda3.GeeEx.any_match(
+            //    items,
+            //    is_removable
+            //    );
+
+            //can_rename_item = Geda3.GeeEx.one_match(
+            //    items,
+            //    Geda3.ProjectItem.is_renamable
+            //    );
         }
     }
 }

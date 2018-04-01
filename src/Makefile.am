@@ -150,6 +150,7 @@ libgschem3_a_SOURCES = \
 	MeshGrid.vala \
 	NewProjectDialog.vala \
 	NoGrid.vala \
+	PreviewWidget.vala \
 	PinTool.vala \
 	ProjectAdapter.vala \
 	ProjectWidget.vala \

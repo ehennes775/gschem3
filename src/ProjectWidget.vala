@@ -480,6 +480,7 @@ namespace Gschem3
 
                 menu.show_all();
 
+                // Depricated GTK+ 3.22
                 menu.popup(
                     null,
                     null,
@@ -487,6 +488,8 @@ namespace Gschem3
                     event.button,
                     event.time
                     );
+
+                //menu.popup_at_pointer(null);
 
                 stdout.printf("Context menu out...\n");
 

@@ -29,6 +29,7 @@ namespace Gschem3
         static construct
         {
             stdout.printf("%s\n",typeof(LibraryWidget).name());
+            stdout.printf("%s\n",typeof(PreviewWidget).name());
             stdout.printf("%s\n",typeof(ProjectWidget).name());
         }
 
@@ -90,6 +91,10 @@ namespace Gschem3
             // Setup notebook signal handling
 
             notebook.switch_page.connect(on_switch_page);
+
+            // Setup library signal handling
+
+            m_library_widget.open_files.connect(open);
         }
 
 
@@ -351,6 +356,13 @@ namespace Gschem3
          */
         [GtkChild]
         private Gtk.Notebook notebook;
+
+
+        /**
+         * The widget containing the library view
+         */
+        [GtkChild(name="library")]
+        private LibraryWidget m_library_widget;
 
 
         /**
