@@ -30,7 +30,7 @@ namespace Gschem3
             {
                 return b_settings;
             }
-            set
+            construct set
             {
                 if (b_settings != null)
                 {
@@ -60,6 +60,11 @@ namespace Gschem3
          */
         construct
         {
+            m_drawing.add_events(
+                Gdk.EventMask.STRUCTURE_MASK
+                );
+
+            m_drawing.configure_event.connect(on_configure_event);
             m_drawing.draw.connect(on_draw);
             notify["schematic"].connect(on_notify_schematic);
         }
@@ -159,6 +164,21 @@ namespace Gschem3
             yield schematic.read_from_file_async(file, cancel);
 
             return schematic;
+        }
+
+
+        /**
+         * Signal handler for when widget gets resized
+         *
+         * @param event unused
+         */
+        private bool on_configure_event(Gdk.EventConfigure event)
+        {
+            m_initial_zoom = true;
+
+            m_drawing.queue_draw();
+
+            return false;
         }
 
 
