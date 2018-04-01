@@ -107,6 +107,21 @@ namespace Geda3
 
 
         /**
+         * Read a schematic from an input file asynchronously
+         *
+         * @param file the file to read the schematic from
+         * @param cancel a token to cancel a read in progress
+         * @throws Error TBD
+         */
+        public async void read_from_file_async(File file, Cancellable? cancel = null) throws Error
+        {
+            var stream = new DataInputStream(file.read());
+
+            yield read_async(stream, cancel);
+        }
+
+
+        /**
          * Read a schematic from an input stream
          *
          * @param stream the stream to read the schematic from
@@ -125,6 +140,39 @@ namespace Geda3
 
             while (line != null)
             {
+                var item = reader.read(ref line, stream);
+
+                add(item);
+            }
+        }
+
+
+        /**
+         * Read a schematic from an input stream asyncronously
+         *
+         * @param stream the stream to read the schematic from
+         * @param cancel a token to cancel a read in progress
+         * @throws Error TBD
+         */
+        public async void read_async(DataInputStream stream, Cancellable? cancel = null) throws Error
+
+            requires(m_items != null)
+
+        {
+            m_items.clear();
+
+            version = FileVersion.read(stream);
+
+            var line = yield stream.read_line_async(
+                Priority.DEFAULT,
+                cancel
+                );
+
+            while (line != null)
+            {
+                // ran into code generation issues with an asyncronous
+                // version of this function. The output c code has an
+                // undeclared itentifier for the line varaible.
                 var item = reader.read(ref line, stream);
 
                 add(item);

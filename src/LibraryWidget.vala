@@ -296,6 +296,10 @@ namespace Gschem3
 
                 m_preview_widget.load(file_item.file);
             }
+            else
+            {
+                m_preview_widget.load(null);
+            }
         }
 
 

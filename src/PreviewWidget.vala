@@ -152,11 +152,11 @@ namespace Gschem3
          * @param file The schematic file to load
          * @param cancel To cancel the operation
          */
-        private static async Geda3.Schematic fetch(File file, Cancellable cancel) throws Error
+        private async Geda3.Schematic fetch(File file, Cancellable cancel) throws Error
         {
             var schematic = new Geda3.Schematic();
 
-            schematic.read_from_file(file);
+            yield schematic.read_from_file_async(file, cancel);
 
             return schematic;
         }

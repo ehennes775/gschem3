@@ -137,7 +137,6 @@ namespace Geda3
         }
 
 
-
         /**
          * Read a single iten from the input stream
          *
