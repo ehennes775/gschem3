@@ -15,7 +15,7 @@ namespace Gschem3
 
 
         /**
-         * Indicates files can be opened from the project
+         * Indicates files can be opened from the library
          */
         public bool can_open_files
         {
@@ -65,6 +65,10 @@ namespace Gschem3
             m_selection = m_tree_view.get_selection();
             m_selection.mode = Gtk.SelectionMode.MULTIPLE;
             m_selection.changed.connect(on_changed_selection);
+
+            //
+
+            m_library_filter.buffer.notify["text"].connect(on_notify_filter);
         }
 
 
@@ -168,15 +172,15 @@ namespace Gschem3
 
 
         /**
-         * Provides sorting functionality for library items
-         */
-        private Gtk.TreeSortable m_sort_model;
-
-
-        /**
          * The selection from the Gtk.TreeView widget
          */
         private Gtk.TreeSelection m_selection;
+
+
+        /**
+         * Provides sorting functionality for library items
+         */
+        private Gtk.TreeSortable m_sort_model;
 
 
         /**
@@ -184,6 +188,10 @@ namespace Gschem3
          */
         [GtkChild(name="tree")]
         private Gtk.TreeView m_tree_view;
+
+
+        [GtkChild(name="library-filter")]
+        private Gtk.Entry m_library_filter;
 
 
         /**
@@ -246,8 +254,7 @@ namespace Gschem3
 
 
         /**
-         *
-         *
+         * Signal handler when the tree selection changes
          */
         private void on_changed_selection()
         {
@@ -328,6 +335,33 @@ namespace Gschem3
         {
             m_tree_view.model = null;
             m_tree_view.model = m_sort_model;
+        }
+
+
+
+        /**
+         * Signal handler for changes to the filter text
+         *
+         * @param param unused
+         */
+        private void on_notify_filter(ParamSpec param)
+
+            requires(m_filter_model != null)
+            requires(m_library_filter != null)
+
+        {
+            var text = m_library_filter.buffer.text;
+
+            if ((text != null) && (text.length > 0))
+            {
+                m_pattern = new PatternSpec(@"*$(text)*");
+            }
+            else
+            {
+                m_pattern = null;
+            }
+
+            m_filter_model.refilter();
         }
 
 

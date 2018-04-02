@@ -10,49 +10,58 @@
                     </object>
                 </child>
                 <child>
-                    <object class="GtkScrolledWindow" id="tree-scrolled">
+                    <object class="GtkBox" id="library-box">
+                        <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
                         <child>
-                            <object class="GtkTreeView" id="tree">
-                                <property name="hexpand">true</property>
-                                <property name="vexpand">true</property>
+                            <object class="GtkScrolledWindow" id="tree-scrolled">
                                 <child>
-                                    <object class="GtkTreeViewColumn" id="column-name">
-                                        <property name="clickable">TRUE</property>
-                                        <property name="resizable">TRUE</property>
-                                        <property name="sort-column-id">1</property>
-                                        <property name="title">Name</property>
+                                    <object class="GtkTreeView" id="tree">
+                                        <property name="hexpand">true</property>
+                                        <property name="vexpand">true</property>
                                         <child>
-                                            <object class="GtkCellRendererPixbuf" id="column-name-renderer-icon">
+                                            <object class="GtkTreeViewColumn" id="column-name">
+                                                <property name="clickable">TRUE</property>
+                                                <property name="resizable">TRUE</property>
+                                                <property name="sort-column-id">1</property>
+                                                <property name="title">Name</property>
+                                                <child>
+                                                    <object class="GtkCellRendererPixbuf" id="column-name-renderer-icon">
+                                                    </object>
+                                                    <attributes>
+                                                        <attribute name="pixbuf">0</attribute>
+                                                    </attributes>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="column-name-renderer-name">
+                                                    </object>
+                                                    <attributes>
+                                                        <attribute name="editable">4</attribute>
+                                                        <attribute name="text">1</attribute>
+                                                    </attributes>
+                                                </child>
                                             </object>
-                                            <attributes>
-                                                <attribute name="pixbuf">0</attribute>
-                                            </attributes>
                                         </child>
                                         <child>
-                                            <object class="GtkCellRendererText" id="column-name-renderer-name">
+                                            <object class="GtkTreeViewColumn" id="column-description">
+                                                <property name="clickable">TRUE</property>
+                                                <property name="resizable">FALSE</property>
+                                                <property name="sort-column-id">2</property>
+                                                <property name="title">Description</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="column-description-renderer">
+                                                    </object>
+                                                    <attributes>
+                                                        <attribute name="text">2</attribute>
+                                                    </attributes>
+                                                </child>
                                             </object>
-                                            <attributes>
-                                                <attribute name="editable">4</attribute>
-                                                <attribute name="text">1</attribute>
-                                            </attributes>
                                         </child>
                                     </object>
                                 </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="column-description">
-                                        <property name="clickable">TRUE</property>
-                                        <property name="resizable">FALSE</property>
-                                        <property name="sort-column-id">2</property>
-                                        <property name="title">Description</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="column-description-renderer">
-                                            </object>
-                                            <attributes>
-                                                <attribute name="text">2</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="library-filter">
                             </object>
                         </child>
                     </object>
