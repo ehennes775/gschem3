@@ -25,6 +25,11 @@ namespace Geda3
                 );
 
             m_types.@set(
+                ComplexItem.TYPE_ID,
+                typeof(ComplexItem)
+                );
+
+            m_types.@set(
                 CircleItem.TYPE_ID,
                 typeof(CircleItem)
                 );

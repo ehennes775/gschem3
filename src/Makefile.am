@@ -55,6 +55,7 @@ libgeda3_a_SOURCES = \
 	CircleItem.vala \
 	Color.vala \
 	ColorScheme.vala \
+	ComplexItem.vala \
 	Coord.vala \
 	CustomAction.vala \
 	DashType.vala \
