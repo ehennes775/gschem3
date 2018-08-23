@@ -64,7 +64,7 @@ namespace Geda3
          * @throws ParseError.INVALID_INTEGER the input is not a valid
          * number
          * @throws ParseError.OUT_OF_RANGE the input is outside the
-         * range of text alignments
+         * valid range of text alignments
          */
         public static TextAlignment parse(string input) throws ParseError
 
@@ -105,29 +105,33 @@ namespace Geda3
          * @return A value representing the horizontal alignment
          */
         public double alignment_x()
+
+            ensures(result >= 0.0)
+            ensures(result <= 1.0)
+
         {
-            double result;
+            double result2;
             
             switch (this)
             {
                 case LOWER_RIGHT:
                 case MIDDLE_RIGHT:
                 case UPPER_RIGHT:
-                    result = 1.0;
+                    result2 = 1.0;
                     break;
 
                 case LOWER_MIDDLE:
                 case MIDDLE_MIDDLE:
                 case UPPER_MIDDLE:
-                    result = 0.5;
+                    result2 = 0.5;
                     break;
                     
                 default:
-                    result = 0.0;
+                    result2 = 0.0;
                     break;
             }
 
-            return result;
+            return result2;
         }
 
 
@@ -142,29 +146,33 @@ namespace Geda3
          * @return A value representing the vertical alignment
          */
         public double alignment_y()
+
+            ensures(result >= 0.0)
+            ensures(result <= 1.0)
+
         {
-            double result;
+            double result2;
             
             switch (this)
             {
                 case LOWER_LEFT:
                 case LOWER_MIDDLE:
                 case LOWER_RIGHT:
-                    result = 1.0;
+                    result2 = 1.0;
                     break;
 
                 case MIDDLE_LEFT:
                 case MIDDLE_MIDDLE:
                 case MIDDLE_RIGHT:
-                    result = 0.5;
+                    result2 = 0.5;
                     break;
                     
                 default:
-                    result = 0.0;
+                    result2 = 0.0;
                     break;
             }
 
-            return result;
+            return result2;
         }
 
 
@@ -174,6 +182,10 @@ namespace Geda3
          * @return The text alignment mirrored on the x axis
          */
         public TextAlignment mirror_x()
+
+            ensures(result >= 0)
+            ensures(result < COUNT)
+
         {
             switch (this)
             {

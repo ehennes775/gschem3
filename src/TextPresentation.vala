@@ -35,7 +35,7 @@ namespace Geda3
          * @throws ParseError.INVALID_INTEGER the input is not a valid
          * number
          * @throws ParseError.OUT_OF_RANGE the input is outside the
-         * range of text presentations
+         * valid range of text presentations
          */
         public static TextPresentation parse(string input) throws ParseError
 

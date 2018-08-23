@@ -1,7 +1,7 @@
 namespace Geda3
 {
     /**
-     * Functions for operating on coordinates
+     * Functions for operating on color indexes
      */
     namespace Color
     {
@@ -10,6 +10,7 @@ namespace Geda3
          */
         public const int ATTRIBUTE = 5;
 
+
         /**
          * The color index of the background color
          */
@@ -17,7 +18,7 @@ namespace Geda3
 
 
         /**
-         * The color index to use for a selection box
+         * The default color index to use for a selection box
          */
         public const int BOUNDING_BOX = 12;
 
@@ -59,6 +60,18 @@ namespace Geda3
 
 
         /**
+         * The maximum color index, inclusive
+         */
+        public const int MAX = int.MAX;
+
+
+        /**
+         * The minimum color index, inclusive
+         */
+        public const int MIN = 0;
+
+
+        /**
          * The default color index minor grid lines
          */
         public const int MINOR_GRID = 23;
@@ -83,7 +96,7 @@ namespace Geda3
 
 
         /**
-         * The default color index for graphic objects
+         * The default color index for text objects
          */
         public const int TEXT = 9;
 
@@ -98,15 +111,19 @@ namespace Geda3
          * Parse the string representation of a color
          *
          * @param input the string representation of the color
-         * @return the coordinate
+         * @return the color index
          * @throws ParseError.INVALID_INTEGER not a valid number
          * @throws ParseError.OUT_OF_RANGE input outside 32 bit integer
          */
         public int parse(string input) throws ParseError
-        {
-            int64 result;
 
-            var success = int64.try_parse(input, out result);
+            ensures(result >= MIN)
+            ensures(result <= MAX)
+
+        {
+            int64 result2;
+
+            var success = int64.try_parse(input, out result2);
 
             if (!success)
             {
@@ -115,15 +132,14 @@ namespace Geda3
                     );
             }
 
-            if ((result < 0) || (result > int.MAX))
+            if ((result2 < MIN) || (result2 > MAX))
             {
                 throw new ParseError.OUT_OF_RANGE(
                     @"Color index out of range: $input"
                     );
             }
 
-            return (int) result;
+            return (int) result2;
         }
     }
 }
-

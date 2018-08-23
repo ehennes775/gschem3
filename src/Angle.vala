@@ -77,9 +77,12 @@ namespace Geda3
          * @param angle the angle in degrees
          * @return the orthographic angle
          */
-        public int make_ortho (int angle)
+        public int make_ortho(int angle)
+
+            ensures(is_ortho(result))
+
         {
-           return (int)Math.round(angle / 90.0) * 90;
+            return (int) Math.round(angle / 90.0) * 90;
         }
 
 
@@ -90,17 +93,20 @@ namespace Geda3
          * @return the normalized angle inside [0,360)
          */
         public int normalize(int angle)
-        {
-          if (angle < 0)
-          {
-              angle = 360 - (-angle % 360);
-          }
-          if (angle >= 360)
-          {
-              angle %= 360;
-          }
 
-          return angle;
+            ensures(is_normal(result))
+
+        {
+            if (angle < 0)
+            {
+                angle = 360 - (-angle % 360);
+            }
+            if (angle >= 360)
+            {
+                angle %= 360;
+            }
+
+            return angle;
         }
 
 
@@ -114,9 +120,9 @@ namespace Geda3
          */
         public int parse(string input) throws ParseError
         {
-            int64 result;
+            int64 result2;
 
-            var success = int64.try_parse(input, out result);
+            var success = int64.try_parse(input, out result2);
 
             if (!success)
             {
@@ -125,14 +131,14 @@ namespace Geda3
                     );
             }
 
-            if ((result < int.MIN) || (result > int.MAX))
+            if ((result2 < int.MIN) || (result2 > int.MAX))
             {
                 throw new ParseError.OUT_OF_RANGE(
                     @"Angle out of range: $input"
                     );
             }
 
-            return (int) result;
+            return (int) result2;
         }
 
 

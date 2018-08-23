@@ -13,16 +13,21 @@ namespace Geda3
         /**
          * Parse the input file representation of a CapType
          *
-         * @param input the string representation of the color
-         * @return the coordinate
+         * @param input the string representation of the cap type
+         * @return the cap type
          * @throws ParseError.INVALID_INTEGER not a valid number
-         * @throws ParseError.OUT_OF_RANGE input outside 32 bit integer
+         * @throws ParseError.OUT_OF_RANGE input outside 32 valid cap
+         * type range
          */
         public static CapType parse(string input) throws ParseError
-        {
-            int64 result;
 
-            var success = int64.try_parse(input, out result);
+            ensures(result >= 0)
+            ensures(result < COUNT)
+
+        {
+            int64 result2;
+
+            var success = int64.try_parse(input, out result2);
 
             if (!success)
             {
@@ -31,14 +36,14 @@ namespace Geda3
                     );
             }
 
-            if ((result < 0) || (result >= COUNT))
+            if ((result2 < 0) || (result2 >= COUNT))
             {
                 throw new ParseError.OUT_OF_RANGE(
                     @"CapType out of range: $input"
                     );
             }
 
-            return (CapType) result;
+            return (CapType) result2;
         }
     }
 }

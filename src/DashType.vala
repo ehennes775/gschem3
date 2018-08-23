@@ -31,13 +31,18 @@ namespace Geda3
          * @param input the string representation of the dash type
          * @return a valid dash type
          * @throws ParseError.INVALID_INTEGER not a valid number
-         * @throws ParseError.OUT_OF_RANGE input outside 32 bit integer
+         * @throws ParseError.OUT_OF_RANGE input outside valid rang of
+         * dash types
          */
         public static DashType parse(string input) throws ParseError
-        {
-            int64 result;
 
-            var success = int64.try_parse(input, out result);
+            ensures(result >= 0)
+            ensures(result < COUNT)
+
+        {
+            int64 result2;
+
+            var success = int64.try_parse(input, out result2);
 
             if (!success)
             {
@@ -46,14 +51,14 @@ namespace Geda3
                     );
             }
 
-            if ((result < 0) || (result >= COUNT))
+            if ((result2 < 0) || (result2 >= COUNT))
             {
                 throw new ParseError.OUT_OF_RANGE(
                     @"DashType out of range: $input"
                     );
             }
 
-            return (DashType) result;
+            return (DashType) result2;
         }
 
 
@@ -73,11 +78,11 @@ namespace Geda3
             requires(this < COUNT)
 
         {
-            int64 result = DEFAULT_LENGTH;
+            int64 result2 = DEFAULT_LENGTH;
 
             if (uses_length())
             {
-                var success = int64.try_parse(input, out result);
+                var success = int64.try_parse(input, out result2);
 
                 if (!success)
                 {
@@ -86,7 +91,7 @@ namespace Geda3
                         );
                 }
 
-                if ((result < 1) || (result >= int.MAX))
+                if ((result2 < 1) || (result2 >= int.MAX))
                 {
                     throw new ParseError.OUT_OF_RANGE(
                         @"DashLength out of range: $input"
@@ -94,7 +99,7 @@ namespace Geda3
                 }
             }
 
-            return (int) result;
+            return (int) result2;
         }
 
 
@@ -114,11 +119,11 @@ namespace Geda3
             requires(this < COUNT)
 
         {
-            int64 result = DEFAULT_SPACE;
+            int64 result2 = DEFAULT_SPACE;
 
             if (uses_space())
             {
-                var success = int64.try_parse(input, out result);
+                var success = int64.try_parse(input, out result2);
 
                 if (!success)
                 {
@@ -127,7 +132,7 @@ namespace Geda3
                         );
                 }
 
-                if ((result < 1) || (result >= int.MAX))
+                if ((result2 < 1) || (result2 >= int.MAX))
                 {
                     throw new ParseError.OUT_OF_RANGE(
                         @"DashSpace out of range: $input"
@@ -135,7 +140,7 @@ namespace Geda3
                 }
             }
 
-            return (int) result;
+            return (int) result2;
         }
 
 

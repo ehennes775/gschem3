@@ -25,7 +25,7 @@ namespace Geda3
          * @throws ParseError.INVALID_INTEGER the input is not a valid
          * number
          * @throws ParseError.OUT_OF_RANGE the input is outside the
-         * range of text sizes
+         * valid range of text sizes
          */
         public static int parse(string input) throws ParseError
 

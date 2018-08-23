@@ -233,7 +233,7 @@ namespace Geda3
             if (params.length != 11)
             {
                 throw new ParseError.PARAMETER_COUNT(
-                    @"Net with incorrect parameter count"
+                    @"Line with incorrect parameter count"
                     );
             }
 

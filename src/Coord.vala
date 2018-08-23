@@ -30,9 +30,9 @@ namespace Geda3
          */
         public int parse(string input) throws ParseError
         {
-            int64 result;
+            int64 result2;
 
-            var success = int64.try_parse(input, out result);
+            var success = int64.try_parse(input, out result2);
 
             if (!success)
             {
@@ -41,14 +41,14 @@ namespace Geda3
                     );
             }
 
-            if ((result < int.MIN) || (result > int.MAX))
+            if ((result2 < int.MIN) || (result2 > int.MAX))
             {
                 throw new ParseError.OUT_OF_RANGE(
                     @"Coordinate out of range: $input"
                     );
             }
 
-            return (int) result;
+            return (int) result2;
         }
 
 
@@ -70,14 +70,14 @@ namespace Geda3
             int dividend = val / grid;
             int remainder = val % grid;
 
-            int result = dividend * grid;
+            int result2 = dividend * grid;
 
             if (remainder > (grid / 2))
             {
-                result += grid;
+                result2 += grid;
             }
 
-            return sign * result;
+            return sign * result2;
         }
 
 
@@ -105,4 +105,3 @@ namespace Geda3
         }
     }
 }
-
