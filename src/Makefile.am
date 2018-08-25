@@ -64,6 +64,7 @@ libgeda3_a_SOURCES = \
 	sch/LineStyle.vala \
 	sch/NetItem.vala \
 	sch/PathCommand.vala \
+	sch/PathCommandReceiver.vala \
 	sch/PathItem.vala \
 	sch/PinItem.vala \
 	sch/PinType.vala \

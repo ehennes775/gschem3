@@ -1,6 +1,6 @@
 namespace Geda3
 {
-    public abstract class SchematicPainter
+    public abstract class SchematicPainter : PathCommandReceiver
     {
         /**
          * Draw an arc
@@ -62,6 +62,14 @@ namespace Geda3
 
 
         /**
+         * Draw a path
+         *
+         * @param commands The commands that make up the path
+         */
+        public abstract void draw_path(Gee.List<PathCommand> commands);
+
+
+        /**
          * Draw an x to mark an instertion point
          *
          * @param x The x coordinate of the insertion point
@@ -117,5 +125,35 @@ namespace Geda3
 
 
         public abstract Geda3.Bounds calculate_text_bounds(int x, int y, TextAlignment alignment, int angle, int size, string text);
+
+
+        /**
+         *
+         */
+        public abstract void close_path();
+
+
+        /**
+         *
+         */
+        public abstract void line_to_absolute(int x, int y);
+
+
+        /**
+         *
+         */
+        public abstract void line_to_relative(int x, int y);
+
+
+        /**
+         *
+         */
+        public abstract void move_to_absolute(int x, int y);
+
+
+        /**
+         *
+         */
+        public abstract void move_to_relative(int x, int y);
     }
 }

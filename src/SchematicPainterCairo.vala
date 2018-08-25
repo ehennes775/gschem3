@@ -195,6 +195,23 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override void draw_path(Gee.List<PathCommand> commands)
+
+            requires(cairo_context != null)
+
+        {
+            foreach (var command in commands)
+            {
+                command.put(this);
+            }
+
+            cairo_context.stroke();
+        }
+
+
+        /**
          * Draw the box used to select items
          *
          * @param x0 The x coordinate of the first corner in device units
@@ -582,6 +599,66 @@ namespace Geda3
             cairo_context.stroke();
 
             cairo_context.restore();
+        }
+
+
+        /**
+         *
+         */
+        public override void close_path()
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.close_path();
+        }
+
+
+        /**
+         *
+         */
+        public override void line_to_absolute(int x, int y)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.line_to(x, y);
+        }
+
+
+        /**
+         *
+         */
+        public override void line_to_relative(int x, int y)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.rel_line_to(x, y);
+        }
+
+
+        /**
+         *
+         */
+        public override void move_to_absolute(int x, int y)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.move_to(x, y);
+        }
+
+
+        /**
+         *
+         */
+        public override void move_to_relative(int x, int y)
+
+            requires(cairo_context != null)
+
+        {
+            cairo_context.rel_move_to(x, y);
         }
     }
 }

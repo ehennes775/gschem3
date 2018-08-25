@@ -170,7 +170,7 @@ namespace Geda3
                 );
             painter.set_width(b_width);
 
-            // painter.draw_path(b_commands);
+            painter.draw_path(b_commands);
         }
 
 

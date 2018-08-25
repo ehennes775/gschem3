@@ -5,5 +5,9 @@ namespace Geda3
      */
     public abstract class PathCommand : Object
     {
+        /**
+         *
+         */
+        public abstract void put(PathCommandReceiver receiver);
     }
 }
