@@ -73,6 +73,11 @@ libgeda3_a_SOURCES = \
 	sch/TextPresentation.vala \
 	sch/TextSize.vala \
 	sch/Visibility.vala \
+	sch/path/AbsoluteMoveToCommand.vala \
+	sch/path/AbsoluteLineToCommand.vala \
+	sch/path/ClosePathCommand.vala \
+	sch/path/RelativeMoveToCommand.vala \
+	sch/path/RelativeLineToCommand.vala \
 	ColorScheme.vala \
 	CustomAction.vala \
 	Fileable.vala \

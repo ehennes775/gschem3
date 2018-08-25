@@ -161,6 +161,16 @@ namespace Geda3
             bool selected
             )
         {
+            painter.set_cap_type(line_style.cap_type);
+            painter.set_color(selected ? Geda3.Color.SELECT : b_color);
+            painter.set_dash(
+                line_style.dash_type,
+                line_style.dash_length,
+                line_style.dash_space
+                );
+            painter.set_width(b_width);
+
+            // painter.draw_path(b_commands);
         }
 
 

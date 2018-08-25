@@ -1,7 +1,7 @@
 namespace Geda3
 {
     /**
-     * Commands for the PathItem
+     * An abstract base class for PathItem commands
      */
     public abstract class PathCommand : Object
     {
