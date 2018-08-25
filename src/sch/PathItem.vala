@@ -118,6 +118,7 @@ namespace Geda3
          */
         construct
         {
+            b_commands = new Gee.ArrayList<PathCommand>();
         }
 
 
@@ -253,6 +254,12 @@ namespace Geda3
          * Backing store for the color
          */
         private int b_color;
+
+
+        /**
+         * Backing store for the path commands
+         */
+        private Gee.List<PathCommand> b_commands;
 
 
         /**
