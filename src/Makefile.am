@@ -43,26 +43,38 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
-	ArcItem.vala \
-	Angle.vala \
-	AttributeChild.vala \
-	AttributeParent.vala \
-	Bounds.vala \
-	BoxItem.vala \
-	BusDirection.vala \
-	BusItem.vala \
-	CapType.vala \
-	CircleItem.vala \
-	Color.vala \
+	sch/Angle.vala \
+	sch/AttributeChild.vala \
+	sch/AttributeParent.vala \
+	sch/ArcItem.vala \
+	sch/Bounds.vala \
+	sch/BoxItem.vala \
+	sch/BusDirection.vala \
+	sch/BusItem.vala \
+	sch/CircleItem.vala \
+	sch/CapType.vala \
+	sch/Color.vala \
+	sch/ComplexItem.vala \
+	sch/Coord.vala \
+	sch/DashType.vala \
+	sch/FileVersion.vala \
+	sch/FillStyle.vala \
+	sch/FillType.vala \
+	sch/LineItem.vala \
+	sch/LineStyle.vala \
+	sch/NetItem.vala \
+	sch/PathItem.vala \
+	sch/PinItem.vala \
+	sch/PinType.vala \
+	sch/Sweep.vala \
+	sch/TextAlignment.vala \
+	sch/TextItem.vala \
+	sch/TextPresentation.vala \
+	sch/TextSize.vala \
+	sch/Visibility.vala \
 	ColorScheme.vala \
-	ComplexItem.vala \
-	Coord.vala \
 	CustomAction.vala \
-	DashType.vala \
 	Fileable.vala \
-	FileVersion.vala \
-	FillStyle.vala \
-	FillType.vala \
 	GeeEx.vala \
 	Grip.vala \
 	Grippable.vala \
@@ -75,18 +87,13 @@ libgeda3_a_SOURCES = \
 	LibraryFile.vala \
 	LibraryFolder.vala \
 	LibraryItem.vala \
-	LineItem.vala \
-	LineStyle.vala \
 	Mapper.vala \
 	MapError.vala \
-	NetItem.vala \
 	NullMapper.vala \
 	ParseError.vala \
 	PinAttributeUpdater.vala \
-	PinItem.vala \
 	PinItemGroup.vala \
 	PinSettings.vala \
-	PinType.vala \
 	PinUpdater.vala \
 	PointGrip.vala \
 	PrintDimension.vala \
@@ -109,14 +116,8 @@ libgeda3_a_SOURCES = \
 	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
 	SchematicReader.vala \
-	Sweep.vala \
 	Symbol.vala \
-	SymbolLibrary.vala \
-	TextAlignment.vala \
-	TextItem.vala \
-	TextPresentation.vala \
-	TextSize.vala \
-	Visibility.vala
+	SymbolLibrary.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \

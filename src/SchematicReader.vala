@@ -45,6 +45,11 @@ namespace Geda3
                 );
 
             m_types.@set(
+                PathItem.TYPE_ID,
+                typeof(PathItem)
+                );
+
+            m_types.@set(
                 PinItem.TYPE_ID,
                 typeof(PinItem)
                 );
