@@ -119,6 +119,7 @@ namespace Geda3
         construct
         {
             b_commands = new Gee.ArrayList<PathCommand>();
+            b_converter = new PathCommandConverter1();
         }
 
 
@@ -203,6 +204,8 @@ namespace Geda3
             {
                 b_lines[index] = stream.read_line(null);
             }
+
+            b_commands = b_converter.convert_from_lines(b_lines);
         }
 
 
@@ -270,6 +273,12 @@ namespace Geda3
          * Backing store for the path commands
          */
         private Gee.List<PathCommand> b_commands;
+
+
+        /**
+         * 
+         */
+        private PathCommandConverter b_converter;
 
 
         /**

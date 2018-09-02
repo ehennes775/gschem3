@@ -64,6 +64,7 @@ libgeda3_a_SOURCES = \
 	sch/LineStyle.vala \
 	sch/NetItem.vala \
 	sch/PathCommand.vala \
+	sch/PathCommandConverter.vala \
 	sch/PathCommandReceiver.vala \
 	sch/PathItem.vala \
 	sch/PinItem.vala \
@@ -77,6 +78,8 @@ libgeda3_a_SOURCES = \
 	sch/path/AbsoluteMoveToCommand.vala \
 	sch/path/AbsoluteLineToCommand.vala \
 	sch/path/ClosePathCommand.vala \
+	sch/path/ParseUtility.vala \
+	sch/path/PathCommandConverter1.vala \
 	sch/path/RelativeMoveToCommand.vala \
 	sch/path/RelativeLineToCommand.vala \
 	ColorScheme.vala \
