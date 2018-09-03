@@ -33,6 +33,16 @@ namespace Geda3
 
 
         /**
+         *
+         */
+        public ComplexLibrary library
+        {
+            get;
+            construct;
+        }
+
+
+        /**
          * GObject initialization
          */
         construct
@@ -44,8 +54,11 @@ namespace Geda3
         /**
          * Initialize a new instance
          */
-        public ComplexItem()
+        public ComplexItem(ComplexLibrary library)
         {
+            Object(
+                library : library
+                );
         }
 
 
@@ -95,6 +108,15 @@ namespace Geda3
             bool selected
             )
         {
+            if (m_schematic != null)
+            {
+                painter.draw_items(b_insert_x, b_insert_y, m_schematic.items);
+            }
+
+            foreach (var attribute in m_attributes)
+            {
+                attribute.draw(painter, reveal, selected);
+            }
         }
 
 
@@ -118,6 +140,8 @@ namespace Geda3
             b_angle = Coord.parse(params[4]);
             b_mirror = Coord.parse(params[5]);
             b_name = params[6];
+
+            m_schematic = library.@get(b_name);
         }
 
 
@@ -199,6 +223,8 @@ namespace Geda3
          */
         private string b_name;
 
+
+        private Schematic m_schematic;
 
         /**
          * Backing store indicating the component is selctable

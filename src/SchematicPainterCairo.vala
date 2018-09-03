@@ -182,6 +182,21 @@ namespace Geda3
         }
 
 
+        public override void draw_items(int x, int y, Gee.Collection<SchematicItem> items)
+        {
+            cairo_context.save();
+
+            cairo_context.translate(x, y);
+
+            foreach (var item in items)
+            {
+                item.draw(this, false, false);
+            }
+
+            cairo_context.restore();
+        }
+
+
         /**
          * {@inheritDoc}
          */

@@ -50,6 +50,9 @@ namespace Geda3
         public abstract void draw_grip(int center_x, int center_y);
 
 
+        public abstract void draw_items(int x, int y, Gee.Collection<SchematicItem> items);
+
+
         /**
          * Draw a line
          *

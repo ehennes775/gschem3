@@ -191,6 +191,10 @@ namespace Geda3
         private delegate SchematicItem CreateFunc();
 
 
+        // temp located here for development
+        private static ComplexLibrary m_library = new ComplexLibrary();
+
+
         /**
          * A map of the schematic item types
          *
@@ -224,7 +228,7 @@ namespace Geda3
 
         private static SchematicItem create_complex()
         {
-            return new ComplexItem();
+            return new ComplexItem(m_library);
         }
 
 

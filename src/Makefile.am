@@ -55,6 +55,7 @@ libgeda3_a_SOURCES = \
 	sch/CapType.vala \
 	sch/Color.vala \
 	sch/ComplexItem.vala \
+	sch/ComplexLibrary.vala \
 	sch/Coord.vala \
 	sch/DashType.vala \
 	sch/FileVersion.vala \
