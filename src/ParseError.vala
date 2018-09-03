@@ -8,6 +8,7 @@ namespace Geda3
         INVALID_UNITS,
         OUT_OF_RANGE,
         PARAMETER_COUNT,
+        UNKEXPECTED_END_OF_FILE,
         UNKNOWN_ITEM_TYPE,
         UNKNOWN_PATH_COMMAND,
         VERSION_EXPECTED

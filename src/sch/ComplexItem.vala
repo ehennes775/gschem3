@@ -12,7 +12,7 @@ namespace Geda3
      * ||5||int32 ||Mirroring                                  ||
      * ||6||string||The name of the component                  ||
      */
-    public class ComplexItem : SchematicItem
+    public class ComplexItem : SchematicItem, AttributeParent
     {
         /**
          * The type code used in schematic files
@@ -21,10 +21,43 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public Gee.List<AttributeChild> attributes
+        {
+            owned get
+            {
+                return m_attributes.read_only_view;
+            }
+        }
+
+
+        /**
+         * GObject initialization
+         */
+        construct
+        {
+            m_attributes = new Gee.LinkedList<AttributeChild>();
+        }
+
+
+        /**
          * Initialize a new instance
          */
         public ComplexItem()
         {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void attach(AttributeChild attribute)
+
+            requires(m_attributes != null) 
+
+        {
+            m_attributes.add(attribute);
         }
 
 
@@ -135,6 +168,12 @@ namespace Geda3
          * Backing store for the rotation angle
          */
         private int b_angle;
+
+
+        /**
+         * The attributes attached to this item
+         */
+        private Gee.LinkedList<AttributeChild> m_attributes;
 
 
         /**

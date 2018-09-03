@@ -7,56 +7,56 @@ namespace Geda3
          */
         public SchematicReader()
         {
-            m_types = new Gee.HashMap<string,Type>();
+            m_types = new Gee.HashMap<string,CreateFunc>();
 
             m_types.@set(
                 ArcItem.TYPE_ID,
-                typeof(ArcItem)
+                create_arc
                 );
 
             m_types.@set(
                 BoxItem.TYPE_ID,
-                typeof(BoxItem)
+                create_box
                 );
 
             m_types.@set(
                 BusItem.TYPE_ID,
-                typeof(BusItem)
+                create_bus
                 );
 
             m_types.@set(
                 ComplexItem.TYPE_ID,
-                typeof(ComplexItem)
+                create_complex
                 );
 
             m_types.@set(
                 CircleItem.TYPE_ID,
-                typeof(CircleItem)
+                create_circle
                 );
 
             m_types.@set(
                 LineItem.TYPE_ID,
-                typeof(LineItem)
+                create_line
                 );
 
             m_types.@set(
                 NetItem.TYPE_ID,
-                typeof(NetItem)
+                create_net
                 );
 
             m_types.@set(
                 PathItem.TYPE_ID,
-                typeof(PathItem)
+                create_path
                 );
 
             m_types.@set(
                 PinItem.TYPE_ID,
-                typeof(PinItem)
+                create_pin
                 );
 
             m_types.@set(
                 TextItem.TYPE_ID,
-                typeof(TextItem)
+                create_text
                 );
         }
 
@@ -108,7 +108,9 @@ namespace Geda3
 
                 if (line == null)
                 {
-                    // unexpected end of file
+                    throw new ParseError.UNKEXPECTED_END_OF_FILE(
+                        @"Unexpected end of file"
+                        );
                 }
 
                 params = line.split(" ");
@@ -121,6 +123,9 @@ namespace Geda3
 
                     if (child_item == null)
                     {
+                    throw new ParseError.UNKNOWN_ITEM_TYPE(
+                        @"Type '$id' cannot be attached as an attribute"
+                        );
                     }
 
                     parent_item.attach(child_item);
@@ -129,7 +134,9 @@ namespace Geda3
 
                     if (line == null)
                     {
-                        // unexpected end of file
+                        throw new ParseError.UNKEXPECTED_END_OF_FILE(
+                            @"Unexpected end of file"
+                            );
                     }
 
                     params = line.split(" ");
@@ -158,16 +165,16 @@ namespace Geda3
         {
             var id = params[0];
 
-            if (!m_types.has_key(id))
+            var creator = m_types[id];
+
+            if (creator == null)
             {
                 throw new ParseError.UNKNOWN_ITEM_TYPE(
                     @"Unknown item type '$id'"
                     );
             }
 
-            var type = m_types[id];
-
-            var item = Object.@new(type) as SchematicItem;
+            var item = creator();
 
             return_val_if_fail(item != null, null);
 
@@ -175,6 +182,13 @@ namespace Geda3
 
             return item;
         }
+
+
+        /**
+         * 
+         */
+        [CCode(has_target=false)]
+        private delegate SchematicItem CreateFunc();
 
 
         /**
@@ -187,6 +201,66 @@ namespace Geda3
          * the schematic item. This type must derive from
          * SchematicItem.
          */
-        private Gee.HashMap<string,Type> m_types;
+        private Gee.HashMap<string,CreateFunc> m_types;
+
+
+        private static SchematicItem create_arc()
+        {
+            return new ArcItem();
+        }
+
+
+        private static SchematicItem create_box()
+        {
+            return new BoxItem();
+        }
+
+
+        private static SchematicItem create_bus()
+        {
+            return new BusItem();
+        }
+
+
+        private static SchematicItem create_complex()
+        {
+            return new ComplexItem();
+        }
+
+
+        private static SchematicItem create_circle()
+        {
+            return new CircleItem();
+        }
+
+
+        private static SchematicItem create_line()
+        {
+            return new LineItem();
+        }
+
+
+        private static SchematicItem create_net()
+        {
+            return new NetItem();
+        }
+
+
+        private static SchematicItem create_path()
+        {
+            return new PathItem();
+        }
+
+
+        private static SchematicItem create_pin()
+        {
+            return new PinItem();
+        }
+
+
+        private static SchematicItem create_text()
+        {
+            return new TextItem();
+        }
     }
 }
