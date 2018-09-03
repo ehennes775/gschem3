@@ -17,7 +17,7 @@ namespace Geda3
          * Returning false indacates a command was not found and
          * processing should stop.
          */
-        public bool parse_command(string path, ref int index, out unichar command)
+        public bool parse_command(string path, ref int index, out unichar command) throws ParseError
         {
             var success = skip_whitespace(path, ref index);
 
@@ -25,7 +25,14 @@ namespace Geda3
             {
                 success = path.get_next_char(ref index, out command);
             }
-            
+
+            if (success && !command.isalpha())
+            {
+                throw new ParseError.EXPECTING_PATH_COMMAND(
+                    @"Expecting path command '$(command)'"
+                    );
+            }
+
             return success;
         }
 
@@ -59,30 +66,30 @@ namespace Geda3
             if (current == ',')
             {
                 success = skip_whitespace(path, ref index);
-            }
 
-            if (success)
-            {
-                success = path.get_next_char(ref index, out current);
-            }
+                if (success)
+                {
+                    success = path.get_next_char(ref index, out current);
+                }
 
-            if (!success)
-            {
-                throw new ParseError.EXPECTING_PATH_PARAMETER(
-                    "Expecting path parameter"
-                    );
+                if (!success)
+                {
+                    throw new ParseError.EXPECTING_PATH_PARAMETER(
+                        "Expecting path parameter"
+                        );
+                }
             }
 
             if (current == '-')
             {
                 success = path.get_next_char(ref index, out current);
-            }
 
-            if (!success)
-            {
-                throw new ParseError.EXPECTING_PATH_PARAMETER(
-                    "Expecting path parameter"
-                    );
+                if (!success)
+                {
+                    throw new ParseError.EXPECTING_PATH_PARAMETER(
+                        "Expecting path parameter"
+                        );
+                }
             }
 
             var index1 = index;

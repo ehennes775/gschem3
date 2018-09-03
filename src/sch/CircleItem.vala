@@ -264,6 +264,7 @@ namespace Geda3
                 line_style.dash_length,
                 line_style.dash_space
                 );
+            painter.set_fill_type(fill_style.fill_type);
             painter.set_width(b_width);
 
             painter.draw_circle(b_center_x, b_center_y, b_radius);

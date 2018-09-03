@@ -116,6 +116,8 @@ namespace Geda3
         public abstract void set_dash(DashType dash_type, int length, int space);
 
 
+        public abstract void set_fill_type(FillType fill_type);
+
         /**
          * Set the line width
          *

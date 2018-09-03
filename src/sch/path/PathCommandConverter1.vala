@@ -97,10 +97,27 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public string[] convert_to_lines(Gee.List<PathCommand> commands)
+        {
+            var count = commands.size;
+            var lines = new string[count];
+
+            for (int index = 0; index < count; index++)
+            {
+                lines[index] = commands[index].to_path_string();
+            }
+
+            return lines;
+        }
+
+
+        /**
          *
          */
         [CCode (has_target = false)]
-        private delegate PathCommand ConvertFunc(string path, ref int index);
+        private delegate PathCommand ConvertFunc(string path, ref int index) throws ParseError;
 
 
         /**
@@ -112,7 +129,7 @@ namespace Geda3
         /**
          *
          */
-        private static PathCommand ConvertClosePath(string path, ref int index)
+        private static PathCommand ConvertClosePath(string path, ref int index) throws ParseError
         {
             return new ClosePathCommand();
         }
@@ -121,7 +138,7 @@ namespace Geda3
         /**
          *
          */
-        private static PathCommand ConvertAbsoluteLineTo(string path, ref int index)
+        private static PathCommand ConvertAbsoluteLineTo(string path, ref int index) throws ParseError
         {
             var x = ParseUtility.parse_param(path, ref index);
             var y = ParseUtility.parse_param(path, ref index);
@@ -133,7 +150,7 @@ namespace Geda3
         /**
          *
          */
-        private static PathCommand ConvertAbsoluteMoveTo(string path, ref int index)
+        private static PathCommand ConvertAbsoluteMoveTo(string path, ref int index) throws ParseError
         {
             var x = ParseUtility.parse_param(path, ref index);
             var y = ParseUtility.parse_param(path, ref index);
@@ -145,24 +162,24 @@ namespace Geda3
         /**
          *
          */
-        private static PathCommand ConvertRelativeLineTo(string path, ref int index)
+        private static PathCommand ConvertRelativeLineTo(string path, ref int index) throws ParseError
         {
             var x = ParseUtility.parse_param(path, ref index);
             var y = ParseUtility.parse_param(path, ref index);
 
-            return new RelativeLineToCommand();
+            return new RelativeLineToCommand(x, y);
         }
 
 
         /**
          *
          */
-        private static PathCommand ConvertRelativeMoveTo(string path, ref int index)
+        private static PathCommand ConvertRelativeMoveTo(string path, ref int index) throws ParseError
         {
             var x = ParseUtility.parse_param(path, ref index);
             var y = ParseUtility.parse_param(path, ref index);
 
-            return new RelativeMoveToCommand();
+            return new RelativeMoveToCommand(x, y);
         }
     }
 }

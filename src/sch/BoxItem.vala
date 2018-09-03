@@ -190,6 +190,7 @@ namespace Geda3
                 line_style.dash_length,
                 line_style.dash_space
                 );
+            painter.set_fill_type(fill_style.fill_type);
             painter.set_width(b_width);
 
             painter.draw_box(b_lower_x, b_lower_y, b_upper_x, b_upper_y);

@@ -2,6 +2,7 @@ namespace Geda3
 {
     public errordomain ParseError
     {
+        EXPECTING_PATH_COMMAND,
         EXPECTING_PATH_PARAMETER,
         INVALID_INTEGER,
         INVALID_UNITS,

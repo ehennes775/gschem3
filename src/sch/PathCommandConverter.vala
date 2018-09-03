@@ -21,5 +21,14 @@ namespace Geda3
          * @return The sequence of path commands
          */
         public abstract Gee.List<PathCommand> convert_from_string(string path_string) throws ParseError;
+
+
+        /**
+         * Convert path commands in to a path string in multiple lines
+         *
+         * @param commands The commands to convert to a path string
+         * @return The path string in multiple lines
+         */
+        public abstract string[] convert_to_lines(Gee.List<PathCommand> commands);
     }
 }

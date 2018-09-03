@@ -73,7 +73,8 @@ namespace Geda3
             cairo_context.line_to(x1, y1);
             cairo_context.line_to(x0, y1);
             cairo_context.close_path();
-            cairo_context.stroke();
+
+            finish_closed();
         }
 
 
@@ -124,7 +125,8 @@ namespace Geda3
         {
             cairo_context.move_to(center_x + radius, center_y);
             cairo_context.arc(center_x, center_y, radius, 0.0, 2.0 * Math.PI);
-            cairo_context.stroke();
+
+            finish_closed();
         }
 
 
@@ -207,7 +209,7 @@ namespace Geda3
                 command.put(this);
             }
 
-            cairo_context.stroke();
+            finish_closed();
         }
 
 
@@ -384,6 +386,15 @@ namespace Geda3
 
         {
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void set_fill_type(FillType fill_type)
+        {
+            b_fill_type = fill_type;
+        } 
 
 
         /**
@@ -659,6 +670,88 @@ namespace Geda3
 
         {
             cairo_context.rel_move_to(x, y);
+        }
+
+
+        private FillType b_fill_type = FillType.HOLLOW;
+
+
+        /**
+         *
+         */
+        private void finish_closed()
+        {
+            if (b_fill_type == FillType.HOLLOW)
+            {
+                cairo_context.stroke();
+            }
+            else if (b_fill_type == FillType.FILL)
+            {
+                cairo_context.fill_preserve();
+                cairo_context.stroke();
+            }
+            else
+            {
+                cairo_context.stroke_preserve();
+                hatch();
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void hatch()
+        {
+            cairo_context.save();
+
+            cairo_context.set_line_width(10);
+
+            double x0;
+            double x1;
+            double y0;
+            double y1;
+
+            cairo_context.fill_extents(
+                out x0,
+                out y0,
+                out x1,
+                out y1
+                );
+
+            cairo_context.translate(
+                (x1 + x0) / 2.0,
+                (y1 + y0) / 2.0
+                );
+
+            cairo_context.rotate(
+                Angle.to_radians(45)
+                );
+
+            cairo_context.fill_extents(
+                out x0,
+                out y0,
+                out x1,
+                out y1
+                );
+
+            cairo_context.clip();
+
+            for (int dy = -320; dy <= 320; dy += 20)
+            {
+                cairo_context.move_to(
+                    x0,
+                    ((y1 + y0) / 2.0) + dy
+                    );
+
+                cairo_context.line_to(
+                    x1,
+                    ((y1 + y0) / 2.0) + dy
+                    );
+            }
+
+            cairo_context.stroke();
+            cairo_context.restore();
         }
     }
 }

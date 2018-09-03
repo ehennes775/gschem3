@@ -169,6 +169,7 @@ namespace Geda3
                 line_style.dash_length,
                 line_style.dash_space
                 );
+            painter.set_fill_type(fill_style.fill_type);
             painter.set_width(b_width);
 
             painter.draw_path(b_commands);
@@ -198,14 +199,14 @@ namespace Geda3
 
             var line_count = Coord.parse(params[13]);
 
-            b_lines = new string[line_count];
+            var lines = new string[line_count];
 
             for (int index = 0; index < line_count; index++)
             {
-                b_lines[index] = stream.read_line(null);
+                lines[index] = stream.read_line(null);
             }
 
-            b_commands = b_converter.convert_from_lines(b_lines);
+            b_commands = b_converter.convert_from_lines(lines);
         }
 
 
@@ -236,6 +237,8 @@ namespace Geda3
          */
         public override void write(DataOutputStream stream) throws IOError
         {
+            var lines = b_converter.convert_to_lines(b_commands);
+
             var output = "%s %d %d %d %d %d %d %d %d %d %d %d %d %d\n".printf(
                 TYPE_ID,
                 b_color,
@@ -250,14 +253,14 @@ namespace Geda3
                 b_fill_style.fill_type.uses_first_set() ? b_fill_style.fill_pitch_1 : -1,
                 b_fill_style.fill_type.uses_second_set() ? b_fill_style.fill_angle_2 : -1,
                 b_fill_style.fill_type.uses_second_set() ? b_fill_style.fill_pitch_2 : -1,
-                b_lines.length
+                lines.length
                 );
 
             stream.write_all(output.data, null);
 
-            for (int index = 0; index < b_lines.length; index++)
+            for (int index = 0; index < lines.length; index++)
             {
-                stream.put_string(b_lines[index]);
+                stream.put_string(lines[index]);
                 stream.put_string("\n");
             }
         }
@@ -291,12 +294,6 @@ namespace Geda3
          * The backing store for the line style
          */
         private LineStyle b_line_style;
-
-
-        /**
-         * Backing store for original path
-         */
-        private string[] b_lines;
 
 
         /**

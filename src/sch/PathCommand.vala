@@ -9,5 +9,11 @@ namespace Geda3
          *
          */
         public abstract void put(PathCommandReceiver receiver);
+
+
+        /**
+         *
+         */
+        public abstract string to_path_string();
     }
 }

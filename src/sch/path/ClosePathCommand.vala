@@ -6,11 +6,19 @@ namespace Geda3
     public class ClosePathCommand : PathCommand
     {
         /**
-         *
+         * The ID used in path strings
          *
          * The close path command can either be upper or lower case.
          */
         public const char ID = 'z';
+
+
+        /**
+         * Initilaze a new instance
+         */
+        public ClosePathCommand()
+        {
+        }
 
 
         /**
@@ -19,6 +27,14 @@ namespace Geda3
         public override void put(PathCommandReceiver receiver)
         {
             receiver.close_path();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public override string to_path_string()
+        {
+            return @"$(ID)";
         }
     }
 }
