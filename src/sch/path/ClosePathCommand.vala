@@ -32,6 +32,14 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void build_grips(Gee.List<Grip> grips)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.close_path();

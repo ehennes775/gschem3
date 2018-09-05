@@ -3,7 +3,8 @@ namespace Geda3
     /**
      * Represents a graphical path on a schematic or symbol
      */
-    public class PathItem : SchematicItem
+    public class PathItem : SchematicItem,
+        Grippable
     {
         /**
          * The type code, for a path, used in schematic files
@@ -152,6 +153,22 @@ namespace Geda3
             bounds.expand(expand, expand);
 
             return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gee.Collection<Grip> create_grips()
+        {
+            var grips = new Gee.ArrayList<Grip>();
+
+            foreach (var command in b_commands)
+            {
+                command.build_grips(grips);
+            }
+
+            return grips;
         }
 
 

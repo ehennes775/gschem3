@@ -40,6 +40,15 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void build_grips(Gee.List<Grip> grips)
+        {
+            grips.add(new PointGrip(this, 0));
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public void get_point(int index, out int x, out int y)
         {
             x = b_x;
