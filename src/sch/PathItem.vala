@@ -140,6 +140,16 @@ namespace Geda3
             )
         {
             var bounds = Bounds();
+            var context = PathContext();
+
+            foreach (var command in b_commands)
+            {
+                command.build_bounds(ref context, ref bounds);
+            }
+
+            var expand = (int) Math.ceil(0.5 * Math.SQRT2 * b_width);
+
+            bounds.expand(expand, expand);
 
             return bounds;
         }

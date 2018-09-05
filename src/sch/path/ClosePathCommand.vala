@@ -24,6 +24,14 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void build_bounds(ref PathContext context, ref Bounds bounds)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.close_path();

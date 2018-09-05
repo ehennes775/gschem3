@@ -27,6 +27,18 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void build_bounds(ref PathContext context, ref Bounds bounds)
+        {
+            context.current_x += b_x;
+            context.current_y += b_y;
+            context.move_to_x = context.current_x;
+            context.move_to_y = context.current_y;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.move_to_relative(b_x, b_y);

@@ -108,9 +108,15 @@ namespace Geda3
             bool selected
             )
         {
-            if (m_schematic != null)
+            if (m_symbol != null)
             {
-                painter.draw_items(b_insert_x, b_insert_y, m_schematic.items);
+                m_symbol.draw(
+                    b_insert_x,
+                    b_insert_y,
+                    painter,
+                    reveal,
+                    selected
+                    );
             }
 
             foreach (var attribute in m_attributes)
@@ -141,7 +147,7 @@ namespace Geda3
             b_mirror = Coord.parse(params[5]);
             b_name = params[6];
 
-            m_schematic = library.@get(b_name);
+            m_symbol = library.@get(b_name);
         }
 
 
@@ -224,7 +230,7 @@ namespace Geda3
         private string b_name;
 
 
-        private Schematic m_schematic;
+        private ComplexSymbol m_symbol;
 
         /**
          * Backing store indicating the component is selctable

@@ -27,6 +27,25 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void build_bounds(ref PathContext context, ref Bounds bounds)
+        {
+            var temp_bounds = new Bounds.with_points(
+                context.current_x,
+                context.current_y,
+                b_x,
+                b_y
+                );
+
+            bounds.union(temp_bounds);
+
+            context.current_x = b_x;
+            context.current_y = b_y;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.line_to_absolute(b_x, b_y);

@@ -8,6 +8,12 @@ namespace Geda3
         /**
          *
          */
+        public abstract void build_bounds(ref PathContext context, ref Bounds bounds);
+
+
+        /**
+         *
+         */
         public abstract void put(PathCommandReceiver receiver);
 
 

@@ -56,6 +56,7 @@ libgeda3_a_SOURCES = \
 	sch/Color.vala \
 	sch/ComplexItem.vala \
 	sch/ComplexLibrary.vala \
+	sch/ComplexSymbol.vala \
 	sch/Coord.vala \
 	sch/DashType.vala \
 	sch/FileVersion.vala \
@@ -65,6 +66,7 @@ libgeda3_a_SOURCES = \
 	sch/LineStyle.vala \
 	sch/NetItem.vala \
 	sch/PathCommand.vala \
+	sch/PathContext.vala \
 	sch/PathCommandConverter.vala \
 	sch/PathCommandReceiver.vala \
 	sch/PathItem.vala \
