@@ -3,7 +3,8 @@ namespace Geda3
     /**
      * Represents a line to path command with relative coordinates
      */
-    public class RelativeLineToCommand : PathCommand
+    public class RelativeLineToCommand : PathCommand,
+        GrippablePoints
     {
         /**
          * The ID used in path strings
@@ -29,7 +30,7 @@ namespace Geda3
          */
         public override void build_bounds(ref PathContext context, ref Bounds bounds)
         {
-            var temp_bounds = new Bounds.with_points(
+            var temp_bounds = Bounds.with_points(
                 context.current_x,
                 context.current_y,
                 context.current_x + b_x,
@@ -46,9 +47,34 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public void get_point(int index, out int x, out int y)
+        {
+            x = b_x;
+            y = b_y;
+
+            return_if_fail(index != 0);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.line_to_relative(b_x, b_y);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void set_point(int index, int x, int y)
+
+            requires(index == 0)
+
+        {
+            b_x = x;
+            b_y = y;
         }
 
 

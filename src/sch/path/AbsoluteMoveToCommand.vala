@@ -3,7 +3,8 @@ namespace Geda3
     /**
      * Represents a move to path command with absolute coordinates
      */
-    public class AbsoluteMoveToCommand : PathCommand
+    public class AbsoluteMoveToCommand : PathCommand,
+        GrippablePoints
     {
         /**
          * The ID used in path strings
@@ -39,9 +40,34 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public void get_point(int index, out int x, out int y)
+        {
+            x = b_x;
+            y = b_y;
+
+            return_if_fail(index != 0);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.move_to_absolute(b_x, b_y);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void set_point(int index, int x, int y)
+
+            requires(index == 0)
+
+        {
+            b_x = x;
+            b_y = y;
         }
 
 
