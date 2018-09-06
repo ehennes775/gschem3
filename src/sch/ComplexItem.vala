@@ -87,6 +87,34 @@ namespace Geda3
         {
             var bounds = Bounds();
 
+            foreach (var item in m_unpromoted_items)
+            {
+                // temporary workaround for text bounds being erroneous
+                if (item is TextItem)
+                {
+                    continue;
+                }
+            
+                var temp_bounds = item.calculate_bounds(
+                    painter,
+                    reveal
+                    );
+
+                temp_bounds.translate(b_insert_x, b_insert_y);
+
+                bounds.union(temp_bounds);
+            }
+
+            foreach (var attribute in m_attributes)
+            {
+                var temp_bounds = attribute.calculate_bounds(
+                    painter,
+                    reveal
+                    );
+
+                bounds.union(temp_bounds);
+            }
+
             return bounds;
         }
 
