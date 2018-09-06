@@ -48,6 +48,7 @@ namespace Geda3
         construct
         {
             m_attributes = new Gee.LinkedList<AttributeChild>();
+            m_unpromoted_items = new Gee.ArrayList<SchematicItem>();
         }
 
 
@@ -71,6 +72,8 @@ namespace Geda3
 
         {
             m_attributes.add(attribute);
+
+            m_unpromoted_items = fetch_unpromoted_items();
         }
 
 
@@ -108,16 +111,22 @@ namespace Geda3
             bool selected
             )
         {
-            if (m_symbol != null)
-            {
-                m_symbol.draw(
-                    b_insert_x,
-                    b_insert_y,
-                    painter,
-                    reveal,
-                    selected
-                    );
-            }
+            //if (m_symbol != null)
+            //{
+            //   m_symbol.draw(
+            //        b_insert_x,
+            //        b_insert_y,
+            //        painter,
+            //        reveal,
+            //        selected
+            //        );
+            //}
+
+            painter.draw_items(
+                b_insert_x,
+                b_insert_y,
+                m_unpromoted_items
+                );
 
             foreach (var attribute in m_attributes)
             {
@@ -148,6 +157,8 @@ namespace Geda3
             b_name = params[6];
 
             m_symbol = library.@get(b_name);
+
+            m_unpromoted_items = fetch_unpromoted_items();
         }
 
 
@@ -232,9 +243,90 @@ namespace Geda3
 
         private ComplexSymbol m_symbol;
 
+
         /**
          * Backing store indicating the component is selctable
          */
         private int b_selectable;
+
+
+        /**
+         * A list of the unpromoted schematic items
+         */
+        private Gee.List<SchematicItem> m_unpromoted_items;
+
+
+        /**
+         * Provides a set of the promoted attribute names
+         *
+         * @return A set of the promoted attribute names
+         */
+        private Gee.Set<string> fetch_promoted_names()
+        {
+            var promoted = new Gee.HashSet<string>();
+
+            return_val_if_fail(m_attributes != null, promoted);
+
+            foreach (var attribute in m_attributes)
+            {
+                var name = attribute.name;
+
+                if (name == null)
+                {
+                    continue;
+                }
+
+                promoted.add(name);
+            }
+
+            return promoted;
+        }
+
+
+        /**
+         * Provides a list of items, in the symbol, that have not been
+         * promoted
+         *
+         * @return A list of the schematic items that have not been
+         * promoted.
+         */
+        private Gee.List<SchematicItem> fetch_unpromoted_items()
+        {
+            var promoted = fetch_promoted_names();
+            var unpromoted = new Gee.ArrayList<SchematicItem>();
+
+            return_val_if_fail(m_symbol != null, unpromoted);
+            return_val_if_fail(m_symbol.schematic != null, unpromoted);
+            return_val_if_fail(m_symbol.schematic.items != null, unpromoted);
+            return_val_if_fail(promoted != null, unpromoted);
+
+            foreach (var item in m_symbol.schematic.items)
+            {
+                var attribute = item as AttributeChild;
+
+                if (attribute == null)
+                {
+                    unpromoted.add(item);
+                    continue;
+                }
+
+                var name = attribute.name;
+
+                if (name == null)
+                {
+                    unpromoted.add(item);
+                    continue;
+                }
+
+                if (promoted.contains(name))
+                {
+                    continue;
+                }
+
+                unpromoted.add(item);
+            }
+
+            return unpromoted;
+        }
     }
 }
