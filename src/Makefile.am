@@ -141,7 +141,30 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
+	gui/DocumentTab.vala \
+	gui/DocumentWindow.vala \
 	gui/DrawingTool.vala \
+	gui/ErrorDialog.vala \
+	gui/ExportBillOfMaterial.vala \
+	gui/ExportBillOfMaterialDialog.vala \
+	gui/ExportNetlist.vala \
+	gui/ExportNetlistDialog.vala \
+	gui/ExportSchematics.vala \
+	gui/Grid.vala \
+	gui/LibraryAdapter.vala \
+	gui/LibraryWidget.vala \
+	gui/MainWindow.vala \
+	gui/NewProjectDialog.vala \
+	gui/PreviewWidget.vala \
+	gui/ProjectAdapter.vala \
+	gui/ProjectWidget.vala \
+	gui/Reloadable.vala \
+	gui/Savable.vala \
+	gui/SchematicWindow.vala \
+	gui/SchematicWindowSettings.vala \
+	gui/Zoomable.vala \
+	gui/grid/MeshGrid.vala \
+	gui/grid/NoGrid.vala \
 	gui/tool/ArcTool.vala \
 	gui/tool/DrawingToolBox.vala \
 	gui/tool/DrawingToolBus.vala \
@@ -151,30 +174,7 @@ libgschem3_a_SOURCES = \
 	gui/tool/DrawingToolSelect.vala \
 	gui/tool/PinTool.vala \
 	gui/tool/LineTool.vala \
-	gui/tool/ZoomTool.vala \
-	DocumentTab.vala \
-	DocumentWindow.vala \
-	ErrorDialog.vala \
-	ExportBillOfMaterial.vala \
-	ExportBillOfMaterialDialog.vala \
-	ExportNetlist.vala \
-	ExportNetlistDialog.vala \
-	ExportSchematics.vala \
-	Grid.vala \
-	LibraryAdapter.vala \
-	LibraryWidget.vala \
-	MainWindow.vala \
-	MeshGrid.vala \
-	NewProjectDialog.vala \
-	NoGrid.vala \
-	PreviewWidget.vala \
-	ProjectAdapter.vala \
-	ProjectWidget.vala \
-	Reloadable.vala \
-	Savable.vala \
-	SchematicWindow.vala \
-	SchematicWindowSettings.vala \
-	Zoomable.vala
+	gui/tool/ZoomTool.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \
