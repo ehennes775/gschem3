@@ -48,6 +48,12 @@ libgeda3_a_SOURCES = \
 	prj/ProjectFolder.vala \
 	prj/ProjectIcon.vala \
 	prj/ProjectItem.vala \
+	prj/ProjectItemAdapter.vala \
+	prj/ProjectStorage.vala \
+	prj/key/KeyFileProjectStorage.vala \
+	prj/key/KeyFileSymbolFolder.vala \
+	prj/key/KeyFileSymbolLibrary.vala \
+	prj/key/KeyProjectFileMapper.vala \
 	sch/Angle.vala \
 	sch/AttributeChild.vala \
 	sch/AttributeParent.vala \
@@ -80,6 +86,7 @@ libgeda3_a_SOURCES = \
 	sch/PathItem.vala \
 	sch/PinItem.vala \
 	sch/PinType.vala \
+	sch/PointGrip.vala \
 	sch/Schematic.vala \
 	sch/SchematicPainter.vala \
 	sch/SchematicReader.vala \
@@ -101,10 +108,6 @@ libgeda3_a_SOURCES = \
 	Fileable.vala \
 	GeeEx.vala \
 	Invalidatable.vala \
-	KeyFileProjectStorage.vala \
-	KeyFileSymbolFolder.vala \
-	KeyFileSymbolLibrary.vala \
-	KeyProjectFileMapper.vala \
 	LibraryFile.vala \
 	LibraryFolder.vala \
 	LibraryItem.vala \
@@ -116,13 +119,10 @@ libgeda3_a_SOURCES = \
 	PinItemGroup.vala \
 	PinSettings.vala \
 	PinUpdater.vala \
-	PointGrip.vala \
 	PrintDimension.vala \
 	PrintFormat.vala \
 	PrintOrientation.vala \
 	PrintUnits.vala \
-	ProjectItemAdapter.vala \
-	ProjectStorage.vala \
 	RemovableItem.vala \
 	RenamableItem.vala \
 	SchematicFile.vala \
