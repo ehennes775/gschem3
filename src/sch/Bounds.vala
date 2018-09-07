@@ -228,10 +228,13 @@ namespace Geda3
          */
         public void translate(int dx, int dy)
         {
-            min_x += dx;
-            min_y += dy;
-            max_x += dx;
-            max_y += dy;
+            if (!empty())
+            {
+                min_x += dx;
+                min_y += dy;
+                max_x += dx;
+                max_y += dy;
+            }
         }
 
 

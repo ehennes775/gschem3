@@ -89,11 +89,6 @@ namespace Geda3
 
             foreach (var item in m_unpromoted_items)
             {
-                // temporary workaround for text bounds being erroneous
-                if (item is TextItem)
-                {
-                    continue;
-                }
             
                 var temp_bounds = item.calculate_bounds(
                     painter,
