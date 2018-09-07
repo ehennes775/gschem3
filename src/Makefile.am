@@ -43,6 +43,9 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
+	lib/LibraryFile.vala \
+	lib/LibraryFolder.vala \
+	lib/LibraryItem.vala \
 	prj/Project.vala \
 	prj/ProjectFile.vala \
 	prj/ProjectFolder.vala \
@@ -108,9 +111,6 @@ libgeda3_a_SOURCES = \
 	Fileable.vala \
 	GeeEx.vala \
 	Invalidatable.vala \
-	LibraryFile.vala \
-	LibraryFolder.vala \
-	LibraryItem.vala \
 	Mapper.vala \
 	MapError.vala \
 	NullMapper.vala \
