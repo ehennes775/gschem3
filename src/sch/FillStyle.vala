@@ -12,31 +12,31 @@ namespace Geda3
         /**
          * The default first fill angle
          */
-        public static const int DEFAULT_ANGLE_1 = 45;
+        public const int DEFAULT_ANGLE_1 = 45;
 
 
         /**
          * The default second fill angle
          */
-        public static const int DEFAULT_ANGLE_2 = 135;
+        public const int DEFAULT_ANGLE_2 = 135;
 
 
         /**
          * The first fill pitch
          */
-        public static const int DEFAULT_PITCH_1 = 50;
+        public const int DEFAULT_PITCH_1 = 50;
 
 
         /**
          * The second fill pitch
          */
-        public static const int DEFAULT_PITCH_2 = 50;
+        public const int DEFAULT_PITCH_2 = 50;
 
 
         /**
          * The default width
          */
-        public static const int DEFAULT_WIDTH = 10;
+        public const int DEFAULT_WIDTH = 10;
 
 
         /**

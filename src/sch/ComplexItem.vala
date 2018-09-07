@@ -134,17 +134,6 @@ namespace Geda3
             bool selected
             )
         {
-            //if (m_symbol != null)
-            //{
-            //   m_symbol.draw(
-            //        b_insert_x,
-            //        b_insert_y,
-            //        painter,
-            //        reveal,
-            //        selected
-            //        );
-            //}
-
             painter.draw_items(
                 b_insert_x,
                 b_insert_y,

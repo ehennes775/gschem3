@@ -43,6 +43,11 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
+	prj/Project.vala \
+	prj/ProjectFile.vala \
+	prj/ProjectFolder.vala \
+	prj/ProjectIcon.vala \
+	prj/ProjectItem.vala \
 	sch/Angle.vala \
 	sch/AttributeChild.vala \
 	sch/AttributeParent.vala \
@@ -62,6 +67,9 @@ libgeda3_a_SOURCES = \
 	sch/FileVersion.vala \
 	sch/FillStyle.vala \
 	sch/FillType.vala \
+	sch/Grip.vala \
+	sch/Grippable.vala \
+	sch/GrippablePoints.vala \
 	sch/LineItem.vala \
 	sch/LineStyle.vala \
 	sch/NetItem.vala \
@@ -72,6 +80,9 @@ libgeda3_a_SOURCES = \
 	sch/PathItem.vala \
 	sch/PinItem.vala \
 	sch/PinType.vala \
+	sch/Schematic.vala \
+	sch/SchematicPainter.vala \
+	sch/SchematicReader.vala \
 	sch/Sweep.vala \
 	sch/TextAlignment.vala \
 	sch/TextItem.vala \
@@ -89,9 +100,6 @@ libgeda3_a_SOURCES = \
 	CustomAction.vala \
 	Fileable.vala \
 	GeeEx.vala \
-	Grip.vala \
-	Grippable.vala \
-	GrippablePoints.vala \
 	Invalidatable.vala \
 	KeyFileProjectStorage.vala \
 	KeyFileSymbolFolder.vala \
@@ -113,22 +121,14 @@ libgeda3_a_SOURCES = \
 	PrintFormat.vala \
 	PrintOrientation.vala \
 	PrintUnits.vala \
-	Project.vala \
-	ProjectFile.vala \
-	ProjectFolder.vala \
-	ProjectIcon.vala \
-	ProjectItem.vala \
 	ProjectItemAdapter.vala \
 	ProjectStorage.vala \
 	RemovableItem.vala \
 	RenamableItem.vala \
-	Schematic.vala \
 	SchematicFile.vala \
 	SchematicItem.vala \
 	SchematicList.vala \
-	SchematicPainter.vala \
 	SchematicPainterCairo.vala \
-	SchematicReader.vala \
 	Symbol.vala \
 	SymbolLibrary.vala
 
@@ -141,16 +141,19 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
-	ArcTool.vala \
+	gui/DrawingTool.vala \
+	gui/tool/ArcTool.vala \
+	gui/tool/DrawingToolBox.vala \
+	gui/tool/DrawingToolBus.vala \
+	gui/tool/DrawingToolCircle.vala \
+	gui/tool/DrawingToolNet.vala \
+	gui/tool/DrawingToolPath.vala \
+	gui/tool/DrawingToolSelect.vala \
+	gui/tool/PinTool.vala \
+	gui/tool/LineTool.vala \
+	gui/tool/ZoomTool.vala \
 	DocumentTab.vala \
 	DocumentWindow.vala \
-	DrawingTool.vala \
-	DrawingToolBox.vala \
-	DrawingToolBus.vala \
-	DrawingToolCircle.vala \
-	DrawingToolNet.vala \
-	DrawingToolPath.vala \
-	DrawingToolSelect.vala \
 	ErrorDialog.vala \
 	ExportBillOfMaterial.vala \
 	ExportBillOfMaterialDialog.vala \
@@ -158,7 +161,6 @@ libgschem3_a_SOURCES = \
 	ExportNetlistDialog.vala \
 	ExportSchematics.vala \
 	Grid.vala \
-	LineTool.vala \
 	LibraryAdapter.vala \
 	LibraryWidget.vala \
 	MainWindow.vala \
@@ -166,15 +168,13 @@ libgschem3_a_SOURCES = \
 	NewProjectDialog.vala \
 	NoGrid.vala \
 	PreviewWidget.vala \
-	PinTool.vala \
 	ProjectAdapter.vala \
 	ProjectWidget.vala \
 	Reloadable.vala \
 	Savable.vala \
 	SchematicWindow.vala \
 	SchematicWindowSettings.vala \
-	Zoomable.vala \
-	ZoomTool.vala
+	Zoomable.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \
