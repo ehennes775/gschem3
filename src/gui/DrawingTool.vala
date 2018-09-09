@@ -39,6 +39,12 @@ namespace Gschem3
         /**
          *
          */
+        public const string ComplexName = "complex";
+
+
+        /**
+         *
+         */
         public const string LineName = "line";
 
 

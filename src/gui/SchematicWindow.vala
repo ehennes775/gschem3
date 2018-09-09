@@ -129,6 +129,7 @@ namespace Gschem3
             m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(this));
             m_tools.@set(DrawingTool.BusName, new DrawingToolBus(this));
             m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(this));
+            m_tools.@set(DrawingTool.ComplexName, new ComplexTool(this));
             m_tools.@set(DrawingTool.LineName, new LineTool(this));
             m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
             m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));

@@ -166,6 +166,7 @@ libgschem3_a_SOURCES = \
 	gui/grid/MeshGrid.vala \
 	gui/grid/NoGrid.vala \
 	gui/tool/ArcTool.vala \
+	gui/tool/ComplexTool.vala \
 	gui/tool/DrawingToolBox.vala \
 	gui/tool/DrawingToolBus.vala \
 	gui/tool/DrawingToolCircle.vala \

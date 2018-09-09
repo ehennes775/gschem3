@@ -139,6 +139,14 @@
                             </object>
                         </child>
                         <child>
+                            <object class="GtkToggleToolButton" id="tool-complex">
+                                <property name="label">CX</property>
+                                <property name="action-name">win.select-tool</property>
+                                <property name="action-target">'complex'</property>
+                                <!--<property name="icon-widget">icon-tool-complex</property>-->
+                            </object>
+                        </child>
+                        <child>
                             <object class="GtkSeparatorToolItem" id="tool-separator-1">
                             </object>
                         </child>
