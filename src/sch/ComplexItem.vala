@@ -64,6 +64,28 @@ namespace Geda3
 
 
         /**
+         * Initialize a new instance
+         */
+        public ComplexItem.with_name(ComplexLibrary library, string name)
+        {
+            Object(
+                library : library
+                );
+
+            b_insert_x = 0;
+            b_insert_y = 0;
+            b_selectable = 1;
+            b_angle = 0;
+            b_mirror = 0;
+            b_name = name;
+
+            m_symbol = library.@get(b_name);
+
+            m_unpromoted_items = fetch_unpromoted_items();
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public void attach(AttributeChild attribute)

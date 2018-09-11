@@ -13,6 +13,9 @@ namespace Gschem3
         public ComplexTool(SchematicWindow window)
         {
             base(window);
+
+            // temp for development
+            complex = new Geda3.ComplexItem.with_name(m_library, "ech-crystal-4.sym");
         }
 
 
@@ -24,6 +27,19 @@ namespace Gschem3
             requires(m_window != null)
 
         {
+            if (complex != null)
+            {
+                m_window.add_item(complex);
+            }
+
+            // temp for development
+            complex = new Geda3.ComplexItem.with_name(m_library, "ech-crystal-4.sym");
+
+            m_x = event.x;
+            m_y = event.y;
+
+            update();
+
             return true;
         }
 
@@ -33,7 +49,7 @@ namespace Gschem3
          */
         public override void cancel()
         {
-            complex = null;
+            //complex = null;
         }
 
 
@@ -63,7 +79,14 @@ namespace Gschem3
          */
         public override bool motion_notify(Gdk.EventMotion event)
         {
-            return base.motion_notify(event);
+            base.motion_notify(event);
+
+            m_x = event.x;
+            m_y = event.y;
+
+            update();
+
+            return false;
         }
 
 
@@ -72,7 +95,7 @@ namespace Gschem3
          */
         public override void reset()
         {
-            complex = null;
+            //complex = null;
         }
 
 
@@ -103,13 +126,31 @@ namespace Gschem3
             requires(m_window != null)
 
         {
+            if (b_complex != null)
+            {
+                var x = m_x;
+                var y = m_y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                b_complex.set_point(0, ix, iy);
+            }
         }
 
 
         /**
-         * The arc currently being drawn
+         * The complex item currently being placed
          */
         private Geda3.ComplexItem? b_complex = null;
+
+
+        // temp located here for development
+        private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
 
 
         /**
