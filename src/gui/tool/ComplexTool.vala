@@ -70,6 +70,26 @@ namespace Gschem3
          */
         public override bool key_pressed(Gdk.EventKey event)
         {
+                        stdout.printf("Here\n");
+
+            if (complex != null)
+            {
+                uint keyval;
+
+                if (event.get_keyval(out keyval))
+                {
+                    if (keyval == Gdk.Key.i)
+                    {
+                    }
+                    else if (keyval == Gdk.Key.r)
+                    {
+                        stdout.printf("Rotating\n");
+                        
+                        complex.angle = Geda3.Angle.normalize(complex.angle + 90);
+                    }
+                }
+            }
+
             return base.key_pressed(event);
         }
 

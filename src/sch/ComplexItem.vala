@@ -21,6 +21,27 @@ namespace Geda3
 
 
         /**
+         *
+         */
+        public int angle
+        {
+            get
+            {
+                return b_angle;
+            }
+            construct set
+            {
+                invalidate(this);
+
+                b_angle = value;
+
+                invalidate(this);
+            }
+            default = 0;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public Gee.List<AttributeChild> attributes
@@ -75,7 +96,6 @@ namespace Geda3
             b_insert_x = 0;
             b_insert_y = 0;
             b_selectable = 1;
-            b_angle = 0;
             b_mirror = 0;
             b_name = name;
 
@@ -111,12 +131,12 @@ namespace Geda3
 
             foreach (var item in m_unpromoted_items)
             {
-            
                 var temp_bounds = item.calculate_bounds(
                     painter,
                     reveal
                     );
 
+                temp_bounds.rotate(b_angle);
                 temp_bounds.translate(b_insert_x, b_insert_y);
 
                 bounds.union(temp_bounds);
@@ -159,6 +179,7 @@ namespace Geda3
             painter.draw_items(
                 b_insert_x,
                 b_insert_y,
+                b_angle,
                 m_unpromoted_items
                 );
 
