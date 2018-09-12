@@ -1,4 +1,3 @@
-
 namespace Geda3
 {
     /**
@@ -60,6 +59,27 @@ namespace Geda3
         {
             get;
             construct;
+        }
+
+
+        /**
+         *
+         */
+        public bool mirror
+        {
+            get
+            {
+                return b_mirror != 0;
+            }
+            construct set
+            {
+                invalidate(this);
+
+                b_mirror = value ? 1 : 0;
+
+                invalidate(this);
+            }
+            default = false;
         }
 
 
@@ -136,6 +156,14 @@ namespace Geda3
                     reveal
                     );
 
+                // Process in the order of mirror, rotate, translate to
+                // be compatible with the file format.
+
+                if (b_mirror != 0)
+                {
+                    temp_bounds.mirror_x();
+                }
+
                 temp_bounds.rotate(b_angle);
                 temp_bounds.translate(b_insert_x, b_insert_y);
 
@@ -180,6 +208,7 @@ namespace Geda3
                 b_insert_x,
                 b_insert_y,
                 b_angle,
+                b_mirror != 0,
                 m_unpromoted_items
                 );
 

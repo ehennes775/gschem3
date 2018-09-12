@@ -182,12 +182,29 @@ namespace Geda3
         }
 
 
-        public override void draw_items(int x, int y, int angle, Gee.Collection<SchematicItem> items)
+        public override void draw_items(
+            int x,
+            int y,
+            int angle,
+            bool mirror,
+            Gee.Collection<SchematicItem> items
+            )
         {
             cairo_context.save();
 
+            // Peform in the order of translate, rotate, mirror to
+            // maintain compatibility with the file format. Complex
+            // objects apply the properties in that order.
+
             cairo_context.translate(x, y);
             cairo_context.rotate(Geda3.Angle.to_radians(angle));
+
+            if (mirror)
+            {
+                // mirror along the x axis
+
+                cairo_context.scale(-1.0, 1.0);
+            }
 
             foreach (var item in items)
             {
