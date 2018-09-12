@@ -185,6 +185,18 @@ namespace Geda3
 
 
         /**
+         * Mirror the item along the x axis
+         *
+         * This function mirrors the item on the x insertion point.
+         */
+        public void mirror_x()
+        {
+            angle = Angle.normalize(-angle);
+            mirror = !mirror;
+        }
+        
+
+        /**
          * {@inheritDoc}
          */
         public override void invalidate_on(Invalidatable invalidatable)
