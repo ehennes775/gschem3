@@ -84,6 +84,10 @@ namespace Gschem3
                     {
                         complex.angle = Geda3.Angle.normalize(complex.angle + 90);
                     }
+                    else if (keyval == Gdk.Key.R)
+                    {
+                        complex.angle = Geda3.Angle.normalize(complex.angle - 90);
+                    }
                 }
             }
 
