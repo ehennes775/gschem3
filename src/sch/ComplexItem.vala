@@ -232,6 +232,18 @@ namespace Geda3
         
 
         /**
+         * Mirror the item along the y axis
+         *
+         * This function mirrors the item on the y insertion point.
+         */
+        public void mirror_y()
+        {
+            angle = Angle.normalize(180 - angle);
+            mirror = !mirror;
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError

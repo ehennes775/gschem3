@@ -86,14 +86,26 @@ namespace Gschem3
                     if (keyval == Gdk.Key.i)
                     {
                         complex.mirror_x();
+
+                        return true;
+                    }
+                    else if (keyval == Gdk.Key.I)
+                    {
+                        complex.mirror_y();
+
+                        return true;
                     }
                     else if (keyval == Gdk.Key.r)
                     {
                         complex.rotate(90);
+
+                        return true;
                     }
                     else if (keyval == Gdk.Key.R)
                     {
                         complex.rotate(-90);
+
+                        return true;
                     }
                 }
             }
