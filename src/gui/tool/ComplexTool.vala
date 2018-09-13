@@ -26,12 +26,13 @@ namespace Gschem3
          */
         public override bool button_pressed(Gdk.EventButton event)
 
+            requires(m_factory != null)
             requires(m_window != null)
 
         {
-            if (complex != null)
+            if (b_complex != null)
             {
-                m_window.add_item(complex);
+                m_window.add_item(b_complex);
             }
 
             complex = m_factory.create();
