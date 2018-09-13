@@ -185,18 +185,6 @@ namespace Geda3
 
 
         /**
-         * Mirror the item along the x axis
-         *
-         * This function mirrors the item on the x insertion point.
-         */
-        public void mirror_x()
-        {
-            angle = Angle.normalize(-angle);
-            mirror = !mirror;
-        }
-        
-
-        /**
          * {@inheritDoc}
          */
         public override void invalidate_on(Invalidatable invalidatable)
@@ -232,6 +220,18 @@ namespace Geda3
 
 
         /**
+         * Mirror the item along the x axis
+         *
+         * This function mirrors the item on the x insertion point.
+         */
+        public void mirror_x()
+        {
+            angle = Angle.normalize(-angle);
+            mirror = !mirror;
+        }
+        
+
+        /**
          * {@inheritDoc}
          */
         public override void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError
@@ -257,6 +257,17 @@ namespace Geda3
             m_unpromoted_items = fetch_unpromoted_items();
         }
 
+
+        /**
+         * Rotate the item around the insertion point
+         *
+         * @param angle the relative angle to rotate by
+         */
+        public void rotate(int angle)
+        {
+           this.angle = Geda3.Angle.normalize(this.angle + angle);
+        }
+        
 
         /**
          * Change a point on the complex shape

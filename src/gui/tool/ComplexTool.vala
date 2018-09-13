@@ -16,6 +16,8 @@ namespace Gschem3
 
             // temp for development
             complex = new Geda3.ComplexItem.with_name(m_library, "ech-crystal-4.sym");
+
+            m_state = State.S1;
         }
 
 
@@ -49,7 +51,12 @@ namespace Gschem3
          */
         public override void cancel()
         {
-            //complex = null;
+            m_state = State.S1;
+
+            if (b_complex != null)
+            {
+                m_window.invalidate_item(b_complex);
+            }
         }
 
 
@@ -58,7 +65,7 @@ namespace Gschem3
          */
         public override void draw(Geda3.SchematicPainterCairo painter)
         {
-            if (b_complex != null)
+            if ((m_state == State.S1) && (b_complex != null))
             {
                 b_complex.draw(painter, true, true);
             }
@@ -82,11 +89,11 @@ namespace Gschem3
                     }
                     else if (keyval == Gdk.Key.r)
                     {
-                        complex.angle = Geda3.Angle.normalize(complex.angle + 90);
+                        complex.rotate(90);
                     }
                     else if (keyval == Gdk.Key.R)
                     {
-                        complex.angle = Geda3.Angle.normalize(complex.angle - 90);
+                        complex.rotate(-90);
                     }
                 }
             }
@@ -116,7 +123,7 @@ namespace Gschem3
          */
         public override void reset()
         {
-            //complex = null;
+            m_state = State.S1;
         }
 
 
@@ -130,6 +137,8 @@ namespace Gschem3
         {
             m_x = x;
             m_y = y;
+
+            m_state = State.S1;
         }
 
 
@@ -165,6 +174,16 @@ namespace Gschem3
 
 
         /**
+         * States of the drawing tool
+         */
+        private enum State
+        {
+            S0,
+            S1
+        }
+
+
+        /**
          * The complex item currently being placed
          */
         private Geda3.ComplexItem? b_complex = null;
@@ -172,6 +191,12 @@ namespace Gschem3
 
         // temp located here for development
         private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
+
+
+        /**
+         * Stores the current state of the tool
+         */
+        private State m_state;
 
 
         /**
