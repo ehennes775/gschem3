@@ -14,9 +14,9 @@ namespace Gschem3
         {
             base(window);
 
-            // temp for development
-            complex = new Geda3.ComplexItem.with_name(m_library, "ech-crystal-4.sym");
+            m_factory.recreate.connect(on_recreate);
 
+            complex = m_factory.create();
             m_state = State.S1;
         }
 
@@ -34,8 +34,7 @@ namespace Gschem3
                 m_window.add_item(complex);
             }
 
-            // temp for development
-            complex = new Geda3.ComplexItem.with_name(m_library, "ech-crystal-4.sym");
+            complex = m_factory.create();
 
             m_x = event.x;
             m_y = event.y;
@@ -201,8 +200,10 @@ namespace Gschem3
         private Geda3.ComplexItem? b_complex = null;
 
 
-        // temp located here for development
-        private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
+        /**
+         *
+         */
+        private static ComplexFactory m_factory = new ComplexFactory();
 
 
         /**
@@ -267,6 +268,18 @@ namespace Gschem3
 
         {
             m_window.invalidate_item(b_complex);
+        }
+
+
+        /**
+         *
+         */
+        private void on_recreate()
+
+            requires(m_factory != null)
+
+        {
+            complex = m_factory.create();
         }
     }
 }
