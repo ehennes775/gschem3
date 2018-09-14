@@ -6,9 +6,35 @@ namespace Gschem3
     public class MainComplexFactory : ComplexFactory
     {
         /**
+         *
+         */
+        public LibraryWidget library_widget
+        {
+            get
+            {
+                return b_library_widget;
+            }
+            set
+            {
+                if (b_library_widget != null)
+                {
+                    b_library_widget.notify["symbol-name"].disconnect(on_notify_name);
+                }
+
+                b_library_widget = value;
+
+                if (b_library_widget != null)
+                {
+                    b_library_widget.notify["symbol-name"].connect(on_notify_name);
+                }
+            }
+        }
+
+
+        /**
          * {@inheritDoc}
          */
-        public override string name
+        public override string? name
         {
             get
             {
@@ -20,19 +46,16 @@ namespace Gschem3
 
                 recreate();
             }
-            default = "ech-crystal-4.sym";
+            default = null;
         }
 
 
         /**
          * Create a new complex item factory
          */
-        public MainComplexFactory(LibraryWidget library_widget)
+        public MainComplexFactory(LibraryWidget library_widget1)
         {
-            name = "ech-crystal-4.sym";
-
-            m_library_widget = library_widget;
-            m_library_widget.notify["symbol-name"].connect(on_notify_name);
+            library_widget = library_widget1;
         }
 
 
@@ -46,22 +69,31 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private LibraryWidget b_library_widget;
+
+
+        /**
          * The name of the complex item in the library
          */
         private string b_name;
 
 
-        private LibraryWidget m_library_widget;
-        
-
         // temp located here for development
         private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
 
 
+        /**
+         *
+         */
         private void on_notify_name(ParamSpec param)
+
+            requires(b_library_widget != null)
+
         {
-            stdout.printf("notify\n");
-            name = m_library_widget.symbol_name;
+            name = b_library_widget.symbol_name;
+
             recreate();
         }
     }

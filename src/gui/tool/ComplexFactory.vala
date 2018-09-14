@@ -15,7 +15,7 @@ namespace Gschem3
         /**
          * The name of the complex item from the library
          */
-        public abstract string name
+        public abstract string? name
         {
             get;
             construct set;
