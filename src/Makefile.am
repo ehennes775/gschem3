@@ -115,10 +115,6 @@ libgeda3_a_SOURCES = \
 	MapError.vala \
 	NullMapper.vala \
 	ParseError.vala \
-	PinAttributeUpdater.vala \
-	PinItemGroup.vala \
-	PinSettings.vala \
-	PinUpdater.vala \
 	PrintDimension.vala \
 	PrintFormat.vala \
 	PrintOrientation.vala \
@@ -175,7 +171,11 @@ libgschem3_a_SOURCES = \
 	gui/tool/DrawingToolNet.vala \
 	gui/tool/DrawingToolPath.vala \
 	gui/tool/DrawingToolSelect.vala \
+	gui/tool/PinAttributeUpdater.vala \
+	gui/tool/PinItemGroup.vala \
+	gui/tool/PinSettings.vala \
 	gui/tool/PinTool.vala \
+	gui/tool/PinUpdater.vala \
 	gui/tool/LineTool.vala \
 	gui/tool/ZoomTool.vala
 
