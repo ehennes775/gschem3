@@ -153,6 +153,7 @@ libgschem3_a_SOURCES = \
 	gui/Grid.vala \
 	gui/LibraryAdapter.vala \
 	gui/LibraryWidget.vala \
+	gui/MainComplexFactory.vala \
 	gui/MainWindow.vala \
 	gui/NewProjectDialog.vala \
 	gui/PreviewWidget.vala \

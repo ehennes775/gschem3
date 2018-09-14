@@ -1,60 +1,34 @@
 namespace Gschem3
 {
     /**
-     *
+     * Creates complex items for the complex drawing tool
      */
-    public class ComplexFactory : Object
+    public abstract class ComplexFactory : Object
     {
         /**
-         *
+         * This signal indicates changes to the complex item and
+         * listeners should recreate to pick up the changes.
          */
         public signal void recreate();
+ 
+
+        /**
+         * The name of the complex item from the library
+         */
+        public abstract string name
+        {
+            get;
+            construct set;
+        }
 
 
         /**
+         * Create a new complex item
          *
+         * This function could return null in the case of a failure.
+         * 
+         * \return A new complex item to place
          */
-        public string name
-        {
-            get
-            {
-                return b_name;
-            }
-            construct set
-            {
-                b_name = value;
-
-                recreate();
-            }
-            default = "ech-crystal-4.sym";
-        }
-
-
-        /**
-         * Create a new complex item factory
-         */
-        public ComplexFactory()
-        {
-            name = "ech-crystal-4.sym";
-        }
-
-
-        /**
-         * Create a new complex item factory
-         */
-        public Geda3.ComplexItem? create()
-        {
-            return new Geda3.ComplexItem.with_name(m_library, b_name);
-        }
-
-
-        /**
-         * Create a new complex item factory
-         */
-        private string b_name;
-
-
-        // temp located here for development
-        private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
+        public abstract Geda3.ComplexItem? create();
     }
 }
