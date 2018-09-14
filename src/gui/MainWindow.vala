@@ -95,6 +95,8 @@ namespace Gschem3
             // Setup library signal handling
 
             m_library_widget.open_files.connect(open);
+
+            m_complex_factory = new MainComplexFactory(m_library_widget);
         }
 
 
@@ -339,7 +341,7 @@ namespace Gschem3
         private CustomAction[] m_actions;
 
 
-        private MainComplexFactory m_complex_factory = new MainComplexFactory();
+        private MainComplexFactory m_complex_factory;
 
 
         /**

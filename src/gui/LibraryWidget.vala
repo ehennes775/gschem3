@@ -45,6 +45,23 @@ namespace Gschem3
 
 
         /**
+         * The name of the selected symbol
+         */
+        public string? symbol_name
+        {
+            get
+            {
+                return b_name;
+            }
+            construct set
+            {
+                b_name = value;
+            }
+            default = null;
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct
@@ -128,6 +145,9 @@ namespace Gschem3
          * The backing store for the symbol library
          */
         // private Geda3.SymbolLibrary? b_library;
+
+
+        private string? b_name;
 
 
         /**
@@ -403,6 +423,9 @@ namespace Gschem3
                 return_if_fail(file_item != null);
 
                 m_preview_widget.load(file_item.file);
+
+                // temporary for development
+                symbol_name = file_item.file.get_basename();
             }
             else
             {

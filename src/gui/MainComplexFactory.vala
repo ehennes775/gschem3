@@ -27,9 +27,12 @@ namespace Gschem3
         /**
          * Create a new complex item factory
          */
-        public MainComplexFactory()
+        public MainComplexFactory(LibraryWidget library_widget)
         {
             name = "ech-crystal-4.sym";
+
+            m_library_widget = library_widget;
+            m_library_widget.notify["symbol-name"].connect(on_notify_name);
         }
 
 
@@ -48,7 +51,18 @@ namespace Gschem3
         private string b_name;
 
 
+        private LibraryWidget m_library_widget;
+        
+
         // temp located here for development
         private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
+
+
+        private void on_notify_name(ParamSpec param)
+        {
+            stdout.printf("notify\n");
+            name = m_library_widget.symbol_name;
+            recreate();
+        }
     }
 }

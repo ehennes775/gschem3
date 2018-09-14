@@ -205,7 +205,7 @@ namespace Gschem3
         /**
          *
          */
-        private ComplexFactory m_factory = new MainComplexFactory();
+        private ComplexFactory m_factory;
 
 
         /**
