@@ -10,10 +10,11 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public ComplexTool(SchematicWindow window)
+        public ComplexTool(SchematicWindow window, ComplexFactory factory)
         {
             base(window);
 
+            m_factory = factory;
             m_factory.recreate.connect(on_recreate);
 
             complex = m_factory.create();
@@ -204,7 +205,7 @@ namespace Gschem3
         /**
          *
          */
-        private static ComplexFactory m_factory = new MainComplexFactory();
+        private ComplexFactory m_factory = new MainComplexFactory();
 
 
         /**

@@ -125,20 +125,6 @@ namespace Gschem3
             schematic = new Geda3.Schematic();
             tag = null;
 
-            m_tools.@set(DrawingTool.ArcName, new ArcTool(this));
-            m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(this));
-            m_tools.@set(DrawingTool.BusName, new DrawingToolBus(this));
-            m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(this));
-            m_tools.@set(DrawingTool.ComplexName, new ComplexTool(this));
-            m_tools.@set(DrawingTool.LineName, new LineTool(this));
-            m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
-            m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));
-            m_tools.@set(DrawingTool.PinName, new PinTool(this));
-            m_tools.@set(DrawingTool.SELECT_NAME, new DrawingToolSelect(this));
-            m_tools.@set(DrawingTool.ZOOM_NAME, new ZoomTool(this));
-
-            m_current_tool = m_tools[DrawingTool.SELECT_NAME];
-
             drawing.add_events(
                 Gdk.EventMask.BUTTON_PRESS_MASK |
                 Gdk.EventMask.BUTTON_RELEASE_MASK |
@@ -162,9 +148,23 @@ namespace Gschem3
         /**
          * Create a schematic window with an untitled schematic
          */
-        public SchematicWindow()
+        public SchematicWindow(ComplexFactory factory)
         {
             tab = @"untitled_$(++untitled_number)$(SCHEMATIC_EXTENSION)";
+
+            m_tools.@set(DrawingTool.ArcName, new ArcTool(this));
+            m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(this));
+            m_tools.@set(DrawingTool.BusName, new DrawingToolBus(this));
+            m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(this));
+            m_tools.@set(DrawingTool.ComplexName, new ComplexTool(this,factory));
+            m_tools.@set(DrawingTool.LineName, new LineTool(this));
+            m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
+            m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));
+            m_tools.@set(DrawingTool.PinName, new PinTool(this));
+            m_tools.@set(DrawingTool.SELECT_NAME, new DrawingToolSelect(this));
+            m_tools.@set(DrawingTool.ZOOM_NAME, new ZoomTool(this));
+
+            m_current_tool = m_tools[DrawingTool.SELECT_NAME];
         }
 
 
@@ -177,9 +177,9 @@ namespace Gschem3
          * @param file The schematic file to load
          * @return The schematic window
          */
-        public static SchematicWindow create(File file) throws Error
+        public static SchematicWindow create(File file, ComplexFactory factory) throws Error
         {
-            var window = new SchematicWindow();
+            var window = new SchematicWindow(factory);
             
             window.read(file);
 

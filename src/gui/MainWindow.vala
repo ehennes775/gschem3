@@ -212,7 +212,7 @@ namespace Gschem3
 
                     if (window == null)
                     {
-                        window = SchematicWindow.create(file);
+                        window = SchematicWindow.create(file, m_complex_factory);
                         window.show_all();
                         var tab = new DocumentTab(window);
                         tab.show_all();
@@ -337,6 +337,9 @@ namespace Gschem3
          * Actions for this ApplicationWindow
          */
         private CustomAction[] m_actions;
+
+
+        private MainComplexFactory m_complex_factory = new MainComplexFactory();
 
 
         /**
@@ -615,7 +618,7 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            var window = new SchematicWindow();
+            var window = new SchematicWindow(m_complex_factory);
             window.show_all();
             var tab = new DocumentTab(window);
             tab.show_all();
