@@ -90,6 +90,14 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override void translate(int dx, int dy)
+        {
+        }
+
+
+        /**
          * The backing store for the x coordinate
          */
         private int b_x = 0;

@@ -27,5 +27,11 @@ namespace Geda3
          *
          */
         public abstract string to_path_string();
+
+
+        /**
+         *
+         */
+        public abstract void translate(int dx, int dy);
     }
 }

@@ -264,6 +264,14 @@ namespace Geda3
          */
         public override void translate(int dx, int dy)
         {
+            invalidate(this);
+
+            foreach (var command in b_commands)
+            {
+                command.translate(dx, dy);
+            }
+
+            invalidate(this);
         }
 
 

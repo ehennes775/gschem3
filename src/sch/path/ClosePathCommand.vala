@@ -52,5 +52,13 @@ namespace Geda3
         {
             return @"$(ID)";
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void translate(int dx, int dy)
+        {
+        }
     }
 }
