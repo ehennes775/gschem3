@@ -159,6 +159,12 @@ namespace Gschem3
 
 
         /**
+         * Indicates item should reveal invisible attributes
+         */
+        private bool REVEAL = false;
+
+
+        /**
          * States of the drawing tool
          */
         private enum State
@@ -207,7 +213,7 @@ namespace Gschem3
                 {
                     if (m_window != null)
                     {
-                        m_window.invalidate_item(b_circle);
+                        m_window.invalidate_item(b_circle, REVEAL);
                     }
 
                     b_circle.invalidate.disconnect(on_invalidate);
@@ -220,7 +226,7 @@ namespace Gschem3
                     return_if_fail(m_window != null);
 
                     b_circle.invalidate.connect(on_invalidate);
-                    m_window.invalidate_item(b_circle);
+                    m_window.invalidate_item(b_circle, REVEAL);
                 }
             }
         }
@@ -235,7 +241,7 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            m_window.invalidate_item(b_circle);
+            m_window.invalidate_item(b_circle, REVEAL);
         }
     }
 }

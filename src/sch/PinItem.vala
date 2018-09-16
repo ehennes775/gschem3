@@ -149,6 +149,16 @@ namespace Geda3
 
             bounds.expand(expand, expand);
 
+            foreach (var attribute in attributes)
+            {
+                var temp_bounds = attribute.calculate_bounds(
+                    painter,
+                    reveal
+                    );
+
+                bounds.union(temp_bounds);
+            }
+
             return bounds;
         }
 

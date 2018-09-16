@@ -308,7 +308,7 @@ namespace Gschem3
                 {
                     if (m_window != null)
                     {
-                        m_window.invalidate_item(b_items.pin);
+                        m_window.invalidate_item(b_items.pin, true);
                     }
 
                     b_items.invalidate.disconnect(on_invalidate);
@@ -336,7 +336,7 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            m_window.invalidate_item(item);
+            m_window.invalidate_item(item, true);
         }
     }
 }

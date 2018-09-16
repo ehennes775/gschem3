@@ -264,7 +264,7 @@ namespace Gschem3
         {
             if (m_gripped != null)
             {
-                m_window.invalidate_item(m_gripped);
+                m_window.invalidate_item(m_gripped, false);
             }
 
             if (m_state == State.S2)

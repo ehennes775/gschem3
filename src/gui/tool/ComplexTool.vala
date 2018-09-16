@@ -56,7 +56,7 @@ namespace Gschem3
 
             if (b_complex != null)
             {
-                m_window.invalidate_item(b_complex);
+                m_window.invalidate_item(b_complex, b_reveal);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Gschem3
         {
             if ((m_state == State.S1) && (b_complex != null))
             {
-                b_complex.draw(painter, true, true);
+                b_complex.draw(painter, b_reveal, true);
             }
         }
 
@@ -209,6 +209,16 @@ namespace Gschem3
 
 
         /**
+         * Temporary for development. This should move into a settings
+         * object.
+         *
+         * Indicates the complex item being drawn should reveal the
+         * invisible attributes.
+         */
+        private bool b_reveal = true;
+
+
+        /**
          * Stores the current state of the tool
          */
         private State m_state;
@@ -241,7 +251,7 @@ namespace Gschem3
                 {
                     if (m_window != null)
                     {
-                        m_window.invalidate_item(b_complex);
+                        m_window.invalidate_item(b_complex, b_reveal);
                     }
 
                     b_complex.invalidate.disconnect(on_invalidate);
@@ -254,7 +264,7 @@ namespace Gschem3
                     b_complex.invalidate.connect(on_invalidate);
 
                     return_if_fail(m_window != null);
-                    m_window.invalidate_item(b_complex);
+                    m_window.invalidate_item(b_complex, b_reveal);
                 }
             }
         }
@@ -269,7 +279,7 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            m_window.invalidate_item(b_complex);
+            m_window.invalidate_item(b_complex, b_reveal);
         }
 
 

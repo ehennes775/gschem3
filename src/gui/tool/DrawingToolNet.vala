@@ -200,6 +200,12 @@ namespace Gschem3
 
 
         /**
+         * Indicates item should reveal invisible attributes
+         */
+        private bool REVEAL = false;
+
+
+        /**
          * The routed nets to connect the requested endpoints
          */
         private Gee.ArrayList<Geda3.NetItem> m_nets = null;

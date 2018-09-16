@@ -187,7 +187,8 @@ namespace Geda3
             int y,
             int angle,
             bool mirror,
-            Gee.Collection<SchematicItem> items
+            Gee.Collection<SchematicItem> items,
+            bool reveal
             )
         {
             cairo_context.save();
@@ -208,7 +209,7 @@ namespace Geda3
 
             foreach (var item in items)
             {
-                item.draw(this, false, false);
+                item.draw(this, reveal, false);
             }
 
             cairo_context.restore();

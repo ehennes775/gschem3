@@ -29,9 +29,6 @@ namespace Geda3
         /**
          * Calculate the bounds of this object
          *
-         * This function does not include the bounds of child attributes
-         * in the calculation.
-         *
          * @param painter The painter to use for bounds calculation
          * @param reveal Include invisible items in bounds calculation
          */

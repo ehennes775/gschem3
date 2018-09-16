@@ -3,18 +3,19 @@ namespace Gschem3
     /**
      *
      */
-    public class ArcTool : DrawingTool
+    public class DrawingToolCircle : DrawingTool
     {
         /**
-         * Create a new arc drawing tool
+         * Create a new circle drawing tool
          *
          * @param window The document window this tool is drawing into
          */
-        public ArcTool(SchematicWindow window)
+        public DrawingToolCircle(SchematicWindow window)
         {
             base(window);
 
             m_state = State.S0;
+            m_window = window;
         }
 
 
@@ -28,27 +29,37 @@ namespace Gschem3
         {
             if (m_state == State.S0)
             {
-                reset_with_point(event.x, event.y);
+                m_x = event.x;
+                m_y = event.y;
+
+                var x = m_x;
+                var y = m_y;
+
+                m_window.device_to_user(ref x, ref y);
+
+                var ix = (int) Math.round(x);
+                var iy = (int) Math.round(y);
+
+                m_window.snap_point(ref ix, ref iy);
+
+                circle = new Geda3.CircleItem.with_points(
+                    ix,
+                    iy,
+                    0
+                    );
+
+                m_state = State.S1;
             }
             else if (m_state == State.S1)
             {
-                m_x = event.x;
-                m_y = event.y;
-
-                update();
-
-                m_state = State.S2;
-            }
-            else if (m_state == State.S2)
-            {
-                return_val_if_fail(b_arc != null, false);
+                return_val_if_fail(b_circle != null, false);
 
                 m_x = event.x;
                 m_y = event.y;
 
                 update();
 
-                m_window.add_item(arc);
+                m_window.add_item(circle);
 
                 reset();
             }
@@ -66,7 +77,7 @@ namespace Gschem3
          */
         public override void cancel()
         {
-            arc = null;
+            circle = null;
             m_state = State.S0;
         }
 
@@ -76,36 +87,12 @@ namespace Gschem3
          */
         public override void draw(Geda3.SchematicPainterCairo painter)
         {
-            if (m_state != State.S0)
+            if (m_state == State.S1)
             {
-                return_if_fail(b_arc != null);
+                return_if_fail(b_circle != null);
 
-                b_arc.draw(painter, true, true);
+                b_circle.draw(painter, true, true);
             }
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override bool key_pressed(Gdk.EventKey event)
-        {
-            if (m_state != State.S0)
-            {
-                return_if_fail(b_arc != null);
-
-                uint keyval;
-
-                if (event.get_keyval(out keyval))
-                {
-                    if (keyval == Gdk.Key.slash)
-                    {
-                        b_arc.reverse();
-                    }
-                }
-            }
-
-            return base.key_pressed(event);
         }
 
 
@@ -116,7 +103,7 @@ namespace Gschem3
         {
             base.motion_notify(event);
 
-            if (m_state != State.S0)
+            if (m_state == State.S1)
             {
                 m_x = event.x;
                 m_y = event.y;
@@ -133,38 +120,8 @@ namespace Gschem3
          */
         public override void reset()
         {
-            arc = null;
+            circle = null;
             m_state = State.S0;
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override void reset_with_point(double x, double y)
-
-            requires(m_window != null)
-
-        {
-            m_x = x;
-            m_y = y;
-
-            m_window.device_to_user(ref x, ref y);
-
-            var ix = (int) Math.round(x);
-            var iy = (int) Math.round(y);
-
-            m_window.snap_point(ref ix, ref iy);
-
-            arc = new Geda3.ArcItem.with_points(
-                ix,
-                iy,
-                0,
-                0,
-                180
-                );
-
-            m_state = State.S1;
         }
 
 
@@ -184,7 +141,7 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                return_if_fail(b_arc != null);
+                return_if_fail(b_circle != null);
 
                 var x = m_x;
                 var y = m_y;
@@ -196,31 +153,9 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                b_arc.set_point(1, ix, iy);
-            }
-            else if (m_state == State.S2)
-            {
-                return_if_fail(b_arc != null);
-
-                var x = m_x;
-                var y = m_y;
-
-                m_window.device_to_user(ref x, ref y);
-
-                var ix = (int) Math.round(x);
-                var iy = (int) Math.round(y);
-
-                m_window.snap_point(ref ix, ref iy);
-
-                b_arc.set_point(2, ix, iy);
+                b_circle.set_point(1, ix, iy);
             }
         }
-
-
-        /**
-         * Indicates item should reveal invisible attributes
-         */
-        private bool REVEAL = false;
 
 
         /**
@@ -229,15 +164,14 @@ namespace Gschem3
         private enum State
         {
             S0,
-            S1,
-            S2
+            S1
         }
 
 
         /**
-         * The arc currently being drawn
+         * The circle currently being drawn
          */
-        private Geda3.ArcItem b_arc = null;
+        private Geda3.CircleItem b_circle = null;
 
 
         /**
@@ -259,34 +193,34 @@ namespace Gschem3
 
 
         /**
-         * The arc currently being drawn
+         * The line currently being drawn
          */
-        private Geda3.ArcItem arc
+        private Geda3.CircleItem circle
         {
             get
             {
-                return b_arc;
+                return b_circle;
             }
             set
             {
-                if (b_arc != null)
+                if (b_circle != null)
                 {
                     if (m_window != null)
                     {
-                        m_window.invalidate_item(b_arc, REVEAL);
+                        m_window.invalidate_item(b_circle);
                     }
 
-                    b_arc.invalidate.disconnect(on_invalidate);
+                    b_circle.invalidate.disconnect(on_invalidate);
                 }
 
-                b_arc = value;
+                b_circle = value;
 
-                if (b_arc != null)
+                if (b_circle != null)
                 {
                     return_if_fail(m_window != null);
 
-                    b_arc.invalidate.connect(on_invalidate);
-                    m_window.invalidate_item(b_arc, REVEAL);
+                    b_circle.invalidate.connect(on_invalidate);
+                    m_window.invalidate_item(b_circle);
                 }
             }
         }
@@ -297,11 +231,11 @@ namespace Gschem3
          */
         private void on_invalidate(Geda3.SchematicItem item)
 
-            requires(b_arc == item)
+            requires(b_circle == item)
             requires(m_window != null)
 
         {
-            m_window.invalidate_item(b_arc, REVEAL);
+            m_window.invalidate_item(b_circle);
         }
     }
 }

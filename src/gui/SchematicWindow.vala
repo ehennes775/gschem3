@@ -281,10 +281,9 @@ namespace Gschem3
          *
          * @param item The item to invalidate
          */
-        public void invalidate_item(Geda3.SchematicItem item)
+        public void invalidate_item(Geda3.SchematicItem item, bool reveal)
         {
-            // fixme
-            var bounds = item.calculate_bounds(painter, true);
+            var bounds = item.calculate_bounds(painter, reveal);
 
             invalidate_user(bounds);
         }
