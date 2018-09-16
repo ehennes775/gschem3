@@ -110,6 +110,22 @@ namespace Geda3
 
 
         /**
+         * Rotate this item and its child attributes
+         *
+         * This function emits the invalidate signal twice for this
+         * item and twice for every child attribute.
+         *
+         * Not all items support arbitrary rotation. In these cases,
+         * the angle specified must be orthagonal.
+         *
+         * @param cx The x coordinate of the center of rotation
+         * @param cy The y coordinate of the center of rotation
+         * @param angle The angle to rotate the item
+         */
+        public abstract void rotate(int cx, int cy, int angle);
+
+
+        /**
          * Translate this item and its child attributes
          *
          * This function emits the invalidate signal twice for this

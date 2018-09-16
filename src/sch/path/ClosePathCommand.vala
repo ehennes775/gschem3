@@ -40,10 +40,35 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void mirror_x(int cx)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void mirror_y(int cy)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.close_path();
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void rotate(int cx, int cy, int angle)
+        {
+        }
+
 
         /**
          * {@inheritDoc}

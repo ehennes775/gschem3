@@ -20,7 +20,25 @@ namespace Geda3
         /**
          *
          */
+        public abstract void mirror_x(int cx);
+
+
+        /**
+         *
+         */
+        public abstract void mirror_y(int cy);
+
+
+        /**
+         *
+         */
         public abstract void put(PathCommandReceiver receiver);
+
+
+        /**
+         *
+         */
+        public abstract void rotate(int cx, int cy, int angle);
 
 
         /**

@@ -208,6 +208,14 @@ namespace Geda3
          */
         public override void mirror_x(int cx)
         {
+            invalidate(this);
+
+            foreach (var command in b_commands)
+            {
+                command.mirror_x(cx);
+            }
+
+            invalidate(this);
         }
 
 
@@ -216,6 +224,14 @@ namespace Geda3
          */
         public override void mirror_y(int cy)
         {
+            invalidate(this);
+
+            foreach (var command in b_commands)
+            {
+                command.mirror_y(cy);
+            }
+
+            invalidate(this);
         }
 
 
@@ -250,6 +266,22 @@ namespace Geda3
             }
 
             b_commands = b_converter.convert_from_lines(lines);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void rotate(int cx, int cy, int angle)
+        {
+            invalidate(this);
+
+            foreach (var command in b_commands)
+            {
+                command.rotate(cx, cy, angle);
+            }
+
+            invalidate(this);
         }
 
 

@@ -214,6 +214,14 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void rotate(int cx, int cy, int angle)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void translate(int dx, int dy)
         {
             invalidate(this);

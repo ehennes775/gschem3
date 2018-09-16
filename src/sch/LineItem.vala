@@ -283,6 +283,15 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override void rotate(int cx, int cy, int angle)
+        {
+            return_if_reached();
+        }
+
+
+        /**
          * Change a point on the line
          *
          * ||''index''||''Description''||

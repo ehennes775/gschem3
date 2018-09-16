@@ -307,11 +307,9 @@ namespace Geda3
 
 
         /**
-         * Rotate the item around the insertion point
-         *
-         * @param angle the relative angle to rotate by
+         * {@inheritDoc}
          */
-        public void rotate(int cx, int cy, int angle)
+        public override void rotate(int cx, int cy, int angle)
         {
            this.angle = Geda3.Angle.normalize(this.angle + angle);
         }

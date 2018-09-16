@@ -247,6 +247,18 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override void rotate(int cx, int cy, int angle)
+
+            requires(Angle.is_ortho(angle))
+
+        {
+            return_if_reached();
+        }
+
+
+        /**
          * Change a corner point on the box
          *
          * The descriptions of the corners may not match the actual

@@ -68,9 +68,36 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void mirror_x(int cx)
+        {
+            b_x = 2 * cx - b_x;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void mirror_y(int cy)
+        {
+            b_y = 2 * cy - b_y;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void put(PathCommandReceiver receiver)
         {
             receiver.line_to_absolute(b_x, b_y);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void rotate(int cx, int cy, int angle)
+        {
+            return_if_reached();
         }
 
 
