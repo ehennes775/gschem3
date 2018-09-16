@@ -59,6 +59,11 @@ namespace Geda3
                             continue;
                         }
 
+                        if (attribute.visibility != Visibility.VISIBLE)
+                        {
+                            continue;
+                        }
+
                         attribute.color = Color.ATTRIBUTE;
                     }
 
