@@ -1,10 +1,37 @@
 namespace Gschem3
 {
     /**
-     *
+     * Places complex items onto a schematic
      */
     public class ComplexTool : DrawingTool
     {
+        /**
+         * The factory for creating complex items to place
+         */
+        private ComplexFactory factory
+        {
+            get
+            {
+                return b_factory;
+            }
+            protected set
+            {
+                return_if_fail(value != null);
+
+                if (b_factory != null)
+                {
+                    b_factory.recreate.disconnect(on_recreate);
+                }
+
+                b_factory = value;
+
+                b_factory.recreate.connect(on_recreate);
+
+                complex = b_factory.create();
+            }
+        }
+
+
         /**
          * Create a new complex drawing tool
          *
@@ -14,11 +41,9 @@ namespace Gschem3
         {
             base(window);
 
-            m_factory = factory;
-            m_factory.recreate.connect(on_recreate);
+            this.factory = factory;
 
-            complex = m_factory.create();
-            m_state = State.S1;
+            reset();
         }
 
 
@@ -27,7 +52,7 @@ namespace Gschem3
          */
         public override bool button_pressed(Gdk.EventButton event)
 
-            requires(m_factory != null)
+            requires(b_factory != null)
             requires(m_window != null)
 
         {
@@ -36,7 +61,7 @@ namespace Gschem3
                 m_window.add_item(b_complex);
             }
 
-            complex = m_factory.create();
+            complex = b_factory.create();
 
             m_x = event.x;
             m_y = event.y;
@@ -52,11 +77,18 @@ namespace Gschem3
          */
         public override void cancel()
         {
-            m_state = State.S1;
+            m_state = State.S0;
 
             if (b_complex != null)
             {
                 m_window.invalidate_item(b_complex, b_reveal);
+
+                // temporary until additional functionality is added
+                // probably when implementing the delete operation
+                foreach (var attribute in b_complex.attributes)
+                {
+                    m_window.invalidate_item(attribute, b_reveal);
+                }
             }
         }
 
@@ -78,7 +110,7 @@ namespace Gschem3
          */
         public override bool key_pressed(Gdk.EventKey event)
         {
-            if (complex != null)
+            if (b_complex != null)
             {
                 uint keyval;
 
@@ -86,21 +118,21 @@ namespace Gschem3
                 {
                     if (keyval == Gdk.Key.i)
                     {
-                        complex.mirror_x(complex.insert_x);
+                        b_complex.mirror_x(b_complex.insert_x);
 
                         return true;
                     }
                     else if (keyval == Gdk.Key.I)
                     {
-                        complex.mirror_y(complex.insert_y);
+                        b_complex.mirror_y(b_complex.insert_y);
 
                         return true;
                     }
                     else if (keyval == Gdk.Key.r)
                     {
-                        complex.rotate(
-                            complex.insert_x,
-                            complex.insert_y,
+                        b_complex.rotate(
+                            b_complex.insert_x,
+                            b_complex.insert_y,
                             90
                             );
 
@@ -108,9 +140,9 @@ namespace Gschem3
                     }
                     else if (keyval == Gdk.Key.R)
                     {
-                        complex.rotate(
-                            complex.insert_x,
-                            complex.insert_y,
+                        b_complex.rotate(
+                            b_complex.insert_x,
+                            b_complex.insert_y,
                             -90
                             );
 
@@ -208,22 +240,22 @@ namespace Gschem3
 
 
         /**
-         * The complex item currently being placed
+         * The backing store for the complex item currently being placed
          */
         private Geda3.ComplexItem? b_complex = null;
 
 
         /**
-         *
+         * The backing store for factory to create items to place
          */
-        private ComplexFactory m_factory;
+        private ComplexFactory b_factory;
 
 
         /**
          * Temporary for development. This should move into a settings
          * object.
          *
-         * Indicates the complex item being drawn should reveal the
+         * Indicates the complex item being placed should reveal the
          * invisible attributes.
          */
         private bool b_reveal = true;
@@ -282,7 +314,7 @@ namespace Gschem3
 
 
         /**
-         * Redraw the current item
+         * Redraw the current item ar child attribute
          */
         private void on_invalidate(Geda3.SchematicItem item)
 
@@ -294,14 +326,14 @@ namespace Gschem3
 
 
         /**
-         *
+         * Recreate the complex item to incorporate changes
          */
         private void on_recreate()
 
-            requires(m_factory != null)
+            requires(b_factory != null)
 
         {
-            complex = m_factory.create();
+            complex = b_factory.create();
         }
     }
 }
