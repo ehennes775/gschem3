@@ -246,6 +246,22 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void mirror_x(int cx)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void mirror_y(int cy)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError
         {
             if (params.length != 12)

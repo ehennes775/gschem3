@@ -386,6 +386,36 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void mirror_x(int cx)
+        {
+            invalidate(this);
+
+            b_alignment = b_alignment.mirror_x();
+            b_angle = Angle.normalize(-b_angle);
+            b_x = 2 * cx - b_x;
+
+            invalidate(this);
+        }
+        
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void mirror_y(int cy)
+        {
+            invalidate(this);
+
+            b_alignment = b_alignment.mirror_y();
+            b_angle = Angle.normalize(-b_angle);
+            b_y = 2 * cy - b_y;
+
+            invalidate(this);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError
         {
             if (params.length != 10)

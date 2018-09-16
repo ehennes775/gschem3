@@ -86,13 +86,13 @@ namespace Gschem3
                 {
                     if (keyval == Gdk.Key.i)
                     {
-                        complex.mirror_x();
+                        complex.mirror_x(complex.insert_x);
 
                         return true;
                     }
                     else if (keyval == Gdk.Key.I)
                     {
-                        complex.mirror_y();
+                        complex.mirror_y(complex.insert_y);
 
                         return true;
                     }
@@ -278,11 +278,10 @@ namespace Gschem3
          */
         private void on_invalidate(Geda3.SchematicItem item)
 
-            requires(b_complex == item)
             requires(m_window != null)
 
         {
-            m_window.invalidate_item(b_complex, b_reveal);
+            m_window.invalidate_item(item, b_reveal);
         }
 
 

@@ -27,8 +27,10 @@ namespace Geda3
 
 
         /**
-         * Calculate the bounds of this object
+         * Calculate the bounds of this schematic item
          *
+         * This bounds calculation does not include child attributes.
+         * 
          * @param painter The painter to use for bounds calculation
          * @param reveal Include invisible items in bounds calculation
          */
@@ -62,6 +64,28 @@ namespace Geda3
 
 
         /**
+         * Mirror the item and child attributes along the x axis
+         *
+         * This function emits the invalidate signal twice for this
+         * item and twice for every child attribute.
+         *
+         * @param cx
+         */
+        public abstract void mirror_x(int cx);
+
+
+        /**
+         * Mirror the item and child attributes along the y axis
+         *
+         * This function emits the invalidate signal twice for this
+         * item and twice for every child attribute.
+         *
+         * @param cy
+         */
+        public abstract void mirror_y(int cy);
+
+
+        /**
          * Read this item from the input stream
          *
          * @param stream The input stream to read from
@@ -88,6 +112,9 @@ namespace Geda3
         /**
          * Translate this item and its child attributes
          *
+         * This function emits the invalidate signal twice for this
+         * item and twice for every child attribute.
+         * 
          * @param dx The displacement on the x axis
          * @param dy The displacement on the y axis
          */

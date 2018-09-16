@@ -161,6 +161,7 @@ namespace Geda3
 
         {
             m_attributes.add(attribute);
+            attribute.invalidate.connect(on_invalidate);
 
             m_unpromoted_items = fetch_unpromoted_items();
 
@@ -195,16 +196,6 @@ namespace Geda3
 
                 temp_bounds.rotate(b_angle);
                 temp_bounds.translate(b_insert_x, b_insert_y);
-
-                bounds.union(temp_bounds);
-            }
-
-            foreach (var attribute in m_attributes)
-            {
-                var temp_bounds = attribute.calculate_bounds(
-                    painter,
-                    reveal
-                    );
 
                 bounds.union(temp_bounds);
             }
@@ -251,26 +242,40 @@ namespace Geda3
 
 
         /**
-         * Mirror the item along the x axis
-         *
-         * This function mirrors the item on the x insertion point.
+         * {@inheritDoc}
          */
-        public void mirror_x()
+        public override void mirror_x(int cx)
         {
-            angle = Angle.normalize(-angle);
-            mirror = !mirror;
+            invalidate(this);
+
+            b_angle = Angle.normalize(-b_angle);
+            b_insert_x = 2 * cx - b_insert_x;
+
+            mirror = !mirror;    // includes an invalidate(this);
+
+            foreach (var attribute in attributes)
+            {
+                attribute.mirror_x(cx);
+            }
         }
         
 
         /**
-         * Mirror the item along the y axis
-         *
-         * This function mirrors the item on the y insertion point.
+         * {@inheritDoc}
          */
-        public void mirror_y()
+        public override void mirror_y(int cy)
         {
-            angle = Angle.normalize(180 - angle);
-            mirror = !mirror;
+            invalidate(this);
+
+            b_angle = Angle.normalize(180 - b_angle);
+            b_insert_y = 2 * cy - b_insert_y;
+
+            mirror = !mirror;    // includes an invalidate(this);
+
+            foreach (var attribute in attributes)
+            {
+                attribute.mirror_y(cy);
+            }
         }
 
 
@@ -310,30 +315,6 @@ namespace Geda3
         {
            this.angle = Geda3.Angle.normalize(this.angle + angle);
         }
-        
-
-        /**
-         * Change a point on the complex shape
-         *
-         * ||''index''||''Description''||
-         * ||0||The insertion point||
-         *
-         * @param index The index of the point
-         * @param x The new x coordinate for the point
-         * @param y The new y coordinate for the point
-         */
-        public void set_point(int index, int x, int y)
-
-            requires (index == 0)
-
-        {
-            invalidate(this);
-
-            b_insert_x = x;
-            b_insert_y = y;
-
-            invalidate(this);
-        }
 
 
         /**
@@ -346,12 +327,12 @@ namespace Geda3
             b_insert_x += dx;
             b_insert_y += dy;
 
+            invalidate(this);
+
             foreach (var attribute in attributes)
             {
                 attribute.translate(dx, dy);
             }
-
-            invalidate(this);
         }
 
 
@@ -496,6 +477,15 @@ namespace Geda3
             }
 
             return unpromoted;
+        }
+
+
+        /**
+         * Redraw an attribute
+         */
+        private void on_invalidate(Geda3.SchematicItem item)
+        {
+            invalidate(item);
         }
     }
 }
