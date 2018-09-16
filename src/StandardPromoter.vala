@@ -31,6 +31,9 @@ namespace Geda3
             m_names.add("footprint");
             m_names.add("model-name");
             m_names.add("value");
+
+            // need to figure out how refdes is getting promoted.
+            m_names.add("refdes");
         }
 
 

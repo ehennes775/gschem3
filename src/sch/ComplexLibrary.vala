@@ -12,10 +12,6 @@ namespace Geda3
             m_paths.add(
                 "/home/ehennes/Projects/edalib/symbols"
                 );
-
-            m_paths.add(
-                "/home/ehennes/Projects/amlocker2/sym"
-                );
         }
 
         public ComplexLibrary()
@@ -44,6 +40,28 @@ namespace Geda3
                 {
                     var schematic = new Schematic();
                     schematic.read_from_file(file);
+
+                    // Currently, a shortcut:
+                    // change all the detached attributes from the
+                    // detached color to the attached color.
+
+                    foreach (var item in schematic.items)
+                    {
+                        var attribute = item as AttributeChild;
+
+                        if (attribute == null)
+                        {
+                            continue;
+                        }
+
+                        if (attribute.name == null)
+                        {
+                            continue;
+                        }
+
+                        attribute.color = Color.ATTRIBUTE;
+                    }
+
                     return new ComplexSymbol(schematic);
                 }
             }

@@ -163,6 +163,8 @@ namespace Geda3
             m_attributes.add(attribute);
 
             m_unpromoted_items = fetch_unpromoted_items();
+
+            invalidate(this);
         }
 
 
