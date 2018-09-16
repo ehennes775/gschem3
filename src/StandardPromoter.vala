@@ -67,6 +67,11 @@ namespace Geda3
                 }
             }
 
+            foreach (var attribute in promoted)
+            {
+                attribute.color = Color.ATTRIBUTE;
+            }
+
             return promoted;
         }
 

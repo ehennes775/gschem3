@@ -92,6 +92,24 @@ namespace Geda3
         }
 
 
+        public int insert_x
+        {
+            get
+            {
+                return b_insert_x;
+            }
+        }
+
+
+        public int insert_y
+        {
+            get
+            {
+                return b_insert_y;
+            }
+        }
+
+
         /**
          * GObject initialization
          */
@@ -310,6 +328,25 @@ namespace Geda3
 
             b_insert_x = x;
             b_insert_y = y;
+
+            invalidate(this);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void translate(int dx, int dy)
+        {
+            invalidate(this);
+
+            b_insert_x += dx;
+            b_insert_y += dy;
+
+            foreach (var attribute in attributes)
+            {
+                attribute.translate(dx, dy);
+            }
 
             invalidate(this);
         }

@@ -67,7 +67,7 @@ namespace Geda3
             {
                 return b_color;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
 
@@ -75,8 +75,7 @@ namespace Geda3
 
                 invalidate(this);
             }
-            //Doesn't get set when specified here???
-            // default = Color.TEXT;
+            default = Color.TEXT;
         }
 
 
