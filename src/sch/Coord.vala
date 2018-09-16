@@ -53,6 +53,33 @@ namespace Geda3
 
 
         /**
+         * Rotate a point
+         *
+         * @param cx
+         * @param cy
+         * @param angle
+         * @param x
+         * @param x
+         */
+        public void rotate(int cx, int cy, int angle, ref int x, ref int y)
+        {
+            var radians = Angle.to_radians(angle);
+
+            var cos_theta = Math.cos(radians);
+            var sin_theta = Math.sin(radians);
+
+            var temp_x = x - cx;
+            var temp_y = y - cy;
+
+            var temp2_x = (int) Math.round(temp_x * cos_theta - temp_y * sin_theta);
+            var temp2_y = (int) Math.round(temp_x * sin_theta + temp_y * cos_theta);
+
+            x = temp2_x + cx;
+            y = temp2_y + cy;
+        }
+
+
+        /**
          * Snap a coordinate to the nearest grid
          *
          * @param coord the coordinate

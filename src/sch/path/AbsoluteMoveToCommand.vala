@@ -90,7 +90,7 @@ namespace Geda3
          */
         public override void rotate(int cx, int cy, int angle)
         {
-            return_if_reached();
+            Coord.rotate(cx, cy, angle, ref b_x, ref b_y);
         }
 
 

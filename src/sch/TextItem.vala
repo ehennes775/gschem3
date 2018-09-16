@@ -457,6 +457,7 @@ namespace Geda3
             invalidate(this);
 
             b_angle = Angle.normalize(b_angle + angle);
+            Coord.rotate(cx, cy, angle, ref b_x, ref b_y);
 
             invalidate(this);
         }

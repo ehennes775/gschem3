@@ -305,7 +305,12 @@ namespace Geda3
          */
         public override void rotate(int cx, int cy, int angle)
         {
-            return_if_reached();
+            invalidate(this);
+
+            b_start_angle = Angle.normalize(b_start_angle + angle);
+            Coord.rotate(cx, cy, angle, ref b_center_x, ref b_center_y);
+
+            invalidate(this);
         }
 
 

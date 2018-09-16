@@ -218,7 +218,23 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void rotate(int cx, int cy, int angle)
+
+            requires(b_x.length == b_y.length)
+
         {
+            invalidate(this);
+
+            for (var index = 0; index < b_x.length; index++)
+            {
+                Coord.rotate(cx, cy, angle, ref b_x[index], ref b_y[index]);
+            }
+
+            invalidate(this);
+
+            foreach (var attribute in attributes)
+            {
+                attribute.rotate(cx, cy, angle);
+            }
         }
 
 
