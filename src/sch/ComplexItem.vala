@@ -311,7 +311,12 @@ namespace Geda3
          */
         public override void rotate(int cx, int cy, int angle)
         {
-           this.angle = Geda3.Angle.normalize(this.angle + angle);
+            this.angle = Geda3.Angle.normalize(this.angle + angle);
+
+            foreach (var attribute in attributes)
+            {
+                attribute.rotate(cx, cy, angle);
+            }
         }
 
 
