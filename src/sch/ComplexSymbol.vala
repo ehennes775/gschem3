@@ -39,7 +39,7 @@ namespace Geda3
         {
             if (schematic != null)
             {
-                painter.draw_items(x, y, 0, false, schematic.items, reveal);
+                painter.draw_items(x, y, 0, false, schematic.items, reveal, selected);
             }
         }
     }

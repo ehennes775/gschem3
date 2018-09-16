@@ -173,7 +173,7 @@ namespace Geda3
             {
                 return b_visibility;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
                 return_if_fail(value < Visibility.COUNT);
@@ -184,8 +184,7 @@ namespace Geda3
 
                 invalidate(this);
             }
-            //Doesn't get set when specified here???
-            // default = Visibility.VISIBLE;
+            default = Visibility.VISIBLE;
         }
 
 
@@ -369,7 +368,7 @@ namespace Geda3
 
                 painter.set_color(
                     selected ? Geda3.Color.SELECT : b_color,
-                    (b_visibility != Visibility.VISIBLE)
+                    (b_visibility != Visibility.VISIBLE) && reveal
                     );
 
                 painter.draw_text(

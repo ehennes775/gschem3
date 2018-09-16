@@ -239,7 +239,8 @@ namespace Geda3
                 b_angle,
                 b_mirror != 0,
                 m_unpromoted_items,
-                reveal
+                reveal,
+                selected
                 );
 
             foreach (var attribute in m_attributes)

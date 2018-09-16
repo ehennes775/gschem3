@@ -56,7 +56,8 @@ namespace Geda3
             int angle,
             bool mirror,
             Gee.Collection<SchematicItem> items,
-            bool reveal
+            bool reveal,
+            bool selected
             );
 
 
