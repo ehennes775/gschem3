@@ -337,6 +337,20 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void translate(int dx, int dy)
+        {
+            invalidate(this);
+
+            b_center_x += dx;
+            b_center_y += dy;
+
+            invalidate(this);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void write(DataOutputStream stream) throws IOError
         {
             var output = "%s %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n".printf(

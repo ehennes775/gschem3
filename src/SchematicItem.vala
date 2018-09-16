@@ -86,6 +86,15 @@ namespace Geda3
 
 
         /**
+         * Translate this item and its child attributes
+         *
+         * @param dx The displacement on the x axis
+         * @param dy The displacement on the y axis
+         */
+        public abstract void translate(int dx, int dy);
+
+
+        /**
          * Write this item to the output stream
          *
          * @param stream The output stream to write to

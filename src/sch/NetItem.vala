@@ -172,6 +172,27 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void translate(int dx, int dy)
+        {
+            invalidate(this);
+
+            b_x[0] += dx;
+            b_y[0] += dy;
+            b_x[1] += dx;
+            b_y[1] += dy;
+
+            foreach (var attribute in attributes)
+            {
+                attribute.translate(dx, dy);
+            }
+
+            invalidate(this);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void write(DataOutputStream stream) throws IOError
         {
             var output = "%s %d %d %d %d %d\n".printf(

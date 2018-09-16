@@ -181,7 +181,10 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                b_complex.set_point(0, ix, iy);
+                var dx = ix - b_complex.insert_x;
+                var dy = iy - b_complex.insert_y;
+
+                b_complex.translate(dx, dy);
             }
         }
 

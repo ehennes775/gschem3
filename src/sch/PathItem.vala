@@ -262,6 +262,14 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void translate(int dx, int dy)
+        {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void write(DataOutputStream stream) throws IOError
         {
             var lines = b_converter.convert_to_lines(b_commands);
