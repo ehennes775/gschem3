@@ -254,6 +254,19 @@ namespace Geda3
          */
         public override void mirror_x(int cx)
         {
+            invalidate(this);
+
+            for (var index = 0; index < b_x.length; index++)
+            {
+                b_x[index] = 2 * cx - b_x[index];
+            }
+
+            invalidate(this);
+
+            foreach (var attribute in attributes)
+            {
+                attribute.mirror_x(cx);
+            }
         }
 
 
@@ -262,6 +275,19 @@ namespace Geda3
          */
         public override void mirror_y(int cy)
         {
+            invalidate(this);
+
+            for (var index = 0; index < b_y.length; index++)
+            {
+                b_y[index] = 2 * cy - b_y[index];
+            }
+
+            invalidate(this);
+
+            foreach (var attribute in attributes)
+            {
+                attribute.mirror_y(cy);
+            }
         }
 
 

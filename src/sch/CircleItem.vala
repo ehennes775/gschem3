@@ -276,6 +276,11 @@ namespace Geda3
          */
         public override void mirror_x(int cx)
         {
+            invalidate(this);
+
+            b_center_x = 2 * cx - b_center_x;
+
+            invalidate(this);
         }
 
 
@@ -284,6 +289,11 @@ namespace Geda3
          */
         public override void mirror_y(int cy)
         {
+            invalidate(this);
+
+            b_center_y = 2 * cy - b_center_y;
+
+            invalidate(this);
         }
 
 
