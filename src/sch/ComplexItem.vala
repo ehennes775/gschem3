@@ -311,7 +311,7 @@ namespace Geda3
          *
          * @param angle the relative angle to rotate by
          */
-        public void rotate(int angle)
+        public void rotate(int cx, int cy, int angle)
         {
            this.angle = Geda3.Angle.normalize(this.angle + angle);
         }

@@ -98,13 +98,21 @@ namespace Gschem3
                     }
                     else if (keyval == Gdk.Key.r)
                     {
-                        complex.rotate(90);
+                        complex.rotate(
+                            complex.insert_x,
+                            complex.insert_y,
+                            90
+                            );
 
                         return true;
                     }
                     else if (keyval == Gdk.Key.R)
                     {
-                        complex.rotate(-90);
+                        complex.rotate(
+                            complex.insert_x,
+                            complex.insert_y,
+                            -90
+                            );
 
                         return true;
                     }
