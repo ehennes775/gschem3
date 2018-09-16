@@ -91,6 +91,7 @@ libgeda3_a_SOURCES = \
 	sch/PinType.vala \
 	sch/PointGrip.vala \
 	sch/Schematic.vala \
+	sch/SchematicItem.vala \
 	sch/SchematicPainter.vala \
 	sch/SchematicReader.vala \
 	sch/Sweep.vala \
@@ -123,7 +124,6 @@ libgeda3_a_SOURCES = \
 	RemovableItem.vala \
 	RenamableItem.vala \
 	SchematicFile.vala \
-	SchematicItem.vala \
 	SchematicList.vala \
 	SchematicPainterCairo.vala \
 	StandardPromoter.vala \
