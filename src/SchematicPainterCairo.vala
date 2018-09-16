@@ -495,6 +495,9 @@ namespace Geda3
             bounds.rotate(angle);
             bounds.translate(x, y);
 
+            // workaround for a rounding error somewhere
+            bounds.expand(1, 1);
+
             // add the bounds of the insertion point graphic "x"
 
             var bounds_x = Bounds.with_points(
