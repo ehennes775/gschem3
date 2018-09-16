@@ -64,7 +64,16 @@ namespace Gschem3
          */
         public override Geda3.ComplexItem? create()
         {
-            return new Geda3.ComplexItem.with_name(m_library, b_name);
+            var complex = new Geda3.ComplexItem.with_name(m_library, b_name);
+
+            var promoted = m_promoter.promote(complex.symbol.schematic.items);
+
+            foreach (var attribute in promoted)
+            {
+                complex.attach(attribute);
+            }
+
+            return complex;
         }
 
 
@@ -82,6 +91,10 @@ namespace Gschem3
 
         // temp located here for development
         private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
+
+
+        // temp located here for development
+        private static Geda3.AttributePromoter m_promoter = new Geda3.StandardPromoter();
 
 
         /**

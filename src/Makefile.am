@@ -106,6 +106,7 @@ libgeda3_a_SOURCES = \
 	sch/path/PathCommandConverter1.vala \
 	sch/path/RelativeMoveToCommand.vala \
 	sch/path/RelativeLineToCommand.vala \
+	AttributePromoter.vala \
 	ColorScheme.vala \
 	CustomAction.vala \
 	Fileable.vala \
@@ -125,6 +126,7 @@ libgeda3_a_SOURCES = \
 	SchematicItem.vala \
 	SchematicList.vala \
 	SchematicPainterCairo.vala \
+	StandardPromoter.vala \
 	Symbol.vala \
 	SymbolLibrary.vala
 

@@ -83,6 +83,15 @@ namespace Geda3
         }
 
 
+        public ComplexSymbol symbol
+        {
+            get
+            {
+                return m_symbol;
+            }
+        }
+
+
         /**
          * GObject initialization
          */
