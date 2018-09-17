@@ -139,6 +139,7 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
+	gui/AttributeEditor.vala \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \
 	gui/DrawingTool.vala \
