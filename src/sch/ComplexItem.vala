@@ -165,7 +165,7 @@ namespace Geda3
 
             m_unpromoted_items = fetch_unpromoted_items();
 
-            attach(attribute);
+            attached(attribute, this);
 
             invalidate(this);
         }

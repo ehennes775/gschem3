@@ -7,24 +7,28 @@ namespace Gschem3
     public class AttributeEditor : Gtk.Box, Gtk.Buildable
     {
         /**
-         * The current window
+         * The current item being edited
          */
-        public DocumentWindow? current_window
+        public Geda3.SchematicItem? item
         {
             get
             {
-                return b_current_window;
+                return b_item;
             }
             construct set
             {
-                if (b_current_window != null)
+                if (b_item != null)
                 {
+                    b_item.attached.disconnect(on_attached);
+                    b_item.detached.disconnect(on_detached);
                 }
 
-                b_current_window = value as SchematicWindow;
+                b_item = value as Geda3.AttributeParent;
 
-                if (b_current_window != null)
+                if (b_item != null)
                 {
+                    b_item.attached.connect(on_attached);
+                    b_item.detached.connect(on_detached);
                 }
             }
             default = null;
@@ -32,58 +36,23 @@ namespace Gschem3
 
 
         /**
-         * The attribute parent being edited
+         * The backing store for the current item being edited
          */
-        public Geda3.SchematicItem? parent
-        {
-            get
-            {
-                return b_parent;
-            }
-            construct set
-            {
-                if (b_parent != null)
-                {
-                    b_parent.attached.disconnect(on_attached);
-                    b_parent.detached.disconnect(on_detached);
-                }
-
-                b_parent = value as Geda3.AttributeParent;
-
-                if (b_parent != null)
-                {
-                    b_parent.attached.connect(on_attached);
-                    b_parent.detached.connect(on_detached);
-                }
-            }
-            default = null;
-        }
+        private Geda3.AttributeParent? b_item;
 
 
         /**
-         * The backing store for the current window
+         *
          */
-        private SchematicWindow? b_current_window;
-
-
-        /**
-         * The backing store for attribute parent being edited
-         */
-        private Geda3.AttributeParent? b_parent;
-
-
-        /**
-         * The backing store for attribute parent being edited
-         */
-        public void on_attached(Geda3.AttributeChild child, Geda3.AttributeParent parent)
+        private void on_attached(Geda3.AttributeChild child, Geda3.AttributeParent parent)
         {
         }
 
 
         /**
-         * The backing store for attribute parent being edited
+         *
          */
-        public void on_detached(Geda3.AttributeChild child, Geda3.AttributeParent parent)
+        private void on_detached(Geda3.AttributeChild child, Geda3.AttributeParent parent)
         {
         }
     }

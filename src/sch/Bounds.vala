@@ -66,6 +66,16 @@ namespace Geda3
          * @param y1 y coordinate of second point
          */
         public Bounds.with_fpoints(double x0, double y0, double x1, double y1)
+
+            requires(x0 >= int.MIN)
+            requires(y0 >= int.MIN)
+            requires(x1 >= int.MIN)
+            requires(y1 >= int.MIN)
+            requires(x0 < int.MAX)
+            requires(y0 < int.MAX)
+            requires(x1 < int.MAX)
+            requires(y1 < int.MAX)
+
         {
             min_x = (int) Math.floor(double.min(x0, x1));
             min_y = (int) Math.floor(double.min(y0, y1));
