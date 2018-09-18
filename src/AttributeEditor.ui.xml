@@ -41,12 +41,26 @@
                                 <property name="sort-column-id">0</property>
                                 <property name="title">Name</property>
                                 <child>
+                                    <object class="GtkCellRendererToggle" id="column-name-renderer-visible">
+                                    </object>
+                                    <attributes>
+                                        <attribute name="active">2</attribute>
+                                        <attribute name="editable">2</attribute>
+                                    </attributes>
+                                    <cell-packing>
+                                        <property name="expand">false</property>
+                                    </cell-packing>
+                                </child>
+                                <child>
                                     <object class="GtkCellRendererText" id="column-name-renderer-name">
                                     </object>
                                     <attributes>
                                         <attribute name="editable">2</attribute>
                                         <attribute name="text">0</attribute>
                                     </attributes>
+                                    <cell-packing>
+                                        <property name="expand">true</property>
+                                    </cell-packing>
                                 </child>
                             </object>
                         </child>
@@ -57,12 +71,46 @@
                                 <property name="sort-column-id">1</property>
                                 <property name="title">Value</property>
                                 <child>
+                                    <object class="GtkCellRendererToggle" id="column-value-renderer-visible">
+                                    </object>
+                                    <attributes>
+                                        <attribute name="active">2</attribute>
+                                        <attribute name="editable">2</attribute>
+                                    </attributes>
+                                    <cell-packing>
+                                        <property name="expand">false</property>
+                                    </cell-packing>
+                                </child>
+                                <child>
                                     <object class="GtkCellRendererText" id="column-value-renderer-value">
                                     </object>
                                     <attributes>
                                         <attribute name="editable">3</attribute>
                                         <attribute name="text">1</attribute>
                                     </attributes>
+                                    <cell-packing>
+                                        <property name="expand">true</property>
+                                    </cell-packing>
+                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkTreeViewColumn" id="column-visible">
+                                <property name="clickable">TRUE</property>
+                                <property name="expand">FALSE</property>
+                                <property name="resizable">FALSE</property>
+                                <property name="sort-column-id">2</property>
+                                <property name="title">Visible</property>
+                                <child>
+                                    <object class="GtkCellRendererToggle" id="column-visible-renderer-visible">
+                                    </object>
+                                    <attributes>
+                                        <attribute name="active">2</attribute>
+                                        <attribute name="editable">2</attribute>
+                                    </attributes>
+                                    <cell-packing>
+                                        <property name="expand">false</property>
+                                    </cell-packing>
                                 </child>
                             </object>
                         </child>
