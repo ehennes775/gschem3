@@ -225,6 +225,17 @@
                                                 <!--<property name="icon-name">zoom-out</property>-->
                                             </packing>
                                         </child>
+                                        <child>
+                                            <object class="Gschem3AttributeEditor" id="editor">
+                                                <property name="hexpand">true</property>
+                                                <property name="vexpand">true</property>
+                                            </object>
+                                            <packing>
+                                                <property name="name">editor</property>
+                                                <property name="title">Editor</property>
+                                                <!--<property name="icon-name">zoom-out</property>-->
+                                            </packing>
+                                        </child>
                                     </object>
                                 </child>
                             </object>

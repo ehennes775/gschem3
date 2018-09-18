@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      *
      */
-    //[GtkTemplate(ui="/com/github/ehennes775/gschem3/ProjectWidget.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/AttributeEditor.ui.xml")]
     public class AttributeEditor : Gtk.Box, Gtk.Buildable
     {
         /**
@@ -36,9 +36,57 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        construct
+        {
+            m_name_renderer.edited.connect(on_item_edited);
+            m_value_renderer.edited.connect(on_item_edited);
+        }
+
+
+        /**
+         *
+         */
+        private enum Column
+        {
+            NAME,
+            VALUE
+        }
+
+
+        /**
          * The backing store for the current item being edited
          */
         private Geda3.AttributeParent? b_item;
+
+
+        /**
+         *
+         */
+        [GtkChild(name="list")]
+        private Gtk.ListStore m_list;
+
+
+        /**
+         *
+         */
+        [GtkChild(name="column-name-renderer-name")]
+        private Gtk.CellRendererText m_name_renderer;
+
+
+        /**
+         *
+         */
+        [GtkChild(name="tree")]
+        private Gtk.TreeView m_tree_view;
+
+
+        /**
+         *
+         */
+        [GtkChild(name="column-value-renderer-value")]
+        private Gtk.CellRendererText m_value_renderer;
 
 
         /**
@@ -53,6 +101,14 @@ namespace Gschem3
          *
          */
         private void on_detached(Geda3.AttributeChild child, Geda3.AttributeParent parent)
+        {
+        }
+
+
+        /**
+         *
+         */
+        private void on_item_edited(Gtk.CellRendererText sender, string path_string, string new_name)
         {
         }
     }
