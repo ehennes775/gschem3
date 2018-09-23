@@ -4,7 +4,7 @@
     <object class="GtkListStore" id="fill-type-list">
         <columns>
             <column type="gchararray"/>
-            <column type="gint"/>
+            <column type="gchararray"/>
         </columns>
         <data>
             <row>
@@ -103,9 +103,14 @@
         <property name="label">Fill Style</property>
         <child>
             <object class="GtkGrid" id="grid">
+                <property name="column-spacing">10</property>
+                <property name="margin-start">10</property>
+                <property name="row-homogeneous">true</property>
+                <property name="row-spacing">5</property>
                 <child>
                     <object class="GtkLabel" id="fill-type-label">
                         <property name="label">Type:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -117,6 +122,7 @@
                 <child>
                     <object class="GtkComboBox" id="fill-type-combo">
                         <property name="hexpand">true</property>
+                        <property name="id-column">1</property>
                         <property name="model">fill-type-list</property>
                         <child>
                             <object class="GtkCellRendererText" id="line-type-renderer">
@@ -139,6 +145,7 @@
                 <child>
                     <object class="GtkLabel" id="line-width-label">
                         <property name="label">Line Width:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -153,6 +160,10 @@
                         <property name="has-entry">true</property>
                         <property name="hexpand">true</property>
                         <property name="model">width-list</property>
+                        <child internal-child="entry">
+                            <object class="GtkEntry" id="line-width-entry">
+                            </object>
+                        </child>
                     </object>
                     <packing>
                         <property name="left-attach">1</property>
@@ -163,7 +174,8 @@
                 </child>
                 <child>
                     <object class="GtkLabel" id="fill-angle-1-label">
-                        <property name="label">Fill Angle 1</property>
+                        <property name="label">Angle 1:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -178,6 +190,10 @@
                         <property name="has-entry">true</property>
                         <property name="hexpand">true</property>
                         <property name="model">angle-list</property>
+                        <child internal-child="entry">
+                            <object class="GtkEntry" id="fill-angle-1-entry">
+                            </object>
+                        </child>
                     </object>
                     <packing>
                         <property name="left-attach">1</property>
@@ -188,7 +204,8 @@
                 </child>
                 <child>
                     <object class="GtkLabel" id="fill-pitch-1-label">
-                        <property name="label">Fill Pitch 1</property>
+                        <property name="label">Pitch 1:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -203,6 +220,10 @@
                         <property name="has-entry">true</property>
                         <property name="hexpand">true</property>
                         <property name="model">pitch-list</property>
+                        <child internal-child="entry">
+                            <object class="GtkEntry" id="fill-pitch-1-entry">
+                            </object>
+                        </child>
                     </object>
                     <packing>
                         <property name="left-attach">1</property>
@@ -213,7 +234,8 @@
                 </child>
                 <child>
                     <object class="GtkLabel" id="fill-angle-2-label">
-                        <property name="label">Fill Angle 2</property>
+                        <property name="label">Angle 2:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -228,6 +250,10 @@
                         <property name="has-entry">true</property>
                         <property name="hexpand">true</property>
                         <property name="model">angle-list</property>
+                        <child internal-child="entry">
+                            <object class="GtkEntry" id="fill-angle-2-entry">
+                            </object>
+                        </child>
                     </object>
                     <packing>
                         <property name="left-attach">1</property>
@@ -238,7 +264,8 @@
                 </child>
                 <child>
                     <object class="GtkLabel" id="fill-pitch-2-label">
-                        <property name="label">Fill Pitch 2</property>
+                        <property name="label">Pitch 2:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -253,6 +280,10 @@
                         <property name="has-entry">true</property>
                         <property name="hexpand">true</property>
                         <property name="model">pitch-list</property>
+                        <child internal-child="entry">
+                            <object class="GtkEntry" id="fill-pitch-2-entry">
+                            </object>
+                        </child>
                     </object>
                     <packing>
                         <property name="left-attach">1</property>

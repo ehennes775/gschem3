@@ -99,9 +99,14 @@
         <property name="label">Line Style</property>
         <child>
             <object class="GtkGrid" id="grid">
+                <property name="column-spacing">10</property>
+                <property name="margin-start">10</property>
+                <property name="row-homogeneous">true</property>
+                <property name="row-spacing">5</property>
                 <child>
                     <object class="GtkLabel" id="line-type-label">
                         <property name="label">Type:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -135,6 +140,7 @@
                 <child>
                     <object class="GtkLabel" id="width-label">
                         <property name="label">Width:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -176,6 +182,7 @@
                 <child>
                     <object class="GtkLabel" id="dash-length-label">
                         <property name="label">Dash Length:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -217,6 +224,7 @@
                 <child>
                     <object class="GtkLabel" id="dash-space-label">
                         <property name="label">Dash Space:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -258,6 +266,7 @@
                 <child>
                     <object class="GtkLabel" id="cap-type-label">
                         <property name="label">Cap Type:</property>
+                        <property name="xalign">0.0</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
