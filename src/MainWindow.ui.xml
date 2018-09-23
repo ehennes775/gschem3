@@ -236,6 +236,18 @@
                                                 <!--<property name="icon-name">zoom-out</property>-->
                                             </packing>
                                         </child>
+                                        <child>
+                                            <object class="GtkBox" id="property-editor">
+                                                <property name="hexpand">true</property>
+                                                <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                                                <property name="vexpand">true</property>
+                                            </object>
+                                            <packing>
+                                                <property name="name">property-editor</property>
+                                                <property name="title">Prop</property>
+                                                <!--<property name="icon-name">zoom-out</property>-->
+                                            </packing>
+                                        </child>
                                     </object>
                                 </child>
                             </object>

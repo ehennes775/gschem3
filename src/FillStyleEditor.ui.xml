@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+    <template class="Gschem3FillStyleEditor" parent="GtkExpander">
+        <property name="expanded">true</property>
+        <property name="label">Fill Style</property>
+        <child>
+            <object class="GtkGrid" id="grid">
+                <child>
+                    <object class="GtkLabel" id="fill-type-label">
+                        <property name="label">Type:</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="line-width-label">
+                        <property name="label">Line Width:</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="fill-angle-1-label">
+                        <property name="label">Fill Angle 1</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">2</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="fill-pitch-1-label">
+                        <property name="label">Fill Pitch 1</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">3</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="fill-angle-2-label">
+                        <property name="label">Fill Angle 2</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">4</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="fill-pitch-2-label">
+                        <property name="label">Fill Pitch 2</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">5</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>

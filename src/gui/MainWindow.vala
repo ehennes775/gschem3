@@ -98,6 +98,9 @@ namespace Gschem3
             m_library_widget.open_files.connect(open);
 
             m_complex_factory = new MainComplexFactory(m_library_widget);
+
+            add_property_editor(new LineStyleEditor());
+            add_property_editor(new FillStyleEditor());
         }
 
 
@@ -358,6 +361,13 @@ namespace Gschem3
 
 
         /**
+         * The box containing property editors
+         */
+        [GtkChild(name="property-editor")]
+        private Gtk.Box m_property_editor;
+
+
+        /**
          * The notebook containing the document windows
          */
         [GtkChild]
@@ -376,6 +386,15 @@ namespace Gschem3
          */
         [GtkChild(name="project")]
         private ProjectWidget m_project_widget;
+
+
+        private void add_property_editor(ItemEditor editor)
+
+            requires(m_property_editor != null)
+
+        {
+            m_property_editor.add(editor);
+        }
 
 
         /**
