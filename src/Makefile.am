@@ -150,6 +150,7 @@ libgschem3_a_SOURCES = \
 	gui/ExportNetlistDialog.vala \
 	gui/ExportSchematics.vala \
 	gui/FillStyleEditor.vala \
+	gui/FillSwatchRenderer.vala \
 	gui/Grid.vala \
 	gui/ItemEditor.vala \
 	gui/LibraryAdapter.vala \

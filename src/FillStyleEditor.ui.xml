@@ -125,7 +125,18 @@
                         <property name="id-column">1</property>
                         <property name="model">fill-type-list</property>
                         <child>
+                            <object class="Gschem3FillSwatchRenderer" id="fill-type-renderer">
+                                <property name="width">25</property>
+                            </object>
+                            <attributes>
+                            </attributes>
+                            <cell-packing>
+                                <property name="expand">false</property>
+                            </cell-packing>
+                        </child>
+                        <child>
                             <object class="GtkCellRendererText" id="line-type-renderer">
+                                <property name="xpad">5</property>
                             </object>
                             <attributes>
                                 <attribute name="text">0</attribute>
