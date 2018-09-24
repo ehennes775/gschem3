@@ -38,16 +38,13 @@ namespace Gschem3
             Gtk.CellRendererState flags
             )
         {
+            var state = widget.get_state_flags();
+            
             var style_context = widget.get_style_context();
 
-            Gdk.RGBA text_color;
-
-            var success = style_context.lookup_color(
-                "text_color",
-                out text_color
+            var text_color = style_context.get_color(
+                state
                 );
-
-            warn_if_fail(success);
 
             context.set_source_rgba(
                 text_color.red,
@@ -56,28 +53,101 @@ namespace Gschem3
                 text_color.alpha
                 );
 
+            context.set_line_width(2);
+
             var offset = 1.0;
 
             context.move_to(
                (double) cell_area.x + offset,
-               (double) cell_area.y + offset);
+               (double) cell_area.y + offset
+               );
 
             context.line_to(
                (double) cell_area.x + (double) cell_area.width - offset,
-               (double) cell_area.y + offset);
+               (double) cell_area.y + offset
+               );
 
             context.line_to(
                (double) cell_area.x + (double) cell_area.width - offset,
-               (double) cell_area.y + (double) cell_area.height - offset);
+               (double) cell_area.y + (double) cell_area.height - offset
+               );
 
             context.line_to(
                (double) cell_area.x + offset,
-               (double) cell_area.y + (double) cell_area.height - offset);
+               (double) cell_area.y + (double) cell_area.height - offset
+               );
 
             context.close_path();
 
-            context.set_line_width(2);
-            context.stroke();
+            if (fill_type == Geda3.FillType.FILL)
+            {
+                context.fill_preserve();
+                context.stroke();
+            }
+            else if (fill_type.uses_first_set())
+            {
+                context.stroke();
+
+                context.save();
+
+                context.translate(
+                    (cell_area.x + cell_area.width) / 2.0,
+                    (cell_area.y + cell_area.height) / 2.0
+                    );
+
+                context.rotate(Geda3.Angle.to_radians(45));
+
+                context.move_to(-100.0, 0.0);
+                context.line_to(100.0, 0.0);
+
+                context.move_to(-100.0, 7.0);
+                context.line_to(100.0, 7.0);
+
+                context.move_to(-100.0, -7.0);
+                context.line_to(100.0, -7.0);
+
+                    context.move_to(-100.0, 14.0);
+                    context.line_to(100.0, 14.0);
+
+                    context.move_to(-100.0, -14.0);
+                    context.line_to(100.0, -14.0);
+
+                context.stroke();
+                context.restore();
+
+                if (fill_type.uses_second_set())
+                {
+                    context.save();
+                    context.translate(
+                        (cell_area.x + cell_area.width) / 2.0,
+                        (cell_area.y + cell_area.height) / 2.0
+                        );
+
+                    context.rotate(Geda3.Angle.to_radians(135));
+
+                    context.move_to(-100.0, 0.0);
+                    context.line_to(100.0, 0.0);
+
+                    context.move_to(-100.0, 7.0);
+                    context.line_to(100.0, 7.0);
+
+                    context.move_to(-100.0, -7.0);
+                    context.line_to(100.0, -7.0);
+
+                    context.move_to(-100.0, 14.0);
+                    context.line_to(100.0, 14.0);
+
+                    context.move_to(-100.0, -14.0);
+                    context.line_to(100.0, -14.0);
+
+                    context.stroke();
+                    context.restore();
+                }
+            }
+            else
+            {
+                context.stroke();
+            }
         }
     }
 }
