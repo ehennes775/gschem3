@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
+        <file>gui/pedit/FillStyleEditor.ui.xml</file>
+        <file>gui/pedit/LineStyleEditor.ui.xml</file>
         <file>ArcTool.svg</file>
         <file>AttributeEditor.ui.xml</file>
         <file>Blank.svg</file>
@@ -11,10 +13,8 @@
         <file>DocumentTab.ui.xml</file>
         <file>ExportBillOfMaterialDialog.ui.xml</file>
         <file>ExportNetlistDialog.ui.xml</file>
-        <file>FillStyleEditor.ui.xml</file>
         <file>GreenFolder.svg</file>
         <file>LibraryWidget.ui.xml</file>
-        <file>LineStyleEditor.ui.xml</file>
         <file>LineTool.svg</file>
         <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>

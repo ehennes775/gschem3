@@ -239,6 +239,7 @@
                                         <child>
                                             <object class="GtkBox" id="property-editor">
                                                 <property name="hexpand">true</property>
+                                                <property name="margin">10</property>
                                                 <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
                                                 <property name="vexpand">true</property>
                                             </object>
