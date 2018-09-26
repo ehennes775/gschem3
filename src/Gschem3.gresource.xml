@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
+        <file>gui/aedit/AttributeEditor.ui.xml</file>
         <file>gui/pedit/FillStyleEditor.ui.xml</file>
         <file>gui/pedit/LineStyleEditor.ui.xml</file>
         <file>gui/pedit/PinPropertyEditor.ui.xml</file>
         <file>gui/pedit/TextPropertyEditor.ui.xml</file>
         <file>ArcTool.svg</file>
-        <file>AttributeEditor.ui.xml</file>
         <file>Blank.svg</file>
         <file>BlueFolder.svg</file>
         <file>BoxTool.svg</file>

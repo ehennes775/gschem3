@@ -140,11 +140,11 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
+	gui/aedit/AttributeEditor.vala \
 	gui/pedit/FillStyleEditor.vala \
 	gui/pedit/LineStyleEditor.vala \
 	gui/pedit/PinPropertyEditor.vala \
 	gui/pedit/TextPropertyEditor.vala \
-	gui/AttributeEditor.vala \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \
 	gui/DrawingTool.vala \

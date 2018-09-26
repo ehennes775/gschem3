@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      *
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/AttributeEditor.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/aedit/AttributeEditor.ui.xml")]
     public class AttributeEditor : Gtk.Box, Gtk.Buildable
     {
         /**
