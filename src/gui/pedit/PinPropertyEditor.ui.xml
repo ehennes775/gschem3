@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+
+    <object class="GtkListStore" id="pin-type-list">
+        <columns>
+            <column type="gchararray"/>
+            <column type="gint"/>
+        </columns>
+        <data>
+            <row>
+                <col id="0">Net</col>
+                <col id="1">0</col>
+            </row>
+            <row>
+                <col id="0">Bus</col>
+                <col id="1">1</col>
+            </row>
+        </data>
+    </object>
+
+    <template class="Gschem3PinPropertyEditor" parent="GtkExpander">
+        <property name="expanded">true</property>
+        <property name="label">Pin Properties</property>
+        <child>
+            <object class="GtkGrid" id="grid">
+                <property name="column-spacing">10</property>
+                <property name="margin-start">10</property>
+                <property name="row-homogeneous">true</property>
+                <property name="row-spacing">5</property>
+                <child>
+                    <object class="GtkLabel" id="pin-type-label">
+                        <property name="label">Type:</property>
+                        <property name="xalign">0.0</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkComboBox" id="pin-type-combo">
+                        <property name="hexpand">true</property>
+                        <property name="model">pin-type-list</property>
+                        <child>
+                            <object class="GtkCellRendererText" id="pin-type-renderer">
+                            </object>
+                            <attributes>
+                                <attribute name="text">0</attribute>
+                            </attributes>
+                            <cell-packing>
+                                <property name="expand">true</property>
+                            </cell-packing>
+                        </child>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>

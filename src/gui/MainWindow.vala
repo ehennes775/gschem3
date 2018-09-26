@@ -101,6 +101,8 @@ namespace Gschem3
 
             add_property_editor(new LineStyleEditor());
             add_property_editor(new FillStyleEditor());
+            add_property_editor(new TextPropertyEditor());
+            add_property_editor(new PinPropertyEditor());
         }
 
 

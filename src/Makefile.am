@@ -74,6 +74,7 @@ libgeda3_a_SOURCES = \
 	sch/Coord.vala \
 	sch/DashType.vala \
 	sch/FileVersion.vala \
+	sch/Fillable.vala \
 	sch/FillStyle.vala \
 	sch/FillType.vala \
 	sch/Grip.vala \
@@ -141,6 +142,8 @@ libgeda3_a_VALAFLAGS = \
 libgschem3_a_SOURCES = \
 	gui/pedit/FillStyleEditor.vala \
 	gui/pedit/LineStyleEditor.vala \
+	gui/pedit/PinPropertyEditor.vala \
+	gui/pedit/TextPropertyEditor.vala \
 	gui/AttributeEditor.vala \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \

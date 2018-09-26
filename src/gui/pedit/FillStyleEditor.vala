@@ -124,6 +124,176 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param items The items to apply a new angle
+         * @param angle The new angle to apply
+         */
+        private static void apply_angle_1(Gee.Iterable<Geda3.Fillable> items, int angle)
+        {
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                item.fill_style.fill_angle_1 = angle;
+            }
+        }
+
+
+        /**
+         *
+         *
+         * @param items The items to apply a new angle
+         * @param angle The new angle to apply
+         */
+        private static void apply_angle_2(Gee.Iterable<Geda3.Fillable> items, int angle)
+        {
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                item.fill_style.fill_angle_2 = angle;
+            }
+        }
+
+
+        /**
+         *
+         *
+         * @param items The items to apply a new fill type
+         * @param fill_type The new fill type to apply
+         */
+        private static void apply_fill_type(Gee.Iterable<Geda3.Fillable> items, Geda3.FillType fill_type)
+
+            requires(fill_type >= 0)
+            requires(fill_type < Geda3.FillType.COUNT)
+
+        {
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+
+                    continue;
+                }
+
+                item.fill_style.fill_type = fill_type;
+            }
+        }
+
+
+        /**
+         *
+         *
+         * @param items The items to apply a new line width
+         * @param width The new line width to apply
+         */
+        private static void apply_line_width(Gee.Iterable<Geda3.Fillable> items, int width)
+
+            requires(width > 0)
+
+        {
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                item.fill_style.fill_width = width;
+            }
+        }
+
+
+        /**
+         *
+         *
+         * @param items The items to apply a new pitch
+         * @param pitch The new pitch value to apply
+         */
+        private static void apply_pitch_1(Gee.Iterable<Geda3.Fillable> items, int pitch)
+
+            requires(pitch > 0)
+
+        {
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                item.fill_style.fill_pitch_1 = pitch;
+            }
+        }
+
+
+        /**
+         *
+         *
+         * @param items The items to apply a new pitch
+         * @param pitch The new pitch value to apply
+         */
+        private static void apply_pitch_2(Gee.Iterable<Geda3.Fillable> items, int pitch)
+
+            requires(pitch > 0)
+
+        {
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                item.fill_style.fill_pitch_2 = pitch;
+            }
+        }
+
+
+        /**
+         *
          */
         private void on_activate_angle_1()
         {
