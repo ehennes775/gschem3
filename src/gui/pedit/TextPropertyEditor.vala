@@ -23,6 +23,10 @@ namespace Gschem3
          * @param alignment The new alignment to apply
          */
         private static void apply_alignment(Gee.Iterable<Geda3.TextItem> items, Geda3.TextAlignment alignment)
+
+            requires(alignment >= 0)
+            requires(alignment <= Geda3.TextAlignment.COUNT)
+
         {
             foreach (var item in items)
             {
