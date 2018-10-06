@@ -17,6 +17,14 @@ namespace Gschem3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void update_document_window(DocumentWindow? window)
+        {
+        }
+
+
+        /**
          *
          *
          * @param items The items to apply a new fill type

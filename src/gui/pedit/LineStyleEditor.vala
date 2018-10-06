@@ -14,5 +14,13 @@ namespace Gschem3
             margin_top = 8;                 // not getting set in the XML
             use_markup = true;              // not getting set in the XML
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void update_document_window(DocumentWindow? window)
+        {
+        }
     }
 }

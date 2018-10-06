@@ -15,6 +15,7 @@ namespace Gschem3
             stdout.printf("%s\n",typeof(FillSwatchRenderer).name());
         }
 
+
         /**
          *
          */
@@ -42,6 +43,14 @@ namespace Gschem3
             m_width_entry.activate.connect(on_activate_width);
 
             m_type_combo.changed.connect(on_changed_fill_type);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void update_document_window(DocumentWindow? window)
+        {
         }
 
 

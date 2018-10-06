@@ -351,9 +351,22 @@ namespace Gschem3
 
 
         /**
+         * The current document window
+         */
+        private DocumentWindow? m_current_document_window = null;
+
+
+        /**
          * The currently selected tool
          */
         private string m_current_tool = "select";
+
+
+        /**
+         * A list of the property editors that must be updated when
+         * the current document window changes.
+         */
+        private Gee.List<ItemEditor> m_editors = new Gee.ArrayList<ItemEditor>();
 
 
         /**
@@ -390,11 +403,19 @@ namespace Gschem3
         private ProjectWidget m_project_widget;
 
 
+        /**
+         * Add a property editor to the property editor widget
+         *
+         * @param editor The editor to add to the property editor
+         */
         private void add_property_editor(ItemEditor editor)
 
+            requires(m_editors != null)
             requires(m_property_editor != null)
 
         {
+            editor.update_document_window(m_current_document_window);
+            m_editors.add(editor);
             m_property_editor.add(editor);
         }
 
@@ -998,6 +1019,13 @@ namespace Gschem3
                     "select-tool",
                     new Variant.string("net")
                     );
+            }
+
+            m_current_document_window = page as DocumentWindow;
+
+            foreach (var editor in m_editors)
+            {
+                editor.update_document_window(m_current_document_window);
             }
         }
 
