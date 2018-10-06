@@ -26,6 +26,15 @@ namespace Gschem3
         }
 
 
+        /**
+         *
+         */
+        static construct
+        {
+            stdout.printf("%s\n",typeof(PropertyComboBox).name());
+        }
+
+
         construct
         {
             expanded = true;                // not getting set in the XML

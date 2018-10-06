@@ -144,6 +144,7 @@ libgschem3_a_SOURCES = \
 	gui/pedit/FillStyleEditor.vala \
 	gui/pedit/LineStyleEditor.vala \
 	gui/pedit/PinPropertyEditor.vala \
+	gui/pedit/PropertyComboBox.vala \
 	gui/pedit/TextPropertyEditor.vala \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \

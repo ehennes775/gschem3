@@ -21,6 +21,8 @@ namespace Gschem3
             construct set
             {
                 b_schematic_window = value;
+
+                update();
             }
             default = null;
         }
@@ -32,6 +34,7 @@ namespace Gschem3
         static construct
         {
             stdout.printf("%s\n",typeof(FillSwatchRenderer).name());
+            stdout.printf("%s\n",typeof(PropertyComboBox).name());
         }
 
 
@@ -46,20 +49,15 @@ namespace Gschem3
             margin_top = 8;                 // not getting set in the XML
             use_markup = true;              // not getting set in the XML
 
-            m_angle_combo_1.changed.connect(on_changed_angle_1);
-            m_angle_entry_1.activate.connect(on_activate_angle_1);
+            m_angle_combo_1.apply.connect(on_apply_angle_1);
 
-            m_angle_combo_2.changed.connect(on_changed_angle_2);
-            m_angle_entry_2.activate.connect(on_activate_angle_2);
+            m_angle_combo_2.apply.connect(on_apply_angle_2);
 
-            m_pitch_combo_1.changed.connect(on_changed_pitch_1);
-            m_pitch_entry_1.activate.connect(on_activate_pitch_1);
+            m_pitch_combo_1.apply.connect(on_apply_pitch_1);
 
-            m_pitch_combo_2.changed.connect(on_changed_pitch_2);
-            m_pitch_entry_2.activate.connect(on_activate_pitch_2);
+            m_pitch_combo_2.apply.connect(on_apply_pitch_2);
 
-            m_width_combo.changed.connect(on_changed_width);
-            m_width_entry.activate.connect(on_activate_width);
+            m_width_combo.apply.connect(on_apply_width);
 
             m_type_combo.changed.connect(on_changed_fill_type);
         }
@@ -84,7 +82,7 @@ namespace Gschem3
          *
          */
         [GtkChild(name="fill-angle-1-combo")]
-        private Gtk.ComboBox m_angle_combo_1;
+        private PropertyComboBox m_angle_combo_1;
 
 
         /**
@@ -98,7 +96,7 @@ namespace Gschem3
          *
          */
         [GtkChild(name="fill-angle-2-combo")]
-        private Gtk.ComboBox m_angle_combo_2;
+        private PropertyComboBox m_angle_combo_2;
 
 
         /**
@@ -111,8 +109,14 @@ namespace Gschem3
         /**
          *
          */
+        private Gee.List<Geda3.Fillable> m_items = new Gee.ArrayList<Geda3.Fillable>();
+
+
+        /**
+         *
+         */
         [GtkChild(name="fill-pitch-1-combo")]
-        private Gtk.ComboBox m_pitch_combo_1;
+        private PropertyComboBox m_pitch_combo_1;
 
 
         /**
@@ -126,7 +130,7 @@ namespace Gschem3
          *
          */
         [GtkChild(name="fill-pitch-2-combo")]
-        private Gtk.ComboBox m_pitch_combo_2;
+        private PropertyComboBox m_pitch_combo_2;
 
 
         /**
@@ -140,21 +144,16 @@ namespace Gschem3
          *
          */
         [GtkChild(name="fill-type-combo")]
-        private Gtk.ComboBox m_type_combo;
+        private PropertyComboBox m_type_combo;
 
 
         /**
          *
          */
         [GtkChild(name="line-width-combo")]
-        private Gtk.ComboBox m_width_combo;
+        private PropertyComboBox m_width_combo;
 
 
-        /**
-         *
-         */
-        [GtkChild(name="line-width-entry")]
-        private Gtk.Entry m_width_entry;
 
 
         /**
@@ -330,87 +329,6 @@ namespace Gschem3
         /**
          *
          */
-        private void on_activate_angle_1()
-        {
-            stdout.printf("on_activate_angle_1()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_activate_angle_2()
-        {
-            stdout.printf("on_activate_angle_2()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_activate_pitch_1()
-        {
-            stdout.printf("on_activate_pitch_1()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_activate_pitch_2()
-        {
-            stdout.printf("on_activate_pitch_2()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_activate_width()
-        {
-            stdout.printf("on_activate_width()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_changed_angle_1()
-        {
-            stdout.printf("on_changed_angle_1()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_changed_angle_2()
-        {
-            stdout.printf("on_changed_angle_2()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_changed_pitch_1()
-        {
-            stdout.printf("on_changed_pitch_1()\n");
-        }
-
-
-        /**
-         *
-         */
-        private void on_changed_pitch_2()
-        {
-            stdout.printf("on_changed_pitch_2()\n");
-        }
-
-
-        /**
-         *
-         */
         private void on_changed_fill_type()
 
             requires(m_angle_combo_1 != null)
@@ -443,9 +361,134 @@ namespace Gschem3
         /**
          *
          */
-        private void on_changed_width()
+        private void on_apply_angle_1()
+
+            requires(m_angle_combo_1 != null)
+            requires(m_items != null)
+
         {
-            stdout.printf("on_changed_width()\n");
+            try
+            {
+                var angle = Geda3.Angle.parse(m_angle_combo_1.content);
+
+                apply_angle_1(m_items, angle);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void on_apply_angle_2()
+
+            requires(m_angle_combo_2 != null)
+            requires(m_items != null)
+
+        {
+            try
+            {
+                var angle = Geda3.Angle.parse(m_angle_combo_2.content);
+
+                apply_angle_2(m_items, angle);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void on_apply_pitch_1()
+
+            requires(m_items != null)
+            requires(m_pitch_combo_1 != null)
+
+        {
+            try
+            {
+                var pitch = Geda3.Coord.parse(m_pitch_combo_1.content);
+
+                apply_pitch_1(m_items, pitch);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void on_apply_pitch_2()
+
+            requires(m_items != null)
+            requires(m_pitch_combo_2 != null)
+
+        {
+            try
+            {
+                var pitch = Geda3.Coord.parse(m_pitch_combo_2.content);
+
+                apply_pitch_2(m_items, pitch);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void on_apply_width()
+
+            requires(m_items != null)
+            requires(m_width_combo != null)
+
+        {
+            try
+            {
+                var width = Geda3.Coord.parse(m_width_combo.content);
+
+                apply_line_width(m_items, width);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void update()
+        {
+            m_items.clear();
+
+            if ((b_schematic_window != null) && (b_schematic_window.selection != null))
+            {
+                foreach (var item in b_schematic_window.selection)
+                {
+                    var fillable = item as Geda3.Fillable;
+
+                    if (fillable == null)
+                    {
+                        continue;
+                    }
+
+                    m_items.add(fillable);
+                }
+            }
         }
     }
 }

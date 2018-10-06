@@ -120,7 +120,7 @@
                     </packing>
                 </child>
                 <child>
-                    <object class="GtkComboBox" id="color-combo">
+                    <object class="Gschem3PropertyComboBox" id="color-combo">
                         <property name="hexpand">true</property>
                         <property name="model">color-list</property>
                         <child>
@@ -154,7 +154,7 @@
                     </packing>
                 </child>
                 <child>
-                    <object class="GtkComboBox" id="size-combo">
+                    <object class="Gschem3PropertyComboBox" id="size-combo">
                         <property name="entry-text-column">0</property>
                         <property name="has-entry">true</property>
                         <property name="hexpand">true</property>
@@ -196,7 +196,7 @@
                     </packing>
                 </child>
                 <child>
-                    <object class="GtkComboBox" id="alignment-combo">
+                    <object class="Gschem3PropertyComboBox" id="alignment-combo">
                         <property name="hexpand">true</property>
                         <property name="model">alignment-list</property>
                         <child>
@@ -230,7 +230,7 @@
                     </packing>
                 </child>
                 <child>
-                    <object class="GtkComboBox" id="rotation-combo">
+                    <object class="Gschem3PropertyComboBox" id="rotation-combo">
                         <property name="hexpand">true</property>
                         <property name="model">rotation-list</property>
                         <child>

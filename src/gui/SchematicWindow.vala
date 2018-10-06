@@ -77,6 +77,17 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public Gee.List<Geda3.SchematicItem>? selection
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /**
          * The settings for use by this schematic window
          *
          * Setting this property to null will assign the default
