@@ -4,7 +4,9 @@ namespace Geda3
      * Represents a graphical path on a schematic or symbol
      */
     public class PathItem : SchematicItem,
-        Grippable
+        Fillable,
+        Grippable,
+        StylableLine
     {
         /**
          * The type code, for a path, used in schematic files

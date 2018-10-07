@@ -79,11 +79,13 @@ namespace Gschem3
         /**
          *
          */
-        public Gee.List<Geda3.SchematicItem>? selection
+        public Gee.Collection<Geda3.SchematicItem>? selection
         {
-            get
+            owned get
             {
-                return null;
+                // temporary for development
+
+                return schematic.items;
             }
         }
 

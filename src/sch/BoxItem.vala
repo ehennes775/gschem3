@@ -5,7 +5,9 @@ namespace Geda3
      *
      * Represents a graphic box on a schematic
      */
-    public class BoxItem : SchematicItem
+    public class BoxItem : SchematicItem,
+        Fillable,
+        StylableLine
     {
         /**
          * The type code used in schematic files

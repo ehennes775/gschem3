@@ -23,7 +23,9 @@ namespace Geda3
      * ||14||int32 ||The angle of the second set of fill lines       ||
      * ||15||int32 ||The spacing between the second set of fill lines||
      */
-    public class CircleItem : SchematicItem
+    public class CircleItem : SchematicItem,
+        Fillable,
+        StylableLine
     {
         /**
          * The radius for logic bubbles

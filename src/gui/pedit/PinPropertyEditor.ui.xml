@@ -4,7 +4,7 @@
     <object class="GtkListStore" id="pin-type-list">
         <columns>
             <column type="gchararray"/>
-            <column type="gint"/>
+            <column type="gchararray"/>
         </columns>
         <data>
             <row>
@@ -42,6 +42,7 @@
                 <child>
                     <object class="Gschem3PropertyComboBox" id="pin-type-combo">
                         <property name="hexpand">true</property>
+                        <property name="id-column">1</property>
                         <property name="model">pin-type-list</property>
                         <child>
                             <object class="GtkCellRendererText" id="pin-type-renderer">
