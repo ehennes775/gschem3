@@ -35,6 +35,9 @@ namespace Gschem3
         }
 
 
+        /**
+         *
+         */
         construct
         {
             expanded = true;                     // not getting set in the XML
@@ -42,6 +45,8 @@ namespace Gschem3
             margin_bottom = 8;                   // not getting set in the XML
             margin_top = 8;                      // not getting set in the XML
             use_markup = true;                   // not getting set in the XML
+
+            notify["schematic-window"].connect(on_notify_schematic_window);
         }
 
 
@@ -58,6 +63,40 @@ namespace Gschem3
          * The backing store for the schematic window property
          */
         private SchematicWindow? b_schematic_window;
+
+
+        /**
+         *
+         */
+        [GtkChild(name="alignment-combo")]
+        private PropertyComboBox m_alignment_combo;
+
+
+        /**
+         *
+         */
+        [GtkChild(name="color-combo")]
+        private PropertyComboBox m_color_combo;
+
+
+        /**
+         *
+         */
+        private Gee.List<Geda3.TextItem> m_items = new Gee.ArrayList<Geda3.TextItem>();
+
+
+        /**
+         *
+         */
+        [GtkChild(name="rotation-combo")]
+        private PropertyComboBox m_rotation_combo;
+
+
+        /**
+         *
+         */
+        [GtkChild(name="size-combo")]
+        private PropertyComboBox m_size_combo;
 
 
         /**
@@ -153,6 +192,65 @@ namespace Gschem3
 
                 item.size = size;
             }
+        }
+
+
+        /**
+         *
+         *
+         * @param param Unused
+         */
+        private void on_notify_schematic_window(ParamSpec param)
+        {
+            update();
+        }
+
+
+        /**
+         *
+         */
+        private void update()
+        {
+            m_items.clear();
+
+            if ((b_schematic_window != null) && (b_schematic_window.selection != null))
+            {
+                foreach (var item in b_schematic_window.selection)
+                {
+                    var text = item as Geda3.TextItem;
+
+                    if (text == null)
+                    {
+                        continue;
+                    }
+
+                    m_items.add(text);
+                }
+            }
+
+            update_sensitivities(m_items);
+        }
+
+
+        /**
+         * Update sensitivities for combo boxes
+         *
+         * @param items Text items in the selection
+         */
+        private void update_sensitivities(Gee.Iterable<Geda3.TextItem> items)
+
+            requires(m_alignment_combo != null)
+            requires(m_color_combo != null)
+            requires(m_rotation_combo != null)
+            requires(m_size_combo != null)
+
+        {
+            var sensitive = items.any_match(item => true);
+
+            m_alignment_combo.sensitive = sensitive;
+            m_color_combo.sensitive = sensitive;
+            m_rotation_combo.sensitive = sensitive;
+            m_size_combo.sensitive = sensitive;
         }
     }
 }

@@ -21,8 +21,6 @@ namespace Gschem3
             construct set
             {
                 b_schematic_window = value;
-
-                update();
             }
             default = null;
         }
@@ -38,6 +36,7 @@ namespace Gschem3
         }
 
 
+
         /**
          *
          */
@@ -49,17 +48,18 @@ namespace Gschem3
             margin_top = 8;                 // not getting set in the XML
             use_markup = true;              // not getting set in the XML
 
-            m_angle_combo_1.apply.connect(on_apply_angle_1);
+            m_apply_signal_ids = new ulong[]
+            {
+                m_angle_combo_1.apply.connect(on_apply_angle_1),
+                m_angle_combo_2.apply.connect(on_apply_angle_2),
+                m_pitch_combo_1.apply.connect(on_apply_pitch_1),
+                m_pitch_combo_2.apply.connect(on_apply_pitch_2),
+                m_width_combo.apply.connect(on_apply_width)
+            };
 
-            m_angle_combo_2.apply.connect(on_apply_angle_2);
+            m_type_signal_id = m_type_combo.apply.connect(on_apply_fill_type);
 
-            m_pitch_combo_1.apply.connect(on_apply_pitch_1);
-
-            m_pitch_combo_2.apply.connect(on_apply_pitch_2);
-
-            m_width_combo.apply.connect(on_apply_width);
-
-            m_type_combo.changed.connect(on_changed_fill_type);
+            notify["schematic-window"].connect(on_notify_schematic_window);
         }
 
 
@@ -116,6 +116,12 @@ namespace Gschem3
         /**
          *
          */
+        private ulong[] m_apply_signal_ids;
+
+
+        /**
+         *
+         */
         private Gee.List<Geda3.Fillable> m_items = new Gee.ArrayList<Geda3.Fillable>();
 
 
@@ -157,10 +163,14 @@ namespace Gschem3
         /**
          *
          */
+        private ulong m_type_signal_id;
+
+
+        /**
+         *
+         */
         [GtkChild(name="line-width-combo")]
         private PropertyComboBox m_width_combo;
-
-
 
 
         /**
@@ -516,6 +526,51 @@ namespace Gschem3
         /**
          *
          */
+        private static ValueState fetch_type(Gee.Iterable<Geda3.Fillable> items, out Geda3.FillType type)
+        {
+            var state = ValueState.UNAVAILABLE;
+            var temp_type = Geda3.FillType.HOLLOW;
+
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (state == ValueState.UNAVAILABLE)
+                {
+                    temp_type = item.fill_style.fill_type;
+                    state = ValueState.AVAILABLE;
+                    continue;
+                }
+
+                if (state == ValueState.AVAILABLE)
+                {
+                    if (temp_type != item.fill_style.fill_type)
+                    {
+                        state = ValueState.INCONSISTENT;
+                        break;
+                    }
+                }
+            }
+
+            type = temp_type;
+
+            return state;
+        }
+
+
+        /**
+         *
+         */
         private static ValueState fetch_width(Gee.Iterable<Geda3.Fillable> items, out int width)
         {
             var state = ValueState.UNAVAILABLE;
@@ -561,38 +616,6 @@ namespace Gschem3
         /**
          *
          */
-        private void on_changed_fill_type()
-
-            requires(m_angle_combo_1 != null)
-            requires(m_angle_combo_2 != null)
-            requires(m_pitch_combo_1 != null)
-            requires(m_pitch_combo_2 != null)
-            requires(m_type_combo != null)
-            requires(m_width_combo != null)
-
-        {
-            try
-            {
-                var fill_type = Geda3.FillType.parse(m_type_combo.active_id);
-
-                m_width_combo.sensitive = fill_type.uses_first_set();
-
-                m_angle_combo_1.sensitive = fill_type.uses_first_set();
-                m_pitch_combo_1.sensitive = fill_type.uses_first_set();
-
-                m_angle_combo_2.sensitive = fill_type.uses_second_set();
-                m_pitch_combo_2.sensitive = fill_type.uses_second_set();
-            }
-            catch (Error error)
-            {
-                assert_not_reached();
-            }
-        }
-
-
-        /**
-         *
-         */
         private void on_apply_angle_1()
 
             requires(m_angle_combo_1 != null)
@@ -626,6 +649,30 @@ namespace Gschem3
                 var angle = Geda3.Angle.parse(m_angle_combo_2.content);
 
                 apply_angle_2(m_items, angle);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void on_apply_fill_type()
+
+            requires(m_angle_combo_1 != null)
+            requires(m_angle_combo_2 != null)
+            requires(m_pitch_combo_1 != null)
+            requires(m_pitch_combo_2 != null)
+            requires(m_type_combo != null)
+            requires(m_width_combo != null)
+
+        {
+            try
+            {
+                var fill_type = Geda3.FillType.parse(m_type_combo.active_id);
             }
             catch (Error error)
             {
@@ -702,9 +749,30 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param param Unused
+         */
+        public void on_notify_schematic_window(ParamSpec param)
+        {
+            update();
+        }
+
+
+        /**
+         *
          */
         private void update()
+
+            requires(m_angle_combo_1 != null)
+            requires(m_apply_signal_ids != null)
+
         {
+            SignalHandler.block(m_angle_combo_1, m_apply_signal_ids[0]);
+            SignalHandler.block(m_angle_combo_2, m_apply_signal_ids[1]);
+            SignalHandler.block(m_pitch_combo_1, m_apply_signal_ids[2]);
+            SignalHandler.block(m_pitch_combo_2, m_apply_signal_ids[3]);
+            SignalHandler.block(m_width_combo, m_apply_signal_ids[4]);
+
             m_items.clear();
 
             if ((b_schematic_window != null) && (b_schematic_window.selection != null))
@@ -722,18 +790,57 @@ namespace Gschem3
                 }
             }
 
+            update_fill_type_combo(m_items);
             update_combo(m_items, fetch_angle_1, m_angle_combo_1);
             update_combo(m_items, fetch_angle_2, m_angle_combo_2);
             update_combo(m_items, fetch_pitch_1, m_pitch_combo_1);
             update_combo(m_items, fetch_pitch_2, m_pitch_combo_2);
             update_combo(m_items, fetch_width, m_width_combo);
+            update_sensitivities(m_items);
+
+            SignalHandler.unblock(m_angle_combo_1, m_apply_signal_ids[0]);
+            SignalHandler.unblock(m_angle_combo_2, m_apply_signal_ids[1]);
+            SignalHandler.unblock(m_pitch_combo_1, m_apply_signal_ids[2]);
+            SignalHandler.unblock(m_pitch_combo_2, m_apply_signal_ids[3]);
+            SignalHandler.unblock(m_width_combo, m_apply_signal_ids[4]);
+        }
+
+
+
+        /**
+         * Update the fill type combo box
+         *
+         * @param items Items in the selection implementing Fillable
+         */
+        private void update_fill_type_combo(Gee.Iterable<Geda3.Fillable> items)
+
+            requires(m_type_combo != null)
+
+        {
+            var type = Geda3.FillType.HOLLOW;
+            var state = fetch_type(items, out type);
+
+            m_type_combo.sensitive = state.is_sensitive();
+
+            SignalHandler.block(m_type_combo, m_type_signal_id);
+
+            if (state.is_available())
+            {
+                m_type_combo.active_id = "%d".printf(type);
+            }
+            else
+            {
+                m_type_combo.active = -1;
+            }
+
+            SignalHandler.unblock(m_type_combo, m_type_signal_id);
         }
 
 
         /**
-         * Update an integer value combo box
+         * Update the integer value in a combo box
          *
-         * @param items
+         * @param items Items in the selection implementing Fillable
          * @param fetcher
          * @param combo
          */
@@ -747,8 +854,6 @@ namespace Gschem3
 
             var state = fetcher(items, out @value);
 
-            combo.sensitive = state.is_sensitive();
-
             if (state.is_available())
             {
                 combo.content = @value.to_string();
@@ -757,6 +862,38 @@ namespace Gschem3
             {
                 combo.content = null;
             }
+        }
+
+
+        /**
+         * Update sensitivities for combo boxes
+         *
+         * @param items Items in the selection implementing Fillable
+         */
+        private void update_sensitivities(Gee.Iterable<Geda3.Fillable> items)
+
+            requires(m_angle_combo_1 != null)
+            requires(m_angle_combo_2 != null)
+            requires(m_pitch_combo_1 != null)
+            requires(m_pitch_combo_2 != null)
+            requires(m_width_combo != null)
+
+        {
+            var sensitive_1 = items.any_match(
+                item => item.fill_style.fill_type.uses_first_set()
+                );
+
+            var sensitive_2 = items.any_match(
+                item => item.fill_style.fill_type.uses_second_set()
+                );
+
+            m_width_combo.sensitive = sensitive_1 || sensitive_2;
+
+            m_angle_combo_1.sensitive = sensitive_1;
+            m_pitch_combo_1.sensitive = sensitive_1;
+
+            m_angle_combo_2.sensitive = sensitive_2;
+            m_pitch_combo_2.sensitive = sensitive_2;
         }
     }
 }

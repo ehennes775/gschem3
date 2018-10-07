@@ -95,6 +95,7 @@ libgeda3_a_SOURCES = \
 	sch/SchematicItem.vala \
 	sch/SchematicPainter.vala \
 	sch/SchematicReader.vala \
+	sch/StylableLine.vala \
 	sch/Sweep.vala \
 	sch/TextAlignment.vala \
 	sch/TextItem.vala \

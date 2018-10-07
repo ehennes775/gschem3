@@ -42,6 +42,8 @@ namespace Gschem3
             margin_bottom = 8;                  // not getting set in the XML
             margin_top = 8;                     // not getting set in the XML
             use_markup = true;                  // not getting set in the XML
+
+            notify["schematic-window"].connect(on_notify_schematic_window);
         }
 
 
@@ -58,6 +60,19 @@ namespace Gschem3
          * The backing store for the schematic window property
          */
         private SchematicWindow? b_schematic_window;
+
+
+        /**
+         *
+         */
+        private Gee.List<Geda3.PinItem> m_items = new Gee.ArrayList<Geda3.PinItem>();
+
+
+        /**
+         *
+         */
+        [GtkChild(name="pin-type-combo")]
+        private PropertyComboBox m_pin_type_combo;
 
 
         /**
@@ -82,6 +97,59 @@ namespace Gschem3
 
                 item.pin_type = pin_type;
             }
+        }
+
+
+        /**
+         *
+         *
+         * @param param Unused
+         */
+        private void on_notify_schematic_window(ParamSpec param)
+        {
+            update();
+        }
+
+
+        /**
+         *
+         */
+        private void update()
+        {
+            m_items.clear();
+
+            if ((b_schematic_window != null) && (b_schematic_window.selection != null))
+            {
+                foreach (var item in b_schematic_window.selection)
+                {
+                    var pin = item as Geda3.PinItem;
+
+                    if (pin == null)
+                    {
+                        continue;
+                    }
+
+                    m_items.add(pin);
+                }
+            }
+
+            update_sensitivities(m_items);
+        }
+
+
+        /**
+         * Update sensitivities for combo boxes
+         *
+         * @param items Pin items in the selection
+         */
+        private void update_sensitivities(Gee.Iterable<Geda3.PinItem> items)
+
+            requires(m_pin_type_combo != null)
+
+        {
+            var sensitive = items.any_match(item => true);
+
+            m_pin_type_combo.sensitive = sensitive;
         }
     }
 }

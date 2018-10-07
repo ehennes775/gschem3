@@ -30,7 +30,7 @@
         </data>
     </object>
 
-    <object class="GtkListStore" id="line-width-list">
+    <object class="GtkListStore" id="size-list">
         <columns>
             <column type="gchararray"/>
         </columns>
