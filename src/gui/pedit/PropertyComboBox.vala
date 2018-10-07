@@ -26,6 +26,11 @@ namespace Gschem3
             }
             set
             {
+                var entry = get_child() as Gtk.Entry;
+
+                return_val_if_fail(entry != null, null);
+
+                entry.text = value ?? "";
             }
         }
 

@@ -73,6 +73,13 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        [CCode(has_target=false)]
+        private delegate ValueState Fetcher(Gee.Iterable<Geda3.Fillable> items, out int @value);
+
+
+        /**
          * The backing store for the schematic window property
          */
         private SchematicWindow? b_schematic_window;
@@ -329,6 +336,231 @@ namespace Gschem3
         /**
          *
          */
+        private static ValueState fetch_angle_1(Gee.Iterable<Geda3.Fillable> items, out int angle)
+        {
+            var state = ValueState.UNAVAILABLE;
+            var temp_angle = Geda3.FillStyle.DEFAULT_ANGLE_1;
+
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (state == ValueState.UNAVAILABLE)
+                {
+                    temp_angle = item.fill_style.fill_angle_1;
+                    state = ValueState.AVAILABLE;
+                    continue;
+                }
+
+                if (state == ValueState.AVAILABLE)
+                {
+                    if (temp_angle != item.fill_style.fill_angle_1)
+                    {
+                        state = ValueState.INCONSISTENT;
+                        break;
+                    }
+                }
+            }
+
+            angle = temp_angle;
+
+            return state;
+        }
+
+
+        /**
+         *
+         */
+        private static ValueState fetch_angle_2(Gee.Iterable<Geda3.Fillable> items, out int angle)
+        {
+            var state = ValueState.UNAVAILABLE;
+            var temp_angle = Geda3.FillStyle.DEFAULT_ANGLE_2;
+
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (state == ValueState.UNAVAILABLE)
+                {
+                    temp_angle = item.fill_style.fill_angle_2;
+                    state = ValueState.AVAILABLE;
+                    continue;
+                }
+
+                if (state == ValueState.AVAILABLE)
+                {
+                    if (temp_angle != item.fill_style.fill_angle_2)
+                    {
+                        state = ValueState.INCONSISTENT;
+                        break;
+                    }
+                }
+            }
+
+            angle = temp_angle;
+
+            return state;
+        }
+
+
+        /**
+         *
+         */
+        private static ValueState fetch_pitch_1(Gee.Iterable<Geda3.Fillable> items, out int pitch)
+        {
+            var state = ValueState.UNAVAILABLE;
+            var temp_pitch = Geda3.FillStyle.DEFAULT_PITCH_1;
+
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (state == ValueState.UNAVAILABLE)
+                {
+                    temp_pitch = item.fill_style.fill_pitch_1;
+                    state = ValueState.AVAILABLE;
+                    continue;
+                }
+
+                if (state == ValueState.AVAILABLE)
+                {
+                    if (temp_pitch != item.fill_style.fill_pitch_1)
+                    {
+                        state = ValueState.INCONSISTENT;
+                        break;
+                    }
+                }
+            }
+
+            pitch = temp_pitch;
+
+            return state;
+        }
+
+
+        /**
+         *
+         */
+        private static ValueState fetch_pitch_2(Gee.Iterable<Geda3.Fillable> items, out int pitch)
+        {
+            var state = ValueState.UNAVAILABLE;
+            var temp_pitch = Geda3.FillStyle.DEFAULT_PITCH_2;
+
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (state == ValueState.UNAVAILABLE)
+                {
+                    temp_pitch = item.fill_style.fill_pitch_2;
+                    state = ValueState.AVAILABLE;
+                    continue;
+                }
+
+                if (state == ValueState.AVAILABLE)
+                {
+                    if (temp_pitch != item.fill_style.fill_pitch_2)
+                    {
+                        state = ValueState.INCONSISTENT;
+                        break;
+                    }
+                }
+            }
+
+            pitch = temp_pitch;
+
+            return state;
+        }
+
+
+        /**
+         *
+         */
+        private static ValueState fetch_width(Gee.Iterable<Geda3.Fillable> items, out int width)
+        {
+            var state = ValueState.UNAVAILABLE;
+            var temp_width = Geda3.FillStyle.DEFAULT_WIDTH;
+
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (item.fill_style == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (state == ValueState.UNAVAILABLE)
+                {
+                    temp_width = item.fill_style.fill_width;
+                    state = ValueState.AVAILABLE;
+                    continue;
+                }
+
+                if (state == ValueState.AVAILABLE)
+                {
+                    if (temp_width != item.fill_style.fill_pitch_2)
+                    {
+                        state = ValueState.INCONSISTENT;
+                        break;
+                    }
+                }
+            }
+
+            width = temp_width;
+
+            return state;
+        }
+
+
+        /**
+         *
+         */
         private void on_changed_fill_type()
 
             requires(m_angle_combo_1 != null)
@@ -488,6 +720,42 @@ namespace Gschem3
 
                     m_items.add(fillable);
                 }
+            }
+
+            update_combo(m_items, fetch_angle_1, m_angle_combo_1);
+            update_combo(m_items, fetch_angle_2, m_angle_combo_2);
+            update_combo(m_items, fetch_pitch_1, m_pitch_combo_1);
+            update_combo(m_items, fetch_pitch_2, m_pitch_combo_2);
+            update_combo(m_items, fetch_width, m_width_combo);
+        }
+
+
+        /**
+         * Update an integer value combo box
+         *
+         * @param items
+         * @param fetcher
+         * @param combo
+         */
+        private static void update_combo(
+            Gee.Iterable<Geda3.Fillable> items,
+            Fetcher fetcher,
+            PropertyComboBox combo
+            )
+        {
+            int @value;
+
+            var state = fetcher(items, out @value);
+
+            combo.sensitive = state.is_sensitive();
+
+            if (state.is_available())
+            {
+                combo.content = @value.to_string();
+            }
+            else
+            {
+                combo.content = null;
             }
         }
     }
