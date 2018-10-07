@@ -138,6 +138,8 @@ namespace Gschem3
             schematic = new Geda3.Schematic();
             tag = null;
 
+            schematic.invalidate.connect(on_invalidate_item);
+
             drawing.add_events(
                 Gdk.EventMask.BUTTON_PRESS_MASK |
                 Gdk.EventMask.BUTTON_RELEASE_MASK |
@@ -297,6 +299,14 @@ namespace Gschem3
         public void invalidate_item(Geda3.SchematicItem item, bool reveal)
         {
             var bounds = item.calculate_bounds(painter, reveal);
+
+            invalidate_user(bounds);
+        }
+
+        // this function needs to be reconcied with the above.
+        public void on_invalidate_item(Geda3.SchematicItem item)
+        {
+            var bounds = item.calculate_bounds(painter, true);
 
             invalidate_user(bounds);
         }

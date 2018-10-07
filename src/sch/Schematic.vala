@@ -3,6 +3,27 @@ namespace Geda3
     public class Schematic
     {
         /**
+         * A signal requesting an item be redrawn
+         *
+         * This signal is emitted when an item needs to be redrawn in
+         * a GUI window. Schematic items forward requests from their
+         * child attributes.
+         *
+         * Schematic items that change geometrically send two requests.
+         * First request for invalidaton is at the old location and the
+         * bounds for it must be calculated immediately and added to
+         * the invalid region. Second request is at the new location.
+         *
+         * When not changing geometrically, one request may be sent.
+         * For example, changing the color will not change which pixels
+         * make up the item, so only one request is sent.
+         *
+         * @param item The schemaitc item requesting to be redrawn
+         */
+        public signal void invalidate(SchematicItem item);
+
+
+        /**
          *
          */
         public Gee.Collection<SchematicItem> items
@@ -41,7 +62,14 @@ namespace Geda3
          */
         public bool add(SchematicItem item)
         {
-            return m_items.add(item);
+            var success = m_items.add(item);
+
+            if (success)
+            {
+                item.invalidate.connect(on_invalidate);
+            }
+
+            return success;
         }
 
 
@@ -217,5 +245,11 @@ namespace Geda3
         private Gee.LinkedList<SchematicItem> m_items;
 
         private SchematicReader reader = new SchematicReader();
+
+
+        private void on_invalidate(SchematicItem item)
+        {
+            invalidate(item);
+        }
     }
 }

@@ -662,17 +662,15 @@ namespace Gschem3
          */
         private void on_apply_fill_type()
 
-            requires(m_angle_combo_1 != null)
-            requires(m_angle_combo_2 != null)
-            requires(m_pitch_combo_1 != null)
-            requires(m_pitch_combo_2 != null)
+            requires(m_items != null)
             requires(m_type_combo != null)
-            requires(m_width_combo != null)
 
         {
             try
             {
                 var fill_type = Geda3.FillType.parse(m_type_combo.active_id);
+
+                apply_fill_type(m_items, fill_type);
             }
             catch (Error error)
             {

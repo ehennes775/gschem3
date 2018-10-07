@@ -29,15 +29,6 @@ namespace Gschem3
         /**
          *
          */
-        static construct
-        {
-            stdout.printf("%s\n",typeof(PropertyComboBox).name());
-        }
-
-
-        /**
-         *
-         */
         construct
         {
             expanded = true;                     // not getting set in the XML
@@ -45,6 +36,10 @@ namespace Gschem3
             margin_bottom = 8;                   // not getting set in the XML
             margin_top = 8;                      // not getting set in the XML
             use_markup = true;                   // not getting set in the XML
+
+            m_alignment_apply_signal_id = m_alignment_combo.apply.connect(
+                on_apply_alignment
+                );
 
             notify["schematic-window"].connect(on_notify_schematic_window);
         }
@@ -63,6 +58,14 @@ namespace Gschem3
          * The backing store for the schematic window property
          */
         private SchematicWindow? b_schematic_window;
+
+
+        /**
+         * This id is used to block signal handling with updating the
+         * combo box with a new value. Blocking prevents an infinite
+         * loop of signal handlers.
+         */
+        private ulong m_alignment_apply_signal_id;
 
 
         /**
@@ -196,6 +199,76 @@ namespace Gschem3
 
 
         /**
+         * Retrieve the text alignment from the selection
+         *
+         * @param items The text items from the selection
+         * @param alignment The new text alignment to apply
+         * @return The state of the text alignment data
+         */
+        private static ValueState fetch_alignment(Gee.Iterable<Geda3.TextItem> items, out Geda3.TextAlignment alignment)
+        {
+            var state = ValueState.UNAVAILABLE;
+            var temp_alignment = Geda3.TextAlignment.LOWER_LEFT;
+
+            foreach (var item in items)
+            {
+                if (item == null)
+                {
+                    warn_if_reached();
+                    continue;
+                }
+
+                if (state == ValueState.UNAVAILABLE)
+                {
+                    temp_alignment = item.alignment;
+                    state = ValueState.AVAILABLE;
+                    continue;
+                }
+
+                if (state == ValueState.AVAILABLE)
+                {
+                    if (temp_alignment != item.alignment)
+                    {
+                        state = ValueState.INCONSISTENT;
+                        break;
+                    }
+                }
+            }
+
+            alignment = temp_alignment;
+
+            return state;
+        }
+
+
+
+
+        /**
+         * Signal handler for applying a new text alignment to the
+         * selection
+         */
+        private void on_apply_alignment()
+
+            requires(m_items != null)
+            requires(m_alignment_combo != null)
+
+        {
+            try
+            {
+                var alignment = Geda3.TextAlignment.parse(
+                    m_alignment_combo.active_id
+                    );
+
+                apply_alignment(m_items, alignment);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
          *
          *
          * @param param Unused
@@ -228,7 +301,42 @@ namespace Gschem3
                 }
             }
 
+            update_alignment_combo(m_items);
             update_sensitivities(m_items);
+        }
+
+
+        /**
+         * Update data in the text alignment combo
+         *
+         * @param items Text items in the selection
+         */
+        private void update_alignment_combo(Gee.Iterable<Geda3.TextItem> items)
+
+            requires(m_alignment_combo != null)
+
+        {
+            var alignment = Geda3.TextAlignment.LOWER_LEFT;
+            var state = fetch_alignment(items, out alignment);
+            
+            SignalHandler.block(
+                m_alignment_combo,
+                m_alignment_apply_signal_id
+                );
+
+            if (state.is_available())
+            {
+                m_alignment_combo.active_id = "%d".printf(alignment);
+            }
+            else
+            {
+                m_alignment_combo.active = -1;
+            }
+
+            SignalHandler.unblock(
+                m_alignment_combo,
+                m_alignment_apply_signal_id
+                );
         }
 
 
