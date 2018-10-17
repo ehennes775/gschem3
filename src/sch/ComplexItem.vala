@@ -329,6 +329,19 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override double shortest_distance(
+            SchematicPainter painter,
+            int x,
+            int y
+            )
+        {
+            return double.MAX;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void translate(int dx, int dy)
         {
             invalidate(this);
