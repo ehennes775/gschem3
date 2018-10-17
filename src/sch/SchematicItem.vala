@@ -129,7 +129,7 @@ namespace Geda3
          * Calculate the shortest distance from the point to the item
          *
          * @param painter The painter to use for calculations
-         * @param x The s coordinate of the point
+         * @param x The x coordinate of the point
          * @param y The y coordinate of the point
          * @return The shortest distance from the point to the item
          */

@@ -104,6 +104,40 @@ namespace Geda3
         }
 
 
+        /**
+         * Find the closest item the the given coordinates
+         *
+         * @param painter The painter to use for calculations
+         * @param x The x coordinate of the point
+         * @param y The y coordinate of the point
+         * @return The closest item or null if none
+         */
+        public SchematicItem? closest_item(
+            SchematicPainter painter,
+            int x,
+            int y
+            )
+        {
+            var closest_distance = double.MAX;
+            SchematicItem? closest_item = null;
+
+            foreach (var item in m_items)
+            {
+                var item_distance = item.shortest_distance(
+                    painter,
+                    x,
+                    y
+                    );
+
+                if (item_distance < closest_distance)
+                {
+                    closest_item = item;
+                }
+            }
+
+            return closest_item;
+        }
+
 
         /**
          * Draw the schematic
