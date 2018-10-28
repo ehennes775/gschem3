@@ -384,7 +384,21 @@ namespace Geda3
             int y
             )
         {
-            return double.MAX;
+            var dx = x - b_center_x;
+            var dy = y - b_center_y;
+
+            var shortest_distance = Math.hypot(dx, dy) - b_radius;
+
+            if (b_fill_style.fill_type != FillType.HOLLOW)
+            {
+                shortest_distance = double.max(shortest_distance, 0);
+            }
+            else
+            {
+                shortest_distance = Math.fabs(shortest_distance);
+            }
+
+            return shortest_distance;
         }
 
 

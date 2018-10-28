@@ -12,6 +12,14 @@ namespace Gschem3
         Zoomable
     {
         /**
+         * A signal indicating items in the selection have changed
+         *
+         *
+         */
+        public signal void selection_changed();
+
+
+        /**
          * The filename extension for schematic files
          */
         public const string SCHEMATIC_EXTENSION = ".sch";
@@ -85,7 +93,7 @@ namespace Gschem3
             {
                 // temporary for development
 
-                return schematic.items;
+                return m_selected;
             }
         }
 
@@ -138,6 +146,9 @@ namespace Gschem3
             schematic = new Geda3.Schematic();
             tag = null;
 
+            m_selected = new Gee.HashSet<Geda3.SchematicItem>();
+
+
             schematic.invalidate.connect(on_invalidate_item);
 
             drawing.add_events(
@@ -180,6 +191,21 @@ namespace Gschem3
             m_tools.@set(DrawingTool.ZOOM_NAME, new ZoomTool(this));
 
             m_current_tool = m_tools[DrawingTool.SELECT_NAME];
+        }
+
+
+        /**
+         * Find the closest item the the given coordinates
+         *
+         * @param x The x coordinate of the point
+         * @param y The y coordinate of the point
+         * @return The closest item or null if none
+         */
+        public Geda3.SchematicItem? closest_item(int x, int y)
+        {
+            // need to setup painter
+
+            return schematic.closest_item(painter, x, y);
         }
 
 
@@ -464,6 +490,21 @@ namespace Gschem3
 
 
         /**
+         * Places a single item in the selection
+         *
+         * @param item The item to be selected item
+         */
+        public void select_item(Geda3.SchematicItem item)
+        {
+            m_selected.clear();
+            m_selected.add(item);
+
+            on_invalidate_item(item);
+            selection_changed();
+        }
+
+
+        /**
          * Select a drawing tool for this window
          *
          * The m_current_tool should not be null, but this function
@@ -666,6 +707,12 @@ namespace Gschem3
          * Indicates the schematic should be zoomed on initial draw
          */
         private bool m_initial_zoom = true;
+
+
+        /**
+         *
+         */
+        private Gee.Set<Geda3.SchematicItem> m_selected;
 
 
         /**

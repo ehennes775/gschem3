@@ -44,6 +44,7 @@ namespace Geda3
             private set;
         }
 
+
         /**
          * Create an empty schematic
          */
@@ -131,6 +132,7 @@ namespace Geda3
 
                 if (item_distance < closest_distance)
                 {
+                    closest_distance = item_distance;
                     closest_item = item;
                 }
             }

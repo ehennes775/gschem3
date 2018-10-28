@@ -18,7 +18,6 @@ namespace Gschem3
             
             m_gripped = null;
             m_grips = null;
-            m_selected = Gee.Set<Geda3.SchematicItem>.empty();
             m_state = State.S0;
         }
 
@@ -56,13 +55,24 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                m_selected = new Gee.HashSet<Geda3.SchematicItem>();
+                var x0 = m_x[0];
+                var y0 = m_y[0];
 
-                m_selected.add_all(m_window.schematic.items);
+                m_window.device_to_user(ref x0, ref y0);
+
+                var item1 = m_window.closest_item(
+                    (int)Math.round(x0),
+                    (int)Math.round(y0)
+                    );
+
+                if (item1 != null)
+                {
+                    m_window.select_item(item1);
+                }
 
                 m_gripped = null;
 
-                foreach (var item in m_selected)
+                foreach (var item in m_window.selection)
                 {
                     var grippable = item as Geda3.Grippable;
 
@@ -104,13 +114,13 @@ namespace Gschem3
                     max_y
                     );
 
-                m_selected = new Gee.HashSet<Geda3.SchematicItem>();
+                //m_selected = new Gee.HashSet<Geda3.SchematicItem>();
 
-                m_selected.add_all(m_window.schematic.items);
+                //m_selected.add_all(m_window.schematic.items);
 
                 m_gripped = null;
 
-                foreach (var item in m_selected)
+                foreach (var item in m_window.selection)
                 {
                     var grippable = item as Geda3.Grippable;
 
@@ -228,12 +238,6 @@ namespace Gschem3
          *
          */
         private Geda3.Grippable m_gripped;
-
-
-        /**
-         *
-         */
-        private Gee.Set<Geda3.SchematicItem> m_selected;
 
 
         /**

@@ -20,7 +20,17 @@ namespace Gschem3
             }
             construct set
             {
+                if (b_schematic_window != null)
+                {
+                    b_schematic_window.selection_changed.disconnect(on_selection_change);
+                }
+
                 b_schematic_window = value;
+
+                if (b_schematic_window != null)
+                {
+                    b_schematic_window.selection_changed.connect(on_selection_change);
+                }
             }
             default = null;
         }
@@ -274,6 +284,15 @@ namespace Gschem3
          * @param param Unused
          */
         private void on_notify_schematic_window(ParamSpec param)
+        {
+            update();
+        }
+
+
+        /**
+         *
+         */
+        public void on_selection_change()
         {
             update();
         }
