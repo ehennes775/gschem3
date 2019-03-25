@@ -37,7 +37,7 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public PinTool(SchematicWindow window)
+        public PinTool(SchematicWindow? window)
         {
             base(window);
 

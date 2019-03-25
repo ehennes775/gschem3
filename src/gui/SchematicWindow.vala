@@ -177,20 +177,6 @@ namespace Gschem3
         public SchematicWindow(ComplexFactory factory)
         {
             tab = @"untitled_$(++untitled_number)$(SCHEMATIC_EXTENSION)";
-
-            m_tools.@set(DrawingTool.ArcName, new ArcTool(this));
-            m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(this));
-            m_tools.@set(DrawingTool.BusName, new DrawingToolBus(this));
-            m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(this));
-            m_tools.@set(DrawingTool.ComplexName, new ComplexTool(this,factory));
-            m_tools.@set(DrawingTool.LineName, new LineTool(this));
-            m_tools.@set(DrawingTool.NetName, new DrawingToolNet(this));
-            m_tools.@set(DrawingTool.PathName, new DrawingToolPath(this));
-            m_tools.@set(DrawingTool.PinName, new PinTool(this));
-            m_tools.@set(DrawingTool.SELECT_NAME, new DrawingToolSelect(this));
-            m_tools.@set(DrawingTool.ZOOM_NAME, new ZoomTool(this));
-
-            m_current_tool = m_tools[DrawingTool.SELECT_NAME];
         }
 
 
@@ -505,68 +491,6 @@ namespace Gschem3
 
 
         /**
-         * Select a drawing tool for this window
-         *
-         * The m_current_tool should not be null, but this function
-         * woould need to execute to correct the issue. Otherwise, the
-         * value would be 'stuck' at null. So, this function treats
-         * m_current_tool equal to null as a valid precondition.
-         *
-         * @param name The name of the tool to select
-         */
-        public void select_tool(string name)
-
-            requires(m_tools != null)
-            requires(m_tools.has_key(name))
-            ensures(m_current_tool != null)
-
-        {
-            if (m_current_tool != null)
-            {
-                m_current_tool.cancel();
-            }
-
-            m_current_tool = m_tools[name];
-
-            return_if_fail(m_current_tool != null);
-
-            m_current_tool.reset();
-        }
-
-
-        /**
-         * Select a drawing tool for this window and start an operation
-         *
-         * The m_current_tool should not be null, but this function
-         * woould need to execute to correct the issue. Otherwise, the
-         * value would be 'stuck' at null. So, this function treats
-         * m_current_tool equal to null as a valid precondition.
-         *
-         * @param name The name of the tool to select
-         * @param x The x coordinate to start the tool operation
-         * @param y The y coordinate to start the tool operation
-         */
-        public void select_tool_with_point(string name, double x, double y)
-
-            requires(m_tools != null)
-            requires(m_tools.has_key(name))
-            ensures(m_current_tool != null)
-
-        {
-            if (m_current_tool != null)
-            {
-                m_current_tool.cancel();
-            }
-
-            m_current_tool = m_tools[name];
-
-            return_if_fail(m_current_tool != null);
-
-            m_current_tool.reset_with_point(x, y);
-        }
-
-
-        /**
          * Snap a point to the grid of this window
          *
          * The coordinates must be user coordinates.
@@ -698,12 +622,6 @@ namespace Gschem3
 
 
         /**
-         * The current drawing tool
-         */
-        private DrawingTool m_current_tool;
-
-
-        /**
          * Indicates the schematic should be zoomed on initial draw
          */
         private bool m_initial_zoom = true;
@@ -713,12 +631,6 @@ namespace Gschem3
          *
          */
         private Gee.Set<Geda3.SchematicItem> m_selected;
-
-
-        /**
-         * The drawing tools for this window
-         */
-        private Gee.HashMap<string,DrawingTool> m_tools = new Gee.HashMap<string,DrawingTool>();
 
 
         /**
@@ -814,14 +726,14 @@ namespace Gschem3
          */
         private bool on_button_press_event(Gdk.EventButton event)
 
-            requires(m_current_tool != null)
+            //requires(m_current_tool != null)
 
         {
             // temporary until better solution
 
             drawing.grab_focus();
 
-            return m_current_tool.button_pressed(event);
+            return false; //m_current_tool.button_pressed(event);
         }
 
 
@@ -832,10 +744,10 @@ namespace Gschem3
          */
         private bool on_button_release_event(Gdk.EventButton event)
 
-            requires(m_current_tool != null)
+            //requires(m_current_tool != null)
 
         {
-            return m_current_tool.button_released(event);
+            return false; //m_current_tool.button_released(event);
         }
 
 
@@ -845,7 +757,7 @@ namespace Gschem3
         private bool on_draw(Cairo.Context context)
 
             requires(painter != null)
-            requires(m_current_tool != null)
+            //requires(m_current_tool != null)
             requires(b_settings != null)
             requires(schematic != null)
 
@@ -890,7 +802,9 @@ namespace Gschem3
             painter.cairo_context = context;
             painter.color_scheme = b_settings.scheme;
             schematic.draw(painter, b_settings.reveal);
-            m_current_tool.draw(painter);
+
+            // create a signal for this function
+            //m_current_tool.draw(painter);
 
             painter.cairo_context = null;
 
@@ -905,10 +819,10 @@ namespace Gschem3
          */
         private bool on_key_press_event(Gdk.EventKey event)
 
-            requires(m_current_tool != null)
+            //requires(m_current_tool != null)
 
         {
-            return m_current_tool.key_pressed(event);
+            return false; //m_current_tool.key_pressed(event);
         }
 
 
@@ -919,10 +833,10 @@ namespace Gschem3
          */
         private bool on_key_release_event(Gdk.EventKey event)
 
-            requires(m_current_tool != null)
+            //requires(m_current_tool != null)
 
         {
-            return m_current_tool.key_released(event);
+            return false; //m_current_tool.key_released(event);
         }
 
 
@@ -933,10 +847,10 @@ namespace Gschem3
          */
         private bool on_motion_notify_event(Gdk.EventMotion event)
 
-            requires(m_current_tool != null)
+            //requires(m_current_tool != null)
 
         {
-            return m_current_tool.motion_notify(event);
+            return false; //m_current_tool.motion_notify(event);
         }
 
 

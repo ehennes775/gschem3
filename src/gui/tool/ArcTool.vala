@@ -10,7 +10,7 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public ArcTool(SchematicWindow window)
+        public ArcTool(SchematicWindow? window = null)
         {
             base(window);
 

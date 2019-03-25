@@ -31,7 +31,7 @@ namespace Gschem3
          *
          * @param window The window this zoom tool manipulates
          */
-        public ZoomTool(SchematicWindow window)
+        public ZoomTool(SchematicWindow? window)
         {
             base(window);
             
@@ -70,7 +70,7 @@ namespace Gschem3
 
                 m_window.zoom_box(m_x[0], m_y[0], m_x[1], m_y[1]);
 
-                m_window.select_tool(SELECT_NAME);
+                //m_window.select_tool(SELECT_NAME);
             }
 
             m_state = State.S0;

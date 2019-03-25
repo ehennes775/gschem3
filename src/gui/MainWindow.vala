@@ -99,6 +99,8 @@ namespace Gschem3
 
             m_complex_factory = new MainComplexFactory(m_library_widget);
 
+            m_drawing_tools = new DrawingToolSet(m_complex_factory);
+
             add_property_editor(new LineStyleEditor());
             add_property_editor(new FillStyleEditor());
             add_property_editor(new TextPropertyEditor());
@@ -357,9 +359,9 @@ namespace Gschem3
 
 
         /**
-         * The currently selected tool
+         * The drawing tools
          */
-        private string m_current_tool = "select";
+        private DrawingToolSet m_drawing_tools;
 
 
         /**
@@ -1038,16 +1040,14 @@ namespace Gschem3
          */
         private void on_tool_change(SimpleAction action, Variant? state)
 
-            requires(notebook != null)
+            requires(m_drawing_tools != null)
             requires(state != null)
             requires(state.is_of_type(VariantType.STRING))
 
         {
-            var tool = state.get_string();
+            var next_tool = state.get_string();
 
-            return_if_fail(tool != null);
-
-            m_current_tool = tool;
+            return_if_fail(next_tool != null);
 
             // Since a signal handler was added to the change_state
             // signal, this function is responsibe for setting the
@@ -1055,12 +1055,7 @@ namespace Gschem3
 
             action.set_state(state);
 
-            var page = get_current_page() as SchematicWindow;
-
-            if (page != null)
-            {
-                page.select_tool(m_current_tool);
-            }
+            m_drawing_tools.select_tool(next_tool);
         }
 
 

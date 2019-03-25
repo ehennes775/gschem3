@@ -78,7 +78,7 @@ namespace Gschem3
         public const string ZOOM_NAME = "zoom";
 
 
-        public DrawingTool(SchematicWindow window)
+        public DrawingTool(SchematicWindow? window)
         {
             m_window = window;
 
@@ -220,6 +220,25 @@ namespace Gschem3
 
 
         /**
+         * Set the current document window for this tool
+         *
+         * @param window The document window
+         */
+        public void update_document_window(DocumentWindow? window)
+        {
+            if(m_window != null)
+            {
+            }
+
+            m_window = window as SchematicWindow;
+
+            if(m_window != null)
+            {
+            }
+        }
+
+
+        /**
          *
          */
         protected Gee.Map<uint,KeyFunction> m_key_map;
@@ -239,7 +258,8 @@ namespace Gschem3
             requires(tool.m_window != null)
 
         {
-            tool.m_window.select_tool(SELECT_NAME);
+            // create signal for this funciton
+            //tool.m_window.select_tool(SELECT_NAME);
 
             return true;
         }
@@ -351,13 +371,15 @@ namespace Gschem3
             requires(tool.m_window != null)
 
         {
-            tool.m_window.select_tool_with_point(
-                ZOOM_NAME,
-                tool.m_x,
-                tool.m_y
-                );
+            //tool.m_window.select_tool_with_point(
+            //    ZOOM_NAME,
+            //    tool.m_x,
+            //    tool.m_y
+            //    );
+            // 
+            //return true;
 
-            return true;
+            return false;
         }
 
 

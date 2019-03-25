@@ -12,7 +12,7 @@ namespace Gschem3
      */
     public class DrawingToolSelect : DrawingTool
     {
-        public DrawingToolSelect(SchematicWindow window)
+        public DrawingToolSelect(SchematicWindow? window)
         {
             base(window);
             

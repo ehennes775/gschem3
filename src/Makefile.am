@@ -151,6 +151,7 @@ libgschem3_a_SOURCES = \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \
 	gui/DrawingTool.vala \
+	gui/DrawingToolSet.vala \
 	gui/ErrorDialog.vala \
 	gui/ExportBillOfMaterial.vala \
 	gui/ExportBillOfMaterialDialog.vala \

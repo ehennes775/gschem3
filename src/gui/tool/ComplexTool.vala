@@ -37,7 +37,7 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public ComplexTool(SchematicWindow window, ComplexFactory factory)
+        public ComplexTool(SchematicWindow? window, ComplexFactory factory)
         {
             base(window);
 

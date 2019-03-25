@@ -10,7 +10,7 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public DrawingToolBox(SchematicWindow window)
+        public DrawingToolBox(SchematicWindow? window = null)
         {
             base(window);
 
