@@ -14,17 +14,17 @@ namespace Gschem3
         {
             m_tools = new Gee.HashMap<string,DrawingTool>();
 
-            m_tools.@set(DrawingTool.ArcName, new ArcTool(null));
-            m_tools.@set(DrawingTool.BoxName, new DrawingToolBox(null));
-            m_tools.@set(DrawingTool.BusName, new DrawingToolBus(null));
-            m_tools.@set(DrawingTool.CircleName, new DrawingToolCircle(null));
-            m_tools.@set(DrawingTool.ComplexName, new ComplexTool(null,factory));
-            m_tools.@set(DrawingTool.LineName, new LineTool(null));
-            m_tools.@set(DrawingTool.NetName, new DrawingToolNet(null));
-            m_tools.@set(DrawingTool.PathName, new DrawingToolPath(null));
-            m_tools.@set(DrawingTool.PinName, new PinTool(null));
-            m_tools.@set(DrawingTool.SELECT_NAME, new DrawingToolSelect(null));
-            m_tools.@set(DrawingTool.ZOOM_NAME, new ZoomTool(null));
+            add(DrawingTool.ArcName, new ArcTool(null));
+            add(DrawingTool.BoxName, new DrawingToolBox(null));
+            add(DrawingTool.BusName, new DrawingToolBus(null));
+            add(DrawingTool.CircleName, new DrawingToolCircle(null));
+            add(DrawingTool.ComplexName, new ComplexTool(null,factory));
+            add(DrawingTool.LineName, new LineTool(null));
+            add(DrawingTool.NetName, new DrawingToolNet(null));
+            add(DrawingTool.PathName, new DrawingToolPath(null));
+            add(DrawingTool.PinName, new PinTool(null));
+            add(DrawingTool.SELECT_NAME, new DrawingToolSelect(null));
+            add(DrawingTool.ZOOM_NAME, new ZoomTool(null));
 
             m_current_tool = m_tools[DrawingTool.SELECT_NAME];
         }
@@ -126,5 +126,54 @@ namespace Gschem3
          * The drawing tools for this window
          */
         private Gee.HashMap<string,DrawingTool> m_tools;
+
+
+        /**
+         *
+         *
+         * @param name
+         * @param tool
+         */
+        private void add(string name, DrawingTool tool)
+
+            requires(m_tools != null)
+
+        {
+            remove(name);
+
+            m_tools.@set(name, tool);
+
+            tool.x_cancel.connect(on_cancel);
+        }
+
+
+        /**
+         *
+         */
+        private void on_cancel()
+        {
+            select_tool(DrawingTool.SELECT_NAME);
+        }
+
+
+        /**
+         *
+         *
+         * @param name
+         */
+        private void remove(string name)
+
+            requires(m_tools != null)
+
+        {
+            if (m_tools.has_key(name))
+            {
+                var tool = m_tools[name];
+
+                tool.x_cancel.disconnect(on_cancel);
+
+                m_tools.unset(name);
+            }
+        }
     }
 }

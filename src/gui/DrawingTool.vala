@@ -8,6 +8,12 @@ namespace Gschem3
         /**
          *
          */
+        public signal void x_cancel();
+
+        
+        /**
+         *
+         */
          [CCode(has_target=false)]
         protected delegate bool KeyFunction(DrawingTool tool, Gdk.EventKey event);
 
