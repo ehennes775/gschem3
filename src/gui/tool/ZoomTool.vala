@@ -70,7 +70,7 @@ namespace Gschem3
 
                 m_window.zoom_box(m_x[0], m_y[0], m_x[1], m_y[1]);
 
-                x_cancel();
+                request_cancel();
             }
 
             m_state = State.S0;

@@ -8,7 +8,7 @@ namespace Gschem3
         /**
          *
          */
-        public signal void x_cancel();
+        public signal void request_cancel();
 
         
         /**

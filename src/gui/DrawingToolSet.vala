@@ -143,14 +143,14 @@ namespace Gschem3
 
             m_tools.@set(name, tool);
 
-            tool.x_cancel.connect(on_cancel);
+            tool.request_cancel.connect(on_request_cancel);
         }
 
 
         /**
          *
          */
-        private void on_cancel()
+        private void on_request_cancel()
         {
             select_tool(DrawingTool.SELECT_NAME);
         }
@@ -170,7 +170,7 @@ namespace Gschem3
             {
                 var tool = m_tools[name];
 
-                tool.x_cancel.disconnect(on_cancel);
+                tool.request_cancel.disconnect(on_request_cancel);
 
                 m_tools.unset(name);
             }
