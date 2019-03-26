@@ -6,6 +6,12 @@ namespace Gschem3
     public class ArcTool : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "arc";
+
+
+        /**
          * Create a new arc drawing tool
          *
          * @param window The document window this tool is drawing into

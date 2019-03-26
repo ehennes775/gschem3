@@ -6,6 +6,12 @@ namespace Gschem3
     public class DrawingToolCircle : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "circle";
+
+
+        /**
          * Create a new circle drawing tool
          *
          * @param window The document window this tool is drawing into

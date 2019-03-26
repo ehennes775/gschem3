@@ -6,6 +6,12 @@ namespace Gschem3
     public class DrawingToolBus : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "bus";
+
+
+        /**
          * Create a new bus drawing tool
          *
          * @param window The document window this tool is drawing into

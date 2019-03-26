@@ -6,6 +6,12 @@ namespace Gschem3
     public class ComplexTool : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "complex";
+
+
+        /**
          * The factory for creating complex items to place
          */
         private ComplexFactory factory

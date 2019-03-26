@@ -13,6 +13,12 @@ namespace Gschem3
     public class PinTool : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "pin";
+
+
+        /**
          * The settings for this pin tool
          *
          * Setting this property to null will assign the default

@@ -27,6 +27,12 @@ namespace Gschem3
     public class ZoomTool : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "zoom";
+
+
+        /**
          * Initialize a new zoom tool
          *
          * @param window The window this zoom tool manipulates

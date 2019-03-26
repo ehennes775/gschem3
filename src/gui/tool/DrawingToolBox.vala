@@ -6,6 +6,12 @@ namespace Gschem3
     public class DrawingToolBox : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "box";
+
+
+        /**
          * Create a new box drawing tool
          *
          * @param window The document window this tool is drawing into

@@ -14,19 +14,19 @@ namespace Gschem3
         {
             m_tools = new Gee.HashMap<string,DrawingTool>();
 
-            add(DrawingTool.ArcName, new ArcTool(null));
-            add(DrawingTool.BoxName, new DrawingToolBox(null));
-            add(DrawingTool.BusName, new DrawingToolBus(null));
-            add(DrawingTool.CircleName, new DrawingToolCircle(null));
-            add(DrawingTool.ComplexName, new ComplexTool(null,factory));
-            add(DrawingTool.LineName, new LineTool(null));
-            add(DrawingTool.NetName, new DrawingToolNet(null));
-            add(DrawingTool.PathName, new DrawingToolPath(null));
-            add(DrawingTool.PinName, new PinTool(null));
-            add(DrawingTool.SELECT_NAME, new DrawingToolSelect(null));
-            add(DrawingTool.ZOOM_NAME, new ZoomTool(null));
+            add(ArcTool.NAME, new ArcTool(null));
+            add(DrawingToolBox.NAME, new DrawingToolBox(null));
+            add(DrawingToolBus.NAME, new DrawingToolBus(null));
+            add(DrawingToolCircle.NAME, new DrawingToolCircle(null));
+            add(ComplexTool.NAME, new ComplexTool(null,factory));
+            add(LineTool.NAME, new LineTool(null));
+            add(DrawingToolNet.NAME, new DrawingToolNet(null));
+            add(DrawingToolPath.NAME, new DrawingToolPath(null));
+            add(PinTool.NAME, new PinTool(null));
+            add(DrawingToolSelect.NAME, new DrawingToolSelect(null));
+            add(ZoomTool.NAME, new ZoomTool(null));
 
-            m_current_tool = m_tools[DrawingTool.SELECT_NAME];
+            m_current_tool = m_tools[DrawingToolSelect.NAME];
         }
 
 
@@ -149,13 +149,15 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param sender
          */
         private void on_request_cancel(DrawingTool sender)
 
             requires(m_current_tool == sender)
 
         {
-            select_tool(DrawingTool.SELECT_NAME);
+            select_tool(DrawingToolSelect.NAME);
         }
 
 

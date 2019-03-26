@@ -5,6 +5,12 @@ namespace Gschem3
      */
     public class LineTool : DrawingTool
     {
+       /**
+         *
+         */
+        public const string NAME = "line";
+
+
         /**
          * Create a new line drawing tool
          *

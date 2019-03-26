@@ -6,6 +6,12 @@ namespace Gschem3
     public class DrawingToolNet : DrawingTool
     {
         /**
+         *
+         */
+        public const string NAME = "net";
+
+
+        /**
          * Create a new net drawing tool
          *
          * @param window The document window this tool is drawing into

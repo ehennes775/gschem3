@@ -12,6 +12,12 @@ namespace Gschem3
      */
     public class DrawingToolSelect : DrawingTool
     {
+        /**
+         *
+         */
+        public const string NAME = "select";
+
+
         public DrawingToolSelect(SchematicWindow? window)
         {
             base(window);
