@@ -3,14 +3,20 @@ namespace Gschem3
     /**
      *
      */
-    public class DrawingTool : Object
+    public abstract class DrawingTool : Object
     {
         /**
          *
          */
         public signal void request_cancel();
 
-        
+
+        /**
+         *
+         */
+        public abstract string name { get; }
+
+
         /**
          *
          */

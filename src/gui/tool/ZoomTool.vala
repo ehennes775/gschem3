@@ -33,6 +33,18 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public override string name
+        {
+            get
+            {
+                return NAME;
+            }
+        }
+
+
+        /**
          * Initialize a new zoom tool
          *
          * @param window The window this zoom tool manipulates

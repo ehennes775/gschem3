@@ -177,20 +177,20 @@ libgschem3_a_SOURCES = \
 	gui/grid/MeshGrid.vala \
 	gui/grid/NoGrid.vala \
 	gui/tool/ArcTool.vala \
+	gui/tool/BoxTool.vala \
+	gui/tool/BusTool.vala \
+	gui/tool/CircleTool.vala \
 	gui/tool/ComplexFactory.vala \
 	gui/tool/ComplexTool.vala \
-	gui/tool/DrawingToolBox.vala \
-	gui/tool/DrawingToolBus.vala \
-	gui/tool/DrawingToolCircle.vala \
-	gui/tool/DrawingToolNet.vala \
-	gui/tool/DrawingToolPath.vala \
-	gui/tool/DrawingToolSelect.vala \
+	gui/tool/LineTool.vala \
+	gui/tool/NetTool.vala \
+	gui/tool/PathTool.vala \
 	gui/tool/PinAttributeUpdater.vala \
 	gui/tool/PinItemGroup.vala \
 	gui/tool/PinSettings.vala \
 	gui/tool/PinTool.vala \
 	gui/tool/PinUpdater.vala \
-	gui/tool/LineTool.vala \
+	gui/tool/SelectTool.vala \
 	gui/tool/ZoomTool.vala
 
 libgschem3_a_VALAFLAGS = \

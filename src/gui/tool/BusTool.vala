@@ -3,24 +3,36 @@ namespace Gschem3
     /**
      *
      */
-    public class DrawingToolNet : DrawingTool
+    public class BusTool : DrawingTool
     {
         /**
          *
          */
-        public const string NAME = "net";
+        public const string NAME = "bus";
 
 
         /**
-         * Create a new net drawing tool
+         *
+         */
+        public override string name
+        {
+            get
+            {
+                return NAME;
+            }
+        }
+
+
+        /**
+         * Create a new bus drawing tool
          *
          * @param window The document window this tool is drawing into
          */
-        public DrawingToolNet(SchematicWindow? window)
+        public BusTool(SchematicWindow? window)
         {
             base(window);
 
-            m_nets = null;
+            m_busses = null;
             m_state = State.S0;
             m_window = window;
         }
@@ -70,7 +82,7 @@ namespace Gschem3
                 // temporary code until a mechanism to stop drawing
                 // nets becomes available
 
-                foreach (var item in m_nets)
+                foreach (var item in m_busses)
                 {
                     m_window.add_item(item);
                 }
@@ -79,7 +91,7 @@ namespace Gschem3
             }
             else
             {
-                return_val_if_reached(false);
+                return_if_reached();
             }
 
             return true;
@@ -98,7 +110,7 @@ namespace Gschem3
 
             invalidate();
 
-            m_nets = null;
+            m_busses = null;
         }
 
 
@@ -109,9 +121,9 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                return_if_fail(m_nets != null);
+                return_if_fail(m_busses != null);
 
-                foreach (var net in m_nets)
+                foreach (var net in m_busses)
                 {
                     net.draw(painter, true, true);
                 }
@@ -155,7 +167,7 @@ namespace Gschem3
         {
             invalidate();
 
-            m_nets = new Gee.ArrayList<Geda3.NetItem>();
+            m_busses = new Gee.ArrayList<Geda3.BusItem>();
 
             var middle_x = m_x[1];
             var middle_y = m_y[0];
@@ -164,28 +176,28 @@ namespace Gschem3
 
             if (length0 != 0)
             {
-                var net = new Geda3.NetItem.with_points(
+                var net = new Geda3.BusItem.with_points(
                     m_x[0],
                     m_y[0],
                     middle_x,
                     middle_y
                     );
 
-                m_nets.add(net);
+                m_busses.add(net);
             }
 
             var length1 = (m_x[1] - middle_x) + (m_y[1] - middle_y);
 
             if (length1 != 0)
             {
-                var net = new Geda3.NetItem.with_points(
+                var net = new Geda3.BusItem.with_points(
                     middle_x,
                     middle_y,
                     m_x[1],
                     m_y[1]
                     );
 
-                m_nets.add(net);
+                m_busses.add(net);
             }
 
             invalidate();
@@ -201,7 +213,7 @@ namespace Gschem3
 
             invalidate();
 
-            m_nets = null;
+            m_busses = null;
         }
 
 
@@ -214,7 +226,7 @@ namespace Gschem3
         /**
          * The routed nets to connect the requested endpoints
          */
-        private Gee.ArrayList<Geda3.NetItem> m_nets = null;
+        private Gee.ArrayList<Geda3.BusItem> m_busses = null;
 
 
         /**
@@ -259,21 +271,21 @@ namespace Gschem3
         {
             var bounds = Geda3.Bounds();
 
-            if (m_nets != null)
+            if (m_busses != null)
             {
-                foreach (var net in m_nets)
+                foreach (var bus in m_busses)
                 {
-                    var net_bounds = Geda3.Bounds.with_points(
-                        net.b_x[0],
-                        net.b_y[0],
-                        net.b_x[1],
-                        net.b_y[1]
+                    var bus_bounds = Geda3.Bounds.with_points(
+                        bus.b_x[0],
+                        bus.b_y[0],
+                        bus.b_x[1],
+                        bus.b_y[1]
                         );
 
-                    bounds.union(net_bounds);
+                    bounds.union(bus_bounds);
                 }
 
-                int expand = (int) Math.ceil(0.5 * Math.SQRT2 * Geda3.NetItem.WIDTH);
+                int expand = (int) Math.ceil(0.5 * Math.SQRT2 * Geda3.BusItem.WIDTH);
 
                 bounds.expand(expand, expand);
             }

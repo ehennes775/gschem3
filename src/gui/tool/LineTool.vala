@@ -12,6 +12,18 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public override string name
+        {
+            get
+            {
+                return NAME;
+            }
+        }
+
+
+        /**
          * Create a new line drawing tool
          *
          * @param window The document window this tool is drawing into

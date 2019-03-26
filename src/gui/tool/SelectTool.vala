@@ -10,7 +10,7 @@ namespace Gschem3
     /**
      *
      */
-    public class DrawingToolSelect : DrawingTool
+    public class SelectTool : DrawingTool
     {
         /**
          *
@@ -18,7 +18,19 @@ namespace Gschem3
         public const string NAME = "select";
 
 
-        public DrawingToolSelect(SchematicWindow? window)
+        /**
+         *
+         */
+        public override string name
+        {
+            get
+            {
+                return NAME;
+            }
+        }
+
+
+        public SelectTool(SchematicWindow? window)
         {
             base(window);
             

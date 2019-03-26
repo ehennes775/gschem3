@@ -19,6 +19,18 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public override string name
+        {
+            get
+            {
+                return NAME;
+            }
+        }
+
+
+        /**
          * The settings for this pin tool
          *
          * Setting this property to null will assign the default

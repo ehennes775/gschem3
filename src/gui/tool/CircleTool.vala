@@ -3,20 +3,32 @@ namespace Gschem3
     /**
      *
      */
-    public class DrawingToolBox : DrawingTool
+    public class CircleTool : DrawingTool
     {
         /**
          *
          */
-        public const string NAME = "box";
+        public const string NAME = "circle";
 
 
         /**
-         * Create a new box drawing tool
+         *
+         */
+        public override string name
+        {
+            get
+            {
+                return NAME;
+            }
+        }
+
+
+        /**
+         * Create a new circle drawing tool
          *
          * @param window The document window this tool is drawing into
          */
-        public DrawingToolBox(SchematicWindow? window = null)
+        public CircleTool(SchematicWindow? window)
         {
             base(window);
 
@@ -48,25 +60,24 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                box = new Geda3.BoxItem.with_points(
+                circle = new Geda3.CircleItem.with_points(
                     ix,
                     iy,
-                    ix,
-                    iy
+                    0
                     );
 
                 m_state = State.S1;
             }
             else if (m_state == State.S1)
             {
-                return_val_if_fail(b_box != null, false);
+                return_val_if_fail(b_circle != null, false);
 
                 m_x = event.x;
                 m_y = event.y;
 
                 update();
 
-                m_window.add_item(box);
+                m_window.add_item(circle);
 
                 reset();
             }
@@ -84,7 +95,7 @@ namespace Gschem3
          */
         public override void cancel()
         {
-            box = null;
+            circle = null;
             m_state = State.S0;
         }
 
@@ -96,9 +107,9 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                return_if_fail(b_box != null);
+                return_if_fail(b_circle != null);
 
-                b_box.draw(painter, true, true);
+                b_circle.draw(painter, true, true);
             }
         }
 
@@ -127,7 +138,7 @@ namespace Gschem3
          */
         public override void reset()
         {
-            box = null;
+            circle = null;
             m_state = State.S0;
         }
 
@@ -148,7 +159,7 @@ namespace Gschem3
         {
             if (m_state == State.S1)
             {
-                return_if_fail(b_box != null);
+                return_if_fail(b_circle != null);
 
                 var x = m_x;
                 var y = m_y;
@@ -160,7 +171,7 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                b_box.set_point(3, ix, iy);
+                b_circle.set_point(1, ix, iy);
             }
         }
 
@@ -182,9 +193,9 @@ namespace Gschem3
 
 
         /**
-         * The box currently being drawn
+         * The circle currently being drawn
          */
-        private Geda3.BoxItem b_box = null;
+        private Geda3.CircleItem b_circle = null;
 
 
         /**
@@ -206,34 +217,34 @@ namespace Gschem3
 
 
         /**
-         * The box currently being drawn
+         * The line currently being drawn
          */
-        private Geda3.BoxItem box
+        private Geda3.CircleItem circle
         {
             get
             {
-                return b_box;
+                return b_circle;
             }
             set
             {
-                if (b_box != null)
+                if (b_circle != null)
                 {
                     if (m_window != null)
                     {
-                        m_window.invalidate_item(b_box, REVEAL);
+                        m_window.invalidate_item(b_circle, REVEAL);
                     }
 
-                    b_box.invalidate.disconnect(on_invalidate);
+                    b_circle.invalidate.disconnect(on_invalidate);
                 }
 
-                b_box = value;
+                b_circle = value;
 
-                if (b_box != null)
+                if (b_circle != null)
                 {
                     return_if_fail(m_window != null);
 
-                    b_box.invalidate.connect(on_invalidate);
-                    m_window.invalidate_item(b_box, REVEAL);
+                    b_circle.invalidate.connect(on_invalidate);
+                    m_window.invalidate_item(b_circle, REVEAL);
                 }
             }
         }
@@ -244,11 +255,11 @@ namespace Gschem3
          */
         private void on_invalidate(Geda3.SchematicItem item)
 
-            requires(b_box == item)
+            requires(b_circle == item)
             requires(m_window != null)
 
         {
-            m_window.invalidate_item(b_box, REVEAL);
+            m_window.invalidate_item(b_circle, REVEAL);
         }
     }
 }

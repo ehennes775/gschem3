@@ -14,19 +14,27 @@ namespace Gschem3
         {
             m_tools = new Gee.HashMap<string,DrawingTool>();
 
-            add(ArcTool.NAME, new ArcTool(null));
-            add(DrawingToolBox.NAME, new DrawingToolBox(null));
-            add(DrawingToolBus.NAME, new DrawingToolBus(null));
-            add(DrawingToolCircle.NAME, new DrawingToolCircle(null));
-            add(ComplexTool.NAME, new ComplexTool(null,factory));
-            add(LineTool.NAME, new LineTool(null));
-            add(DrawingToolNet.NAME, new DrawingToolNet(null));
-            add(DrawingToolPath.NAME, new DrawingToolPath(null));
-            add(PinTool.NAME, new PinTool(null));
-            add(DrawingToolSelect.NAME, new DrawingToolSelect(null));
-            add(ZoomTool.NAME, new ZoomTool(null));
+            DrawingTool[] tools =
+            {
+                new ArcTool(null),
+                new BoxTool(null),
+                new BusTool(null),
+                new CircleTool(null),
+                new ComplexTool(null, factory),
+                new LineTool(null),
+                new NetTool(null),
+                new PathTool(null),
+                new PinTool(null),
+                new SelectTool(null),
+                new ZoomTool(null)
+            };
 
-            m_current_tool = m_tools[DrawingToolSelect.NAME];
+            foreach (var tool in tools)
+            {
+                add(tool);
+            }
+
+            m_current_tool = m_tools[SelectTool.NAME];
         }
 
 
@@ -131,17 +139,17 @@ namespace Gschem3
         /**
          *
          *
-         * @param name
          * @param tool
          */
-        private void add(string name, DrawingTool tool)
+        private void add(DrawingTool tool)
 
             requires(m_tools != null)
+            requires(tool.name != null)
 
         {
-            remove(name);
+            remove(tool.name);
 
-            m_tools.@set(name, tool);
+            m_tools.@set(tool.name, tool);
 
             tool.request_cancel.connect(on_request_cancel);
         }
@@ -157,7 +165,7 @@ namespace Gschem3
             requires(m_current_tool == sender)
 
         {
-            select_tool(DrawingToolSelect.NAME);
+            select_tool(SelectTool.NAME);
         }
 
 

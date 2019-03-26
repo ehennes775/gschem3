@@ -12,6 +12,18 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public override string name
+        {
+            get
+            {
+                return NAME;
+            }
+        }
+
+
+        /**
          * The factory for creating complex items to place
          */
         private ComplexFactory factory
