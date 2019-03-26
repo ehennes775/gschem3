@@ -6,13 +6,13 @@ namespace Gschem3
     public class BoxTool : DrawingTool
     {
         /**
-         *
+         * The name of the tool as found in an action parameter
          */
         public const string NAME = "box";
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         public override string name
         {

@@ -6,13 +6,13 @@ namespace Gschem3
     public class LineTool : DrawingTool
     {
        /**
-         *
-         */
+        * The name of the tool as found in an action parameter
+        */
         public const string NAME = "line";
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         public override string name
         {

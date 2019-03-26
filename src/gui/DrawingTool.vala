@@ -12,7 +12,7 @@ namespace Gschem3
 
 
         /**
-         *
+         * The name of the tool as found in an action parameter
          */
         public abstract string name { get; }
 
@@ -20,10 +20,13 @@ namespace Gschem3
         /**
          *
          */
-         [CCode(has_target=false)]
+        [CCode(has_target=false)]
         protected delegate bool KeyFunction(DrawingTool tool, Gdk.EventKey event);
 
 
+        /**
+         *
+         */
         public DrawingTool(SchematicWindow? window)
         {
             m_window = window;
