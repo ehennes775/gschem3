@@ -23,7 +23,7 @@ namespace Gschem3
         }
 
 
-        public PathTool(SchematicWindow? window)
+        public PathTool(SchematicWindow? window = null)
         {
             base(window);
         }

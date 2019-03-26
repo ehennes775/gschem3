@@ -49,7 +49,7 @@ namespace Gschem3
          *
          * @param window The window this zoom tool manipulates
          */
-        public ZoomTool(SchematicWindow? window)
+        public ZoomTool(SchematicWindow? window = null)
         {
             base(window);
             

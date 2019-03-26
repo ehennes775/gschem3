@@ -28,7 +28,7 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public BusTool(SchematicWindow? window)
+        public BusTool(SchematicWindow? window = null)
         {
             base(window);
 

@@ -30,7 +30,7 @@ namespace Gschem3
         }
 
 
-        public SelectTool(SchematicWindow? window)
+        public SelectTool(SchematicWindow? window = null)
         {
             base(window);
             

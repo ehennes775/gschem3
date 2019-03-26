@@ -9,6 +9,7 @@ namespace Gschem3
         /**
          *
          *
+         * @param factory
          */
         public DrawingToolSet(ComplexFactory factory)
         {
@@ -16,17 +17,17 @@ namespace Gschem3
 
             DrawingTool[] tools =
             {
-                new ArcTool(null),
-                new BoxTool(null),
-                new BusTool(null),
-                new CircleTool(null),
+                new ArcTool(),
+                new BoxTool(),
+                new BusTool(),
+                new CircleTool(),
                 new ComplexTool(null, factory),
-                new LineTool(null),
-                new NetTool(null),
-                new PathTool(null),
-                new PinTool(null),
-                new SelectTool(null),
-                new ZoomTool(null)
+                new LineTool(),
+                new NetTool(),
+                new PathTool(),
+                new PinTool(),
+                new SelectTool(),
+                new ZoomTool()
             };
 
             foreach (var tool in tools)
