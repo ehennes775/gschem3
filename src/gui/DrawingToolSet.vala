@@ -150,7 +150,10 @@ namespace Gschem3
         /**
          *
          */
-        private void on_request_cancel()
+        private void on_request_cancel(DrawingTool sender)
+
+            requires(m_current_tool == sender)
+
         {
             select_tool(DrawingTool.SELECT_NAME);
         }

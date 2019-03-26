@@ -264,8 +264,7 @@ namespace Gschem3
             requires(tool.m_window != null)
 
         {
-            // create signal for this funciton
-            //tool.m_window.select_tool(SELECT_NAME);
+            tool.request_cancel();
 
             return true;
         }
