@@ -1,7 +1,7 @@
 namespace Gschem3
 {
     /**
-     *
+     * An abstract base class for manipulating schematics
      */
     public abstract class DrawingTool : Object
     {
@@ -12,20 +12,15 @@ namespace Gschem3
 
 
         /**
-         * The name of the tool as found in an action parameter
+         * The name of the tool for action parameters
          */
         public abstract string name { get; }
 
 
         /**
          *
-         */
-        [CCode(has_target=false)]
-        protected delegate bool KeyFunction(DrawingTool tool, Gdk.EventKey event);
-
-
-        /**
          *
+         * @param window
          */
         public DrawingTool(SchematicWindow? window)
         {
@@ -51,6 +46,7 @@ namespace Gschem3
          *
          *
          * @param next_file the file to read the schematic from
+         * @return
          */
         public virtual bool button_pressed(Gdk.EventButton event)
         {
@@ -63,7 +59,8 @@ namespace Gschem3
         /**
          *
          *
-         * @param next_file the file to read the schematic from
+         * @param event
+         * @return
          */
         public virtual bool button_released(Gdk.EventButton event)
         {
@@ -75,8 +72,6 @@ namespace Gschem3
 
         /**
          *
-         *
-         * @param next_file the file to read the schematic from
          */
         public virtual void cancel()
         {
@@ -87,7 +82,7 @@ namespace Gschem3
         /**
          *
          *
-         * @param next_file the file to read the schematic from
+         * @param context
          */
         public virtual void draw(Geda3.SchematicPainterCairo context)
         {
@@ -98,6 +93,7 @@ namespace Gschem3
          * Process a key pressed event
          *
          * @param event The key released event to process
+         * @return
          */
         public virtual bool key_pressed(Gdk.EventKey event)
         {
@@ -123,6 +119,7 @@ namespace Gschem3
          * Process a key released event
          *
          * @param event The key released event to process
+         * @return
          */
         public virtual bool key_released(Gdk.EventKey event)
         {
@@ -138,6 +135,7 @@ namespace Gschem3
          * Overridden methods must chain up to the base method.
          *
          * @param event The mouse motion event to process
+         * @return
          */
         public virtual bool motion_notify(Gdk.EventMotion event)
         {
@@ -190,6 +188,13 @@ namespace Gschem3
         /**
          *
          */
+        [CCode(has_target=false)]
+        protected delegate bool KeyFunction(DrawingTool tool, Gdk.EventKey event);
+
+
+        /**
+         *
+         */
         protected Gee.Map<uint,KeyFunction> m_key_map;
 
 
@@ -201,6 +206,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_cancel(DrawingTool tool, Gdk.EventKey event)
 
@@ -215,6 +223,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_pan(DrawingTool tool, Gdk.EventKey event)
 
@@ -229,6 +240,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_pan_down(DrawingTool tool, Gdk.EventKey event)
 
@@ -243,6 +257,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_pan_left(DrawingTool tool, Gdk.EventKey event)
 
@@ -257,6 +274,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_pan_right(DrawingTool tool, Gdk.EventKey event)
 
@@ -271,6 +291,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_pan_up(DrawingTool tool, Gdk.EventKey event)
 
@@ -285,6 +308,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_zoom_in(DrawingTool tool, Gdk.EventKey event)
 
@@ -299,6 +325,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_zoom_out(DrawingTool tool, Gdk.EventKey event)
 
@@ -313,6 +342,9 @@ namespace Gschem3
 
         /**
          *
+         *
+         * @param tool
+         * @param event
          */
         protected static bool key_zoom_tool(DrawingTool tool, Gdk.EventKey event)
 
@@ -331,7 +363,21 @@ namespace Gschem3
         }
 
 
+        /**
+         * The last known location of the pointer, in device units
+         *
+         * Maintains the last location of the pointer for processing
+         * key press events that do not provide the coordinates.
+         */
         private int m_x;
+
+
+        /**
+         * The last known location of the pointer, in device units
+         * 
+         * Maintains the last location of the pointer for processing
+         * key press events that do not provide the coordinates.
+         */
         private int m_y;
     }
 }

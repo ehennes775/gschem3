@@ -6,7 +6,7 @@ namespace Gschem3
     public class ComplexTool : DrawingTool
     {
         /**
-         * The name of the tool as found in an action parameter
+         * The name of the tool for action parameters
          */
         public const string NAME = "complex";
 
@@ -55,7 +55,7 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public ComplexTool(SchematicWindow? window, ComplexFactory factory)
+        public ComplexTool(ComplexFactory factory, SchematicWindow? window = null)
         {
             base(window);
 

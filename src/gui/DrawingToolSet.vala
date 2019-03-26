@@ -21,7 +21,7 @@ namespace Gschem3
                 new BoxTool(),
                 new BusTool(),
                 new CircleTool(),
-                new ComplexTool(null, factory),
+                new ComplexTool(factory),
                 new LineTool(),
                 new NetTool(),
                 new PathTool(),
@@ -138,9 +138,9 @@ namespace Gschem3
 
 
         /**
+         * Add a tool to the set
          *
-         *
-         * @param tool
+         * @param tool The tool to add to the set
          */
         private void add(DrawingTool tool)
 
@@ -159,7 +159,7 @@ namespace Gschem3
         /**
          *
          *
-         * @param sender
+         * @param sender The tool sending the cancel request
          */
         private void on_request_cancel(DrawingTool sender)
 
@@ -171,9 +171,12 @@ namespace Gschem3
 
 
         /**
+         * Remove a tool from the set
          *
+         * If a tool with the given name is not present, this function
+         * does nothing.
          *
-         * @param name
+         * @param name The name of the tool
          */
         private void remove(string name)
 

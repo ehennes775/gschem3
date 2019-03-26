@@ -27,7 +27,7 @@ namespace Gschem3
     public class ZoomTool : DrawingTool
     {
         /**
-         * The name of the tool as found in an action parameter
+         * The name of the tool for action parameters
          */
         public const string NAME = "zoom";
 
@@ -95,7 +95,6 @@ namespace Gschem3
 
             return true;
         }
-
 
 
         /**

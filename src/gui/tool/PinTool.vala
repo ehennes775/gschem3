@@ -13,7 +13,7 @@ namespace Gschem3
     public class PinTool : DrawingTool
     {
         /**
-         * The name of the tool as found in an action parameter
+         * The name of the tool for action parameters
          */
         public const string NAME = "pin";
 
