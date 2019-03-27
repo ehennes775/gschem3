@@ -32,7 +32,7 @@ namespace Gschem3
 
             foreach (var tool in tools)
             {
-                add(tool);
+                add_tool(tool);
             }
 
             m_current_tool = m_tools[SelectTool.NAME];
@@ -111,6 +111,13 @@ namespace Gschem3
             requires(m_tools != null)
 
         {
+            if (m_window != null)
+            {
+                m_window.draw_tool.disconnect(on_draw_tool);
+            }
+
+            m_window = window as SchematicWindow;
+
             foreach (var tool in m_tools.entries)
             {
                 if (tool.@value != null)
@@ -121,6 +128,11 @@ namespace Gschem3
                 {
                     warn_if_fail(tool.@value != null);
                 }
+            }
+
+            if (m_window != null)
+            {
+                m_window.draw_tool.connect(on_draw_tool);
             }
         }
 
@@ -137,18 +149,23 @@ namespace Gschem3
         private Gee.HashMap<string,DrawingTool> m_tools;
 
 
+        private SchematicWindow? m_window;
+
+
         /**
          * Add a tool to the set
          *
+         * If a tool exists with the same name, the tool is replaced.
+         *
          * @param tool The tool to add to the set
          */
-        private void add(DrawingTool tool)
+        private void add_tool(DrawingTool tool)
 
             requires(m_tools != null)
             requires(tool.name != null)
 
         {
-            remove(tool.name);
+            remove_tool(tool.name);
 
             m_tools.@set(tool.name, tool);
 
@@ -171,14 +188,28 @@ namespace Gschem3
 
 
         /**
+         *
+         *
+         * @param context
+         */
+        private void on_draw_tool(SchematicWindow sender, Geda3.SchematicPainter context)
+
+            requires(m_current_tool != null)
+
+        {
+            m_current_tool.draw(context);
+        }
+
+
+        /**
          * Remove a tool from the set
          *
          * If a tool with the given name is not present, this function
          * does nothing.
          *
-         * @param name The name of the tool
+         * @param name The name of the tool to remove from the set
          */
-        private void remove(string name)
+        private void remove_tool(string name)
 
             requires(m_tools != null)
 

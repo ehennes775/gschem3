@@ -16,6 +16,14 @@ namespace Gschem3
          *
          *
          */
+        public signal void draw_tool(Geda3.SchematicPainter painter);
+
+
+        /**
+         * A signal indicating items in the selection have changed
+         *
+         *
+         */
         public signal void selection_changed();
 
 
@@ -803,8 +811,7 @@ namespace Gschem3
             painter.color_scheme = b_settings.scheme;
             schematic.draw(painter, b_settings.reveal);
 
-            // create a signal for this function
-            //m_current_tool.draw(painter);
+            draw_tool(painter);
 
             painter.cairo_context = null;
 

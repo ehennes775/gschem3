@@ -214,7 +214,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void draw(Geda3.SchematicPainterCairo painter, bool reveal, bool selected)
+        public void draw(Geda3.SchematicPainter painter, bool reveal, bool selected)
 
             requires(b_pin != null)
 

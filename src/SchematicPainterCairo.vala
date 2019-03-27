@@ -256,7 +256,7 @@ namespace Geda3
          * @param x1 The x coordinate of the second corner in device units
          * @param y1 The y coordinate of the second corner in device units
          */
-        public void draw_select_box(int x0, int y0, int x1, int y1)
+        public override void draw_select_box(int x0, int y0, int x1, int y1)
 
             requires(cairo_context != null)
 
@@ -336,7 +336,7 @@ namespace Geda3
          * @param x1 The x coordinate of the second corner in device units
          * @param y1 The y coordinate of the second corner in device units
          */
-        public void draw_zoom_box(int x0, int y0, int x1, int y1)
+        public override void draw_zoom_box(int x0, int y0, int x1, int y1)
 
             requires(cairo_context != null)
 

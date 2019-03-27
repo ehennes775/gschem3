@@ -84,7 +84,7 @@ namespace Gschem3
          *
          * @param context
          */
-        public virtual void draw(Geda3.SchematicPainterCairo context)
+        public virtual void draw(Geda3.SchematicPainter context)
         {
         }
 

@@ -81,6 +81,17 @@ namespace Geda3
 
 
         /**
+         * Draw the box used to select items
+         *
+         * @param x0 The x coordinate of the first corner in device units
+         * @param y0 The y coordinate of the first corner in device units
+         * @param x1 The x coordinate of the second corner in device units
+         * @param y1 The y coordinate of the second corner in device units
+         */
+        public abstract void draw_select_box(int x0, int y0, int x1, int y1);
+
+
+        /**
          * Draw an x to mark an instertion point
          *
          * @param x The x coordinate of the insertion point
@@ -102,12 +113,22 @@ namespace Geda3
 
 
         /**
+         * Draw the box used to select items
+         *
+         * @param x0 The x coordinate of the first corner in device units
+         * @param y0 The y coordinate of the first corner in device units
+         * @param x1 The x coordinate of the second corner in device units
+         * @param y1 The y coordinate of the second corner in device units
+         */
+        public abstract void draw_zoom_box(int x0, int y0, int x1, int y1);
+
+
+        /**
          * Set the cap type to use for line ends
          *
          * @param cap_type The cap type to use for further drawing
          */
         public abstract void set_cap_type(CapType cap_type);
-
 
         /**
          * Set the drawing color the index specified
