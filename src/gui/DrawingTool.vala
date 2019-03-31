@@ -173,15 +173,7 @@ namespace Gschem3
          */
         public void update_document_window(DocumentWindow? window)
         {
-            if(m_window != null)
-            {
-            }
-
             m_window = window as SchematicWindow;
-
-            if(m_window != null)
-            {
-            }
         }
 
 

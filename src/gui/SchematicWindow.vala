@@ -28,6 +28,36 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public signal bool tool_button_press_event(Gdk.EventButton event);
+
+
+        /**
+         *
+         */
+        public signal bool tool_button_release_event(Gdk.EventButton event);
+
+
+        /**
+         *
+         */
+        public signal bool tool_key_press_event(Gdk.EventKey event);
+
+
+        /**
+         *
+         */
+        public signal bool tool_key_release_event(Gdk.EventKey event);
+
+
+        /**
+         *
+         */
+        public signal bool tool_motion_notify_event(Gdk.EventMotion event);
+
+
+        /**
          * The filename extension for schematic files
          */
         public const string SCHEMATIC_EXTENSION = ".sch";
@@ -733,15 +763,11 @@ namespace Gschem3
          * @param next_file the file to read the schematic from
          */
         private bool on_button_press_event(Gdk.EventButton event)
-
-            //requires(m_current_tool != null)
-
         {
             // temporary until better solution
-
             drawing.grab_focus();
 
-            return false; //m_current_tool.button_pressed(event);
+            return tool_button_press_event(event);
         }
 
 
@@ -751,11 +777,8 @@ namespace Gschem3
          * @param next_file the file to read the schematic from
          */
         private bool on_button_release_event(Gdk.EventButton event)
-
-            //requires(m_current_tool != null)
-
         {
-            return false; //m_current_tool.button_released(event);
+            return tool_button_release_event(event);
         }
 
 
@@ -825,11 +848,8 @@ namespace Gschem3
          * @param next_file the file to read the schematic from
          */
         private bool on_key_press_event(Gdk.EventKey event)
-
-            //requires(m_current_tool != null)
-
         {
-            return false; //m_current_tool.key_pressed(event);
+            return tool_key_press_event(event);
         }
 
 
@@ -839,11 +859,8 @@ namespace Gschem3
          * @param next_file the file to read the schematic from
          */
         private bool on_key_release_event(Gdk.EventKey event)
-
-            //requires(m_current_tool != null)
-
         {
-            return false; //m_current_tool.key_released(event);
+            return tool_key_release_event(event);
         }
 
 
@@ -853,11 +870,8 @@ namespace Gschem3
          * @param next_file the file to read the schematic from
          */
         private bool on_motion_notify_event(Gdk.EventMotion event)
-
-            //requires(m_current_tool != null)
-
         {
-            return false; //m_current_tool.motion_notify(event);
+            return tool_motion_notify_event(event);
         }
 
 

@@ -113,6 +113,26 @@ namespace Gschem3
         {
             if (m_window != null)
             {
+                m_window.tool_button_press_event.disconnect(
+                    on_tool_button_press_event
+                    );
+                
+                m_window.tool_button_release_event.disconnect(
+                    on_tool_button_release_event
+                    );
+
+                m_window.tool_key_press_event.disconnect(
+                    on_tool_key_press_event
+                    );
+
+                m_window.tool_key_release_event.disconnect(
+                    on_tool_key_release_event
+                    );
+
+                m_window.tool_motion_notify_event.disconnect(
+                    on_tool_motion_notify_event
+                    );
+
                 m_window.draw_tool.disconnect(on_draw_tool);
             }
 
@@ -132,6 +152,26 @@ namespace Gschem3
 
             if (m_window != null)
             {
+                m_window.tool_button_press_event.connect(
+                    on_tool_button_press_event
+                    );
+                    
+                m_window.tool_button_release_event.connect(
+                    on_tool_button_release_event
+                    );
+                
+                m_window.tool_key_press_event.connect(
+                    on_tool_key_press_event
+                    );
+                
+                m_window.tool_key_release_event.connect(
+                    on_tool_key_release_event
+                    );
+                
+                m_window.tool_motion_notify_event.connect(
+                    on_tool_motion_notify_event
+                    );
+
                 m_window.draw_tool.connect(on_draw_tool);
             }
         }
@@ -186,6 +226,50 @@ namespace Gschem3
             select_tool(SelectTool.NAME);
         }
 
+
+
+        private bool on_tool_button_press_event(Gdk.EventButton event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.button_pressed(event);
+        }
+
+        private bool on_tool_button_release_event(Gdk.EventButton event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.button_released(event);
+        }
+
+
+        private bool on_tool_key_press_event(Gdk.EventKey event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.key_pressed(event);
+        }
+
+
+        private bool on_tool_key_release_event(Gdk.EventKey event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.key_released(event);
+        }
+
+
+        private bool on_tool_motion_notify_event(Gdk.EventMotion event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.motion_notify(event);
+        }
 
         /**
          *

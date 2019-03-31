@@ -1025,9 +1025,15 @@ namespace Gschem3
 
             m_current_document_window = page as DocumentWindow;
 
+            m_drawing_tools.update_document_window(
+                m_current_document_window
+                );
+
             foreach (var editor in m_editors)
             {
-                editor.update_document_window(m_current_document_window);
+                editor.update_document_window(
+                    m_current_document_window
+                    );
             }
         }
 
