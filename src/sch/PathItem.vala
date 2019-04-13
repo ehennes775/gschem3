@@ -161,13 +161,15 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public Gee.Collection<Grip> create_grips()
+        public Gee.Collection<Grip> create_grips(
+            GripAssistant assistant
+            )
         {
             var grips = new Gee.ArrayList<Grip>();
 
             foreach (var command in b_commands)
             {
-                command.build_grips(grips);
+                command.build_grips(assistant, grips);
             }
 
             return grips;

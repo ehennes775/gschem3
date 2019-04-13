@@ -10,7 +10,8 @@ namespace Gschem3
     /**
      *
      */
-    public class SelectTool : DrawingTool
+    public class SelectTool : DrawingTool,
+        Geda3.GripAssistant
     {
         /**
          * The name of the tool for action parameters
@@ -30,10 +31,16 @@ namespace Gschem3
         }
 
 
+        /**
+         *
+         *
+         * @param window
+         */
         public SelectTool(SchematicWindow? window = null)
         {
             base(window);
             
+            m_grip = null;
             m_gripped = null;
             m_grips = null;
             m_state = State.S0;
@@ -50,13 +57,32 @@ namespace Gschem3
         {
             if (m_state == State.S0)
             {
-                m_state = State.S1;
-
                 m_x[0] = event.x;
                 m_y[0] = event.y;
 
                 m_x[1] = event.x;
                 m_y[1] = event.y;
+
+                m_grip = find_grip();
+
+                if (m_grip != null)
+                {
+                    var x0 = m_x[0];
+                    var y0 = m_y[0];
+
+                    m_window.device_to_user(ref x0, ref y0);
+
+                    m_grip.grab(
+                        (int)Math.round(x0),
+                        (int)Math.round(y0)
+                        );
+
+                    m_state = State.S4;
+                }
+                else
+                {
+                    m_state = State.S1;
+                }
             }
 
             return true;
@@ -88,25 +114,7 @@ namespace Gschem3
                     m_window.select_item(item1);
                 }
 
-                m_gripped = null;
-
-                foreach (var item in m_window.selection)
-                {
-                    var grippable = item as Geda3.Grippable;
-
-                    if (grippable != null)
-                    {
-                        m_gripped = grippable;
-                        break;
-                    }
-                }
-
-                if (m_gripped != null)
-                {
-                    m_grips = m_gripped.create_grips();
-                }
-
-                invalidate();
+                stdout.printf("button_released S1\n");
             }
             else if (m_state == State.S2)
             {
@@ -132,32 +140,27 @@ namespace Gschem3
                     max_y
                     );
 
-                //m_selected = new Gee.HashSet<Geda3.SchematicItem>();
+                m_window.select_all();
 
-                //m_selected.add_all(m_window.schematic.items);
+                stdout.printf("button_released S2\n");
+            }
+            else if (m_state == State.S4)
+            {
+                var x1 = m_x[1];
+                var y1 = m_y[1];
 
-                m_gripped = null;
+                m_window.device_to_user(ref x1, ref y1);
 
-                foreach (var item in m_window.selection)
-                {
-                    var grippable = item as Geda3.Grippable;
-
-                    if (grippable != null)
-                    {
-                        m_gripped = grippable;
-                        break;
-                    }
-                }
-
-                if (m_gripped != null)
-                {
-                    m_grips = m_gripped.create_grips();
-                }
-
-                invalidate();
+                m_grip.drop(
+                    (int)Math.round(x1),
+                    (int)Math.round(y1)
+                    );
             }
 
+            m_grip = null;
             m_state = State.S0;
+
+            invalidate();
 
             return true;
         }
@@ -221,7 +224,7 @@ namespace Gschem3
                     m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
                 }
             }
-            if (m_state == State.S2)
+            else if (m_state == State.S2)
             {
                 m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
 
@@ -230,8 +233,60 @@ namespace Gschem3
 
                 m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
             }
+            else if (m_state == State.S4)
+            {
+                m_x[1] = event.x;
+                m_y[1] = event.y;
+
+                var x1 = m_x[1];
+                var y1 = m_y[1];
+
+                m_window.device_to_user(ref x1, ref y1);
+
+                m_grip.move(
+                    (int)Math.round(x1),
+                    (int)Math.round(y1)
+                    );
+            }
 
             return true;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void snap_point(ref int x, ref int y)
+
+            requires(m_window != null)
+
+        {
+            m_window.snap_point(ref x, ref y);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void update_document_window(DocumentWindow? window)
+        {
+            if (m_window != null)
+            {
+                m_window.selection_changed.disconnect(
+                    on_selection_changed
+                    );
+            }
+
+            base.update_document_window(window);
+
+            if (m_window != null)
+            {
+                m_window.selection_changed.connect(
+                    on_selection_changed
+                    );
+
+                on_selection_changed();
+            }
         }
 
 
@@ -242,8 +297,15 @@ namespace Gschem3
         {
             S0,
             S1,
-            S2
+            S2,
+            S4
         }
+
+
+        /**
+         *
+         */
+        private Geda3.Grip? m_grip;
 
 
         /**
@@ -276,6 +338,25 @@ namespace Gschem3
         private double m_y[2];
 
 
+        private Geda3.Grip? find_grip()
+        {
+            if (m_grips != null)
+            {
+                foreach (var grip in m_grips)
+                {
+                    if (grip != null)
+                    {
+                        stdout.printf("Grip found\n");
+                        return grip;
+                    }
+                }
+            }
+
+            stdout.printf("Grip not found\n");
+            return null;
+        }
+
+
         /**
          * Redraw the current item
          */
@@ -293,6 +374,38 @@ namespace Gschem3
             {
                 m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
             }
+        }
+
+
+        /**
+         *
+         */
+        private void on_selection_changed()
+
+            requires(m_window != null)
+
+        {
+            stdout.printf("on_selection_changed\n");
+
+            m_gripped = null;
+
+            foreach (var item in m_window.selection)
+            {
+                var grippable = item as Geda3.Grippable;
+
+                if (grippable != null)
+                {
+                    m_gripped = grippable;
+                    break;
+                }
+            }
+
+            if (m_gripped != null)
+            {
+                m_grips = m_gripped.create_grips(this);
+            }
+
+            invalidate();
         }
     }
 }

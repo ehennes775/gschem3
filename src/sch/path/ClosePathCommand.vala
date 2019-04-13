@@ -32,7 +32,10 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void build_grips(Gee.List<Grip> grips)
+        public override void build_grips(
+            GripAssistant assistant,
+            Gee.List<Grip> grips
+            )
         {
         }
 

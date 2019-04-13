@@ -171,7 +171,7 @@ namespace Gschem3
          *
          * @param window The document window
          */
-        public void update_document_window(DocumentWindow? window)
+        public virtual void update_document_window(DocumentWindow? window)
         {
             m_window = window as SchematicWindow;
         }
@@ -193,7 +193,7 @@ namespace Gschem3
         /**
          * The document window this tool is drawing into
          */
-        protected weak SchematicWindow m_window;
+        protected SchematicWindow m_window;
 
 
         /**

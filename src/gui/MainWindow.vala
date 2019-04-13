@@ -105,6 +105,9 @@ namespace Gschem3
             add_property_editor(new FillStyleEditor());
             add_property_editor(new TextPropertyEditor());
             add_property_editor(new PinPropertyEditor());
+
+            key_press_event.connect(on_key_press_event);
+            key_release_event.connect(on_key_release_event);
         }
 
 
@@ -518,6 +521,38 @@ namespace Gschem3
             }
 
             return null;
+        }
+
+
+        /**
+         *
+         *
+         * @param event
+         */
+        private bool on_key_press_event(Gtk.Widget widget, Gdk.EventKey event)
+
+            requires(event.type == Gdk.EventType.KEY_PRESS)
+            requires(m_drawing_tools != null)
+            requires(widget == this)
+
+        {
+            return m_drawing_tools.key_pressed(event);
+        }
+
+
+        /**
+         *
+         *
+         * @param event
+         */
+        private bool on_key_release_event(Gtk.Widget widget, Gdk.EventKey event)
+
+            requires(event.type == Gdk.EventType.KEY_RELEASE)
+            requires(m_drawing_tools != null)
+            requires(widget == this)
+
+        {
+            return m_drawing_tools.key_released(event);
         }
 
 

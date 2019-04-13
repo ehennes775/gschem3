@@ -40,6 +40,74 @@ namespace Gschem3
 
 
         /**
+         * Process a mouse button press event
+         *
+         * @param event The GDK button event triggering this call
+         * @return This funtion returns TRUE when this function handles
+         * the event. This function returns FALSE if this event must
+         * continue propagation.
+         */
+        public bool button_pressed(Gdk.EventButton event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.button_pressed(event);
+        }
+
+
+        /**
+         * Process a mouse button release event
+         *
+         * @param event The GDK button event triggering this call
+         * @return This funtion returns TRUE when this function handles
+         * the event. This function returns FALSE if this event must
+         * continue propagation.
+         */
+        public bool button_released(Gdk.EventButton event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.button_released(event);
+        }
+
+
+        /**
+         * Process a keyboard key press event
+         *
+         * @param event The GDK button event triggering this call
+         * @return This funtion returns TRUE when this function handles
+         * the event. This function returns FALSE if this event must
+         * continue propagation.
+         */
+        public bool key_pressed(Gdk.EventKey event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.key_pressed(event);
+        }
+
+
+        /**
+         * Process a keyboard key release event
+         *
+         * @param event The GDK button event triggering this call
+         * @return This funtion returns TRUE when this function handles
+         * the event. This function returns FALSE if this event must
+         * continue propagation.
+         */
+        public bool key_released(Gdk.EventKey event)
+
+            requires(m_current_tool != null)
+
+        {
+            return m_current_tool.key_released(event);
+        }
+
+
+        /**
          * Select a drawing tool by name
          *
          * The m_current_tool should not be null, but this function
@@ -189,6 +257,9 @@ namespace Gschem3
         private Gee.HashMap<string,DrawingTool> m_tools;
 
 
+        /**
+         *
+         */
         private SchematicWindow? m_window;
 
 
@@ -227,42 +298,45 @@ namespace Gschem3
         }
 
 
-
+        /**
+         *
+         */
         private bool on_tool_button_press_event(Gdk.EventButton event)
-
-            requires(m_current_tool != null)
-
         {
-            return m_current_tool.button_pressed(event);
+            return button_pressed(event);
         }
 
+
+        /**
+         *
+         */
         private bool on_tool_button_release_event(Gdk.EventButton event)
-
-            requires(m_current_tool != null)
-
         {
-            return m_current_tool.button_released(event);
+            return button_released(event);
         }
 
 
+        /**
+         *
+         */
         private bool on_tool_key_press_event(Gdk.EventKey event)
-
-            requires(m_current_tool != null)
-
         {
-            return m_current_tool.key_pressed(event);
+            return key_pressed(event);
         }
 
 
+        /**
+         *
+         */
         private bool on_tool_key_release_event(Gdk.EventKey event)
-
-            requires(m_current_tool != null)
-
         {
-            return m_current_tool.key_released(event);
+            return key_released(event);
         }
 
 
+        /**
+         *
+         */
         private bool on_tool_motion_notify_event(Gdk.EventMotion event)
 
             requires(m_current_tool != null)

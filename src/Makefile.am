@@ -78,6 +78,7 @@ libgeda3_a_SOURCES = \
 	sch/FillStyle.vala \
 	sch/FillType.vala \
 	sch/Grip.vala \
+	sch/GripAssistant.vala \
 	sch/Grippable.vala \
 	sch/GrippablePoints.vala \
 	sch/LineItem.vala \

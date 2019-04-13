@@ -47,9 +47,12 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void build_grips(Gee.List<Grip> grips)
+        public override void build_grips(
+            GripAssistant assistant,
+            Gee.List<Grip> grips
+            )
         {
-            grips.add(new PointGrip(this, 0));
+            grips.add(new PointGrip(assistant, this, 0));
         }
 
 

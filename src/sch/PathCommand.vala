@@ -14,7 +14,10 @@ namespace Geda3
         /**
          *
          */
-        public abstract void build_grips(Gee.List<Grip> grips);
+        public abstract void build_grips(
+            GripAssistant assistant,
+            Gee.List<Grip> grips
+            );
 
 
         /**

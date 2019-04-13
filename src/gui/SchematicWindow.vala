@@ -129,8 +129,6 @@ namespace Gschem3
         {
             owned get
             {
-                // temporary for development
-
                 return m_selected;
             }
         }
@@ -496,6 +494,15 @@ namespace Gschem3
 
         public void scale_grid_up()
         {
+        }
+
+        public void select_all()
+        {
+            m_selected.clear();
+            m_selected.add_all(schematic.items);
+
+            queue_draw();
+            selection_changed();
         }
 
 

@@ -8,6 +8,8 @@ namespace Geda3
         /**
          *
          */
-        public abstract Gee.Collection<Grip> create_grips();
+        public abstract Gee.Collection<Grip> create_grips(
+            GripAssistant assistant
+            );
     }
 }
