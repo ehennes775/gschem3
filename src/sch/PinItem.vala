@@ -374,7 +374,36 @@ namespace Geda3
             int y
             )
         {
-            return double.MAX;
+            double dx;
+            double dy;
+
+            var lx0 = (double)b_x[0];
+            var ly0 = (double)b_y[0];
+            var ldx = (double)(b_x[1] - lx0);
+            var ldy = (double)(b_y[1] - ly0);
+
+            if (ldx == 0 && ldy == 0)
+            {
+                dx = x - lx0;
+                dy = y - ly0;
+            }
+            else
+            {
+                var dx0 = ldx * (x - lx0);
+                var dy0 = ldy * (y - ly0);
+
+                var t = (dx0 + dy0) / (ldx * ldx + ldy * ldy);
+
+                t.clamp(0.0, 1.0);
+
+                var cx = t * ldx + lx0;
+                var cy = t * ldy + ly0;
+
+                dx = x - cx;
+                dy = y - cy;
+            }
+
+            return Math.hypot(dx, dy);
         }
 
 

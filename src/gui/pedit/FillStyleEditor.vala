@@ -609,7 +609,7 @@ namespace Gschem3
 
                 if (state == ValueState.AVAILABLE)
                 {
-                    if (temp_width != item.fill_style.fill_pitch_2)
+                    if (temp_width != item.fill_style.fill_width)
                     {
                         state = ValueState.INCONSISTENT;
                         break;

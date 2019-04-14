@@ -1051,11 +1051,6 @@ namespace Gschem3
             else
             {
                 // needs to enable the action
-                
-                change_action_state(
-                    "select-tool",
-                    new Variant.string("net")
-                    );
             }
 
             m_current_document_window = page as DocumentWindow;

@@ -530,7 +530,7 @@ namespace Gschem3
             m_selected.clear();
             m_selected.add(item);
 
-            on_invalidate_item(item);
+            queue_draw();
             selection_changed();
         }
 

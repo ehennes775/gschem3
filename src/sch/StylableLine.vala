@@ -13,5 +13,15 @@ namespace Geda3
             get;
             construct set;
         }
+
+
+        /**
+         * The line width
+         */
+        public abstract int width
+        {
+            get;
+            construct set;
+        }
     }
 }

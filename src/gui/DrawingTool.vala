@@ -173,7 +173,11 @@ namespace Gschem3
          */
         public virtual void update_document_window(DocumentWindow? window)
         {
+            cancel();
+
             m_window = window as SchematicWindow;
+
+            reset();
         }
 
 

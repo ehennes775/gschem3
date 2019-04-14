@@ -48,25 +48,26 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            warn_if_fail(m_state == State.S0);
-
-            m_x[0] = event.x;
-            m_y[0] = event.y;
-
-            m_x[1] = event.x;
-            m_y[1] = event.y;
-
-            m_grip = find_grip(m_x[1], m_y[1]);
-
-            if (m_grip != null)
+            if (m_state == State.S0)
             {
-                m_grip.grab(m_x[1], m_y[1]);
+                m_x[0] = event.x;
+                m_y[0] = event.y;
 
-                m_state = State.S4;
-            }
-            else
-            {
-                m_state = State.S1;
+                m_x[1] = event.x;
+                m_y[1] = event.y;
+
+                m_grip = find_grip(m_x[1], m_y[1]);
+
+                if (m_grip != null)
+                {
+                    m_grip.grab(m_x[1], m_y[1]);
+
+                    m_state = State.S4;
+                }
+                else
+                {
+                    m_state = State.S1;
+                }
             }
 
             return true;
@@ -135,6 +136,14 @@ namespace Gschem3
             invalidate();
 
             return true;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void cancel()
+        {
         }
 
 
@@ -261,6 +270,18 @@ namespace Gschem3
             }
 
             return true;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void reset()
+        {
+            m_grip = null;
+            m_gripped = null;
+            m_grips = null;
+            m_state = State.S0;
         }
 
 
@@ -442,22 +463,24 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            m_gripped = null;
-
-            foreach (var item in m_window.selection)
+            if (m_window.selection.size == 1)
             {
-                var grippable = item as Geda3.Grippable;
-
-                if (grippable != null)
-                {
-                    m_gripped = grippable;
-                    break;
-                }
+                m_gripped = m_window.selection.first_match(
+                    i => i is Geda3.Grippable
+                    ) as Geda3.Grippable;
+            }
+            else
+            {
+                m_gripped = null;
             }
 
             if (m_gripped != null)
             {
                 m_grips = m_gripped.create_grips(this);
+            }
+            else
+            {
+                m_grips = null;
             }
 
             invalidate();
