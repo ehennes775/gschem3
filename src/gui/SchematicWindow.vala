@@ -340,6 +340,29 @@ namespace Gschem3
 
 
         /**
+         *
+         *
+         * @param y The user x coordinate of the grip
+         * @param y The user y coordinate of the grip
+         * @param half_width The half width in pixels
+         */
+        public void invalidate_grip(int x, int y, double half_width)
+        {
+            var center_x = (double)x;
+            var center_y = (double)y;
+
+            matrix.transform_point(ref center_x, ref center_y);
+
+            invalidate_device(
+                center_x - half_width,
+                center_y - half_width,
+                center_x + half_width,
+                center_y + half_width
+                );
+        }
+
+
+        /**
          * Invalidate an item in the window
          *
          * @param item The item to invalidate

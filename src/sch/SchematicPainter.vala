@@ -47,7 +47,11 @@ namespace Geda3
          * @param center_x The x coordinate of the center
          * @param center_y The y coordinate of the center
          */
-        public abstract void draw_grip(int center_x, int center_y);
+        public abstract void draw_grip(
+            int center_x,
+            int center_y,
+            double half_width
+            );
 
 
         public abstract void draw_items(

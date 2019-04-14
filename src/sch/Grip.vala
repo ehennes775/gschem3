@@ -8,24 +8,27 @@ namespace Geda3
         /**
          *
          */
-        public abstract void draw(SchematicPainter painter);
+        public abstract void draw(
+            SchematicPainter painter,
+            double half_width
+            );
 
 
         /**
          *
          */
-        public abstract void drop(int x, int y);
+        public abstract void drop(double x, double y);
 
 
         /**
          *
          */
-        public abstract void grab(int x, int y);
+        public abstract void grab(double x, double y);
 
 
         /**
          *
          */
-        public abstract void move(int x, int y);
+        public abstract void move(double x, double y);
     }
 }

@@ -1,17 +1,22 @@
 namespace Geda3
 {
     /**
-     *
+     * A Grip subclass for manipulating an item with GrippablePoints
      */
     public class PointGrip : Grip
     {
         /**
+         * Initialize a new instance
          *
-         *
-         * @param item
-         * @param index
+         * @param assistant For calling functionality in the GUI
+         * @param item The item with GrippablePoints
+         * @param index The index of the point
          */
-        public PointGrip(GripAssistant assistant, GrippablePoints item, int index)
+        public PointGrip(
+            GripAssistant assistant,
+            GrippablePoints item,
+            int index
+            )
         {
             m_assistant = assistant;
             m_index = index;
@@ -23,7 +28,10 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw(SchematicPainter painter)
+        public override void draw(
+            SchematicPainter painter,
+            double half_width
+            )
 
             requires(m_item != null)
 
@@ -33,14 +41,14 @@ namespace Geda3
 
             m_item.get_point(m_index, out x, out y);
 
-            painter.draw_grip(x, y);
+            painter.draw_grip(x, y, half_width);
         }
 
 
         /**
          * {@inheritDoc}
          */
-        public override void drop(int x, int y)
+        public override void drop(double x, double y)
 
             requires(m_item != null)
             requires(m_state == State.GRIPPED)
@@ -55,13 +63,20 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void grab(int x, int y)
+        public override void grab(double x, double y)
 
+            requires(m_assistant != null)
             requires(m_item != null)
 
         {
-            m_grab_x0 = x;
-            m_grab_y0 = y;
+            warn_if_fail(m_state == State.LOOSE);
+
+            m_assistant.device_to_user(
+                x,
+                y,
+                out m_grab_x0,
+                out m_grab_y0
+                );
 
             m_item.get_point(m_index, out m_grip_x0, out m_grip_y0);
 
@@ -72,18 +87,33 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void move(int x, int y)
+        public override void move(double x, double y)
 
+            requires(m_assistant != null)
             requires(m_item != null)
             requires(m_state == State.GRIPPED)
 
         {
-            var grip_x1 = x - m_grab_x0 + m_grip_x0;
-            var grip_y1 = y - m_grab_y0 + m_grip_y0;
+            int m_grab_x1;
+            int m_grab_y1;
+
+            m_assistant.device_to_user(
+                x,
+                y,
+                out m_grab_x1,
+                out m_grab_y1
+                );
+
+            var grip_x1 = m_grab_x1 - m_grab_x0 + m_grip_x0;
+            var grip_y1 = m_grab_y1 - m_grab_y0 + m_grip_y0;
 
             m_assistant.snap_point(ref grip_x1, ref grip_y1);
 
+            invalidate();
+
             m_item.set_point(m_index, grip_x1, grip_y1);
+
+            invalidate();
         }
 
 
@@ -98,36 +128,36 @@ namespace Geda3
 
 
         /**
-         *
+         * Provides access to functionality in the GUI
          */
         private GripAssistant m_assistant;
 
 
         /**
-         * The x coordinate of the pointer when grabbed
+         * The user x coordinate of the pointer when grabbed
          */
         private int m_grab_x0;
 
         /**
-         * The y coordinate of the pointer when grabbed
+         * The user y coordinate of the pointer when grabbed
          */
         private int m_grab_y0;
 
 
         /**
-         * The x coordinate of the grip when it was grabbed
+         * The user x coordinate of the point when it was grabbed
          */
         private int m_grip_x0;
 
 
         /**
-         * The y coordinate of the grip when it was grabbed
+         * The user y coordinate of the point when it was grabbed
          */
         private int m_grip_y0;
 
 
         /**
-         * The intex of the point to manipulate
+         * The index of the point to manipulate
          */
         private int m_index;
 
@@ -142,5 +172,23 @@ namespace Geda3
          * The state of the grip
          */
         private State m_state;
+
+
+        /**
+         * Invalidate this grip
+         */
+        private void invalidate()
+
+            requires(m_assistant != null)
+            requires(m_item != null)
+
+        {
+            int x;
+            int y;
+
+            m_item.get_point(m_index, out x, out y);
+
+            m_assistant.invalidate_grip(x, y);
+        }
     }
 }

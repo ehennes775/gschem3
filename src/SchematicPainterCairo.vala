@@ -2,14 +2,6 @@ namespace Geda3
 {
     public class SchematicPainterCairo : SchematicPainter
     {
-        /**
-         * The size to use for grips
-         *
-         * The width and height of the grips, divided by 2, in pixels.
-         */
-        public const int GRIP_HALF_WIDTH = 5;
-
-
         public Cairo.Context cairo_context
         {
             get;
@@ -133,7 +125,11 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void draw_grip(int center_x, int center_y)
+        public override void draw_grip(
+            int center_x,
+            int center_y,
+            double half_width
+            )
 
             requires(cairo_context != null)
 
@@ -150,10 +146,10 @@ namespace Geda3
             x = Math.round(x);
             y = Math.round(y);
 
-            cairo_context.move_to(x - GRIP_HALF_WIDTH, y - GRIP_HALF_WIDTH);
-            cairo_context.line_to(x + GRIP_HALF_WIDTH, y - GRIP_HALF_WIDTH);
-            cairo_context.line_to(x + GRIP_HALF_WIDTH, y + GRIP_HALF_WIDTH);
-            cairo_context.line_to(x - GRIP_HALF_WIDTH, y + GRIP_HALF_WIDTH);
+            cairo_context.move_to(x - half_width, y - half_width);
+            cairo_context.line_to(x + half_width, y - half_width);
+            cairo_context.line_to(x + half_width, y + half_width);
+            cairo_context.line_to(x - half_width, y + half_width);
             cairo_context.close_path();
 
             var rgba = color_scheme[Color.SELECT];

@@ -67,15 +67,7 @@ namespace Gschem3
 
                 if (m_grip != null)
                 {
-                    var x0 = m_x[0];
-                    var y0 = m_y[0];
-
-                    m_window.device_to_user(ref x0, ref y0);
-
-                    m_grip.grab(
-                        (int)Math.round(x0),
-                        (int)Math.round(y0)
-                        );
+                    m_grip.grab(m_x[1], m_y[1]);
 
                     m_state = State.S4;
                 }
@@ -149,12 +141,7 @@ namespace Gschem3
                 var x1 = m_x[1];
                 var y1 = m_y[1];
 
-                m_window.device_to_user(ref x1, ref y1);
-
-                m_grip.drop(
-                    (int)Math.round(x1),
-                    (int)Math.round(y1)
-                    );
+                m_grip.drop(m_x[1], m_y[1]);
             }
 
             m_grip = null;
@@ -165,6 +152,26 @@ namespace Gschem3
             return true;
         }
 
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void device_to_user(
+            double dx,
+            double dy,
+            out int ux,
+            out int uy
+            )
+        {
+            var x = dx;
+            var y = dy;
+
+            m_window.device_to_user(ref x, ref y);
+
+            ux = (int)Math.round(x);
+            uy = (int)Math.round(y);
+        }
 
 
         /**
@@ -191,9 +198,21 @@ namespace Gschem3
             {
                 foreach (var grip in m_grips)
                 {
-                    grip.draw(painter);
+                    grip.draw(painter, GRIP_HALF_WIDTH);
                 }
             }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void invalidate_grip(int x, int y)
+
+            requires(m_window != null)
+
+        {
+            m_window.invalidate_grip(x, y, GRIP_HALF_WIDTH);
         }
 
 
@@ -238,15 +257,7 @@ namespace Gschem3
                 m_x[1] = event.x;
                 m_y[1] = event.y;
 
-                var x1 = m_x[1];
-                var y1 = m_y[1];
-
-                m_window.device_to_user(ref x1, ref y1);
-
-                m_grip.move(
-                    (int)Math.round(x1),
-                    (int)Math.round(y1)
-                    );
+                m_grip.move(m_x[1], m_y[1]);
             }
 
             return true;
@@ -288,6 +299,14 @@ namespace Gschem3
                 on_selection_changed();
             }
         }
+
+
+        /**
+         * The size to use for grips
+         *
+         * The width and height of the grips, divided by 2, in pixels.
+         */
+        private const double GRIP_HALF_WIDTH = 5.0;
 
 
         /**
