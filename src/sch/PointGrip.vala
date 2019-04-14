@@ -28,6 +28,44 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override bool contacts(
+            double x,
+            double y,
+            double half_width
+            )
+
+            requires(m_assistant != null)
+            requires(m_item != null)
+
+        {
+            int x0;
+            int y0;
+
+            m_item.get_point(m_index, out x0, out y0);
+
+            double x1;
+            double y1;
+
+            m_assistant.user_to_device(
+                x0,
+                y0,
+                out x1,
+                out y1
+                );
+
+            var inside =
+                (x > (x1 - half_width)) &&
+                (y > (y1 - half_width)) &&
+                (x < (x1 + half_width)) &&
+                (y < (y1 + half_width));
+                
+            return inside;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw(
             SchematicPainter painter,
             double half_width

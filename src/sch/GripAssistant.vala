@@ -1,7 +1,8 @@
 namespace Geda3
 {
     /**
-     *
+     * Provides a mechanism for grips to use functionality in the GUI
+     * (dependency inversion).
      */
     public interface GripAssistant : Object
     {
@@ -41,5 +42,21 @@ namespace Geda3
          * @param y The y coordinate to snap
          */
         public abstract void snap_point(ref int x, ref int y);
+
+
+        /**
+         * Convert user coordinates to device coordinates
+         *
+         * @param ux The user x coordinate
+         * @param uy The user y coordinate
+         * @param dx The device x coordinate
+         * @param dy The device y coordinate
+         */
+        public abstract void user_to_device(
+            int ux,
+            int uy,
+            out double dx,
+            out double dy
+            );
     }
 }

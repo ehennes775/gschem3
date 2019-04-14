@@ -2,13 +2,6 @@ namespace Gschem3
 {
     /**
      *
-     * 
-     */
-    const double BOX_DISTANCE = 5.0;
-
-    
-    /**
-     *
      */
     public class SelectTool : DrawingTool,
         Geda3.GripAssistant
@@ -32,7 +25,7 @@ namespace Gschem3
 
 
         /**
-         *
+         * Create a new instance
          *
          * @param window
          */
@@ -55,26 +48,25 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            if (m_state == State.S0)
+            warn_if_fail(m_state == State.S0);
+
+            m_x[0] = event.x;
+            m_y[0] = event.y;
+
+            m_x[1] = event.x;
+            m_y[1] = event.y;
+
+            m_grip = find_grip(m_x[1], m_y[1]);
+
+            if (m_grip != null)
             {
-                m_x[0] = event.x;
-                m_y[0] = event.y;
+                m_grip.grab(m_x[1], m_y[1]);
 
-                m_x[1] = event.x;
-                m_y[1] = event.y;
-
-                m_grip = find_grip();
-
-                if (m_grip != null)
-                {
-                    m_grip.grab(m_x[1], m_y[1]);
-
-                    m_state = State.S4;
-                }
-                else
-                {
-                    m_state = State.S1;
-                }
+                m_state = State.S4;
+            }
+            else
+            {
+                m_state = State.S1;
             }
 
             return true;
@@ -105,8 +97,6 @@ namespace Gschem3
                 {
                     m_window.select_item(item1);
                 }
-
-                stdout.printf("button_released S1\n");
             }
             else if (m_state == State.S2)
             {
@@ -133,14 +123,9 @@ namespace Gschem3
                     );
 
                 m_window.select_all();
-
-                stdout.printf("button_released S2\n");
             }
             else if (m_state == State.S4)
             {
-                var x1 = m_x[1];
-                var y1 = m_y[1];
-
                 m_grip.drop(m_x[1], m_y[1]);
             }
 
@@ -212,7 +197,22 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            m_window.invalidate_grip(x, y, GRIP_HALF_WIDTH);
+            double center_x;
+            double center_y;
+
+            m_window.user_to_device(
+                x,
+                y,
+                out center_x,
+                out center_y
+                );
+
+            m_window.invalidate_device(
+                center_x - GRIP_HALF_WIDTH,
+                center_y - GRIP_HALF_WIDTH,
+                center_x + GRIP_HALF_WIDTH,
+                center_y + GRIP_HALF_WIDTH
+                );
         }
 
 
@@ -302,6 +302,30 @@ namespace Gschem3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void user_to_device(
+            int ux,
+            int uy,
+            out double dx,
+            out double dy
+            )
+
+            requires(m_window != null)
+
+        {
+            m_window.user_to_device(ux, uy, out dx, out dy);
+        }
+
+
+        /**
+         *
+         * 
+         */
+        private const double BOX_DISTANCE = 5.0;
+
+
+        /**
          * The size to use for grips
          *
          * The width and height of the grips, divided by 2, in pixels.
@@ -357,21 +381,30 @@ namespace Gschem3
         private double m_y[2];
 
 
-        private Geda3.Grip? find_grip()
+        /**
+         *
+         *
+         * @param x
+         * @param y
+         * @return
+         */
+        private Geda3.Grip? find_grip(double x, double y)
         {
             if (m_grips != null)
             {
                 foreach (var grip in m_grips)
                 {
-                    if (grip != null)
+                    if (grip == null)
                     {
-                        stdout.printf("Grip found\n");
+                        warning("grip is null");
+                    }
+                    else if (grip.contacts(x, y, GRIP_HALF_WIDTH))
+                    {
                         return grip;
                     }
                 }
             }
 
-            stdout.printf("Grip not found\n");
             return null;
         }
 
@@ -391,7 +424,12 @@ namespace Gschem3
 
             if (m_state == State.S2)
             {
-                m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
+                m_window.invalidate_device(
+                    m_x[0],
+                    m_y[0],
+                    m_x[1],
+                    m_y[1]
+                    );
             }
         }
 
@@ -404,8 +442,6 @@ namespace Gschem3
             requires(m_window != null)
 
         {
-            stdout.printf("on_selection_changed\n");
-
             m_gripped = null;
 
             foreach (var item in m_window.selection)

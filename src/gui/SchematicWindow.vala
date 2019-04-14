@@ -340,29 +340,6 @@ namespace Gschem3
 
 
         /**
-         *
-         *
-         * @param y The user x coordinate of the grip
-         * @param y The user y coordinate of the grip
-         * @param half_width The half width in pixels
-         */
-        public void invalidate_grip(int x, int y, double half_width)
-        {
-            var center_x = (double)x;
-            var center_y = (double)y;
-
-            matrix.transform_point(ref center_x, ref center_y);
-
-            invalidate_device(
-                center_x - half_width,
-                center_y - half_width,
-                center_x + half_width,
-                center_y + half_width
-                );
-        }
-
-
-        /**
          * Invalidate an item in the window
          *
          * @param item The item to invalidate
@@ -572,6 +549,31 @@ namespace Gschem3
             y = Geda3.Coord.snap(y, 100);
         }
 
+
+        /**
+         * Convert user coordinates to device coordinates
+         *
+         * @param ux The user x coordinate
+         * @param uy The user y coordinate
+         * @param dx The device x coordinate
+         * @param dy The device y coordinate
+         */
+        public void user_to_device(
+            int ux,
+            int uy,
+            out double dx,
+            out double dy
+            )
+
+        {
+            var x = (double)ux;
+            var y = (double)uy;
+
+            matrix.transform_point(ref x, ref y);
+
+            dx = x;
+            dy = y;
+        }
 
         /**
          * Zoom to a box
