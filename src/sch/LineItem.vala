@@ -359,7 +359,7 @@ namespace Geda3
 
                 var t = (dx0 + dy0) / (ldx * ldx + ldy * ldy);
 
-                t.clamp(0.0, 1.0);
+                t = t.clamp(0.0, 1.0);
 
                 var cx = t * ldx + lx0;
                 var cy = t * ldy + ly0;
