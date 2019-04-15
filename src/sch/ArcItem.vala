@@ -19,7 +19,10 @@ namespace Geda3
      * ||10||int32 ||The length of the dashes          ||
      * ||11||int32 ||The spacing between the dashes    ||
      */
-    public class ArcItem : SchematicItem
+    public class ArcItem : SchematicItem,
+        Grippable,
+        GrippablePoints,
+        StylableLine
     {
         /**
          * The type code used in schematic files
@@ -192,6 +195,39 @@ namespace Geda3
             bounds.expand(expand, expand);
 
             return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gee.Collection<Grip> create_grips(
+            GripAssistant assistant
+            )
+        {
+            var grips = new Gee.ArrayList<Grip>();
+
+            for (int index = 0; index < 1; index++)
+            {
+                grips.add(new PointGrip(assistant, this, index));
+            }
+
+            return grips;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void get_point(int index, out int x, out int y)
+        {
+            x = b_center_x;
+            y = b_center_y;
+
+            if (index != 0)
+            {
+                return_if_reached();
+            }
         }
 
 
