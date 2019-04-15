@@ -164,7 +164,7 @@ namespace Geda3
         {
             var grips = new Gee.ArrayList<Grip>();
 
-            for (int index = 0; index < 2; index++)
+            for (int index = 0; index < GRIPPABLE_POINT_COUNT; index++)
             {
                 grips.add(new PointGrip(assistant, this, index));
             }
@@ -186,7 +186,7 @@ namespace Geda3
          */
         public void get_point(int index, out int x, out int y)
         {
-            if ((index < 0) || (index >= 2))
+            if ((index < 0) || (index >= GRIPPABLE_POINT_COUNT))
             {
                 x = b_x[0];
                 y = b_y[0];
@@ -318,7 +318,7 @@ namespace Geda3
         public void set_point(int index, int x, int y)
 
             requires (index >= 0)
-            requires (index < 2)
+            requires (index < GRIPPABLE_POINT_COUNT)
 
         {
             invalidate(this);
@@ -409,6 +409,12 @@ namespace Geda3
 
             stream.write_all(output.data, null);
         }
+
+
+        /**
+         * The number of grippable points
+         */
+        private int GRIPPABLE_POINT_COUNT = 2;
 
 
         /**

@@ -400,7 +400,42 @@ namespace Geda3
             int y
             )
         {
-            return double.MAX;
+            var shortest_distance = double.MAX;
+
+            if (within_sweep(x, y))
+            {
+                var distance_to_center = Math.hypot(
+                    x - b_center_x,
+                    y - b_center_y
+                    );
+
+                shortest_distance = Math.fabs(
+                    distance_to_center - b_radius
+                    );
+            }
+            else
+            {
+                var angle = Angle.to_radians(b_start_angle);
+
+                var dx = (x - b_radius * Math.cos(angle) - b_center_x);
+                var dy = (y - b_radius * Math.sin(angle) - b_center_y);
+
+                var distance_to_end0 = Math.hypot(dx, dy);
+
+                angle += Angle.to_radians(b_sweep_angle);
+
+                dx = (x - b_radius * Math.cos(angle) - b_center_x);
+                dy = (y - b_radius * Math.sin(angle) - b_center_y);
+
+                var distance_to_end1 = Math.hypot(dx, dy);
+
+                shortest_distance = double.min(
+                    distance_to_end0,
+                    distance_to_end1
+                    );
+            }
+
+            return shortest_distance;
         }
 
 
@@ -415,6 +450,19 @@ namespace Geda3
             b_center_y += dy;
 
             invalidate(this);
+        }
+
+
+        /**
+         * Determines if the point lies within the sweep of the arc
+         *
+         * @param x The user x coordinate
+         * @param y The user y coordinate
+         * @return Returns true if the point lies within the sweep
+         */
+        public bool within_sweep(int x, int y)
+        {
+            return true;  // TODO
         }
 
 
