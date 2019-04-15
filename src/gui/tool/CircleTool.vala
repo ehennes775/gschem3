@@ -171,7 +171,7 @@ namespace Gschem3
 
                 m_window.snap_point(ref ix, ref iy);
 
-                b_circle.set_point(1, ix, iy);
+                (b_circle as Geda3.GrippablePoints).set_point(1, ix, iy);
             }
         }
 

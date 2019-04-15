@@ -145,13 +145,18 @@ namespace Geda3
          * Draw the schematic
          *
          * @param painter The painter to use for drawing
+         * @param selected A set of the selected items
          * @param reveal Draw invisible items
          */
-        public void draw(SchematicPainter painter, bool reveal)
+        public void draw(
+            SchematicPainter painter,
+            Gee.Set<SchematicItem> selected,
+            bool reveal
+            )
         {
             foreach (var item in m_items)
             {
-                item.draw(painter, reveal, false);
+                item.draw(painter, reveal, item in selected);
             }
         }
 

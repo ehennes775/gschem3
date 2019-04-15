@@ -183,11 +183,6 @@ namespace Gschem3
                     );
             }
 
-            if (m_gripped != null)
-            {
-                m_gripped.draw(painter, true, true);
-            }
-
             if (m_grips != null)
             {
                 foreach (var grip in m_grips)

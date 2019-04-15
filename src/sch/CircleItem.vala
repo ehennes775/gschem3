@@ -25,6 +25,8 @@ namespace Geda3
      */
     public class CircleItem : SchematicItem,
         Fillable,
+        Grippable,
+        GrippablePoints,
         StylableLine
     {
         /**
@@ -204,6 +206,39 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public Gee.Collection<Grip> create_grips(
+            GripAssistant assistant
+            )
+        {
+            var grips = new Gee.ArrayList<Grip>();
+
+            for (int index = 0; index < 1; index++)
+            {
+                grips.add(new PointGrip(assistant, this, index));
+            }
+
+            return grips;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void get_point(int index, out int x, out int y)
+        {
+            x = b_center_x;
+            y = b_center_y;
+
+            if (index != 0)
+            {
+                return_if_reached();
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void invalidate_on(Invalidatable invalidatable)
         {
             var bounds = Bounds.with_points(
@@ -339,15 +374,7 @@ namespace Geda3
 
 
         /**
-         * Change a point on the circle
-         *
-         * ||''index''||''Description''||
-         * ||0||The center point of the circle||
-         * ||1||A point on the circumference of the circle||
-         *
-         * @param index The index of the point
-         * @param x The new x coordinate for the point
-         * @param y The new y coordinate for the point
+         * {@inheritDoc}
          */
         public void set_point(int index, int x, int y)
 

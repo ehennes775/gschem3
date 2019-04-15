@@ -242,7 +242,11 @@ namespace Gschem3
 
             if (schematic != null)
             {
-                schematic.draw(m_painter, b_settings.reveal);
+                schematic.draw(
+                    m_painter,
+                    Gee.Set<Geda3.SchematicItem>.empty(),
+                    b_settings.reveal
+                    );
             }
             
             m_painter.cairo_context = null;
