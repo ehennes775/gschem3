@@ -65,5 +65,22 @@ namespace Geda3
          * @param y The device y coordinate of the pointer
          */
         public abstract void move(double x, double y);
+
+
+        /**
+         * Initialize a new instance
+         *
+         * @param assistant Provides access to GUI functionality
+         */
+        protected Grip(GripAssistant assistant)
+        {
+            m_assistant = assistant;
+        }
+
+
+        /**
+         * Provides access to functionality in the GUI
+         */
+        protected GripAssistant m_assistant;
     }
 }

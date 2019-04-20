@@ -1,30 +1,33 @@
 namespace Geda3
 {
     /**
-     * A Grip subclass for manipulating an item with GrippablePoints
+     * A Grip subclass for manipulating box schematic items
      */
-    public class PointGrip : Grip
+    public class BoxCornerGrip : Grip
     {
         /**
          * Initialize a new instance
          *
-         * @param assistant For calling functionality in the GUI
-         * @param item The item with GrippablePoints
-         * @param index The index of the point
+         * @param assistant Provides access to GUI functionality
+         * @param common Common data shared between all grips for am item
+         * @param x
+         * @param y
          */
-        public PointGrip(
+        public BoxCornerGrip(
             GripAssistant assistant,
-            GrippablePoints item,
-            int index
+            BoxCornerGripCommon common,
+            int index_x,
+            int index_y
             )
         {
             base(assistant);
 
-            m_index = index;
-            m_item = item;
+            m_common = common;
+            m_index_x = index_x;
+            m_index_y = index_y;
             m_state = State.LOOSE;
 
-            //m_item.invalidate.connect(on_invalidate);
+            m_common.invalidate.connect(on_invalidate);
         }
 
 
@@ -38,13 +41,13 @@ namespace Geda3
             )
 
             requires(m_assistant != null)
-            requires(m_item != null)
+            requires(m_common != null)
 
         {
             int x0;
             int y0;
 
-            m_item.get_point(m_index, out x0, out y0);
+            m_common.get_point(m_index_x, m_index_y, out x0, out y0);
 
             double x1;
             double y1;
@@ -74,13 +77,13 @@ namespace Geda3
             double half_width
             )
 
-            requires(m_item != null)
+            requires(m_common != null)
 
         {
             int x;
             int y;
 
-            m_item.get_point(m_index, out x, out y);
+            m_common.get_point(m_index_x, m_index_y, out x, out y);
 
             painter.draw_grip(x, y, half_width);
         }
@@ -91,7 +94,7 @@ namespace Geda3
          */
         public override void drop(double x, double y)
 
-            requires(m_item != null)
+            requires(m_common != null)
             requires(m_state == State.GRIPPED)
 
         {
@@ -107,7 +110,7 @@ namespace Geda3
         public override void grab(double x, double y)
 
             requires(m_assistant != null)
-            requires(m_item != null)
+            requires(m_common != null)
 
         {
             warn_if_fail(m_state == State.LOOSE);
@@ -119,7 +122,12 @@ namespace Geda3
                 out m_grab_y0
                 );
 
-            m_item.get_point(m_index, out m_grip_x0, out m_grip_y0);
+            m_common.get_point(
+                m_index_x,
+                m_index_y,
+                out m_grip_x0,
+                out m_grip_y0
+                );
 
             m_state = State.GRIPPED;
         }
@@ -131,7 +139,7 @@ namespace Geda3
         public override void move(double x, double y)
 
             requires(m_assistant != null)
-            requires(m_item != null)
+            requires(m_common != null)
             requires(m_state == State.GRIPPED)
 
         {
@@ -150,11 +158,12 @@ namespace Geda3
 
             m_assistant.snap_point(ref grip_x1, ref grip_y1);
 
-            on_invalidate();
-
-            m_item.set_point(m_index, grip_x1, grip_y1);
-
-            on_invalidate();
+            m_common.set_point(
+                m_index_x,
+                m_index_y,
+                grip_x1,
+                grip_y1
+                );
         }
 
 
@@ -166,6 +175,12 @@ namespace Geda3
             LOOSE,
             GRIPPED
         }
+
+
+        /**
+         * Common data shared between all grips for am item
+         */
+        private BoxCornerGripCommon m_common;
 
 
         /**
@@ -194,13 +209,13 @@ namespace Geda3
         /**
          * The index of the point to manipulate
          */
-        private int m_index;
+        private int m_index_x;
 
 
         /**
-         * The item under manipulation
+         * The index of the point to manipulate
          */
-        private GrippablePoints m_item;
+        private int m_index_y;
 
 
         /**
@@ -215,13 +230,13 @@ namespace Geda3
         private void on_invalidate()
 
             requires(m_assistant != null)
-            requires(m_item != null)
+            requires(m_common != null)
 
         {
             int x;
             int y;
 
-            m_item.get_point(m_index, out x, out y);
+            m_common.get_point(m_index_x, m_index_y, out x, out y);
 
             m_assistant.invalidate_grip(x, y);
         }

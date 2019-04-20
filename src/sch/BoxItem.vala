@@ -6,7 +6,9 @@ namespace Geda3
      * Represents a graphic box on a schematic
      */
     public class BoxItem : SchematicItem,
+        Colorable,
         Fillable,
+        Grippable,
         StylableLine
     {
         /**
@@ -16,7 +18,7 @@ namespace Geda3
 
 
         /**
-         * The color
+         * {@inheritDoc}
          */
         public int color
         {
@@ -37,7 +39,7 @@ namespace Geda3
 
 
         /**
-         * The fill style
+         * {@inheritDoc}
          */
         public FillStyle fill_style
         {
@@ -62,7 +64,7 @@ namespace Geda3
 
 
         /**
-         * The line style
+         * {@inheritDoc}
          */
         public LineStyle line_style
         {
@@ -109,6 +111,39 @@ namespace Geda3
         }
 
 
+        public int lower_x
+        {
+            get
+            {
+                return b_lower_x;
+            }
+        }
+
+        public int lower_y
+        {
+            get
+            {
+                return b_lower_y;
+            }
+        }
+
+
+        public int upper_x
+        {
+            get
+            {
+                return b_upper_x;
+            }
+        }
+
+        public int upper_y
+        {
+            get
+            {
+                return b_upper_y;
+            }
+        }
+
         /**
          * Create a schematic box
          */
@@ -153,6 +188,47 @@ namespace Geda3
             bounds.expand(expand, expand);
 
             return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gee.Collection<Grip> create_grips(
+            GripAssistant assistant
+            )
+        {
+            var common = new BoxCornerGripCommon(this);
+            var grips = new Gee.ArrayList<Grip>();
+
+            grips.add(new BoxCornerGrip(assistant, common, 0, 0));
+            grips.add(new BoxCornerGrip(assistant, common, 0, 1));
+            grips.add(new BoxCornerGrip(assistant, common, 1, 1));
+            grips.add(new BoxCornerGrip(assistant, common, 1, 0));
+
+            return grips;
+        }
+
+
+        /**
+         *
+         *
+         * @param x0
+         * @param y0
+         * @param x1
+         * @param y1
+         */
+        public void get_corners(
+            out int x0,
+            out int y0,
+            out int x1,
+            out int y1
+            )
+        {
+            x0 = b_lower_x;
+            y0 = b_lower_y;
+            x1 = b_upper_x;
+            y1 = b_upper_y;
         }
 
 
@@ -257,6 +333,22 @@ namespace Geda3
 
         {
             return_if_reached();
+        }
+
+
+        /**
+         *
+         */
+        public void set_corners(int x0, int y0, int x1, int y1)
+        {
+            invalidate(this);
+
+            b_lower_x = x0;
+            b_lower_y = y0;
+            b_upper_x = x1;
+            b_upper_y = y1;
+
+            invalidate(this);
         }
 
 

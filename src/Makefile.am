@@ -62,12 +62,15 @@ libgeda3_a_SOURCES = \
 	sch/AttributeParent.vala \
 	sch/ArcItem.vala \
 	sch/Bounds.vala \
+	sch/BoxCornerGrip.vala \
+	sch/BoxCornerGripCommon.vala \
 	sch/BoxItem.vala \
 	sch/BusDirection.vala \
 	sch/BusItem.vala \
 	sch/CircleItem.vala \
 	sch/CapType.vala \
 	sch/Color.vala \
+	sch/Colorable.vala \
 	sch/ComplexItem.vala \
 	sch/ComplexLibrary.vala \
 	sch/ComplexSymbol.vala \

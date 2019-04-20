@@ -4,6 +4,7 @@ namespace Geda3
      * Represents a graphical path on a schematic or symbol
      */
     public class PathItem : SchematicItem,
+        Colorable,
         Fillable,
         Grippable,
         StylableLine
@@ -15,7 +16,7 @@ namespace Geda3
 
 
         /**
-         * The color of the text
+         * {@inheritDoc}
          */
         public int color
         {
@@ -36,7 +37,7 @@ namespace Geda3
 
 
         /**
-         * The fill style
+         * {@inheritDoc}
          */
         public FillStyle fill_style
         {
@@ -61,7 +62,7 @@ namespace Geda3
 
 
         /**
-         * The line style
+         * {@inheritDoc}
          */
         public LineStyle line_style
         {

@@ -24,6 +24,7 @@ namespace Geda3
      * ||15||int32 ||The spacing between the second set of fill lines||
      */
     public class CircleItem : SchematicItem,
+        Colorable,
         Fillable,
         Grippable,
         GrippablePoints,
@@ -42,7 +43,7 @@ namespace Geda3
 
 
         /**
-         * The color
+         * {@inheritDoc}
          */
         public int color
         {
@@ -63,7 +64,7 @@ namespace Geda3
 
 
         /**
-         * The fill style
+         * {@inheritDoc}
          */
         public FillStyle fill_style
         {
@@ -88,7 +89,7 @@ namespace Geda3
 
 
         /**
-         * The line style
+         * {@inheritDoc}
          */
         public LineStyle line_style
         {
@@ -136,7 +137,7 @@ namespace Geda3
 
 
         /**
-         * Create a schematic bus
+         * Create a circle item
          */
         public CircleItem()
         {

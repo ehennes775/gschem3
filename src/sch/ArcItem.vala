@@ -20,6 +20,7 @@ namespace Geda3
      * ||11||int32 ||The spacing between the dashes    ||
      */
     public class ArcItem : SchematicItem,
+        Colorable,
         Grippable,
         GrippablePoints,
         StylableLine
@@ -31,7 +32,7 @@ namespace Geda3
 
 
         /**
-         * The color
+         * {@inheritDoc}
          */
         public int color
         {
@@ -52,7 +53,7 @@ namespace Geda3
 
 
         /**
-         * The line style
+         * {@inheritDoc}
          */
         public LineStyle line_style
         {
@@ -113,7 +114,7 @@ namespace Geda3
 
 
         /**
-         * Create a circle
+         * Create an arc item
          *
          * @param x The x coordinate of the center of the arc
          * @param y The y coordinate of the center of the arc
@@ -539,7 +540,7 @@ namespace Geda3
 
 
         /**
-         * Backing store the color
+         * Backing store the color index
          */
         private int b_color;
 
@@ -551,19 +552,19 @@ namespace Geda3
 
 
         /**
-         * Backing store for the circle radius
+         * Backing store for the arc radius
          */
         private int b_radius;
 
 
         /**
-         * The backing store for the start angle
+         * The backing store for the start angle, in degrees
          */
         private int b_start_angle;
 
 
         /**
-         * The backing store for the sweep_angle
+         * The backing store for the sweep angle, in degrees
          */
         private int b_sweep_angle;
 
@@ -576,6 +577,8 @@ namespace Geda3
 
         /**
          * Signal handler when a line style property changes
+         *
+         * @param param Unused
          */
         private void on_notify_style(ParamSpec param)
         {

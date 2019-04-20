@@ -5,7 +5,9 @@ namespace Geda3
      *
      * Represents text or an attribute on a schematic
      */
-    public class TextItem : SchematicItem, AttributeChild
+    public class TextItem : SchematicItem,
+        AttributeChild,
+        Colorable
     {
         /**
          * The type code, for text, used in schematic files
@@ -59,7 +61,7 @@ namespace Geda3
 
 
         /**
-         * The color of the text
+         * {@inheritDoc}
          */
         public int color
         {
