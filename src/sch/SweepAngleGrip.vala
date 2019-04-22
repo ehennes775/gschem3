@@ -1,9 +1,9 @@
 namespace Geda3
 {
     /**
-     * A Grip subclass for manipulating an item with GrippablePoints
+     * A Grip subclass for manipulating the sweep angle of an arc
      */
-    public class SweepAngleGrip : Grip
+    public class SweepAngleGrip : AngleGrip
     {
         /**
          * Initialize a new instance
@@ -16,90 +16,7 @@ namespace Geda3
             ArcItem item
             )
         {
-            base(assistant);
-
-            m_item = item;
-            m_state = State.LOOSE;
-
-            m_item.invalidate.connect(on_invalidate);
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override bool contacts(
-            double x,
-            double y,
-            double half_width
-            )
-
-            requires(m_assistant != null)
-            requires(m_item != null)
-
-        {
-            double x1;
-            double y1;
-
-            calculate_grip_center(out x1, out y1);
-
-            var inside =
-                (x > (x1 - half_width)) &&
-                (y > (y1 - half_width)) &&
-                (x < (x1 + half_width)) &&
-                (y < (y1 + half_width));
-                
-            return inside;
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override void draw(
-            SchematicPainter painter,
-            double half_width
-            )
-
-            requires(m_item != null)
-
-        {
-            double x;
-            double y;
-
-            calculate_grip_center(out x, out y);
-
-            painter.draw_round_grip(x, y, half_width);
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override void drop(double x, double y)
-
-            requires(m_item != null)
-            requires(m_state == State.GRIPPED)
-
-        {
-            move(x, y);
-
-            m_state = State.LOOSE;
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public override void grab(double x, double y)
-
-            requires(m_assistant != null)
-            requires(m_item != null)
-
-        {
-            warn_if_fail(m_state == State.LOOSE);
-
-            m_state = State.GRIPPED;
+            base(assistant, item);
         }
 
 
@@ -142,31 +59,12 @@ namespace Geda3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
-        private enum State
-        {
-            LOOSE,
-            GRIPPED
-        }
-
-
-        /**
-         * The item under manipulation
-         */
-        private ArcItem m_item;
-
-
-        /**
-         * The state of the grip
-         */
-        private State m_state;
-
-
-        /**
-         *
-         */
-        private void calculate_grip_center(out double x, out double y)
+        protected override void calculate_grip_center(
+            out double x,
+            out double y
+            )
 
             requires(m_assistant != null)
             requires(m_item != null)
@@ -197,24 +95,6 @@ namespace Geda3
 
             x = grip_x;
             y = grip_y;
-        }
-
-
-        /**
-         * Invalidate this grip
-         */
-        private void on_invalidate()
-
-            requires(m_assistant != null)
-            requires(m_item != null)
-
-        {
-            double x;
-            double y;
-
-            calculate_grip_center(out x, out y);
-
-            m_assistant.invalidate_round_grip(x, y);
         }
     }
 }

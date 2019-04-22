@@ -58,6 +58,7 @@ libgeda3_a_SOURCES = \
 	prj/key/KeyFileSymbolLibrary.vala \
 	prj/key/KeyProjectFileMapper.vala \
 	sch/Angle.vala \
+	sch/AngleGrip.vala \
 	sch/AttributeChild.vala \
 	sch/AttributeParent.vala \
 	sch/ArcItem.vala \
