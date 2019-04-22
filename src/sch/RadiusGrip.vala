@@ -10,17 +10,23 @@ namespace Geda3
          *
          * @param assistant For calling functionality in the GUI
          * @param item The item with GrippablePoints
-         * @param index The index of the point
+         * @param angle
          */
         public RadiusGrip(
             GripAssistant assistant,
-            AdjustableRadius item
+            AdjustableRadius item,
+            int angle = 0
             )
         {
             base(assistant);
 
             m_item = item;
             m_state = State.LOOSE;
+
+            var radians = Angle.to_radians(angle);
+
+            m_cx = (int)Math.round(Math.cos(radians));
+            m_cy = (int)Math.round(Math.sin(radians));
 
             m_item.invalidate.connect(on_invalidate);
         }
@@ -148,16 +154,12 @@ namespace Geda3
 
             m_assistant.snap_point(ref grip_x1, ref grip_y1);
 
-            var radius = Coord.distance(
-                grip_x1,
-                grip_y1,
-                m_item.center_x,
-                m_item.center_y
-                );
+            var dx = grip_x1 - m_item.center_x;
+            var dy = grip_y1 - m_item.center_y;
 
-            // TODO: snap radius
+            m_assistant.snap_point(ref dx, ref dy);
 
-            m_item.radius = (int)Math.round(radius);
+            m_item.radius = (int)Math.round(Math.hypot(dx, dy));
         }
 
 
@@ -169,6 +171,18 @@ namespace Geda3
             LOOSE,
             GRIPPED
         }
+
+
+        /**
+         *
+         */
+        private int m_cx;
+
+
+        /**
+         *
+         */
+        private int m_cy;
 
 
         /**
@@ -222,8 +236,8 @@ namespace Geda3
          */
         private void calculate_grip_center(out int x, out int y)
         {
-            x = m_item.center_x + m_item.radius;
-            y = m_item.center_y;
+            x = m_item.center_x + m_cx * m_item.radius;
+            y = m_item.center_y + m_cy * m_item.radius;
         }
 
 

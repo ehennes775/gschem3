@@ -302,7 +302,10 @@ namespace Geda3
                 grips.add(new PointGrip(assistant, this, index));
             }
 
-            grips.add(new RadiusGrip(assistant, this));
+            for (int angle = 0; angle < 360; angle += 90)
+            {
+                grips.add(new RadiusGrip(assistant, this, angle));
+            }
 
             grips.add(new StartAngleGrip(assistant, this));
             grips.add(new SweepAngleGrip(assistant, this));
