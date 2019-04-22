@@ -23,31 +23,9 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void move(double x, double y)
-
-            requires(m_assistant != null)
-            requires(m_item != null)
-            requires(m_state == State.GRIPPED)
-
+        protected override void adjust_angle(int angle)
         {
-            double center_x;
-            double center_y;
-
-            m_assistant.user_to_device(
-                m_item.center_x,
-                m_item.center_y,
-                out center_x,
-                out center_y
-                );
-
-            var angle = Angle.from_radians(Math.atan2(
-                center_y - y,
-                x - center_x
-                ));
-
-            var sweep = m_assistant.snap_angle(
-                Angle.calc_sweep(m_item.start_angle, angle)
-                );
+            var sweep = Angle.calc_sweep(m_item.start_angle, angle);
 
             if (sweep == 0)
             {
