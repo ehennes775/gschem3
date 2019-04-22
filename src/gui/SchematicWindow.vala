@@ -198,11 +198,11 @@ namespace Gschem3
             drawing.button_press_event.connect(on_button_press_event);
             drawing.button_release_event.connect(on_button_release_event);
             drawing.draw.connect(on_draw);
-            drawing.key_press_event.connect(on_key_press_event);
-            drawing.key_release_event.connect(on_key_release_event);
+            //drawing.key_press_event.connect(on_key_press_event);
+            //drawing.key_release_event.connect(on_key_release_event);
             drawing.motion_notify_event.connect(on_motion_notify_event);
 
-            drawing.can_focus = true;
+            //drawing.can_focus = true;
             drawing.sensitive = true;
         }
 
