@@ -32,6 +32,30 @@ namespace Geda3
 
 
         /**
+         *
+         */
+        public int center_x
+        {
+            get
+            {
+                return b_center_x;
+            }
+        }
+
+
+        /**
+         *
+         */
+        public int center_y
+        {
+            get
+            {
+                return b_center_y;
+            }
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public int color
@@ -74,6 +98,70 @@ namespace Geda3
 
                 invalidate(this);
             }
+        }
+
+
+        /**
+         *
+         */
+        public int radius
+        {
+            get
+            {
+                return b_radius;
+            }
+            construct set
+            {
+                return_if_fail(value >= 0);
+
+                invalidate(this);
+
+                b_radius = value;
+
+                invalidate(this);
+            }
+        }
+
+
+        /**
+         *
+         */
+        public int start_angle
+        {
+            get
+            {
+                return b_start_angle;
+            }
+            construct set
+            {
+                invalidate(this);
+
+                b_start_angle = value;
+
+                invalidate(this);
+            }
+            default = 0;
+        }
+
+
+        /**
+         *
+         */
+        public int sweep_angle
+        {
+            get
+            {
+                return b_sweep_angle;
+            }
+            construct set
+            {
+                invalidate(this);
+
+                b_sweep_angle = value;
+
+                invalidate(this);
+            }
+            default = 0;
         }
 
 
@@ -212,6 +300,9 @@ namespace Geda3
             {
                 grips.add(new PointGrip(assistant, this, index));
             }
+
+            grips.add(new StartAngleGrip(assistant, this));
+            grips.add(new SweepAngleGrip(assistant, this));
 
             return grips;
         }

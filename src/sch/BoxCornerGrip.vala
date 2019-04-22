@@ -238,7 +238,7 @@ namespace Geda3
 
             m_common.get_point(m_index_x, m_index_y, out x, out y);
 
-            m_assistant.invalidate_grip(x, y);
+            m_assistant.invalidate_square_grip(x, y);
         }
     }
 }

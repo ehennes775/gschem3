@@ -23,14 +23,34 @@ namespace Geda3
 
 
         /**
-         * Invalidate the graphical representation of the grip
+         * Invalidate the graphical representation of a round grip.
+         *
+         * The coordinates must be device coordinates.
+         *
+         * @param x The x coordinate of the grip
+         * @param y The y coordinate of the grip
+         */
+        public abstract void invalidate_round_grip(double x, double y);
+
+
+        /**
+         * Invalidate the graphical representation of a square grip
          *
          * The coordinates must be user coordinates.
          *
          * @param x The x coordinate of the grip
          * @param y The y coordinate of the grip
          */
-        public abstract void invalidate_grip(int x, int y);
+        public abstract void invalidate_square_grip(int x, int y);
+
+
+        /**
+         * Snap an angle using the current snap mode
+         *
+         * @param angle The angle, in degrees
+         * @return The snapped angle, in degrees
+         */
+        public abstract int snap_angle(int angle);
 
 
         /**
@@ -53,8 +73,8 @@ namespace Geda3
          * @param dy The device y coordinate
          */
         public abstract void user_to_device(
-            int ux,
-            int uy,
+            double ux,
+            double uy,
             out double dx,
             out double dy
             );

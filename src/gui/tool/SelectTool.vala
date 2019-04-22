@@ -196,7 +196,27 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void invalidate_grip(int x, int y)
+        public void invalidate_round_grip(double x, double y)
+
+            requires(m_window != null)
+
+        {
+            double center_x = Math.round(x);
+            double center_y = Math.round(y);
+
+            m_window.invalidate_device(
+                center_x - GRIP_HALF_WIDTH,
+                center_y - GRIP_HALF_WIDTH,
+                center_x + GRIP_HALF_WIDTH,
+                center_y + GRIP_HALF_WIDTH
+                );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void invalidate_square_grip(int x, int y)
 
             requires(m_window != null)
 
@@ -211,12 +231,7 @@ namespace Gschem3
                 out center_y
                 );
 
-            m_window.invalidate_device(
-                center_x - GRIP_HALF_WIDTH,
-                center_y - GRIP_HALF_WIDTH,
-                center_x + GRIP_HALF_WIDTH,
-                center_y + GRIP_HALF_WIDTH
-                );
+            invalidate_round_grip(center_x, center_y);
         }
 
 
@@ -283,6 +298,18 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
+        public int snap_angle(int angle)
+
+            requires(m_window != null)
+
+        {
+            return m_window.snap_angle(angle);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public void snap_point(ref int x, ref int y)
 
             requires(m_window != null)
@@ -321,8 +348,8 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public void user_to_device(
-            int ux,
-            int uy,
+            double ux,
+            double uy,
             out double dx,
             out double dy
             )

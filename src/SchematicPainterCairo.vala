@@ -245,6 +245,60 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override void draw_round_grip(
+            double center_x,
+            double center_y,
+            double half_width
+            )
+        {
+            cairo_context.save();
+
+            cairo_context.set_matrix(matrix0);
+
+            var x = Math.round(center_x);
+            var y = Math.round(center_y);
+
+            cairo_context.move_to(center_x + half_width, center_y);
+
+            cairo_context.arc(
+                x,
+                y,
+                half_width,
+                0,
+                2.0 * Math.PI
+                );
+
+            cairo_context.close_path();
+
+            var rgba = color_scheme[Color.SELECT];
+
+            cairo_context.set_source_rgba(
+                0.125 * rgba.red,
+                0.125 * rgba.green,
+                0.125 * rgba.blue,
+                rgba.alpha
+                );
+
+            cairo_context.fill_preserve();
+
+            cairo_context.set_source_rgba(
+                rgba.red,
+                rgba.green,
+                rgba.blue,
+                rgba.alpha
+                );
+
+            cairo_context.set_line_width(1.0);
+
+            cairo_context.stroke();
+
+            cairo_context.restore();
+        }
+
+        
+        /**
          * Draw the box used to select items
          *
          * @param x0 The x coordinate of the first corner in device units

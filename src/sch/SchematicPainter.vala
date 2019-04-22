@@ -85,6 +85,19 @@ namespace Geda3
 
 
         /**
+         * Draw a round grip
+         *
+         * @param center_x The x coordinate of the center
+         * @param center_y The y coordinate of the center
+         */
+        public abstract void draw_round_grip(
+            double center_x,
+            double center_y,
+            double half_width
+            );
+
+
+        /**
          * Draw the box used to select items
          *
          * @param x0 The x coordinate of the first corner in device units

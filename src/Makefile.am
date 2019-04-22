@@ -99,8 +99,10 @@ libgeda3_a_SOURCES = \
 	sch/SchematicItem.vala \
 	sch/SchematicPainter.vala \
 	sch/SchematicReader.vala \
+	sch/StartAngleGrip.vala \
 	sch/StylableLine.vala \
 	sch/Sweep.vala \
+	sch/SweepAngleGrip.vala \
 	sch/TextAlignment.vala \
 	sch/TextItem.vala \
 	sch/TextPresentation.vala \

@@ -536,6 +536,18 @@ namespace Gschem3
 
 
         /**
+         * Snap an angle using the current snap mode
+         *
+         * @param angle The angle, in degrees
+         * @return The snapped angle, in degrees
+         */
+        public int snap_angle(int angle)
+        {
+            return Geda3.Coord.snap(angle, 15);
+        }
+
+
+        /**
          * Snap a point to the grid of this window
          *
          * The coordinates must be user coordinates.
@@ -559,15 +571,15 @@ namespace Gschem3
          * @param dy The device y coordinate
          */
         public void user_to_device(
-            int ux,
-            int uy,
+            double ux,
+            double uy,
             out double dx,
             out double dy
             )
 
         {
-            var x = (double)ux;
-            var y = (double)uy;
+            var x = ux;
+            var y = uy;
 
             matrix.transform_point(ref x, ref y);
 

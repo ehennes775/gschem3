@@ -3,28 +3,25 @@ namespace Geda3
     /**
      * A Grip subclass for manipulating an item with GrippablePoints
      */
-    public class PointGrip : Grip
+    public class SweepAngleGrip : Grip
     {
         /**
          * Initialize a new instance
          *
          * @param assistant For calling functionality in the GUI
-         * @param item The item with GrippablePoints
-         * @param index The index of the point
+         * @param item The arc item
          */
-        public PointGrip(
+        public SweepAngleGrip(
             GripAssistant assistant,
-            GrippablePoints item,
-            int index
+            ArcItem item
             )
         {
             base(assistant);
 
-            m_index = index;
             m_item = item;
             m_state = State.LOOSE;
 
-            //m_item.invalidate.connect(on_invalidate);
+            m_item.invalidate.connect(on_invalidate);
         }
 
 
@@ -41,20 +38,10 @@ namespace Geda3
             requires(m_item != null)
 
         {
-            int x0;
-            int y0;
-
-            m_item.get_point(m_index, out x0, out y0);
-
             double x1;
             double y1;
 
-            m_assistant.user_to_device(
-                x0,
-                y0,
-                out x1,
-                out y1
-                );
+            calculate_grip_center(out x1, out y1);
 
             var inside =
                 (x > (x1 - half_width)) &&
@@ -77,12 +64,12 @@ namespace Geda3
             requires(m_item != null)
 
         {
-            int x;
-            int y;
+            double x;
+            double y;
 
-            m_item.get_point(m_index, out x, out y);
+            calculate_grip_center(out x, out y);
 
-            painter.draw_grip(x, y, half_width);
+            painter.draw_round_grip(x, y, half_width);
         }
 
 
@@ -112,15 +99,6 @@ namespace Geda3
         {
             warn_if_fail(m_state == State.LOOSE);
 
-            m_assistant.device_to_user(
-                x,
-                y,
-                out m_grab_x0,
-                out m_grab_y0
-                );
-
-            m_item.get_point(m_index, out m_grip_x0, out m_grip_y0);
-
             m_state = State.GRIPPED;
         }
 
@@ -135,26 +113,31 @@ namespace Geda3
             requires(m_state == State.GRIPPED)
 
         {
-            int m_grab_x1;
-            int m_grab_y1;
+            double center_x;
+            double center_y;
 
-            m_assistant.device_to_user(
-                x,
-                y,
-                out m_grab_x1,
-                out m_grab_y1
+            m_assistant.user_to_device(
+                m_item.center_x,
+                m_item.center_y,
+                out center_x,
+                out center_y
                 );
 
-            var grip_x1 = m_grab_x1 - m_grab_x0 + m_grip_x0;
-            var grip_y1 = m_grab_y1 - m_grab_y0 + m_grip_y0;
+            var angle = Angle.from_radians(Math.atan2(
+                center_y - y,
+                x - center_x
+                ));
 
-            m_assistant.snap_point(ref grip_x1, ref grip_y1);
+            var sweep = m_assistant.snap_angle(
+                Angle.calc_sweep(m_item.start_angle, angle)
+                );
 
-            on_invalidate();
+            if (sweep == 0)
+            {
+                sweep = 360;
+            }
 
-            m_item.set_point(m_index, grip_x1, grip_y1);
-
-            on_invalidate();
+            m_item.sweep_angle = sweep;
         }
 
 
@@ -169,44 +152,52 @@ namespace Geda3
 
 
         /**
-         * The user x coordinate of the pointer when grabbed
-         */
-        private int m_grab_x0;
-
-        /**
-         * The user y coordinate of the pointer when grabbed
-         */
-        private int m_grab_y0;
-
-
-        /**
-         * The user x coordinate of the point when it was grabbed
-         */
-        private int m_grip_x0;
-
-
-        /**
-         * The user y coordinate of the point when it was grabbed
-         */
-        private int m_grip_y0;
-
-
-        /**
-         * The index of the point to manipulate
-         */
-        private int m_index;
-
-
-        /**
          * The item under manipulation
          */
-        private GrippablePoints m_item;
+        private ArcItem m_item;
 
 
         /**
          * The state of the grip
          */
         private State m_state;
+
+
+        /**
+         *
+         */
+        private void calculate_grip_center(out double x, out double y)
+
+            requires(m_assistant != null)
+            requires(m_item != null)
+
+        {
+            var radians = Angle.to_radians(
+                m_item.start_angle + m_item.sweep_angle
+                );
+
+            var u = Math.cos(radians);
+            var v = Math.sin(radians);
+            
+            var px = m_item.center_x + m_item.radius * u;
+            var py = m_item.center_y + m_item.radius * v;
+
+            double grip_x;
+            double grip_y;
+
+            m_assistant.user_to_device(
+                px,
+                py,
+                out grip_x,
+                out grip_y
+                );
+
+            grip_x += 30.0 * u;
+            grip_y -= 30.0 * v;
+
+            x = grip_x;
+            y = grip_y;
+        }
 
 
         /**
@@ -218,12 +209,12 @@ namespace Geda3
             requires(m_item != null)
 
         {
-            int x;
-            int y;
+            double x;
+            double y;
 
-            m_item.get_point(m_index, out x, out y);
+            calculate_grip_center(out x, out y);
 
-            m_assistant.invalidate_square_grip(x, y);
+            m_assistant.invalidate_round_grip(x, y);
         }
     }
 }
