@@ -24,6 +24,9 @@ namespace Geda3
          * {@inheritDoc}
          */
         protected override void adjust_angle(int angle)
+
+            requires(m_item != null)
+
         {
             m_item.start_angle = Angle.normalize(angle);
         }
