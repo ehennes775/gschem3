@@ -61,40 +61,21 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        protected override void calculate_grip_center(
-            out double x,
-            out double y
-            )
+        protected override int calculate_angle()
 
-            requires(m_assistant != null)
             requires(m_item != null)
 
         {
-            var radians = Angle.to_radians(
-                m_item.start_angle + m_item.sweep_angle
-                );
+            return m_item.start_angle + m_item.sweep_angle;
+        }
 
-            var u = Math.cos(radians);
-            var v = Math.sin(radians);
-            
-            var px = m_item.center_x + m_item.radius * u;
-            var py = m_item.center_y + m_item.radius * v;
 
-            double grip_x;
-            double grip_y;
-
-            m_assistant.user_to_device(
-                px,
-                py,
-                out grip_x,
-                out grip_y
-                );
-
-            grip_x += 30.0 * u;
-            grip_y -= 30.0 * v;
-
-            x = grip_x;
-            y = grip_y;
+        /**
+         * {@inheritDoc}
+         */
+        protected override double calculate_offset()
+        {
+            return 30.0;
         }
     }
 }

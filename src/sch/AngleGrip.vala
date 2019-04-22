@@ -126,6 +126,14 @@ namespace Geda3
 
 
         /**
+         * Determine the angle of the grip
+         *
+         * @return The angle of the grip, in degrees
+         */
+        protected abstract int calculate_angle();
+
+
+        /**
          * Calculate the center of the grip
          *
          * The parameters use device coordinates
@@ -133,10 +141,56 @@ namespace Geda3
          * @param x The x coordinate of the center of the grip
          * @param y The y coordinate of the center of the grip
          */
-        protected abstract void calculate_grip_center(
+        protected void calculate_grip_center(
             out double x,
             out double y
-            );
+            )
+
+            requires(m_assistant != null)
+            requires(m_item != null)
+
+        {
+            var radians = Angle.to_radians(calculate_angle());
+
+            var u = Math.cos(radians);
+            var v = Math.sin(radians);
+            
+            var px = m_item.center_x + m_item.radius * u;
+            var py = m_item.center_y + m_item.radius * v;
+
+            double grip_x;
+            double grip_y;
+
+            m_assistant.user_to_device(
+                px,
+                py,
+                out grip_x,
+                out grip_y
+                );
+
+            var offset = calculate_offset();
+
+            grip_x += offset * u;
+            grip_y -= offset * v;
+
+            x = grip_x;
+            y = grip_y;
+        }
+
+
+        /**
+         * Calculate the offset of the grip
+         *
+         * The offset of the grip ensures that grips don't overlap.
+         *
+         * A positive offset indicates the grip lies on the outside of
+         * the shape. A negative offset indicates the grip lies on the
+         * inside of the shape. With an offset of zero, the grip lies
+         * on the circumference of the shape. 
+         *
+         * @return The offset of the grip in device coordinates
+         */
+        protected abstract double calculate_offset();
 
 
         /**
