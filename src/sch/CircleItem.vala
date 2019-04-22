@@ -24,6 +24,7 @@ namespace Geda3
      * ||15||int32 ||The spacing between the second set of fill lines||
      */
     public class CircleItem : SchematicItem,
+        AdjustableRadius,
         Colorable,
         Fillable,
         Grippable,
@@ -40,6 +41,30 @@ namespace Geda3
          * The type code used in schematic files
          */
         public const string TYPE_ID = "V";
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public int center_x
+        {
+            get
+            {
+                return b_center_x;
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public int center_y
+        {
+            get
+            {
+                return b_center_y;
+            }
+        }
 
 
         /**
@@ -107,6 +132,28 @@ namespace Geda3
                 b_line_style = value ?? new LineStyle();
 
                 b_line_style.notify.connect(on_notify_style);
+
+                invalidate(this);
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public int radius
+        {
+            get
+            {
+                return b_radius;
+            }
+            construct set
+            {
+                return_if_fail(value >= 0);
+
+                invalidate(this);
+
+                b_radius = value;
 
                 invalidate(this);
             }

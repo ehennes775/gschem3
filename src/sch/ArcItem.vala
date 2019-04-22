@@ -20,6 +20,7 @@ namespace Geda3
      * ||11||int32 ||The spacing between the dashes    ||
      */
     public class ArcItem : SchematicItem,
+        AdjustableRadius,
         Colorable,
         Grippable,
         GrippablePoints,
@@ -32,7 +33,7 @@ namespace Geda3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         public int center_x
         {
@@ -44,7 +45,7 @@ namespace Geda3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         public int center_y
         {
@@ -102,7 +103,7 @@ namespace Geda3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         public int radius
         {
