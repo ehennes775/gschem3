@@ -34,6 +34,21 @@ namespace Geda3
 
 
         /**
+         * Checks if the given sweep is clockwise
+         *
+         * Positive sweeps are clockwise. A sweep angle of 0 is
+         * considered counterclockwise.
+         *
+         * @param sweep The sweep to check
+         * @return If the sweep is clockwise
+         */
+        public bool is_clockwise(int sweep)
+        {
+            return !is_counterclockwise(sweep);
+        }
+
+
+        /**
          * Checks if the given sweep is counterclockwise
          *
          * Positive sweeps are clockwise. A sweep angle of 0 is

@@ -54,7 +54,7 @@ namespace Geda3
                 sweep = 360;
             }
 
-            if (!Sweep.is_counterclockwise(m_item.sweep_angle))
+            if (Sweep.is_clockwise(m_item.sweep_angle))
             {
                 sweep = Sweep.reverse(sweep);
             }
