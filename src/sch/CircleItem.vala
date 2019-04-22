@@ -265,6 +265,8 @@ namespace Geda3
                 grips.add(new PointGrip(assistant, this, index));
             }
 
+            grips.add(new RadiusGrip(assistant, this));
+
             return grips;
         }
 

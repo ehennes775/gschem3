@@ -97,6 +97,7 @@ libgeda3_a_SOURCES = \
 	sch/PinItem.vala \
 	sch/PinType.vala \
 	sch/PointGrip.vala \
+	sch/RadiusGrip.vala \
 	sch/Schematic.vala \
 	sch/SchematicItem.vala \
 	sch/SchematicPainter.vala \
