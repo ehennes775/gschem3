@@ -21,6 +21,7 @@ namespace Geda3
      */
     public class ArcItem : SchematicItem,
         AdjustableRadius,
+        AdjustableSweep,
         Colorable,
         Grippable,
         GrippablePoints,
@@ -125,7 +126,7 @@ namespace Geda3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         public int start_angle
         {
@@ -146,7 +147,7 @@ namespace Geda3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         public int sweep_angle
         {
