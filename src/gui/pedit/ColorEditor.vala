@@ -41,6 +41,15 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        static construct
+        {
+            stdout.printf("%s\n",typeof(ColorSwatchRenderer).name());
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct

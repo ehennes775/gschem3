@@ -101,6 +101,19 @@
                         <property name="id-column">1</property>
                         <property name="model">pin-type-list</property>
                         <child>
+                            <object class="Gschem3ColorSwatchRenderer" id="color-swatch-renderer">
+                                <property name="width">25</property>
+                            </object>
+                            <!--
+                            <attributes>
+                                <attribute name="fill_type">2</attribute>
+                            </attributes>
+                            -->
+                            <cell-packing>
+                                <property name="expand">false</property>
+                            </cell-packing>
+                        </child>
+                        <child>
                             <object class="GtkCellRendererText" id="color-renderer">
                             </object>
                             <attributes>

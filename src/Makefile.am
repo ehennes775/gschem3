@@ -153,6 +153,7 @@ libgeda3_a_VALAFLAGS = \
 libgschem3_a_SOURCES = \
 	gui/aedit/AttributeEditor.vala \
 	gui/pedit/ColorEditor.vala \
+	gui/pedit/ColorSwatchRenderer.vala \
 	gui/pedit/FillStyleEditor.vala \
 	gui/pedit/LineStyleEditor.vala \
 	gui/pedit/PinPropertyEditor.vala \
