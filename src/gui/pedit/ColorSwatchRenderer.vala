@@ -19,22 +19,12 @@ namespace Gschem3
         /**
          *
          */
-        //public Gdk.RGBA color
-        //{
-        //    get;
-        //    construct set;
-        //}
-
-
-        construct
+        public Gdk.RGBA color
         {
-            //color = Gdk.RGBA()
-            //{
-            //    red = 1.0,
-            //    green = 0.65,
-            //    blue = 0.0,
-            //    alpha = 1.0
-            //};
+            get;
+            set;
+
+            // construct set; -- generates SIGSEGV
         }
 
 
@@ -91,10 +81,10 @@ namespace Gschem3
             context.close_path();
 
             context.set_source_rgba(
-                0.5, //color.red,
-                0.0, //color.green,
-                0.0, //color.blue,
-                1.0  //color.alpha
+                color.red,
+                color.green,
+                color.blue,
+                color.alpha
                 );
 
             context.fill_preserve();
