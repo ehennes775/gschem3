@@ -101,6 +101,7 @@ namespace Gschem3
 
             m_drawing_tools = new DrawingToolSet(m_complex_factory);
 
+            add_property_editor(new ColorEditor());
             add_property_editor(new LineStyleEditor());
             add_property_editor(new FillStyleEditor());
             add_property_editor(new TextPropertyEditor());
