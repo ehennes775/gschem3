@@ -6,6 +6,20 @@ namespace Gschem3
     public class SchematicWindowSettings : Object
     {
         /**
+         * A signal indicating the color scheme has changed
+         *
+         * This signal provides a parameter for the sinks, so that they
+         * don't need to maintain a reference to the color scheme, and
+         * can simply perform an update when the signal is received.
+         *
+         * @param scheme The new color scheme
+         */
+        public signal void color_scheme_changed(
+            Geda3.ColorScheme scheme
+            );
+
+
+        /**
          *
          */
         public Grid grid
@@ -41,6 +55,25 @@ namespace Gschem3
             {
                 return b_scheme;
             }
+            set
+            {
+                if (b_scheme != null)
+                {
+                    b_scheme.color_scheme_changed.disconnect(
+                        on_color_scheme_changed
+                        );
+                }
+
+                b_scheme = value;
+
+                if (b_scheme != null)
+                {
+                    b_scheme.color_scheme_changed.connect(
+                        on_color_scheme_changed
+                        );
+                }
+            }
+            default = new Geda3.ColorScheme.Dark();
         }
 
 
@@ -138,6 +171,17 @@ namespace Gschem3
         /**
          * The color scheme used for all schematic windows
          */
-        private Geda3.ColorScheme b_scheme = new Geda3.ColorScheme.Dark();
+        private Geda3.ColorScheme b_scheme;
+
+
+        /**
+         * Event handler for when the color scheme changes
+         *
+         * @param scheme The new color scheme
+         */
+        public void on_color_scheme_changed(Geda3.ColorScheme scheme)
+        {
+            color_scheme_changed(scheme);
+        }
     }
 }

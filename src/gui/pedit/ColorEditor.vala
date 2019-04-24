@@ -22,6 +22,10 @@ namespace Gschem3
             {
                 if (b_schematic_window != null)
                 {
+                    b_schematic_window.color_scheme_changed.disconnect(
+                        on_color_scheme_changed
+                        );
+
                     b_schematic_window.selection_changed.disconnect(
                         on_selection_change
                         );
@@ -31,6 +35,10 @@ namespace Gschem3
 
                 if (b_schematic_window != null)
                 {
+                    b_schematic_window.color_scheme_changed.connect(
+                        on_color_scheme_changed
+                        );
+
                     b_schematic_window.selection_changed.connect(
                         on_selection_change
                         );
@@ -41,10 +49,13 @@ namespace Gschem3
 
 
         /**
-         *
+         * Initialize the class
          */
         static construct
         {
+            // Ensure the type is avaialble before construction from
+            // XML.
+
             stdout.printf("%s\n",typeof(ColorSwatchRenderer).name());
         }
 
@@ -67,6 +78,10 @@ namespace Gschem3
             notify["schematic-window"].connect(
                 on_notify_schematic_window
                 );
+
+            notify["schematic-window"].connect(
+                on_notify_schematic_window_colors
+                );
         }
 
 
@@ -76,6 +91,20 @@ namespace Gschem3
         public void update_document_window(DocumentWindow? window)
         {
             schematic_window = window as SchematicWindow;
+        }
+
+
+        /**
+         * The columns in the list store
+         *
+         * These values must match the XML
+         */
+        private enum Column
+        {
+            NAME,
+            ID_STRING,
+            COLOR,
+            INDEX
         }
 
 
@@ -97,6 +126,13 @@ namespace Gschem3
          */
         [GtkChild(name="color-combo")]
         private PropertyComboBox m_color_combo;
+
+
+        /**
+         * The combo box containing the color
+         */
+        [GtkChild(name="color-list")]
+        private Gtk.ListStore m_model;
 
 
         /**
@@ -197,6 +233,17 @@ namespace Gschem3
 
 
         /**
+         * Event handler for when the color scheme changes
+         *
+         * @param scheme The new color scheme
+         */
+        public void on_color_scheme_changed(Geda3.ColorScheme scheme)
+        {
+            update_colors(scheme);
+        }
+
+
+        /**
          * Signal handler when the current window changes
          *
          * @param param Unused
@@ -204,6 +251,22 @@ namespace Gschem3
         private void on_notify_schematic_window(ParamSpec param)
         {
             update();
+        }
+
+
+        /**
+         * Signal handler when the current window changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_schematic_window_colors(ParamSpec param)
+
+            requires(b_schematic_window != null)
+            requires(b_schematic_window.settings != null)
+            requires(b_schematic_window.settings.scheme != null)
+
+        {
+            update_colors(b_schematic_window.settings.scheme);
         }
 
 
@@ -247,7 +310,7 @@ namespace Gschem3
 
 
         /**
-         * Update data in the color combo
+         * Update the selected color in the combo widget
          *
          * @param items Colorable items in the selection
          */
@@ -277,6 +340,43 @@ namespace Gschem3
                 m_color_combo,
                 m_color_apply_signal_id
                 );
+        }
+
+
+        /**
+         *
+         *
+         * @param scheme The new color scheme
+         */
+        private void update_colors(Geda3.ColorScheme scheme)
+
+            requires(m_model != null)
+
+        {
+            var iter = Gtk.TreeIter();
+
+            var success = m_model.get_iter_first(out iter);
+
+            while (success)
+            {
+                var index = Geda3.Color.BACKGROUND;
+                
+                m_model.get(
+                    iter,
+                    Column.INDEX,
+                    &index
+                    );
+
+                var color = scheme.get(index);
+
+                m_model.set_value(
+                    iter,
+                    Column.COLOR,
+                    color
+                    );
+
+                success = m_model.iter_next(ref iter);
+            }
         }
 
 

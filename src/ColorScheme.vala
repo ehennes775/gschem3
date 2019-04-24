@@ -6,6 +6,20 @@ namespace Geda3
     public class ColorScheme
     {
         /**
+         * A signal indicating the color scheme has changed
+         *
+         * This signal provides a parameter for the sinks, so that they
+         * don't need to maintain a reference to the color scheme, and
+         * can simply perform an update when the signal is received.
+         *
+         * @param scheme The new color scheme
+         */
+        public signal void color_scheme_changed(
+            Geda3.ColorScheme scheme
+            );
+
+
+        /**
          * Create an empty color scheme
          */
         public ColorScheme()

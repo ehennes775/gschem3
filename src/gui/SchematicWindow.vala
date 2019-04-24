@@ -12,6 +12,20 @@ namespace Gschem3
         Zoomable
     {
         /**
+         * A signal indicating the color scheme has changed
+         *
+         * This signal provides a parameter for the sinks, so that they
+         * don't need to maintain a reference to the color scheme, and
+         * can simply perform an update when the signal is received.
+         *
+         * @param scheme The new color scheme
+         */
+        public signal void color_scheme_changed(
+            Geda3.ColorScheme scheme
+            );
+
+
+        /**
          * A signal indicating items in the selection have changed
          *
          *
@@ -151,6 +165,10 @@ namespace Gschem3
                 if (b_settings != null)
                 {
                     b_settings.notify.disconnect(on_notify_settings);
+
+                    b_settings.color_scheme_changed.disconnect(
+                        on_color_scheme_changed
+                        );
                 }
 
                 b_settings = value ?? SchematicWindowSettings.get_default();
@@ -158,6 +176,10 @@ namespace Gschem3
                 return_if_fail(b_settings != null);
 
                 b_settings.notify.connect(on_notify_settings);
+
+                b_settings.color_scheme_changed.connect(
+                    on_color_scheme_changed
+                    );
             }
             default = null;
         }
@@ -823,6 +845,17 @@ namespace Gschem3
         private bool on_button_release_event(Gdk.EventButton event)
         {
             return tool_button_release_event(event);
+        }
+
+
+        /**
+         * Event handler for when the color scheme changes
+         *
+         * @param scheme The new color scheme
+         */
+        public void on_color_scheme_changed(Geda3.ColorScheme scheme)
+        {
+            color_scheme_changed(scheme);
         }
 
 
