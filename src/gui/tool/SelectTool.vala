@@ -91,12 +91,17 @@ namespace Gschem3
 
                 var item1 = m_window.closest_item(
                     (int)Math.round(x0),
-                    (int)Math.round(y0)
+                    (int)Math.round(y0),
+                    MAX_SELECT_DISTANCE
                     );
 
                 if (item1 != null)
                 {
                     m_window.select_item(item1);
+                }
+                else
+                {
+                    m_window.clear_selection();
                 }
             }
             else if (m_state == State.S2)
@@ -374,6 +379,13 @@ namespace Gschem3
          * The width and height of the grips, divided by 2, in pixels.
          */
         private const double GRIP_HALF_WIDTH = 5.0;
+
+
+        /**
+         *
+         * 
+         */
+        private const double MAX_SELECT_DISTANCE = 5.0;
 
 
         /**

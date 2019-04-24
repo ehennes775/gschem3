@@ -111,15 +111,17 @@ namespace Geda3
          * @param painter The painter to use for calculations
          * @param x The x coordinate of the point
          * @param y The y coordinate of the point
+         * @param max_distance The maximum distance for items
          * @return The closest item or null if none
          */
         public SchematicItem? closest_item(
             SchematicPainter painter,
             int x,
-            int y
+            int y,
+            double max_distance
             )
         {
-            var closest_distance = double.MAX;
+            var closest_distance = max_distance;
             SchematicItem? closest_item = null;
 
             foreach (var item in m_items)
@@ -129,7 +131,7 @@ namespace Geda3
                     x,
                     y
                     );
-
+                
                 if (item_distance < closest_distance)
                 {
                     closest_distance = item_distance;

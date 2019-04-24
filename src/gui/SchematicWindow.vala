@@ -241,15 +241,34 @@ namespace Gschem3
         /**
          * Find the closest item the the given coordinates
          *
+         * The x and y coordinates are user coordinates.
+         * The distance is in device coordinates.
+         *
          * @param x The x coordinate of the point
          * @param y The y coordinate of the point
+         * @param distance The maximum distance for items
          * @return The closest item or null if none
          */
-        public Geda3.SchematicItem? closest_item(int x, int y)
+        public Geda3.SchematicItem? closest_item(
+            int x,
+            int y,
+            double distance
+            )
         {
             // need to setup painter
 
-            return schematic.closest_item(painter, x, y);
+            var x0 = 0.0;
+            var y0 = 0.0;
+
+            var x1 = distance;
+            var y1 = distance;
+
+            device_to_user(ref x0, ref y0);
+            device_to_user(ref x1, ref y1);
+
+            var dx = Math.fabs(x1 - x0);
+
+            return schematic.closest_item(painter, x, y, dx);
         }
 
 
@@ -551,6 +570,15 @@ namespace Gschem3
         {
             m_selected.clear();
             m_selected.add(item);
+
+            queue_draw();
+            selection_changed();
+        }
+
+
+        public void clear_selection()
+        {
+            m_selected.clear();
 
             queue_draw();
             selection_changed();
