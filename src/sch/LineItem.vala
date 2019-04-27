@@ -237,7 +237,7 @@ namespace Geda3
             Bounds box
             )
         {
-            return false;
+            return true;
         }
 
 

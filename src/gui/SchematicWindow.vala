@@ -561,6 +561,30 @@ namespace Gschem3
 
 
         /**
+         *
+         *
+         */
+        public void select_box(Geda3.Bounds box)
+
+            requires(schematic != null)
+            requires(m_selected != null)
+
+        {
+            var items = schematic.intersected_items(
+                painter,
+                box
+                );
+
+            m_selected.clear();
+
+            m_selected.add_all(items);
+
+            queue_draw();
+            selection_changed();
+        }
+
+
+        /**
          * Select a drawing grid for this window
          *
          * @param name The name of the grid to select

@@ -251,6 +251,14 @@ namespace Geda3
             Bounds box
             )
         {
+            foreach (var item in m_unpromoted_items)
+            {
+                if (item.intersects_box(painter, box))
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 

@@ -125,7 +125,7 @@ namespace Gschem3
                     max_y
                     );
 
-                m_window.select_all();
+                m_window.select_box(bounds);
             }
             else if (m_state == State.S4)
             {
