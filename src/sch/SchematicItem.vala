@@ -55,6 +55,19 @@ namespace Geda3
 
 
         /**
+         * Check if this item intersects a box
+         *
+         * @param painter The painter to use for calculations
+         * @param box The box to test for intersection
+         * @return True if this item intersects the box
+         */
+        public abstract bool intersects_box(
+            SchematicPainter painter,
+            Bounds box
+            );
+
+
+        /**
          * Draw this item using the given painter
          *
          * @param painter The painter to use for drawing

@@ -155,11 +155,43 @@ namespace Geda3
             Gee.Set<SchematicItem> selected,
             bool reveal
             )
+
+            requires(m_items != null)
+
         {
             foreach (var item in m_items)
             {
                 item.draw(painter, reveal, item in selected);
             }
+        }
+
+
+        /**
+         * Get all the items that intersect the box
+         *
+         * @param painter The painter to use for calculations
+         * @param box The box to test for intersection
+         * @return A set of items that intersect the box
+         */
+        public Gee.Set<SchematicItem> intersected_items(
+            SchematicPainter painter,
+            Bounds box
+            )
+
+            requires(m_items != null)
+
+        {
+            var x = new Gee.HashSet<SchematicItem>();
+
+            foreach (var item in m_items)
+            {
+                if (item.intersects_box(painter, box))
+                {
+                    x.add(item);
+                }
+            }
+
+            return x;
         }
 
 

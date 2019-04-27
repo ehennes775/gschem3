@@ -95,14 +95,11 @@ namespace Gschem3
                     MAX_SELECT_DISTANCE
                     );
 
-                if (item1 != null)
-                {
-                    m_window.select_item(item1);
-                }
-                else
-                {
-                    m_window.clear_selection();
-                }
+                stdout.printf(@"event.state = $(event.state)\n");
+
+                var toggle = (event.state & Gdk.ModifierType.CONTROL_MASK) == Gdk.ModifierType.CONTROL_MASK;
+
+                m_window.select_item(item1, toggle);
             }
             else if (m_state == State.S2)
             {

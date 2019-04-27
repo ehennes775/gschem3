@@ -211,6 +211,18 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override bool intersects_box(
+            SchematicPainter painter,
+            Bounds box
+            )
+        {
+            return false;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void mirror_x(int cx)
         {
             invalidate(this);

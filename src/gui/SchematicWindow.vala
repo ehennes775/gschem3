@@ -257,16 +257,12 @@ namespace Gschem3
         {
             // need to setup painter
 
-            var x0 = 0.0;
-            var y0 = 0.0;
+            var dx = distance;
+            var dy = distance;
 
-            var x1 = distance;
-            var y1 = distance;
+            device_to_user_distance(ref dx, ref dy);
 
-            device_to_user(ref x0, ref y0);
-            device_to_user(ref x1, ref y1);
-
-            var dx = Math.fabs(x1 - x0);
+            dx = Math.fabs(dx);
 
             return schematic.closest_item(painter, x, y, dx);
         }
@@ -319,6 +315,23 @@ namespace Gschem3
             return_if_fail(status == Cairo.Status.SUCCESS);
 
             inverse.transform_point(ref x, ref y);
+        }
+
+
+        /**
+         * Convert device displacement to user displacement
+         */
+        public void device_to_user_distance(
+            ref double dx,
+            ref double dy
+            )
+        {
+            var inverse = matrix;
+            var status = inverse.invert();
+
+            return_if_fail(status == Cairo.Status.SUCCESS);
+
+            inverse.transform_distance(ref dx, ref dy);
         }
 
 
@@ -564,15 +577,51 @@ namespace Gschem3
         /**
          * Places a single item in the selection
          *
+         * Passing in null clears the selection.
+         *
          * @param item The item to be selected item
+         * @param toggle Indicates to toggle the state of the item
          */
-        public void select_item(Geda3.SchematicItem item)
-        {
-            m_selected.clear();
-            m_selected.add(item);
+        public void select_item(
+            Geda3.SchematicItem? item,
+            bool toggle
+            )
 
-            queue_draw();
-            selection_changed();
+            requires(m_selected != null)
+
+        {
+            if (toggle)
+            {
+                if (item != null)
+                {
+                    if (m_selected.contains(item))
+                    {
+                        stdout.printf("Item out\n");
+                        m_selected.remove(item);
+                    }
+                    else
+                    {
+                        stdout.printf("Item in\n");
+                        m_selected.add(item);
+                    }
+
+                    queue_draw();
+                    selection_changed();
+                }
+            }
+            else
+            {
+                m_selected.clear();
+
+                if (item != null)
+                {
+                        stdout.printf("Item select\n");
+                    m_selected.add(item);
+                }
+
+                queue_draw();
+                selection_changed();
+            }
         }
 
 
