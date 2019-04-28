@@ -1,9 +1,7 @@
 namespace Geda3
 {
     /**
-     * Schematic box
-     *
-     * Represents a graphic box on a schematic
+     * Represents a graphical box on a schematic
      */
     public class BoxItem : SchematicItem,
         Colorable,
@@ -89,6 +87,54 @@ namespace Geda3
 
 
         /**
+         * The x coordinate of the first corner
+         */
+        public int lower_x
+        {
+            get
+            {
+                return b_lower_x;
+            }
+        }
+
+
+        /**
+         * The y coordinate of the first corner
+         */
+        public int lower_y
+        {
+            get
+            {
+                return b_lower_y;
+            }
+        }
+
+
+        /**
+         * The x coordinate of the opposite corner
+         */
+        public int upper_x
+        {
+            get
+            {
+                return b_upper_x;
+            }
+        }
+
+
+        /**
+         * The y coordinate of the opposite corner
+         */
+        public int upper_y
+        {
+            get
+            {
+                return b_upper_y;
+            }
+        }
+
+
+        /**
          * The line width
          */
         public int width
@@ -111,39 +157,6 @@ namespace Geda3
         }
 
 
-        public int lower_x
-        {
-            get
-            {
-                return b_lower_x;
-            }
-        }
-
-        public int lower_y
-        {
-            get
-            {
-                return b_lower_y;
-            }
-        }
-
-
-        public int upper_x
-        {
-            get
-            {
-                return b_upper_x;
-            }
-        }
-
-        public int upper_y
-        {
-            get
-            {
-                return b_upper_y;
-            }
-        }
-
         /**
          * Create a schematic box
          */
@@ -158,6 +171,11 @@ namespace Geda3
 
         /**
          * Create a schematic box
+         *
+         * @param x0 The x coordinate of the first corner
+         * @param y0 The y coordinate of the second corner
+         * @param x1 The x coordinate of the opposite corner
+         * @param y1 The y coordinate of the opposite corner
          */
         public BoxItem.with_points(int x0, int y0, int x1, int y1)
         {
@@ -183,7 +201,7 @@ namespace Geda3
                 b_upper_y
                 );
 
-            int expand = (int) Math.ceil(0.5 * Math.SQRT2 * b_width);
+            var expand = (int) Math.ceil(0.5 * Math.SQRT2 * b_width);
 
             bounds.expand(expand, expand);
 
@@ -211,12 +229,14 @@ namespace Geda3
 
 
         /**
+         * Get two corners of the box
          *
+         * Coordinates represent user coordinates.
          *
-         * @param x0
-         * @param y0
-         * @param x1
-         * @param y1
+         * @param x0 The x coordinate of the first corner
+         * @param y0 The y coordinate of the second corner
+         * @param x1 The x coordinate of the opposite corner
+         * @param y1 The y coordinate of the opposite corner
          */
         public void get_corners(
             out int x0,
@@ -283,7 +303,12 @@ namespace Geda3
             Bounds box
             )
         {
-            return false;
+            var bounds = calculate_bounds(
+                painter,
+                false
+                );
+                
+            return bounds.overlaps(box);
         }
 
 
@@ -292,6 +317,12 @@ namespace Geda3
          */
         public override void mirror_x(int cx)
         {
+            invalidate(this);
+
+            b_lower_x = 2 * cx - b_lower_x;
+            b_upper_x = 2 * cx - b_upper_x;
+
+            invalidate(this);
         }
 
 
@@ -300,13 +331,22 @@ namespace Geda3
          */
         public override void mirror_y(int cy)
         {
+            invalidate(this);
+
+            b_lower_y = 2 * cy - b_lower_y;
+            b_upper_y = 2 * cy - b_upper_y;
+
+            invalidate(this);
         }
 
 
         /**
          * {@inheritDoc}
          */
-        public override void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError
+        public override void read_with_params(
+            string[] params,
+            DataInputStream stream
+            ) throws IOError, ParseError
         {
             if (params.length != 17)
             {
@@ -349,7 +389,12 @@ namespace Geda3
 
 
         /**
+         * Set the corners of the box
          *
+         * @param x0 The x coordinate of the first corner
+         * @param y0 The y coordinate of the second corner
+         * @param x1 The x coordinate of the opposite corner
+         * @param y1 The y coordinate of the opposite corner
          */
         public void set_corners(int x0, int y0, int x1, int y1)
         {
@@ -567,7 +612,7 @@ namespace Geda3
 
 
         /**
-         * Signal handler when a line style property changes
+         * Signal handler when a line or a fill style property changes
          */
         private void on_notify_style(ParamSpec param)
         {

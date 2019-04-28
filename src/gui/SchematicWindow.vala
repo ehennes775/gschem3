@@ -239,6 +239,21 @@ namespace Gschem3
 
 
         /**
+         * Unselect all items
+         */
+        public void clear_selection()
+
+            requires(m_selected != null)
+
+        {
+            m_selected.clear();
+
+            queue_draw();
+            selection_changed();
+        }
+
+
+        /**
          * Find the closest item the the given coordinates
          *
          * The x and y coordinates are user coordinates.
@@ -254,6 +269,9 @@ namespace Gschem3
             int y,
             double distance
             )
+
+            requires(schematic != null)
+
         {
             // need to setup painter
 
@@ -277,7 +295,10 @@ namespace Gschem3
          * @param file The schematic file to load
          * @return The schematic window
          */
-        public static SchematicWindow create(File file, ComplexFactory factory) throws Error
+        public static SchematicWindow create(
+            File file,
+            ComplexFactory factory
+            ) throws Error
         {
             var window = new SchematicWindow(factory);
             
@@ -361,7 +382,12 @@ namespace Gschem3
          * @param x1 The x coordinate of the second corner in ? coordinates
          * @param y1 The y coordinate of the second corner in ? coordinates
          */
-        public void invalidate_device(double x0, double y0, double x1, double y1)
+        public void invalidate_device(
+            double x0,
+            double y0,
+            double x1,
+            double y1
+            )
         {
             var bounds = Geda3.Bounds.with_fpoints(x0, y0, x1, y1);
 
@@ -397,13 +423,18 @@ namespace Gschem3
          * Invalidate an item in the window
          *
          * @param item The item to invalidate
+         * @param reveal Indicates hidden items are shown
          */
-        public void invalidate_item(Geda3.SchematicItem item, bool reveal)
+        public void invalidate_item(
+            Geda3.SchematicItem item,
+            bool reveal
+            )
         {
             var bounds = item.calculate_bounds(painter, reveal);
 
             invalidate_user(bounds);
         }
+
 
         // this function needs to be reconcied with the above.
         public void on_invalidate_item(Geda3.SchematicItem item)
@@ -446,24 +477,6 @@ namespace Gschem3
 
 
         /**
-         * {@inheritDoc}
-         */
-        public void save(Gtk.Window? parent) throws Error
-        {
-            if (file == null)
-            {
-                save_as(parent);
-            }
-            else
-            {
-                write(file, tag);
-
-                // TODO: catch and handle IOError.WRONG_ETAG
-            }
-        }
-
-
-        /**
          * Pan a point to the center of the window
          *
          * @param x The x displacement in steps
@@ -486,6 +499,7 @@ namespace Gschem3
          */
         public void pan_point(int x, int y)
 
+            requires(drawing != null)
             requires(x >= 0)
             requires(y >= 0)
 
@@ -500,6 +514,24 @@ namespace Gschem3
             var dy = (height / 2) - y;
 
             pan_displacement(dx, dy);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void save(Gtk.Window? parent) throws Error
+        {
+            if (file == null)
+            {
+                save_as(parent);
+            }
+            else
+            {
+                write(file, tag);
+
+                // TODO: catch and handle IOError.WRONG_ETAG
+            }
         }
 
 
@@ -550,7 +582,15 @@ namespace Gschem3
         {
         }
 
+
+        /**
+         * Select all items in the schematic
+         */
         public void select_all()
+
+            requires(schematic != null)
+            requires(m_selected != null)
+
         {
             m_selected.clear();
             m_selected.add_all(schematic.items);
@@ -561,8 +601,13 @@ namespace Gschem3
 
 
         /**
+         * Select items using a box
          *
+         * This function selects all items that intersect the box.
          *
+         * The coordinates in the bounds represent user coordinates.
+         *
+         * @param box The box to use for selecting items
          */
         public void select_box(Geda3.Bounds box)
 
@@ -620,12 +665,10 @@ namespace Gschem3
                 {
                     if (m_selected.contains(item))
                     {
-                        stdout.printf("Item out\n");
                         m_selected.remove(item);
                     }
                     else
                     {
-                        stdout.printf("Item in\n");
                         m_selected.add(item);
                     }
 
@@ -639,22 +682,12 @@ namespace Gschem3
 
                 if (item != null)
                 {
-                        stdout.printf("Item select\n");
                     m_selected.add(item);
                 }
 
                 queue_draw();
                 selection_changed();
             }
-        }
-
-
-        public void clear_selection()
-        {
-            m_selected.clear();
-
-            queue_draw();
-            selection_changed();
         }
 
 

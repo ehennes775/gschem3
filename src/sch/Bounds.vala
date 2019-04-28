@@ -65,7 +65,12 @@ namespace Geda3
          * @param x1 x coordinate of second point
          * @param y1 y coordinate of second point
          */
-        public Bounds.with_fpoints(double x0, double y0, double x1, double y1)
+        public Bounds.with_fpoints(
+            double x0,
+            double y0,
+            double x1,
+            double y1
+            )
 
             requires(x0 >= int.MIN)
             requires(y0 >= int.MIN)
@@ -91,8 +96,11 @@ namespace Geda3
          */
         public bool contains(int x, int y)
         {
-            return (x >= min_x) && (x <= max_x) &&
-                   (y >= min_y) && (y <= max_y);
+            return
+                (x >= min_x) &&
+                (x <= max_x) &&
+                (y >= min_y) &&
+                (y <= max_y);
         }
 
 
@@ -166,6 +174,20 @@ namespace Geda3
 
 
         /**
+         * Calculate the intersection of two bounds
+         *
+         * @param other the other bounds to use for calculation
+         */
+        public void intersection(Bounds other)
+        {
+            min_x = int.max(min_x, other.min_x);
+            min_y = int.max(min_y, other.min_y);
+            max_x = int.min(max_x, other.max_x);
+            max_y = int.min(max_y, other.max_y);
+        }
+
+
+        /**
          * Mirror the bounds on along the x axis
          */
         public void mirror_x()
@@ -182,13 +204,18 @@ namespace Geda3
 
 
         /**
-         * Create a string for debugging
+         * Check if this bounds an another overlaps
          *
-         * @return
+         * @param other The other bounds for the test
+         * @return True if the two bounds overlap
          */
-        public string to_string()
+        public bool overlaps(Bounds other)
         {
-            return @"Bounds min_x=$(min_x) min_y=$(min_y) max_x=$(max_x) max_y=$(max_y)";
+            var temp = other;
+
+            temp.intersection(this);
+
+            return !temp.empty();
         }
 
 
@@ -246,6 +273,17 @@ namespace Geda3
                 max_x = (int) Math.ceil(fmax_x);
                 max_y = (int) Math.ceil(fmax_y);
             }
+        }
+
+
+        /**
+         * Create a string for debugging
+         *
+         * @return
+         */
+        public string to_string()
+        {
+            return @"Bounds min_x=$(min_x) min_y=$(min_y) max_x=$(max_x) max_y=$(max_y)";
         }
 
 
