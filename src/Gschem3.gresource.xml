@@ -2,6 +2,7 @@
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
         <file>gui/aedit/AttributeEditor.ui.xml</file>
+        <file>gui/dlg/PinEditorDialog.ui.xml</file>
         <file>gui/pedit/ColorEditor.ui.xml</file>
         <file>gui/pedit/FillStyleEditor.ui.xml</file>
         <file>gui/pedit/LineStyleEditor.ui.xml</file>

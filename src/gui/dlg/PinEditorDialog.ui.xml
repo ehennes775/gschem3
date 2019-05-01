@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+
+  <object class="GtkListStore" id="pin-list">
+    <columns>
+      <column type="Geda3PinItem"/>
+      <column type="gchararray"/>
+      <column type="gboolean"/>
+      <column type="gchararray"/>
+      <column type="gboolean"/>
+      <column type="gchararray"/>
+      <column type="gboolean"/>
+      <column type="gchararray"/>
+      <column type="gboolean"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">PCB</col>
+        <col id="1">Description</col>
+      </row>
+    </data>
+  </object>
+
+  <template class="Gschem3PinEditorDialog">
+    <property name="title">Edit Pins</property>
+    <property name="border-width">15</property>
+    <property name="width-request">640</property>
+    <property name="height-request">480</property>
+    <action-widgets>
+      <action-widget response="-6">button-cancel</action-widget>
+      <action-widget response="-5">button-ok</action-widget>
+    </action-widgets>
+  </template>
+</interface>
+
