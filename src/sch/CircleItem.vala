@@ -369,7 +369,43 @@ namespace Geda3
             Bounds box
             )
         {
-            return false;
+            var x1 = double.min(box.min_x, box.max_x);
+            var y1 = double.min(box.min_y, box.max_y);
+            var x2 = double.max(box.min_x, box.max_x);
+            var y2 = double.max(box.min_y, box.max_y);
+
+            var dx = double.min(b_center_x - x1, x2 - b_center_x);
+            var dy = double.min(b_center_y - y1, y2 - b_center_y);
+
+            dx = double.min(dx, 0);
+            dy = double.min(dy, 0);
+
+            var shortest_distance = double.MAX;
+
+            if (dx < 0)
+            {
+                if (dy < 0)
+                {
+                    shortest_distance = Math.hypot(dx, dy);
+                }
+                else
+                {
+                    shortest_distance = Math.fabs(dx);
+                }
+            }
+            else
+            {
+                if (dy < 0)
+                {
+                    shortest_distance = Math.fabs(dy);
+                }
+                else
+                {
+                    shortest_distance = double.min(dx, dy);
+                }
+            }
+
+            return shortest_distance <= b_radius;
         }
 
 
