@@ -1,198 +1,189 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <interface>
 
-  <object class="GtkListStore" id="pin-type-list">
-    <columns>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">clk</col>
-        <col id="1">Clock</col>
-      </row>
-      <row>
-        <col id="0">in</col>
-        <col id="1">Input</col>
-      </row>
-      <row>
-        <col id="0">io</col>
-        <col id="1">Input/Output</col>
-      </row>
-      <row>
-        <col id="0">oc</col>
-        <col id="1">Open Collector</col>
-      </row>
-      <row>
-        <col id="0">oe</col>
-        <col id="1">Open Emitter</col>
-      </row>
-      <row>
-        <col id="0">out</col>
-        <col id="1">Output</col>
-      </row>
-      <row>
-        <col id="0">pas</col>
-        <col id="1">Passive</col>
-      </row>
-      <row>
-        <col id="0">pwr</col>
-        <col id="1">Power</col>
-      </row>
-      <row>
-        <col id="0">tp</col>
-        <col id="1">Totem Pole</col>
-      </row>
-      <row>
-        <col id="0">tri</col>
-        <col id="1">Tristate</col>
-      </row>
-    </data>
-  </object>
-
-
-  <object class="GtkListStore" id="pin-list">
-    <columns>
-      <column type="Geda3PinItem"/>
-      <column type="gchararray"/>
-      <column type="gboolean"/>
-      <column type="gchararray"/>
-      <column type="gboolean"/>
-      <column type="gchararray"/>
-      <column type="gboolean"/>
-      <column type="gchararray"/>
-      <column type="gboolean"/>
-    </columns>
-    <data>
+    <object class="GtkListStore" id="pin-type-list">
+        <columns>
+            <column type="gchararray"/>
+            <column type="gchararray"/>
+        </columns>
+        <data>
             <row>
-                <col id="1">1</col>
-                <col id="3">1</col>
-                <col id="5">RESET</col>
-                <col id="7">pas</col>
+                <col id="0">clk</col>
+                <col id="1">Clock</col>
             </row>
-    </data>
-  </object>
+            <row>
+                <col id="0">in</col>
+                <col id="1">Input</col>
+            </row>
+            <row>
+                <col id="0">io</col>
+                <col id="1">Input/Output</col>
+            </row>
+            <row>
+                <col id="0">oc</col>
+                <col id="1">Open Collector</col>
+            </row>
+            <row>
+                <col id="0">oe</col>
+                <col id="1">Open Emitter</col>
+            </row>
+            <row>
+                <col id="0">out</col>
+                <col id="1">Output</col>
+            </row>
+            <row>
+                <col id="0">pas</col>
+                <col id="1">Passive</col>
+            </row>
+            <row>
+                <col id="0">pwr</col>
+                <col id="1">Power</col>
+            </row>
+            <row>
+                <col id="0">tp</col>
+                <col id="1">Totem Pole</col>
+            </row>
+            <row>
+                <col id="0">tri</col>
+                <col id="1">Tristate</col>
+            </row>
+        </data>
+    </object>
 
-  <template class="Gschem3PinEditorDialog">
-    <property name="title">Edit Pins</property>
-    <property name="border-width">15</property>
-    <property name="width-request">640</property>
-    <property name="height-request">480</property>
-    <child internal-child="vbox">
-      <object class="GtkVBox" id="context">
-        <property name="visible">TRUE</property>
-        <child>
-          <object class="GtkTreeView" id="pin-tree">
-            <property name="hexpand">true</property>
-            <property name="model">pin-list</property>
-            <property name="vexpand">true</property>
-            <property name="visible">TRUE</property>
-            <child>
-              <object class="GtkTreeViewColumn" id="column-pinnumber">
-                <property name="clickable">TRUE</property>
-                <property name="resizable">TRUE</property>
-                <property name="sort-column-id">0</property>
-                <property name="title">pinnumber</property>
+
+    <object class="GtkListStore" id="pin-list">
+        <columns>
+            <column type="Geda3PinItem"/>
+            <column type="gchararray"/>
+            <column type="gboolean"/>
+            <column type="gchararray"/>
+            <column type="gboolean"/>
+            <column type="gchararray"/>
+            <column type="gboolean"/>
+            <column type="gchararray"/>
+            <column type="gboolean"/>
+        </columns>
+    </object>
+
+    <template class="Gschem3PinEditorDialog">
+        <property name="title">Edit Pins</property>
+        <property name="border-width">15</property>
+        <property name="width-request">640</property>
+        <property name="height-request">480</property>
+        <child internal-child="vbox">
+            <object class="GtkVBox" id="context">
                 <property name="visible">TRUE</property>
                 <child>
-                  <object class="GtkCellRendererText" id="column-pinnumber-renderer">
-                  </object>
-                  <attributes>
-                    <attribute name="editable">2</attribute>
-                    <attribute name="text">1</attribute>
-                  </attributes>
-                  <cell-packing>
-                    <property name="expand">false</property>
-                  </cell-packing>
+                    <object class="GtkTreeView" id="pin-tree">
+                        <property name="hexpand">true</property>
+                        <property name="model">pin-list</property>
+                        <property name="vexpand">true</property>
+                        <property name="visible">TRUE</property>
+                        <child>
+                            <object class="GtkTreeViewColumn" id="column-pinnumber">
+                                <property name="clickable">TRUE</property>
+                                <property name="resizable">TRUE</property>
+                                <property name="sort-column-id">0</property>
+                                <property name="title">pinnumber</property>
+                                <property name="visible">TRUE</property>
+                                <child>
+                                    <object class="GtkCellRendererText" id="column-pinnumber-renderer">
+                                    </object>
+                                    <attributes>
+                                        <attribute name="editable">2</attribute>
+                                        <attribute name="text">1</attribute>
+                                    </attributes>
+                                    <cell-packing>
+                                        <property name="expand">false</property>
+                                    </cell-packing>
+                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkTreeViewColumn" id="column-pinseq">
+                                <property name="clickable">TRUE</property>
+                                <property name="resizable">TRUE</property>
+                                <property name="sort-column-id">0</property>
+                                <property name="title">pinseq</property>
+                                <child>
+                                    <object class="GtkCellRendererText" id="column-pinseq-renderer">
+                                    </object>
+                                    <attributes>
+                                        <attribute name="editable">2</attribute>
+                                        <attribute name="text">3</attribute>
+                                    </attributes>
+                                    <cell-packing>
+                                        <property name="expand">false</property>
+                                    </cell-packing>
+                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkTreeViewColumn" id="column-pinlabel">
+                                <property name="clickable">TRUE</property>
+                                <property name="resizable">TRUE</property>
+                                <property name="sort-column-id">0</property>
+                                <property name="title">pinlabel</property>
+                                <child>
+                                    <object class="GtkCellRendererText" id="column-pinlabel-renderer">
+                                    </object>
+                                    <attributes>
+                                        <attribute name="editable">2</attribute>
+                                        <attribute name="text">5</attribute>
+                                    </attributes>
+                                    <cell-packing>
+                                        <property name="expand">false</property>
+                                    </cell-packing>
+                                </child>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkTreeViewColumn" id="column-pintype">
+                                <property name="clickable">TRUE</property>
+                                <property name="resizable">TRUE</property>
+                                <property name="sort-column-id">0</property>
+                                <property name="title">pintype</property>
+                                <child>
+                                    <object class="GtkCellRendererCombo" id="column-pintype-renderer">
+                                        <property name="model">pin-type-list</property>
+                                        <property name="text-column">0</property>
+                                    </object>
+                                    <attributes>
+                                        <attribute name="editable">2</attribute>
+                                        <attribute name="text">7</attribute>
+                                    </attributes>
+                                    <cell-packing>
+                                        <property name="expand">false</property>
+                                    </cell-packing>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
                 </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="column-pinseq">
-                <property name="clickable">TRUE</property>
-                <property name="resizable">TRUE</property>
-                <property name="sort-column-id">0</property>
-                <property name="title">pinseq</property>
-                <child>
-                  <object class="GtkCellRendererText" id="column-pinseq-renderer">
-                  </object>
-                  <attributes>
-                    <attribute name="editable">2</attribute>
-                    <attribute name="text">3</attribute>
-                  </attributes>
-                  <cell-packing>
-                    <property name="expand">false</property>
-                  </cell-packing>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="column-pinlabel">
-                <property name="clickable">TRUE</property>
-                <property name="resizable">TRUE</property>
-                <property name="sort-column-id">0</property>
-                <property name="title">pinlabel</property>
-                <child>
-                  <object class="GtkCellRendererText" id="column-pinlabel-renderer">
-                  </object>
-                  <attributes>
-                    <attribute name="editable">2</attribute>
-                    <attribute name="text">5</attribute>
-                  </attributes>
-                  <cell-packing>
-                    <property name="expand">false</property>
-                  </cell-packing>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="column-pintype">
-                <property name="clickable">TRUE</property>
-                <property name="resizable">TRUE</property>
-                <property name="sort-column-id">0</property>
-                <property name="title">pintype</property>
-                <child>
-                  <object class="GtkCellRendererCombo" id="column-pintype-renderer">
-                    <property name="model">pin-type-list</property>
-                    <property name="text-column">0</property>
-                  </object>
-                  <attributes>
-                    <attribute name="editable">2</attribute>
-                    <attribute name="text">7</attribute>
-                  </attributes>
-                  <cell-packing>
-                    <property name="expand">false</property>
-                  </cell-packing>
-                </child>
-              </object>
-            </child>
-          </object>
+            </object>
         </child>
-      </object>
-    </child>
-    <child internal-child="action_area">
-      <object class="GtkHButtonBox" id="buttons">
-        <property name="visible">TRUE</property>
-        <child>
-          <object class="GtkButton" id="button-cancel">
-            <property name="visible">TRUE</property>
-            <property name="label">gtk-cancel</property>
-            <property name="use-stock">TRUE</property>
-          </object>
+        <child internal-child="action_area">
+            <object class="GtkHButtonBox" id="buttons">
+                <property name="visible">TRUE</property>
+                <child>
+                    <object class="GtkButton" id="button-cancel">
+                        <property name="visible">TRUE</property>
+                        <property name="label">gtk-cancel</property>
+                        <property name="use-stock">TRUE</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkButton" id="button-ok">
+                        <property name="visible">TRUE</property>
+                        <property name="label">gtk-ok</property>
+                        <property name="use-stock">TRUE</property>
+                    </object>
+                </child>
+            </object>
         </child>
-        <child>
-          <object class="GtkButton" id="button-ok">
-            <property name="visible">TRUE</property>
-            <property name="label">gtk-ok</property>
-            <property name="use-stock">TRUE</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-6">button-cancel</action-widget>
-      <action-widget response="-5">button-ok</action-widget>
-    </action-widgets>
-  </template>
+        <action-widgets>
+            <action-widget response="-6">button-cancel</action-widget>
+            <action-widget response="-5">button-ok</action-widget>
+        </action-widgets>
+    </template>
 </interface>
-
