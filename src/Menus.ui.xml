@@ -117,6 +117,12 @@
                         <attribute name="action">win.edit-select-all</attribute>
                     </item>
                 </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Pins...</attribute>
+                        <attribute name="action">win.edit-pins</attribute>
+                    </item>
+                </section>
             </submenu>
         </section>
         <section>

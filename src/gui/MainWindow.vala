@@ -322,6 +322,7 @@ namespace Gschem3
             { "edit-cut", on_edit_cut, null, null, null },
             { "edit-copy", on_edit_copy, null, null, null },
             { "edit-select-all", on_edit_select_all, null, null, null },
+            { "edit-pins", on_edit_pins, null, null, null },
             { "file-save", on_file_save, null, null, null },
             { "file-save-all", on_file_save_all, null, null, null },
             { "file-save-as", on_file_save_as, null, null, null },
@@ -651,6 +652,25 @@ namespace Gschem3
         private void on_edit_paste(SimpleAction action, Variant? parameter)
         {
             stdout.printf("on_edit_paste\n");
+        }
+
+
+        /**
+         *
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_edit_pins(SimpleAction action, Variant? parameter)
+        {
+            var dialog = new PinEditorDialog();
+
+            dialog.set_transient_for(this);
+            dialog.update_document_window(m_current_document_window);
+
+            var response = dialog.run();
+
+            dialog.destroy();
         }
 
 

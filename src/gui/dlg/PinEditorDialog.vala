@@ -7,6 +7,47 @@ namespace Gschem3
     public class PinEditorDialog : Gtk.Dialog
     {
         /**
+         * The schematic window containing the current selection
+         *
+         * If null, there is no current window, or the current window
+         * is not editing a schmeatic.
+         */
+        public SchematicWindow? schematic_window
+        {
+            get
+            {
+                return b_schematic_window;
+            }
+            construct set
+            {
+                //if (b_schematic_window != null)
+                //{
+                //    b_schematic_window.selection_changed.disconnect(on_selection_change);
+                //}
+
+                b_schematic_window = value;
+
+                if (b_schematic_window != null)
+                {
+                //    b_schematic_window.selection_changed.connect(on_selection_change);
+
+                    update_pin_list();
+                }
+            }
+            default = null;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void update_document_window(DocumentWindow? window)
+        {
+            schematic_window = window as SchematicWindow;
+        }
+
+
+        /**
          * The columns in the list store
          *
          * These items must be kept in sync with the columns in the
@@ -35,9 +76,9 @@ namespace Gschem3
 
 
         /**
-         * The schematic window containing the pins
+         * The backing store for the schematic window property
          */
-        private SchematicWindow? m_schematic_window; 
+        private SchematicWindow? b_schematic_window;
 
 
         /**
@@ -48,7 +89,7 @@ namespace Gschem3
             requires(m_pin_list != null)
 
         {
-            GtkTreeIter iter;
+            Gtk.TreeIter iter;
 
             var success = m_pin_list.get_iter_first(out iter);
 
@@ -69,12 +110,12 @@ namespace Gschem3
         private void update_pin_list()
 
             requires(m_pin_list != null)
-            requires(m_schematic_window != null)
+            requires(b_schematic_window != null)
 
         {
             clear_pin_list();
 
-            foreach (var item in m_schematic_window.schematic.items)
+            foreach (var item in b_schematic_window.schematic.items)
             {
                 Gtk.TreeIter iter;
 
@@ -95,7 +136,7 @@ namespace Gschem3
                 m_pin_list.set_value(
                     iter,
                     Column.NUMBER_CHANGED,
-                    false
+                    true
                     );
 
                 m_pin_list.set_value(
@@ -125,7 +166,7 @@ namespace Gschem3
                 m_pin_list.set_value(
                     iter,
                     Column.TYPE,
-                    "Hello"
+                    "pas"
                     );
 
                 m_pin_list.set_value(
