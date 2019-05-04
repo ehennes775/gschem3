@@ -6,6 +6,18 @@ namespace Geda3
     public abstract class SchematicItem : Object
     {
         /**
+         * A signal inicating an attriubte has changed
+         *
+         * @param child The attribute that changed
+         * @param parent The attribute parent object
+         */
+        public signal void attribute_changed(
+            AttributeChild child,
+            AttributeParent parent
+            );
+
+
+        /**
          * A signal requesting an item be redrawn
          *
          * This signal is emitted when an item needs to be redrawn in

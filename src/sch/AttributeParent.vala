@@ -8,13 +8,19 @@ namespace Geda3
         /**
          * The attributes attached to this item
          */
-        public signal void attached(AttributeChild child, AttributeParent parent);
+        public signal void attached(
+            AttributeChild child,
+            AttributeParent parent
+            );
 
 
         /**
          * The attributes attached to this item
          */
-        public signal void detached(AttributeChild child, AttributeParent parent);
+        public signal void detached(
+            AttributeChild child,
+            AttributeParent parent
+            );
 
 
         /**

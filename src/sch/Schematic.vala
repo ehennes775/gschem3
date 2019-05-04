@@ -3,6 +3,18 @@ namespace Geda3
     public class Schematic
     {
         /**
+         * A signal inicating an attriubte has changed
+         *
+         * @param child The attribute that changed
+         * @param parent The attribute parent object
+         */
+        public signal void attribute_changed(
+            AttributeChild child,
+            AttributeParent parent
+            );
+
+
+        /**
          * A signal requesting an item be redrawn
          *
          * This signal is emitted when an item needs to be redrawn in
@@ -67,6 +79,7 @@ namespace Geda3
 
             if (success)
             {
+                item.attribute_changed.connect(on_attribute_changed);
                 item.invalidate.connect(on_invalidate);
             }
 
@@ -320,6 +333,21 @@ namespace Geda3
         private Gee.LinkedList<SchematicItem> m_items;
 
         private SchematicReader reader = new SchematicReader();
+
+
+        /**
+         * Forward the signal when an attribute changes
+         *
+         * @param child The attribute that changed
+         * @param parent The attribute parent object
+         */
+        private void on_attribute_changed(
+            AttributeChild child,
+            AttributeParent parent
+            )
+        {
+            attribute_changed(child, parent);
+        }
 
 
         private void on_invalidate(SchematicItem item)

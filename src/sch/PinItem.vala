@@ -124,6 +124,8 @@ namespace Geda3
             m_attributes.add(attribute);
 
             attribute.invalidate.connect(on_invalidate);
+            attribute.notify["name"].connect(on_notify_attribute);
+            attribute.notify["value"].connect(on_notify_attribute);
         }
 
 
@@ -500,6 +502,15 @@ namespace Geda3
          * The attributes attached to this item
          */
         private Gee.LinkedList<AttributeChild> m_attributes;
+
+
+        private void on_notify_attribute(
+            Object sender,
+            ParamSpec param
+            )
+        {
+            attribute_changed(sender as AttributeChild, this);
+        }
 
 
         /**

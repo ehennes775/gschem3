@@ -12,6 +12,18 @@ namespace Gschem3
         Zoomable
     {
         /**
+         * A signal inicating an attriubte has changed
+         *
+         * @param child The attribute that changed
+         * @param parent The attribute parent object
+         */
+        public signal void attribute_changed(
+            Geda3.AttributeChild child,
+            Geda3.AttributeParent parent
+            );
+
+
+        /**
          * A signal indicating the color scheme has changed
          *
          * This signal provides a parameter for the sinks, so that they
@@ -206,7 +218,7 @@ namespace Gschem3
 
             m_selected = new Gee.HashSet<Geda3.SchematicItem>();
 
-
+            schematic.attribute_changed.connect(on_attribute_changed);
             schematic.invalidate.connect(on_invalidate_item);
 
             drawing.add_events(
@@ -945,6 +957,21 @@ namespace Gschem3
             filters.add(symbols);
 
             return filters.to_array();
+        }
+
+
+        /**
+         * Forward the signal when an attribute changes
+         *
+         * @param child The attribute that changed
+         * @param parent The attribute parent object
+         */
+        private void on_attribute_changed(
+            Geda3.AttributeChild child,
+            Geda3.AttributeParent parent
+            )
+        {
+            attribute_changed(child, parent);
         }
 
 

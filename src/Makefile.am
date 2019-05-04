@@ -154,6 +154,8 @@ libgschem3_a_SOURCES = \
 	gui/aedit/AttributeEditor.vala \
 	gui/dlg/ColumnHelper.vala \
 	gui/dlg/PinEditorDialog.vala \
+	gui/dlg/PinTypeColumnHelper.vala \
+	gui/dlg/TextColumnHelper.vala \
 	gui/pedit/ColorEditor.vala \
 	gui/pedit/ColorSwatchRenderer.vala \
 	gui/pedit/FillStyleEditor.vala \

@@ -492,11 +492,7 @@ namespace Geda3
          */
         public void set_pair(string name, string @value)
         {
-            invalidate(this);
-
             text = @"$(name)=$(@value)";
-
-            invalidate(this);
         }
 
 

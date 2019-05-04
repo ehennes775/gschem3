@@ -20,18 +20,26 @@ namespace Gschem3
             }
             construct set
             {
-                //if (b_schematic_window != null)
-                //{
-                //    b_schematic_window.selection_changed.disconnect(on_selection_change);
-                //}
+                if (b_schematic_window != null)
+                {
+                    b_schematic_window.attribute_changed.disconnect(
+                        on_attribute_changed
+                        );
+                }
 
                 b_schematic_window = value;
 
                 if (b_schematic_window != null)
                 {
-                //    b_schematic_window.selection_changed.connect(on_selection_change);
+                    b_schematic_window.attribute_changed.connect(
+                        on_attribute_changed
+                        );
 
                     update_pin_list();
+                }
+                else
+                {
+                    clear_pin_list();
                 }
             }
             default = null;
@@ -46,7 +54,7 @@ namespace Gschem3
             m_helpers = new Gee.ArrayList<ColumnHelper>();
 
             m_helpers.add(
-                new ColumnHelper(
+                new TextColumnHelper(
                     m_pin_list,
                     m_pin_number_renderer,
                     Column.PIN,
@@ -56,7 +64,7 @@ namespace Gschem3
                     ));
 
             m_helpers.add(
-                new ColumnHelper(
+                new TextColumnHelper(
                     m_pin_list,
                     m_pin_label_renderer,
                     Column.PIN,
@@ -66,13 +74,23 @@ namespace Gschem3
                     ));
 
             m_helpers.add(
-                new ColumnHelper(
+                new TextColumnHelper(
                     m_pin_list,
                     m_pin_sequence_renderer,
                     Column.PIN,
                     "pinseq",
                     Column.SEQUENCE,
                     Column.SEQUENCE_CHANGED
+                    ));
+
+            m_helpers.add(
+                new PinTypeColumnHelper(
+                    m_pin_list,
+                    m_pin_type_renderer,
+                    Column.PIN,
+                    "pintype",
+                    Column.TYPE,
+                    Column.TYPE_CHANGED
                     ));
         }
 
@@ -125,6 +143,9 @@ namespace Gschem3
         private Gtk.CellRendererText m_pin_number_renderer;
 
 
+        [GtkChild(name="column-pintype-renderer")]
+        private Gtk.CellRendererText m_pin_type_renderer;
+
         /**
          * The ListStore containing the pins
          */
@@ -158,6 +179,26 @@ namespace Gschem3
             }
 
             m_pin_list.clear();
+        }
+
+
+        /**
+         *
+         */
+        private void on_attribute_changed(
+            Geda3.AttributeChild child,
+            Geda3.AttributeParent parent
+            )
+        {
+            //var success = m_pin_list.get_iter_first(out iter);
+
+            //while (success)
+            //{
+
+            //    success = m_pin_list.iter_next(ref iter);
+            //}
+
+            update_pin_list();
         }
 
 
