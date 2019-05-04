@@ -110,7 +110,7 @@ namespace Gschem3
         {
             if (m_state != State.S0)
             {
-                return_if_fail(b_arc != null);
+                return_val_if_fail(b_arc != null, false);
 
                 uint keyval;
 

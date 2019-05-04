@@ -2,7 +2,7 @@ AC_INIT([gschem3],[0.0],[http://github.com/ehennes775/gschem3/issues],[gschem3],
 AC_PREREQ([2.64])
 
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_PROG_CC
 AC_PROG_RANLIB
 AM_PROG_VALAC([0.27.0])

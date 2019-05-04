@@ -91,7 +91,7 @@ namespace Gschem3
             }
             else
             {
-                return_if_reached();
+                return_val_if_reached(false);
             }
 
             return true;

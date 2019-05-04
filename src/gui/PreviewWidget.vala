@@ -226,7 +226,7 @@ namespace Gschem3
             // other widgets.
             var temp_matrix = m_matrix;
             var status = temp_matrix.invert();
-            return_if_fail(status == Cairo.Status.SUCCESS);
+            return_val_if_fail(status == Cairo.Status.SUCCESS, true);
 
             context.translate(0.5, 0.5);
 
