@@ -278,10 +278,23 @@ namespace Geda3
             SchematicPainter painter,
             Bounds box
             )
+
+            requires(m_unpromoted_items != null)
+
         {
+            var temp_bounds = box;
+
+            temp_bounds.translate(-b_insert_x, -b_insert_y);
+            temp_bounds.rotate(-b_angle);
+
+            if (b_mirror != 0)
+            {
+                temp_bounds.mirror_x();
+            }
+
             foreach (var item in m_unpromoted_items)
             {
-                if (item.intersects_box(painter, box))
+                if (item.intersects_box(painter, temp_bounds))
                 {
                     return true;
                 }
