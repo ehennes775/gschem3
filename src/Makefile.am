@@ -152,6 +152,7 @@ libgeda3_a_VALAFLAGS = \
 
 libgschem3_a_SOURCES = \
 	gui/aedit/AttributeEditor.vala \
+	gui/dlg/ColumnHelper.vala \
 	gui/dlg/PinEditorDialog.vala \
 	gui/pedit/ColorEditor.vala \
 	gui/pedit/ColorSwatchRenderer.vala \

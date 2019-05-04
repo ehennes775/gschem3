@@ -82,7 +82,7 @@ namespace Geda3
 
 
         /**
-         * The attribute name
+         * {@inheritDoc}
          */
         public string? name
         {
@@ -153,6 +153,16 @@ namespace Geda3
             }
             //Doesn't get set when specified here???
             // default = 12;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public string? @value
+        {
+            get;
+            private set;
         }
 
 
@@ -478,6 +488,19 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void set_pair(string name, string @value)
+        {
+            invalidate(this);
+
+            text = @"$(name)=$(@value)";
+
+            invalidate(this);
+        }
+
+
+        /**
          * Change the insertion point of the text
          *
          * ||''index''||''Description''||
@@ -654,6 +677,7 @@ namespace Geda3
             if (b_attribute)
             {
                 name = match_info.fetch(1);
+                @value = match_info.fetch(2);
 
                 string? next_text;
 
@@ -680,6 +704,7 @@ namespace Geda3
             else
             {
                 name = null;
+                @value = null;
                 visible_text = local_text;
             }
 

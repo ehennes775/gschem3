@@ -100,13 +100,13 @@
                             </object>
                         </child>
                         <child>
-                            <object class="GtkTreeViewColumn" id="column-pinseq">
+                            <object class="GtkTreeViewColumn" id="column-pinlabel">
                                 <property name="clickable">TRUE</property>
                                 <property name="resizable">TRUE</property>
                                 <property name="sort-column-id">0</property>
-                                <property name="title">pinseq</property>
+                                <property name="title">pinlabel</property>
                                 <child>
-                                    <object class="GtkCellRendererText" id="column-pinseq-renderer">
+                                    <object class="GtkCellRendererText" id="column-pinlabel-renderer">
                                     </object>
                                     <attributes>
                                         <attribute name="editable">2</attribute>
@@ -119,13 +119,13 @@
                             </object>
                         </child>
                         <child>
-                            <object class="GtkTreeViewColumn" id="column-pinlabel">
+                            <object class="GtkTreeViewColumn" id="column-pinseq">
                                 <property name="clickable">TRUE</property>
                                 <property name="resizable">TRUE</property>
                                 <property name="sort-column-id">0</property>
-                                <property name="title">pinlabel</property>
+                                <property name="title">pinseq</property>
                                 <child>
-                                    <object class="GtkCellRendererText" id="column-pinlabel-renderer">
+                                    <object class="GtkCellRendererText" id="column-pinseq-renderer">
                                     </object>
                                     <attributes>
                                         <attribute name="editable">2</attribute>

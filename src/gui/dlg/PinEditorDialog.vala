@@ -39,6 +39,45 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        construct
+        {
+            m_helpers = new Gee.ArrayList<ColumnHelper>();
+
+            m_helpers.add(
+                new ColumnHelper(
+                    m_pin_list,
+                    m_pin_number_renderer,
+                    Column.PIN,
+                    "pinnumber",
+                    Column.NUMBER,
+                    Column.NUMBER_CHANGED
+                    ));
+
+            m_helpers.add(
+                new ColumnHelper(
+                    m_pin_list,
+                    m_pin_label_renderer,
+                    Column.PIN,
+                    "pinlabel",
+                    Column.LABEL,
+                    Column.LABEL_CHANGED
+                    ));
+
+            m_helpers.add(
+                new ColumnHelper(
+                    m_pin_list,
+                    m_pin_sequence_renderer,
+                    Column.PIN,
+                    "pinseq",
+                    Column.SEQUENCE,
+                    Column.SEQUENCE_CHANGED
+                    ));
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public void update_document_window(DocumentWindow? window)
@@ -66,6 +105,24 @@ namespace Gschem3
             TYPE_CHANGED,
             COUNT
         }
+
+
+        /**
+         *
+         */
+        private Gee.Collection<ColumnHelper> m_helpers;
+
+
+        [GtkChild(name="column-pinseq-renderer")]
+        private Gtk.CellRendererText m_pin_sequence_renderer;
+
+
+        [GtkChild(name="column-pinlabel-renderer")]
+        private Gtk.CellRendererText m_pin_label_renderer;
+
+
+        [GtkChild(name="column-pinnumber-renderer")]
+        private Gtk.CellRendererText m_pin_number_renderer;
 
 
         /**
@@ -121,59 +178,12 @@ namespace Gschem3
 
                 m_pin_list.append(out iter);
 
-                m_pin_list.set_value(
-                    iter,
-                    Column.PIN,
-                    item
-                    );
+                m_pin_list.set_value(iter, Column.PIN, item);
 
-                m_pin_list.set_value(
-                    iter,
-                    Column.NUMBER,
-                    "Hello"
-                    );
-
-                m_pin_list.set_value(
-                    iter,
-                    Column.NUMBER_CHANGED,
-                    true
-                    );
-
-                m_pin_list.set_value(
-                    iter,
-                    Column.LABEL,
-                    "Hello"
-                    );
-
-                m_pin_list.set_value(
-                    iter,
-                    Column.LABEL_CHANGED,
-                    false
-                    );
-
-                m_pin_list.set_value(
-                    iter,
-                    Column.SEQUENCE,
-                    "Hello"
-                    );
-
-                m_pin_list.set_value(
-                    iter,
-                    Column.SEQUENCE_CHANGED,
-                    false
-                    );
-
-                m_pin_list.set_value(
-                    iter,
-                    Column.TYPE,
-                    "pas"
-                    );
-
-                m_pin_list.set_value(
-                    iter,
-                    Column.TYPE_CHANGED,
-                    false
-                    );
+                foreach (var helper in m_helpers)
+                {
+                    helper.update(iter);
+                }
             }
         }
     }

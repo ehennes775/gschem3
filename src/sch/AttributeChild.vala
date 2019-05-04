@@ -30,6 +30,16 @@ namespace Geda3
 
 
         /**
+         * The attribute value
+         */
+        public abstract string? @value
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * The visibility of the attribute
          */
         public abstract Visibility visibility
@@ -37,5 +47,14 @@ namespace Geda3
             get;
             construct set;
         }
+
+
+        /**
+         * Set both the name and the value
+         *
+         * @param name The name of the attribute
+         * @param value The attribute value
+         */
+        public abstract void set_pair(string name, string @value);
     }
 }
