@@ -411,6 +411,13 @@ namespace Gschem3
 
 
         /**
+         * The widget containing the attribute editor
+         */
+        [GtkChild(name="editor")]
+        private AttributeEditor m_attribute_widget;
+
+
+        /**
          * Add a property editor to the property editor widget
          *
          * @param editor The editor to add to the property editor
@@ -1077,6 +1084,10 @@ namespace Gschem3
             m_current_document_window = page as DocumentWindow;
 
             m_drawing_tools.update_document_window(
+                m_current_document_window
+                );
+
+            m_attribute_widget.update_document_window(
                 m_current_document_window
                 );
 

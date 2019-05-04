@@ -3,29 +3,18 @@
 
     <object class="GtkListStore" id="list">
         <columns>
+            <column type="GObject"/>
             <column type="gchararray"/>
+            <column type="gboolean"/>
             <column type="gchararray"/>
+            <column type="gboolean"/>
             <column type="gboolean"/>
             <column type="gboolean"/>
         </columns>
-        <!-- test data for development -->
-        <data>
-            <row>
-                <col id="0">pinnumber</col>
-                <col id="1">7</col>
-                <col id="2">true</col>
-                <col id="3">true</col>
-            </row>
-            <row>
-                <col id="0">pinlabel</col>
-                <col id="1">RESET</col>
-                <col id="2">true</col>
-                <col id="3">true</col>
-            </row>
-        </data>
     </object>
 
     <template class="Gschem3AttributeEditor" parent="GtkBox">
+        <property name="missing_text">missing</property>
         <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
         <child>
             <object class="GtkScrolledWindow" id="tree-scrolled">
@@ -41,22 +30,11 @@
                                 <property name="sort-column-id">0</property>
                                 <property name="title">Name</property>
                                 <child>
-                                    <object class="GtkCellRendererToggle" id="column-name-renderer-visible">
-                                    </object>
-                                    <attributes>
-                                        <attribute name="active">2</attribute>
-                                        <attribute name="editable">2</attribute>
-                                    </attributes>
-                                    <cell-packing>
-                                        <property name="expand">false</property>
-                                    </cell-packing>
-                                </child>
-                                <child>
                                     <object class="GtkCellRendererText" id="column-name-renderer-name">
                                     </object>
                                     <attributes>
                                         <attribute name="editable">2</attribute>
-                                        <attribute name="text">0</attribute>
+                                        <attribute name="text">1</attribute>
                                     </attributes>
                                     <cell-packing>
                                         <property name="expand">true</property>
@@ -71,22 +49,11 @@
                                 <property name="sort-column-id">1</property>
                                 <property name="title">Value</property>
                                 <child>
-                                    <object class="GtkCellRendererToggle" id="column-value-renderer-visible">
-                                    </object>
-                                    <attributes>
-                                        <attribute name="active">2</attribute>
-                                        <attribute name="editable">2</attribute>
-                                    </attributes>
-                                    <cell-packing>
-                                        <property name="expand">false</property>
-                                    </cell-packing>
-                                </child>
-                                <child>
                                     <object class="GtkCellRendererText" id="column-value-renderer-value">
                                     </object>
                                     <attributes>
-                                        <attribute name="editable">3</attribute>
-                                        <attribute name="text">1</attribute>
+                                        <attribute name="editable">4</attribute>
+                                        <attribute name="text">3</attribute>
                                     </attributes>
                                     <cell-packing>
                                         <property name="expand">true</property>
