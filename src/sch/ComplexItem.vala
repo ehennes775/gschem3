@@ -161,7 +161,10 @@ namespace Geda3
 
         {
             m_attributes.add(attribute);
+
             attribute.invalidate.connect(on_invalidate);
+            attribute.notify["name"].connect(on_notify_attribute);
+            attribute.notify["value"].connect(on_notify_attribute);
 
             m_unpromoted_items = fetch_unpromoted_items();
 
@@ -203,6 +206,31 @@ namespace Geda3
             }
 
             return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void detach(AttributeChild attribute)
+
+            requires(m_attributes != null) 
+
+        {
+            var success = m_attributes.remove(attribute);
+
+            if (success)
+            {
+                attribute.invalidate.connect(on_invalidate);
+                attribute.notify["name"].connect(on_notify_attribute);
+                attribute.notify["value"].connect(on_notify_attribute);
+
+                m_unpromoted_items = fetch_unpromoted_items();
+
+                detached(attribute, this);
+
+                invalidate(this);
+            }
         }
 
 
@@ -519,15 +547,6 @@ namespace Geda3
             }
 
             return unpromoted;
-        }
-
-
-        /**
-         * Redraw an attribute
-         */
-        private void on_invalidate(Geda3.SchematicItem item)
-        {
-            invalidate(item);
         }
     }
 }

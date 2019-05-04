@@ -88,12 +88,6 @@ namespace Gschem3
         /**
          *
          */
-        private Gtk.ListStore m_store;
-
-
-        /**
-         *
-         */
         private int m_value_column;
 
 

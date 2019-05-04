@@ -72,12 +72,6 @@ namespace Gschem3
         /**
          *
          */
-        private int m_item_column;
-
-
-        /**
-         *
-         */
         private string m_name;
 
 
@@ -85,12 +79,6 @@ namespace Gschem3
          *
          */
         private Gtk.CellRendererText m_renderer;
-
-
-        /**
-         *
-         */
-        private Gtk.ListStore m_store;
 
 
         /**

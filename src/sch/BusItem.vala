@@ -78,6 +78,12 @@ namespace Geda3
 
         {
             m_attributes.add(attribute);
+
+            attribute.invalidate.connect(on_invalidate);
+            attribute.notify["name"].connect(on_notify_attribute);
+            attribute.notify["value"].connect(on_notify_attribute);
+
+            attached(attribute, this);
         }
 
 
@@ -119,6 +125,27 @@ namespace Geda3
             }
 
             return grips;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void detach(AttributeChild attribute)
+
+            requires(m_attributes != null) 
+
+        {
+            var success = m_attributes.remove(attribute);
+
+            if (success)
+            {
+                attribute.invalidate.connect(on_invalidate);
+                attribute.notify["name"].connect(on_notify_attribute);
+                attribute.notify["value"].connect(on_notify_attribute);
+
+                detached(attribute, this);
+            }
         }
 
 

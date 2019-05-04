@@ -3,7 +3,8 @@ namespace Geda3
     /**
      * Represents a pin on a schematic
      */
-    public class PinItem : SchematicItem, AttributeParent
+    public class PinItem : SchematicItem,
+        AttributeParent
     {
         /**
          * The type code, for a pin, used in schematic files
@@ -126,6 +127,8 @@ namespace Geda3
             attribute.invalidate.connect(on_invalidate);
             attribute.notify["name"].connect(on_notify_attribute);
             attribute.notify["value"].connect(on_notify_attribute);
+
+            attached(attribute, this);
         }
 
 
@@ -162,6 +165,27 @@ namespace Geda3
             }
 
             return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void detach(AttributeChild attribute)
+
+            requires(m_attributes != null) 
+
+        {
+            var success = m_attributes.remove(attribute);
+
+            if (success)
+            {
+                attribute.invalidate.connect(on_invalidate);
+                attribute.notify["name"].connect(on_notify_attribute);
+                attribute.notify["value"].connect(on_notify_attribute);
+
+                detached(attribute, this);
+            }
         }
 
 
@@ -502,23 +526,5 @@ namespace Geda3
          * The attributes attached to this item
          */
         private Gee.LinkedList<AttributeChild> m_attributes;
-
-
-        private void on_notify_attribute(
-            Object sender,
-            ParamSpec param
-            )
-        {
-            attribute_changed(sender as AttributeChild, this);
-        }
-
-
-        /**
-         * Signal handler to forward invalidate signals from attributes
-         */
-        private void on_invalidate(SchematicItem item)
-        {
-            invalidate(item);
-        }
     }
 }
