@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8"/>
@@ -29,6 +29,11 @@
         <ul class="navi_main">
           <li class="abstract_property"><a href="Geda3.AttributeParent.attributes.html">attributes</a></li>
           <li class="abstract_method"><a href="Geda3.AttributeParent.attach.html">attach</a></li>
+          <li class="abstract_method"><a href="Geda3.AttributeParent.detach.html">detach</a></li>
+          <li class="method"><a href="Geda3.AttributeParent.on_invalidate.html">on_invalidate</a></li>
+          <li class="method"><a href="Geda3.AttributeParent.on_notify_attribute.html">on_notify_attribute</a></li>
+          <li class="signal"><a href="Geda3.AttributeParent.attached.html">attached</a></li>
+          <li class="signal"><a href="Geda3.AttributeParent.detached.html">detached</a></li>
         </ul>
       </div>
       <div class="site_content">
@@ -49,134 +54,170 @@
           <p>An interface for schematic items capable of having attributes</p>
         </div>
         <div class="box">
-          <div class="headline">
-            <div class="text">All known implementing classes:</div>
-            <div class="toggle">
-              <img onclick="toggle_box  (this, 'box-content-45')" src="../coll_open.png">&nbsp;</div>
+          <div class="headline" onclick="toggle_box (this, 'box-content-143')">All known implementing classes:</div>
+          <div class="content" id="box-content-143">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="class"><a href="Geda3.ComplexItem.html">ComplexItem</a></li>
+                <li class="class"><a href="Geda3.PinItem.html">PinItem</a></li>
+              </ul>
             </div>
-            <div class="content" id="box-content-45">
-              <div class="column">
-                <ul class="navi_inline">
-                  <li class="class"><a href="Geda3.BusItem.html">BusItem</a></li>
-                </ul>
-              </div>
-              <div class="column">
-                <ul class="navi_inline">
-                  <li class="class"><a href="Geda3.NetItem.html">NetItem</a></li>
-                </ul>
-              </div>
-              <div class="column">
-                <ul class="navi_inline">
-                  <li class="class"><a href="Geda3.SchematicItemPin.html">SchematicItemPin</a></li>
-                </ul>
-              </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="class"><a href="Geda3.BusItem.html">BusItem</a></li>
+              </ul>
             </div>
-          </div><br/>
-          <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="class"><a href="Geda3.NetItem.html">NetItem</a></li>
+              </ul>
+            </div>
           </div>
-          <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
-          </div>
-          <h2 class="main_title">Content:</h2>
-          <h3 class="main_title">Properties:</h3>
-          <ul class="navi_inline">
-            <li class="abstract_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_type"><span class="interface">List</span></span>&lt;<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span>&gt; <b><a href="Geda3.AttributeParent.attributes.html" class="abstract_property">attributes</a></b> { <span class="main_keyword">owned</span> <span class="main_keyword">get</span>; }
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The attributes attached to this item</span>
-              </div></li>
-          </ul>
-          <h3 class="main_title">Methods:</h3>
-          <ul class="navi_inline">
-            <li class="abstract_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_keyword">void</span> <b><a href="Geda3.AttributeParent.attach.html" class="abstract_method">attach</a></b> (<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span> attribute)
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">Attach an attribute to this item</span>
-              </div></li>
-          </ul>
-          <h3 class="main_title">Inherited Members:</h3>
-          <div class="box">
-            <div class="headline">
-              <div class="text">All known members inherited from class Geda3.SchematicItem</div>
-              <div class="toggle">
-                <img onclick="toggle_box  (this, 'box-content-46')" src="../coll_open.png">&nbsp;</div>
-              </div>
-              <div class="content" id="box-content-46">
-                <div class="column">
-                  <ul class="navi_inline">
-                    <li class="abstract_method"><a href="Geda3.SchematicItem.calculate_bounds.html">calculate_bounds</a></li>
-                    <li class="abstract_method"><a href="Geda3.SchematicItem.draw.html">draw</a></li>
-                  </ul>
-                </div>
-                <div class="column">
-                  <ul class="navi_inline">
-                    <li class="abstract_method"><a href="Geda3.SchematicItem.read.html">read</a></li>
-                  </ul>
-                </div>
-                <div class="column">
-                  <ul class="navi_inline">
-                    <li class="abstract_method"><a href="Geda3.SchematicItem.write.html">write</a></li>
-                  </ul>
-                </div>
-              </div>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="abstract_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_type"><span class="interface">List</span></span>&lt;<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span>&gt; <b><a href="Geda3.AttributeParent.attributes.html" class="abstract_property">attributes</a></b> { <span class="main_keyword">owned</span> <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The attributes attached to this item</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="abstract_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_keyword">void</span> <b><a href="Geda3.AttributeParent.attach.html" class="abstract_method">attach</a></b> (<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span> attribute)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Attach an attribute to this item</span>
+            </div></li>
+          <li class="abstract_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_keyword">void</span> <b><a href="Geda3.AttributeParent.detach.html" class="abstract_method">detach</a></b> (<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span> attribute)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Detach an attribute from this item</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">protected</span> <span class="main_keyword">void</span> <b><a href="Geda3.AttributeParent.on_invalidate.html" class="method">on_invalidate</a></b> (<span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span> item)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Signal handler for forwarding invalidate signals</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">protected</span> <span class="main_keyword">void</span> <b><a href="Geda3.AttributeParent.on_notify_attribute.html" class="method">on_notify_attribute</a></b> (<span class="main_type"><span class="class">Object</span></span> sender, <span class="main_type"><span class="class">ParamSpec</span></span> param)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Signal handlerfor forwarding attribute changed</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Signals:</h3>
+        <ul class="navi_inline">
+          <li class="signal"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">signal</span> <span class="main_keyword">void</span> <b><a href="Geda3.AttributeParent.attached.html" class="signal">attached</a></b> (<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span> child, <span class="main_type"><span class="interface">AttributeParent</span></span> parent)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The attributes attached to this item</span>
+            </div></li>
+          <li class="signal"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">signal</span> <span class="main_keyword">void</span> <b><a href="Geda3.AttributeParent.detached.html" class="signal">detached</a></b> (<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span> child, <span class="main_type"><span class="interface">AttributeParent</span></span> parent)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The attributes attached to this item</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-144')">All known members inherited from class Geda3.SchematicItem</div>
+          <div class="content" id="box-content-144">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.calculate_bounds.html">calculate_bounds</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.draw.html">draw</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.intersects_box.html">intersects_box</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.invalidate_on.html">invalidate_on</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.mirror_x.html">mirror_x</a></li>
+              </ul>
             </div>
-            <div class="box">
-              <div class="headline">
-                <div class="text">All known members inherited from class GLib.Object</div>
-                <div class="toggle">
-                  <img onclick="toggle_box  (this, 'box-content-47')" src="../coll_open.png">&nbsp;</div>
-                </div>
-                <div class="content" id="box-content-47">
-                  <div class="column">
-                    <ul class="navi_inline">
-                      <li class="static_method">@new</li>
-                      <li class="static_method">newv</li>
-                      <li class="static_method">new_valist</li>
-                      <li class="method">get_type</li>
-                      <li class="method">get_class</li>
-                      <li class="method">@ref</li>
-                      <li class="method">unref</li>
-                      <li class="method">ref_sink</li>
-                      <li class="method">weak_ref</li>
-                      <li class="method">weak_unref</li>
-                      <li class="method">add_weak_pointer</li>
-                      <li class="method">remove_weak_pointer</li>
-                    </ul>
-                  </div>
-                  <div class="column">
-                    <ul class="navi_inline">
-                      <li class="method">@get</li>
-                      <li class="method">@set</li>
-                      <li class="method">get_property</li>
-                      <li class="method">set_property</li>
-                      <li class="method">get_data</li>
-                      <li class="method">set_data</li>
-                      <li class="method">set_data_full</li>
-                      <li class="method">steal_data</li>
-                      <li class="method">get_qdata</li>
-                      <li class="method">set_qdata</li>
-                      <li class="method">set_qdata_full</li>
-                      <li class="method">steal_qdata</li>
-                    </ul>
-                  </div>
-                  <div class="column">
-                    <ul class="navi_inline">
-                      <li class="method">freeze_notify</li>
-                      <li class="method">thaw_notify</li>
-                      <li class="virtual_method">dispose</li>
-                      <li class="virtual_method">constructed</li>
-                      <li class="method">notify_property</li>
-                      <li class="method">connect</li>
-                      <li class="method">disconnect</li>
-                      <li class="method">add_toggle_ref</li>
-                      <li class="method">remove_toggle_ref</li>
-                      <li class="method">bind_property</li>
-                      <li class="signal">notify</li>
-                      <li class="field">ref_count</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.mirror_y.html">mirror_y</a></li>
+                <li class="virtual_method"><a href="Geda3.SchematicItem.read.html">read</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.read_with_params.html">read_with_params</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.rotate.html">rotate</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.shortest_distance.html">shortest_distance</a></li>
+              </ul>
             </div>
-          </div><br/>
-          <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.translate.html">translate</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.write.html">write</a></li>
+                <li class="signal"><a href="Geda3.SchematicItem.attribute_changed.html">attribute_changed</a></li>
+                <li class="signal"><a href="Geda3.SchematicItem.invalidate.html">invalidate</a></li>
+              </ul>
+            </div>
           </div>
-        </body>
-      </html>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-145')">All known members inherited from class GLib.Object</div>
+          <div class="content" id="box-content-145">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">interface_find_property</li>
+                <li class="static_method">interface_install_property</li>
+                <li class="static_method">interface_list_properties</li>
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+                <li class="static_method">newv</li>
+                <li class="static_method">new_with_properties</li>
+                <li class="method">add_toggle_ref</li>
+                <li class="method">add_weak_pointer</li>
+                <li class="method">bind_property</li>
+                <li class="method">connect</li>
+                <li class="virtual_method">constructed</li>
+                <li class="method">disconnect</li>
+                <li class="virtual_method">dispose</li>
+                <li class="method">dup_data</li>
+                <li class="method">dup_qdata</li>
+                <li class="method">force_floating</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">freeze_notify</li>
+                <li class="method">@get</li>
+                <li class="method">get_class</li>
+                <li class="method">get_data</li>
+                <li class="method">get_property</li>
+                <li class="method">get_qdata</li>
+                <li class="method">get_type</li>
+                <li class="method">getv</li>
+                <li class="method">is_floating</li>
+                <li class="method">notify_property</li>
+                <li class="method">@ref</li>
+                <li class="method">ref_sink</li>
+                <li class="method">replace_data</li>
+                <li class="method">replace_qdata</li>
+                <li class="method">remove_toggle_ref</li>
+                <li class="method">remove_weak_pointer</li>
+                <li class="method">@set</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">set_data</li>
+                <li class="method">set_data_full</li>
+                <li class="method">set_property</li>
+                <li class="method">set_qdata</li>
+                <li class="method">set_qdata_full</li>
+                <li class="method">set_valist</li>
+                <li class="method">setv</li>
+                <li class="method">steal_data</li>
+                <li class="method">steal_qdata</li>
+                <li class="method">thaw_notify</li>
+                <li class="method">unref</li>
+                <li class="method">watch_closure</li>
+                <li class="method">weak_ref</li>
+                <li class="method">weak_unref</li>
+                <li class="signal">notify</li>
+                <li class="field">ref_count</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
+    </div>
+  </body>
+</html>

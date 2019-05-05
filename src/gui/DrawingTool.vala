@@ -93,7 +93,7 @@ namespace Gschem3
          * Process a key pressed event
          *
          * @param event The key released event to process
-         * @return
+         * @return true if the event is handled
          */
         public virtual bool key_pressed(Gdk.EventKey event)
         {
@@ -119,7 +119,7 @@ namespace Gschem3
          * Process a key released event
          *
          * @param event The key released event to process
-         * @return
+         * @return true if the event is handled
          */
         public virtual bool key_released(Gdk.EventKey event)
         {
@@ -135,7 +135,7 @@ namespace Gschem3
          * Overridden methods must chain up to the base method.
          *
          * @param event The mouse motion event to process
-         * @return
+         * @return true if the event is handled
          */
         public virtual bool motion_notify(Gdk.EventMotion event)
         {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8"/>
@@ -25,6 +25,8 @@
           <li class="namespace"><a href="Geda3.Color.html">Geda3.Color</a></li>
           <li class="namespace"><a href="Geda3.Coord.html">Geda3.Coord</a></li>
           <li class="namespace"><a href="Geda3.GeeEx.html">Geda3.GeeEx</a></li>
+          <li class="namespace"><a href="Geda3.ParseUtility.html">Geda3.ParseUtility</a></li>
+          <li class="namespace"><a href="Geda3.Sweep.html">Geda3.Sweep</a></li>
           <li class="namespace"><a href="Geda3.TextSize.html">Geda3.TextSize</a></li>
           <li class="namespace"><a href="Gschem3.html">Gschem3</a></li>
           <li class="namespace"><a href="Gschem3.ErrorDialog.html">Gschem3.ErrorDialog</a></li>
@@ -37,12 +39,29 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Namespaces:</h3>
         <ul class="navi_inline">
-          <li class="namespace"><a href="Geda3.html">Geda3</a> - </li>
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
           <h3 class="main_title">Interfaces:</h3>
           <ul class="navi_inline">
-            <li class="interface"><a href="Geda3.AttributeChild.html">AttributeChild</a> - </li>
+            <li class="interface"><a href="Geda3.AdjustableRadius.html">AdjustableRadius</a> - <span class="brief_description">An interface for 
+                schematic items with an adjustable radius</span></li>
+            <li class="interface"><a href="Geda3.AdjustableSweep.html">AdjustableSweep</a> - <span class="brief_description">An interface for 
+                schematic items with an adjustable sweep</span></li>
+            <li class="interface"><a href="Geda3.AttributeChild.html">AttributeChild</a></li>
             <li class="interface"><a href="Geda3.AttributeParent.html">AttributeParent</a> - <span class="brief_description">An interface for 
                 schematic items capable of having attributes</span></li>
+            <li class="interface"><a href="Geda3.Colorable.html">Colorable</a> - <span class="brief_description">An interface for schematic items that
+                can change color</span></li>
+            <li class="interface"><a href="Geda3.Fillable.html">Fillable</a></li>
+            <li class="interface"><a href="Geda3.GripAssistant.html">GripAssistant</a> - <span class="brief_description">Provides a mechanism for 
+                grips to use functionality in the GUI (dependency inversion).</span></li>
+            <li class="interface"><a href="Geda3.Grippable.html">Grippable</a> - <span class="brief_description">An interface for schematic items that
+                provide grips</span></li>
+            <li class="interface"><a href="Geda3.GrippablePoints.html">GrippablePoints</a></li>
+            <li class="interface"><a href="Geda3.PathCommandConverter.html">PathCommandConverter</a> - <span class="brief_description">Conversion 
+                strategy for path commands</span></li>
+            <li class="interface"><a href="Geda3.PathCommandReceiver.html">PathCommandReceiver</a></li>
+            <li class="interface"><a href="Geda3.StylableLine.html">StylableLine</a></li>
+            <li class="interface"><a href="Geda3.Invalidatable.html">Invalidatable</a></li>
             <li class="interface"><a href="Geda3.RemovableItem.html">RemovableItem</a> - <span class="brief_description">A base class for items in the
                 project tree</span></li>
             <li class="interface"><a href="Geda3.RenamableItem.html">RenamableItem</a> - <span class="brief_description">A base class for items in the
@@ -50,23 +69,12 @@
           </ul>
           <h3 class="main_title">Classes:</h3>
           <ul class="navi_inline">
-            <li class="class"><a href="Geda3.BoxItem.html">BoxItem</a> - <span class="brief_description">Schematic box</span></li>
-            <li class="class"><a href="Geda3.BusItem.html">BusItem</a> - <span class="brief_description">Represents a bus on a schematic</span></li>
-            <li class="class"><a href="Geda3.CircleItem.html">CircleItem</a> - <span class="brief_description">Schematic circle</span></li>
-            <li class="class"><a href="Geda3.ColorScheme.html">ColorScheme</a> - <span class="brief_description">Stores colors for drawing schematics
-              </span></li>
-            <li class="class"><a href="Geda3.KeyFileProjectStorage.html">KeyFileProjectStorage</a> - <span class="brief_description">Implements a 
-                persistence layer for projects in a key file</span></li>
-            <li class="class"><a href="Geda3.KeyFileSymbolFolder.html">KeyFileSymbolFolder</a> - <span class="brief_description">A symbol folder 
-                inside a symbol library</span></li>
-            <li class="class"><a href="Geda3.KeyFileSymbolLibrary.html">KeyFileSymbolLibrary</a> - <span class="brief_description">A schematic symbol 
-                libraries based off of a key file</span></li>
-            <li class="class"><a href="Geda3.KeyProjectFileMapper.html">KeyProjectFileMapper</a> - </li>
-            <li class="abstract_class"><a href="Geda3.Mapper.html">Mapper</a> - <span class="brief_description">Maps a domain object to a database
-              </span></li>
-            <li class="class"><a href="Geda3.NetItem.html">NetItem</a> - <span class="brief_description">Represents a net on a schematic</span></li>
-            <li class="class"><a href="Geda3.NullMapper.html">NullMapper</a> - <span class="brief_description">Provides a mapper that performs no 
-                operations</span></li>
+            <li class="class"><a href="Geda3.LibraryFile.html">LibraryFile</a> - <span class="brief_description">Represents a symbol file in the 
+                symbol library tree</span></li>
+            <li class="class"><a href="Geda3.LibraryFolder.html">LibraryFolder</a> - <span class="brief_description">Represents a folder in the symbol
+                library tree</span></li>
+            <li class="abstract_class"><a href="Geda3.LibraryItem.html">LibraryItem</a> - <span class="brief_description">A base class for items in 
+                the symbol library</span></li>
             <li class="class"><a href="Geda3.Project.html">Project</a> - <span class="brief_description">A base class for projects</span></li>
             <li class="class"><a href="Geda3.ProjectFile.html">ProjectFile</a> - <span class="brief_description">Represents a file in the project tree
               </span></li>
@@ -76,56 +84,129 @@
                 the project tree</span></li>
             <li class="class"><a href="Geda3.ProjectItemAdapter.html">ProjectItemAdapter</a> - <span class="brief_description">Adapts the project as 
                 an item in the project tree</span></li>
-            <li class="abstract_class"><a href="Geda3.ProjectStorage.html">ProjectStorage</a> - <span class="brief_description">Provides an interface 
-                for project storage</span></li>
-            <li class="class"><a href="Geda3.Schematic.html">Schematic</a> - </li>
-            <li class="class"><a href="Geda3.SchematicFile.html">SchematicFile</a> - </li>
+            <li class="abstract_class"><a href="Geda3.ProjectStorage.html">ProjectStorage</a> - <span class="brief_description">Provides a persistence
+                layer for storing projects</span></li>
+            <li class="class"><a href="Geda3.KeyFileProjectStorage.html">KeyFileProjectStorage</a> - <span class="brief_description">Provides a 
+                persistence layer for storing projects in key files</span></li>
+            <li class="class"><a href="Geda3.KeyFileSymbolFolder.html">KeyFileSymbolFolder</a> - <span class="brief_description">A symbol folder 
+                inside a symbol library</span></li>
+            <li class="class"><a href="Geda3.KeyFileSymbolLibrary.html">KeyFileSymbolLibrary</a> - <span class="brief_description">A schematic symbol 
+                libraries based off of a key file</span></li>
+            <li class="class"><a href="Geda3.KeyProjectFileMapper.html">KeyProjectFileMapper</a></li>
+            <li class="abstract_class"><a href="Geda3.AngleGrip.html">AngleGrip</a> - <span class="brief_description">An abstract Grip subclass for 
+                manipulating arc angles</span></li>
+            <li class="class"><a href="Geda3.ArcItem.html">ArcItem</a> - <span class="brief_description">A schematic arc item</span></li>
+            <li class="class"><a href="Geda3.BoxCornerGrip.html">BoxCornerGrip</a> - <span class="brief_description">A Grip subclass for manipulating 
+                box schematic items</span></li>
+            <li class="class"><a href="Geda3.BoxCornerGripCommon.html">BoxCornerGripCommon</a></li>
+            <li class="class"><a href="Geda3.BoxItem.html">BoxItem</a> - <span class="brief_description">Represents a graphical box on a schematic
+              </span></li>
+            <li class="class"><a href="Geda3.BusItem.html">BusItem</a> - <span class="brief_description">Represents a bus on a schematic</span></li>
+            <li class="class"><a href="Geda3.CircleItem.html">CircleItem</a> - <span class="brief_description">Schematic circle</span></li>
+            <li class="class"><a href="Geda3.ComplexItem.html">ComplexItem</a> - <span class="brief_description">Represents a component on a schematic
+              </span></li>
+            <li class="class"><a href="Geda3.ComplexLibrary.html">ComplexLibrary</a></li>
+            <li class="class"><a href="Geda3.ComplexSymbol.html">ComplexSymbol</a></li>
+            <li class="class"><a href="Geda3.FillStyle.html">FillStyle</a> - <span class="brief_description">The fill style for graphic items</span>
+            </li>
+            <li class="abstract_class"><a href="Geda3.Grip.html">Grip</a> - <span class="brief_description">Abstract base class for manipulating items
+                using grips</span></li>
+            <li class="class"><a href="Geda3.LineItem.html">LineItem</a> - <span class="brief_description">Represents a graphical line in a schematic 
+                or symbol file</span></li>
+            <li class="class"><a href="Geda3.LineStyle.html">LineStyle</a> - <span class="brief_description">The line style for graphic items</span>
+            </li>
+            <li class="class"><a href="Geda3.NetItem.html">NetItem</a> - <span class="brief_description">Represents a net on a schematic</span></li>
+            <li class="abstract_class"><a href="Geda3.PathCommand.html">PathCommand</a> - <span class="brief_description">An abstract base class for 
+                PathItem commands</span></li>
+            <li class="class"><a href="Geda3.PathItem.html">PathItem</a> - <span class="brief_description">Represents a graphical path on a schematic 
+                or symbol</span></li>
+            <li class="class"><a href="Geda3.PinItem.html">PinItem</a> - <span class="brief_description">Represents a pin on a schematic</span></li>
+            <li class="class"><a href="Geda3.PointGrip.html">PointGrip</a> - <span class="brief_description">A Grip subclass for manipulating an item 
+                with GrippablePoints</span></li>
+            <li class="class"><a href="Geda3.RadiusGrip.html">RadiusGrip</a> - <span class="brief_description">A Grip subclass for manipulating a 
+                radius</span></li>
+            <li class="class"><a href="Geda3.Schematic.html">Schematic</a></li>
             <li class="abstract_class"><a href="Geda3.SchematicItem.html">SchematicItem</a> - <span class="brief_description">Base class for items 
                 found in schematics or symbols</span></li>
-            <li class="class"><a href="Geda3.SchematicItemLine.html">SchematicItemLine</a> - <span class="brief_description">Represents a graphical 
-                line in a schematic or symbol file</span></li>
-            <li class="class"><a href="Geda3.SchematicItemPin.html">SchematicItemPin</a> - <span class="brief_description">Represents a pin on a 
-                schematic</span></li>
-            <li class="abstract_class"><a href="Geda3.SchematicList.html">SchematicList</a> - </li>
-            <li class="abstract_class"><a href="Geda3.SchematicPainter.html">SchematicPainter</a> - </li>
-            <li class="class"><a href="Geda3.SchematicPainterCairo.html">SchematicPainterCairo</a> - </li>
-            <li class="class"><a href="Geda3.SchematicReader.html">SchematicReader</a> - </li>
-            <li class="abstract_class"><a href="Geda3.SymbolLibrary.html">SymbolLibrary</a> - <span class="brief_description">An abstract base class 
-                for schematic symbol libraries</span></li>
+            <li class="abstract_class"><a href="Geda3.SchematicPainter.html">SchematicPainter</a></li>
+            <li class="class"><a href="Geda3.SchematicReader.html">SchematicReader</a></li>
+            <li class="class"><a href="Geda3.StartAngleGrip.html">StartAngleGrip</a> - <span class="brief_description">A Grip subclass for 
+                manipulating the starting angle of an arc</span></li>
+            <li class="class"><a href="Geda3.SweepAngleGrip.html">SweepAngleGrip</a> - <span class="brief_description">A Grip subclass for 
+                manipulating the sweep angle of an arc</span></li>
             <li class="class"><a href="Geda3.TextItem.html">TextItem</a> - <span class="brief_description">Schematic text</span></li>
+            <li class="class"><a href="Geda3.AbsoluteMoveToCommand.html">AbsoluteMoveToCommand</a> - <span class="brief_description">Represents a move
+                to path command with absolute coordinates</span></li>
+            <li class="class"><a href="Geda3.AbsoluteLineToCommand.html">AbsoluteLineToCommand</a> - <span class="brief_description">Represents a line
+                to path command with absolute coordinates</span></li>
+            <li class="class"><a href="Geda3.ClosePathCommand.html">ClosePathCommand</a></li>
+            <li class="class"><a href="Geda3.PathCommandConverter1.html">PathCommandConverter1</a> - <span class="brief_description">Convert path 
+                commands found in the current file format</span></li>
+            <li class="class"><a href="Geda3.RelativeMoveToCommand.html">RelativeMoveToCommand</a> - <span class="brief_description">Represents a move
+                to path command with relative coordinates</span></li>
+            <li class="class"><a href="Geda3.RelativeLineToCommand.html">RelativeLineToCommand</a> - <span class="brief_description">Represents a line
+                to path command with relative coordinates</span></li>
+            <li class="abstract_class"><a href="Geda3.AttributePromoter.html">AttributePromoter</a> - <span class="brief_description">Provides an 
+                abstract base class for promoting attributes</span></li>
+            <li class="class"><a href="Geda3.ColorScheme.html">ColorScheme</a> - <span class="brief_description">Stores colors for drawing schematics
+              </span></li>
+            <li class="abstract_class"><a href="Geda3.Mapper.html">Mapper</a> - <span class="brief_description">Maps a domain object to a database
+              </span></li>
+            <li class="class"><a href="Geda3.NullMapper.html">NullMapper</a> - <span class="brief_description">Provides a mapper that performs no 
+                operations</span></li>
+            <li class="class"><a href="Geda3.PrintFormat.html">PrintFormat</a> - <span class="brief_description">Stores the page format for printing
+              </span></li>
+            <li class="class"><a href="Geda3.SchematicFile.html">SchematicFile</a></li>
+            <li class="abstract_class"><a href="Geda3.SchematicList.html">SchematicList</a></li>
+            <li class="class"><a href="Geda3.SchematicPainterCairo.html">SchematicPainterCairo</a></li>
+            <li class="class"><a href="Geda3.StandardPromoter.html">StandardPromoter</a></li>
+            <li class="class"><a href="Geda3.Symbol.html">Symbol</a></li>
+            <li class="class"><a href="Geda3.SymbolLibrary.html">SymbolLibrary</a> - <span class="brief_description">Schematic symbol libraries</span>
+            </li>
           </ul>
           <h3 class="main_title">Structs:</h3>
           <ul class="navi_inline">
             <li class="struct"><a href="Geda3.Bounds.html">Bounds</a> - <span class="brief_description">Stores a rectangular region</span></li>
             <li class="struct"><a href="Geda3.FileVersion.html">FileVersion</a> - <span class="brief_description">Functions for operating on 
                 coordinates</span></li>
+            <li class="struct"><a href="Geda3.PathContext.html">PathContext</a></li>
+            <li class="struct"><a href="Geda3.PrintDimension.html">PrintDimension</a> - <span class="brief_description">A dimension for printing 
+                measurments</span></li>
           </ul>
           <h3 class="main_title">Enums:</h3>
           <ul class="navi_inline">
+            <li class="enum"><a href="Geda3.ProjectIcon.html">ProjectIcon</a> - <span class="brief_description">An enum identifying icons to use in 
+                the poject tree</span></li>
             <li class="enum"><a href="Geda3.CapType.html">CapType</a> - <span class="brief_description">Represents the type of cap for lines</span>
             </li>
             <li class="enum"><a href="Geda3.DashType.html">DashType</a> - <span class="brief_description">Represents the dash type for lines</span>
             </li>
             <li class="enum"><a href="Geda3.FillType.html">FillType</a> - <span class="brief_description">The fill type for closed shapes</span></li>
             <li class="enum"><a href="Geda3.PinType.html">PinType</a> - <span class="brief_description">Represents the type of pin</span></li>
-            <li class="enum"><a href="Geda3.ProjectIcon.html">ProjectIcon</a> - <span class="brief_description">An enum identifying icons to use in 
-                the poject tree</span></li>
             <li class="enum"><a href="Geda3.TextAlignment.html">TextAlignment</a> - <span class="brief_description">The alignment of text relative to 
                 the insertion point</span></li>
             <li class="enum"><a href="Geda3.TextPresentation.html">TextPresentation</a> - <span class="brief_description">Selects the presentation of 
                 text attributes</span></li>
             <li class="enum"><a href="Geda3.Visibility.html">Visibility</a> - <span class="brief_description">Visibility options for schematic items
               </span></li>
+            <li class="enum"><a href="Geda3.PrintOrientation.html">PrintOrientation</a> - <span class="brief_description">Paper orientations supported
+                by the lepton-cli utility</span></li>
+            <li class="enum"><a href="Geda3.PrintUnits.html">PrintUnits</a> - <span class="brief_description">Units of length used for printing</span>
+            </li>
           </ul>
           <h3 class="main_title">Error domains:</h3>
           <ul class="navi_inline">
             <li class="errordomain"><a href="Geda3.MapError.html">MapError</a> - <span class="brief_description">Errors originating in mapping</span>
             </li>
-            <li class="errordomain"><a href="Geda3.ParseError.html">ParseError</a> - </li>
+            <li class="errordomain"><a href="Geda3.ParseError.html">ParseError</a></li>
           </ul>
           <li class="namespace"><a href="Geda3.Angle.html">Angle</a> - <span class="brief_description">Functions for operating on angles</span></li>
           <h3 class="main_title">Methods:</h3>
           <ul class="navi_inline">
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Angle.calc_sweep.html" class="method">calc_sweep</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> a0, <span class="main_basic_type"><span class="struct">int</span></span> a1)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Calculate the sweep between two angles</span>
+              </div></li>
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Angle.from_radians.html" class="method">from_radians</a></b> (<span class="main_basic_type"><span class="struct">double</span></span> radians)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Convert radians to degrees</span>
@@ -175,17 +256,29 @@
               <div class="leaf_brief_description"><span class="brief_description">Parse the input file representation of a bus direction</span>
               </div></li>
           </ul>
-          <li class="namespace"><a href="Geda3.Color.html">Color</a> - <span class="brief_description">Functions for operating on coordinates</span>
+          <li class="namespace"><a href="Geda3.Color.html">Color</a> - <span class="brief_description">Functions for operating on color indexes</span>
           </li>
           <h3 class="main_title">Constants:</h3>
           <ul class="navi_inline">
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.ATTRIBUTE.html" class="constant">ATTRIBUTE</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The default color index for attributes</span>
+              </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.BACKGROUND.html" class="constant">BACKGROUND</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The color index of the background color</span>
               </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.BOUNDING_BOX.html" class="constant">BOUNDING_BOX</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The default color index to use for a selection box</span>
+              </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.BUS.html" class="constant">BUS</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The default color index for schematic busses</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.DETACHED_ATTRIBUTE.html" class="constant">DETACHED_ATTRIBUTE</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The default color index for detached attributes</span>
               </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.GRAPHIC.html" class="constant">GRAPHIC</a></b>
               </span>
@@ -195,6 +288,26 @@
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The default color index for junctions</span>
               </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.LOGIC_BUBBLE.html" class="constant">LOGIC_BUBBLE</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The default color index for logic bubbles</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MAJOR_GRID.html" class="constant">MAJOR_GRID</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The default color index for major grid lines</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MAX.html" class="constant">MAX</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The maximum color index, inclusive</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MIN.html" class="constant">MIN</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The minimum color index, inclusive</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MINOR_GRID.html" class="constant">MINOR_GRID</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The default color index minor grid lines</span>
+              </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.NET.html" class="constant">NET</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The default color index for schematic nets</span>
@@ -203,9 +316,17 @@
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The default color index for schematic pins</span>
               </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.SELECT.html" class="constant">SELECT</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The color index for selected objects</span>
+              </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.TEXT.html" class="constant">TEXT</a></b>
               </span>
-              <div class="leaf_brief_description"><span class="brief_description">The default color index for graphic objects</span>
+              <div class="leaf_brief_description"><span class="brief_description">The default color index for text objects</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.ZOOM_BOX.html" class="constant">ZOOM_BOX</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The color index for selecting an area to zoom</span>
               </div></li>
           </ul>
           <h3 class="main_title">Methods:</h3>
@@ -219,13 +340,25 @@
           </li>
           <h3 class="main_title">Methods:</h3>
           <ul class="navi_inline">
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">double</span></span> <b><a href="Geda3.Coord.distance.html" class="method">distance</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x0, <span class="main_basic_type"><span class="struct">int</span></span> y0, <span class="main_basic_type"><span class="struct">int</span></span> x1, <span class="main_basic_type"><span class="struct">int</span></span> y1)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Calculate the distance between two points</span>
+              </div></li>
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Coord.parse.html" class="method">parse</a></b> (<span class="main_basic_type"><span class="class">string</span></span> input) <span class="main_keyword">throws</span> <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Parse the string representation of a coordinate</span>
               </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Coord.rotate.html" class="method">rotate</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> cx, <span class="main_basic_type"><span class="struct">int</span></span> cy, <span class="main_basic_type"><span class="struct">int</span></span> angle, <span class="main_keyword">ref</span> <span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_keyword">ref</span> <span class="main_basic_type"><span class="struct">int</span></span> y)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Rotate a point</span>
+              </div></li>
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Coord.snap.html" class="method">snap</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> coord, <span class="main_basic_type"><span class="struct">int</span></span> grid)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Snap a coordinate to the nearest grid</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Coord.snap_ortho.html" class="method">snap_ortho</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x0, <span class="main_basic_type"><span class="struct">int</span></span> y0, <span class="main_keyword">ref</span> <span class="main_basic_type"><span class="struct">int</span></span> x1, <span class="main_keyword">ref</span> <span class="main_basic_type"><span class="struct">int</span></span> y1)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Snap a line to an orthographic angle</span>
               </div></li>
           </ul>
           <li class="namespace"><a href="Geda3.GeeEx.html">GeeEx</a> - <span class="brief_description">Extensions for libgee</span></li>
@@ -238,6 +371,47 @@
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.GeeEx.one_match.html" class="method">one_match</a></b>&lt;<b><span>G</span></b>&gt; (<span class="main_type"><span class="interface">Traversable</span></span>&lt;<span class="main_type"><span>G</span></span>&gt; trav, <span class="main_type"><span class="delegate">Predicate</span></span>&lt;<span class="main_type"><span>G</span></span>&gt; pred)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Checks if only one item in traversible matches the predicate</span>
+              </div></li>
+          </ul>
+          <li class="namespace"><a href="Geda3.ParseUtility.html">ParseUtility</a> - <span class="brief_description">Functions for parsing path 
+              strings</span></li>
+          <h3 class="main_title">Methods:</h3>
+          <ul class="navi_inline">
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.ParseUtility.parse_command.html" class="method">parse_command</a></b> (<span class="main_basic_type"><span class="class">string</span></span> path, <span class="main_keyword">ref</span> <span class="main_basic_type"><span class="struct">int</span></span> index, <span class="main_keyword">out</span> <span class="main_basic_type"><span class="struct">unichar</span></span> command) <span class="main_keyword">throws</span> <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Parse the next command from a path string</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.ParseUtility.parse_param.html" class="method">parse_param</a></b> (<span class="main_basic_type"><span class="class">string</span></span> path, <span class="main_keyword">ref</span> <span class="main_basic_type"><span class="struct">int</span></span> index) <span class="main_keyword">throws</span> <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Parse the next parameter from a path string</span>
+              </div></li>
+          </ul>
+          <li class="namespace"><a href="Geda3.Sweep.html">Sweep</a> - <span class="brief_description">Functions for operating on angles</span></li>
+          <h3 class="main_title">Methods:</h3>
+          <ul class="navi_inline">
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Sweep.from_angles.html" class="method">from_angles</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> a0, <span class="main_basic_type"><span class="struct">int</span></span> a1)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Calculate the sweep between two angles</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.Sweep.is_clockwise.html" class="method">is_clockwise</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> sweep)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Checks if the given sweep is clockwise</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.Sweep.is_counterclockwise.html" class="method">is_counterclockwise</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> sweep)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Checks if the given sweep is counterclockwise</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.Sweep.is_normal.html" class="method">is_normal</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> sweep)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Checks if the given sweep is normal</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Sweep.normalize.html" class="method">normalize</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> sweep)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Normalize a sweep angle</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Sweep.reverse.html" class="method">reverse</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> sweep)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Reverse the direction of a sweep</span>
               </div></li>
           </ul>
           <li class="namespace"><a href="Geda3.TextSize.html">TextSize</a> - <span class="brief_description">Functions for working with text size
@@ -260,31 +434,103 @@
               <div class="leaf_brief_description"><span class="brief_description">Parse the input file representation of text size</span>
               </div></li>
           </ul>
-          <li class="namespace"><a href="Gschem3.html">Gschem3</a> - </li>
+          <li class="namespace"><a href="Gschem3.html">Gschem3</a></li>
           <h3 class="main_title">Interfaces:</h3>
           <ul class="navi_inline">
             <li class="interface"><a href="Gschem3.Fileable.html">Fileable</a> - <span class="brief_description">An interface for document windows 
                 that can contain an underlying file</span></li>
-            <li class="interface"><a href="Gschem3.Reloadable.html">Reloadable</a> - </li>
+            <li class="interface"><a href="Gschem3.ItemEditor.html">ItemEditor</a></li>
+            <li class="interface"><a href="Gschem3.Reloadable.html">Reloadable</a></li>
             <li class="interface"><a href="Gschem3.Savable.html">Savable</a> - <span class="brief_description">An interface for document windows that 
                 can save contents to a file</span></li>
+            <li class="interface"><a href="Gschem3.Zoomable.html">Zoomable</a> - <span class="brief_description">An interface for document windows 
+                that can zoom</span></li>
           </ul>
           <h3 class="main_title">Classes:</h3>
           <ul class="navi_inline">
+            <li class="abstract_class"><a href="Gschem3.CustomAction.html">CustomAction</a></li>
+            <li class="class"><a href="Gschem3.AttributeEditor.html">AttributeEditor</a></li>
+            <li class="abstract_class"><a href="Gschem3.ColumnHelper.html">ColumnHelper</a> - <span class="brief_description">Abstrat base class for 
+                tree views that edit attributes</span></li>
+            <li class="class"><a href="Gschem3.PinEditorDialog.html">PinEditorDialog</a> - <span class="brief_description">A dialog for editing pin 
+                attributes</span></li>
+            <li class="class"><a href="Gschem3.PinTypeColumnHelper.html">PinTypeColumnHelper</a></li>
+            <li class="class"><a href="Gschem3.TextColumnHelper.html">TextColumnHelper</a></li>
+            <li class="class"><a href="Gschem3.ColorEditor.html">ColorEditor</a> - <span class="brief_description">Allows editing of object properties
+              </span></li>
+            <li class="class"><a href="Gschem3.ColorSwatchRenderer.html">ColorSwatchRenderer</a></li>
+            <li class="class"><a href="Gschem3.FillStyleEditor.html">FillStyleEditor</a></li>
+            <li class="class"><a href="Gschem3.LineStyleEditor.html">LineStyleEditor</a></li>
+            <li class="class"><a href="Gschem3.PinPropertyEditor.html">PinPropertyEditor</a> - <span class="brief_description">Allows editing of pin 
+                item properties</span></li>
+            <li class="class"><a href="Gschem3.PropertyComboBox.html">PropertyComboBox</a></li>
+            <li class="class"><a href="Gschem3.TextPropertyEditor.html">TextPropertyEditor</a></li>
             <li class="class"><a href="Gschem3.DocumentTab.html">DocumentTab</a> - <span class="brief_description">Provides a widget to act as a 
                 notebook tab for a document window</span></li>
             <li class="class"><a href="Gschem3.DocumentWindow.html">DocumentWindow</a> - <span class="brief_description">The application window for 
                 the schematic editor</span></li>
-            <li class="class"><a href="Gschem3.MainWindow.html">MainWindow</a> - </li>
+            <li class="abstract_class"><a href="Gschem3.DrawingTool.html">DrawingTool</a> - <span class="brief_description">An abstract base class for
+                manipulating schematics</span></li>
+            <li class="class"><a href="Gschem3.DrawingToolSet.html">DrawingToolSet</a></li>
+            <li class="class"><a href="Gschem3.ExportBillOfMaterial.html">ExportBillOfMaterial</a> - <span class="brief_description">An operation to 
+                export a bill of material from the project</span></li>
+            <li class="class"><a href="Gschem3.ExportBillOfMaterialDialog.html">ExportBillOfMaterialDialog</a> - <span class="brief_description">A 
+                dialog box allowing the user to export a bill of material.</span></li>
+            <li class="class"><a href="Gschem3.ExportNetlist.html">ExportNetlist</a> - <span class="brief_description">An operation to export 
+                schematics from the project</span></li>
+            <li class="class"><a href="Gschem3.ExportNetlistDialog.html">ExportNetlistDialog</a> - <span class="brief_description">A dialog box for 
+                exporting a netlist</span></li>
+            <li class="class"><a href="Gschem3.ExportSchematics.html">ExportSchematics</a> - <span class="brief_description">An operation to export 
+                schematics from the project</span></li>
+            <li class="class"><a href="Gschem3.FillSwatchRenderer.html">FillSwatchRenderer</a></li>
+            <li class="abstract_class"><a href="Gschem3.Grid.html">Grid</a></li>
+            <li class="class"><a href="Gschem3.LibraryAdapter.html">LibraryAdapter</a> - <span class="brief_description">Adapts a symbol library to a 
+                tree model</span></li>
+            <li class="class"><a href="Gschem3.LibraryWidget.html">LibraryWidget</a> - <span class="brief_description">Provides a user interface for 
+                the symbol library</span></li>
+            <li class="class"><a href="Gschem3.MainComplexFactory.html">MainComplexFactory</a> - <span class="brief_description">Creates complex items
+                for the complex drawing tool</span></li>
+            <li class="class"><a href="Gschem3.MainWindow.html">MainWindow</a></li>
             <li class="class"><a href="Gschem3.NewProjectDialog.html">NewProjectDialog</a> - <span class="brief_description">A dialog box to create a 
                 new project.</span></li>
+            <li class="class"><a href="Gschem3.PreviewWidget.html">PreviewWidget</a> - <span class="brief_description">Provides a preview for a 
+                schematic or symbol</span></li>
             <li class="class"><a href="Gschem3.ProjectAdapter.html">ProjectAdapter</a> - <span class="brief_description">Adapts a project to a tree 
                 model</span></li>
-            <li class="class"><a href="Gschem3.ProjectWidget.html">ProjectWidget</a> - </li>
+            <li class="class"><a href="Gschem3.ProjectWidget.html">ProjectWidget</a></li>
             <li class="class"><a href="Gschem3.SchematicWindow.html">SchematicWindow</a> - <span class="brief_description">A document window for 
                 editing a gschem schematic</span></li>
+            <li class="class"><a href="Gschem3.SchematicWindowSettings.html">SchematicWindowSettings</a> - <span class="brief_description">Settings 
+                shared by all schematic windows</span></li>
+            <li class="class"><a href="Gschem3.MeshGrid.html">MeshGrid</a></li>
+            <li class="class"><a href="Gschem3.NoGrid.html">NoGrid</a></li>
+            <li class="class"><a href="Gschem3.ArcTool.html">ArcTool</a></li>
+            <li class="class"><a href="Gschem3.BoxTool.html">BoxTool</a></li>
+            <li class="class"><a href="Gschem3.BusTool.html">BusTool</a></li>
+            <li class="class"><a href="Gschem3.CircleTool.html">CircleTool</a></li>
+            <li class="abstract_class"><a href="Gschem3.ComplexFactory.html">ComplexFactory</a> - <span class="brief_description">Creates complex 
+                items for the complex drawing tool</span></li>
+            <li class="class"><a href="Gschem3.ComplexTool.html">ComplexTool</a> - <span class="brief_description">Places complex items onto a 
+                schematic</span></li>
+            <li class="class"><a href="Gschem3.LineTool.html">LineTool</a> - <span class="brief_description">A tool for drawing graphic lines on the 
+                schematic</span></li>
+            <li class="class"><a href="Gschem3.NetTool.html">NetTool</a></li>
+            <li class="class"><a href="Gschem3.PathTool.html">PathTool</a></li>
+            <li class="class"><a href="Gschem3.PinAttributeUpdater.html">PinAttributeUpdater</a></li>
+            <li class="class"><a href="Gschem3.PinItemGroup.html">PinItemGroup</a></li>
+            <li class="class"><a href="Gschem3.PinSettings.html">PinSettings</a> - <span class="brief_description">Settings for the pin tool</span>
+            </li>
+            <li class="class"><a href="Gschem3.PinTool.html">PinTool</a></li>
+            <li class="class"><a href="Gschem3.PinUpdater.html">PinUpdater</a></li>
+            <li class="class"><a href="Gschem3.SelectTool.html">SelectTool</a></li>
+            <li class="class"><a href="Gschem3.ZoomTool.html">ZoomTool</a> - <span class="brief_description">A tool for zooming in on a specific area
+              </span></li>
           </ul>
-          <li class="namespace"><a href="Gschem3.ErrorDialog.html">ErrorDialog</a> - </li>
+          <h3 class="main_title">Enums:</h3>
+          <ul class="navi_inline">
+            <li class="enum"><a href="Gschem3.ValueState.html">ValueState</a></li>
+          </ul>
+          <li class="namespace"><a href="Gschem3.ErrorDialog.html">ErrorDialog</a></li>
           <h3 class="main_title">Methods:</h3>
           <ul class="navi_inline">
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Gschem3.ErrorDialog.show_with_file.html" class="method">show_with_file</a></b> (<span class="main_type"><span class="class">Window</span></span>? parent, <span class="main_type"><span class="class">Error</span></span> error, <span class="main_type"><span class="interface">File</span></span>? file)
@@ -295,7 +541,7 @@
         </ul>
       </div>
     </div><br/>
-    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
     </div>
   </body>
 </html>

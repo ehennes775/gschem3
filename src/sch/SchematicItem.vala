@@ -94,7 +94,7 @@ namespace Geda3
          * This function emits the invalidate signal twice for this
          * item and twice for every child attribute.
          *
-         * @param cx
+         * @param cx The center of mirroring x coordinate
          */
         public abstract void mirror_x(int cx);
 
@@ -105,7 +105,7 @@ namespace Geda3
          * This function emits the invalidate signal twice for this
          * item and twice for every child attribute.
          *
-         * @param cy
+         * @param cy The center of mirroring y coordinate
          */
         public abstract void mirror_y(int cy);
 

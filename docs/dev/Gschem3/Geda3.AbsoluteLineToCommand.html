@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.AbsoluteLineToCommand &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.AbsoluteLineToCommand &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="class">AbsoluteLineToCommand</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="constant"><a href="Geda3.AbsoluteLineToCommand.ID.html">ID</a></li>
+          <li class="creation_method"><a href="Geda3.AbsoluteLineToCommand.AbsoluteLineToCommand.html">AbsoluteLineToCommand</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.build_bounds.html">build_bounds</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.build_grips.html">build_grips</a></li>
+          <li class="method"><a href="Geda3.AbsoluteLineToCommand.get_point.html">get_point</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.mirror_x.html">mirror_x</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.mirror_y.html">mirror_y</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.put.html">put</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.rotate.html">rotate</a></li>
+          <li class="method"><a href="Geda3.AbsoluteLineToCommand.set_point.html">set_point</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.to_path_string.html">to_path_string</a></li>
+          <li class="virtual_method"><a href="Geda3.AbsoluteLineToCommand.translate.html">translate</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">AbsoluteLineToCommand</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        
+        <img class="main_diagram" usemap="#Geda3.AbsoluteLineToCommand" alt="Object hierarchy for AbsoluteLineToCommand" src="img/Geda3.AbsoluteLineToCommand.png"/>
+      
+
+      <map id="Geda3.AbsoluteLineToCommand" name="Geda3.AbsoluteLineToCommand">
+<area shape="rect" id="node1" href="Geda3.AbsoluteLineToCommand.html" title="Geda3.AbsoluteLineToCommand" alt="" coords="69,197,335,245"/>
+<area shape="rect" id="node2" href="Geda3.PathCommand.html" title="Geda3.PathCommand" alt="" coords="5,101,188,149"/>
+<area shape="rect" id="node4" href="Geda3.GrippablePoints.html" title="Geda3.GrippablePoints" alt="" coords="212,101,403,149"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">AbsoluteLineToCommand</span></b> : <span class="main_type"><a href="Geda3.PathCommand.html" class="abstract_class">PathCommand</a></span>, <span class="main_type"><a href="Geda3.GrippablePoints.html" class="interface">GrippablePoints</a></span>
+        </div>
+        <div class="description">
+          <p>Represents a line to path command with absolute coordinates</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Constants:</h3>
+        <ul class="navi_inline">
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">char</span></span> <b><a href="Geda3.AbsoluteLineToCommand.ID.html" class="constant">ID</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The ID used in path strings</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.AbsoluteLineToCommand.AbsoluteLineToCommand.html" class="creation_method">AbsoluteLineToCommand</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Initilaze a new instance</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.build_bounds.html" class="virtual_method">build_bounds</a></b> (<span class="main_keyword">ref</span> <span class="main_type"><a href="Geda3.PathContext.html" class="struct">PathContext</a></span> context, <span class="main_keyword">ref</span> <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> bounds)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.build_grips.html" class="virtual_method">build_grips</a></b> (<span class="main_type"><a href="Geda3.GripAssistant.html" class="interface">GripAssistant</a></span> assistant, <span class="main_type"><span class="interface">List</span></span>&lt;<span class="main_type"><a href="Geda3.Grip.html" class="abstract_class">Grip</a></span>&gt; grips)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.get_point.html" class="method">get_point</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> index, <span class="main_keyword">out</span> <span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_keyword">out</span> <span class="main_basic_type"><span class="struct">int</span></span> y)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.mirror_x.html" class="virtual_method">mirror_x</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> cx)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.mirror_y.html" class="virtual_method">mirror_y</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> cy)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.put.html" class="virtual_method">put</a></b> (<span class="main_type"><a href="Geda3.PathCommandReceiver.html" class="interface">PathCommandReceiver</a></span> receiver)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.rotate.html" class="virtual_method">rotate</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> cx, <span class="main_basic_type"><span class="struct">int</span></span> cy, <span class="main_basic_type"><span class="struct">int</span></span> angle)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.set_point.html" class="method">set_point</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> index, <span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Geda3.AbsoluteLineToCommand.to_path_string.html" class="virtual_method">to_path_string</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.AbsoluteLineToCommand.translate.html" class="virtual_method">translate</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> dx, <span class="main_basic_type"><span class="struct">int</span></span> dy)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description"></span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-110')">All known members inherited from class Geda3.PathCommand</div>
+          <div class="content" id="box-content-110">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.PathCommand.build_bounds.html">build_bounds</a></li>
+                <li class="abstract_method"><a href="Geda3.PathCommand.build_grips.html">build_grips</a></li>
+                <li class="abstract_method"><a href="Geda3.PathCommand.mirror_x.html">mirror_x</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.PathCommand.mirror_y.html">mirror_y</a></li>
+                <li class="abstract_method"><a href="Geda3.PathCommand.put.html">put</a></li>
+                <li class="abstract_method"><a href="Geda3.PathCommand.rotate.html">rotate</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.PathCommand.to_path_string.html">to_path_string</a></li>
+                <li class="abstract_method"><a href="Geda3.PathCommand.translate.html">translate</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-111')">All known members inherited from class GLib.Object</div>
+          <div class="content" id="box-content-111">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">interface_find_property</li>
+                <li class="static_method">interface_install_property</li>
+                <li class="static_method">interface_list_properties</li>
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+                <li class="static_method">newv</li>
+                <li class="static_method">new_with_properties</li>
+                <li class="method">add_toggle_ref</li>
+                <li class="method">add_weak_pointer</li>
+                <li class="method">bind_property</li>
+                <li class="method">connect</li>
+                <li class="virtual_method">constructed</li>
+                <li class="method">disconnect</li>
+                <li class="virtual_method">dispose</li>
+                <li class="method">dup_data</li>
+                <li class="method">dup_qdata</li>
+                <li class="method">force_floating</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">freeze_notify</li>
+                <li class="method">@get</li>
+                <li class="method">get_class</li>
+                <li class="method">get_data</li>
+                <li class="method">get_property</li>
+                <li class="method">get_qdata</li>
+                <li class="method">get_type</li>
+                <li class="method">getv</li>
+                <li class="method">is_floating</li>
+                <li class="method">notify_property</li>
+                <li class="method">@ref</li>
+                <li class="method">ref_sink</li>
+                <li class="method">replace_data</li>
+                <li class="method">replace_qdata</li>
+                <li class="method">remove_toggle_ref</li>
+                <li class="method">remove_weak_pointer</li>
+                <li class="method">@set</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">set_data</li>
+                <li class="method">set_data_full</li>
+                <li class="method">set_property</li>
+                <li class="method">set_qdata</li>
+                <li class="method">set_qdata_full</li>
+                <li class="method">set_valist</li>
+                <li class="method">setv</li>
+                <li class="method">steal_data</li>
+                <li class="method">steal_qdata</li>
+                <li class="method">thaw_notify</li>
+                <li class="method">unref</li>
+                <li class="method">watch_closure</li>
+                <li class="method">weak_ref</li>
+                <li class="method">weak_unref</li>
+                <li class="signal">notify</li>
+                <li class="field">ref_count</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-112')">All known members inherited from interface Geda3.GrippablePoints</div>
+          <div class="content" id="box-content-112">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.GrippablePoints.get_point.html">get_point</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.GrippablePoints.set_point.html">set_point</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
+    </div>
+  </body>
+</html>

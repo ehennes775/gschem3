@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8"/>
@@ -27,13 +27,23 @@
         </ul>
         <hr class="navi_hr"/>
         <ul class="navi_main">
+          <li class="constant"><a href="Geda3.Color.ATTRIBUTE.html">ATTRIBUTE</a></li>
           <li class="constant"><a href="Geda3.Color.BACKGROUND.html">BACKGROUND</a></li>
+          <li class="constant"><a href="Geda3.Color.BOUNDING_BOX.html">BOUNDING_BOX</a></li>
           <li class="constant"><a href="Geda3.Color.BUS.html">BUS</a></li>
+          <li class="constant"><a href="Geda3.Color.DETACHED_ATTRIBUTE.html">DETACHED_ATTRIBUTE</a></li>
           <li class="constant"><a href="Geda3.Color.GRAPHIC.html">GRAPHIC</a></li>
           <li class="constant"><a href="Geda3.Color.JUNCTION.html">JUNCTION</a></li>
+          <li class="constant"><a href="Geda3.Color.LOGIC_BUBBLE.html">LOGIC_BUBBLE</a></li>
+          <li class="constant"><a href="Geda3.Color.MAJOR_GRID.html">MAJOR_GRID</a></li>
+          <li class="constant"><a href="Geda3.Color.MAX.html">MAX</a></li>
+          <li class="constant"><a href="Geda3.Color.MIN.html">MIN</a></li>
+          <li class="constant"><a href="Geda3.Color.MINOR_GRID.html">MINOR_GRID</a></li>
           <li class="constant"><a href="Geda3.Color.NET.html">NET</a></li>
           <li class="constant"><a href="Geda3.Color.PIN.html">PIN</a></li>
+          <li class="constant"><a href="Geda3.Color.SELECT.html">SELECT</a></li>
           <li class="constant"><a href="Geda3.Color.TEXT.html">TEXT</a></li>
+          <li class="constant"><a href="Geda3.Color.ZOOM_BOX.html">ZOOM_BOX</a></li>
           <li class="method"><a href="Geda3.Color.parse.html">parse</a></li>
         </ul>
       </div>
@@ -42,18 +52,30 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="description">
-          <p>Functions for operating on coordinates</p>
+          <p>Functions for operating on color indexes</p>
         </div>
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Constants:</h3>
         <ul class="navi_inline">
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.ATTRIBUTE.html" class="constant">ATTRIBUTE</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The default color index for attributes</span>
+            </div></li>
           <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.BACKGROUND.html" class="constant">BACKGROUND</a></b>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The color index of the background color</span>
             </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.BOUNDING_BOX.html" class="constant">BOUNDING_BOX</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The default color index to use for a selection box</span>
+            </div></li>
           <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.BUS.html" class="constant">BUS</a></b>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The default color index for schematic busses</span>
+            </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.DETACHED_ATTRIBUTE.html" class="constant">DETACHED_ATTRIBUTE</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The default color index for detached attributes</span>
             </div></li>
           <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.GRAPHIC.html" class="constant">GRAPHIC</a></b>
             </span>
@@ -63,6 +85,26 @@
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The default color index for junctions</span>
             </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.LOGIC_BUBBLE.html" class="constant">LOGIC_BUBBLE</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The default color index for logic bubbles</span>
+            </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MAJOR_GRID.html" class="constant">MAJOR_GRID</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The default color index for major grid lines</span>
+            </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MAX.html" class="constant">MAX</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The maximum color index, inclusive</span>
+            </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MIN.html" class="constant">MIN</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The minimum color index, inclusive</span>
+            </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.MINOR_GRID.html" class="constant">MINOR_GRID</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The default color index minor grid lines</span>
+            </div></li>
           <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.NET.html" class="constant">NET</a></b>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The default color index for schematic nets</span>
@@ -71,9 +113,17 @@
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The default color index for schematic pins</span>
             </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.SELECT.html" class="constant">SELECT</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The color index for selected objects</span>
+            </div></li>
           <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.TEXT.html" class="constant">TEXT</a></b>
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">The default color index for graphic objects</span>
+            <div class="leaf_brief_description"><span class="brief_description">The default color index for text objects</span>
+            </div></li>
+          <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Color.ZOOM_BOX.html" class="constant">ZOOM_BOX</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The color index for selecting an area to zoom</span>
             </div></li>
         </ul>
         <h3 class="main_title">Functions:</h3>
@@ -85,7 +135,7 @@
         </ul>
       </div>
     </div><br/>
-    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
     </div>
   </body>
 </html>

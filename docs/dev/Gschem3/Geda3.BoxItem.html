@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8"/>
@@ -28,27 +28,31 @@
         <hr class="navi_hr"/>
         <ul class="navi_main">
           <li class="constant"><a href="Geda3.BoxItem.TYPE_ID.html">TYPE_ID</a></li>
+          <li class="property"><a href="Geda3.BoxItem.color.html">color</a></li>
+          <li class="property"><a href="Geda3.BoxItem.fill_style.html">fill_style</a></li>
+          <li class="property"><a href="Geda3.BoxItem.line_style.html">line_style</a></li>
+          <li class="property"><a href="Geda3.BoxItem.lower_x.html">lower_x</a></li>
+          <li class="property"><a href="Geda3.BoxItem.lower_y.html">lower_y</a></li>
+          <li class="property"><a href="Geda3.BoxItem.upper_x.html">upper_x</a></li>
+          <li class="property"><a href="Geda3.BoxItem.upper_y.html">upper_y</a></li>
+          <li class="property"><a href="Geda3.BoxItem.width.html">width</a></li>
           <li class="creation_method"><a href="Geda3.BoxItem.BoxItem.html">BoxItem</a></li>
+          <li class="creation_method"><a href="Geda3.BoxItem.BoxItem.with_points.html">BoxItem.with_points</a></li>
           <li class="virtual_method"><a href="Geda3.BoxItem.calculate_bounds.html">calculate_bounds</a></li>
+          <li class="method"><a href="Geda3.BoxItem.create_grips.html">create_grips</a></li>
           <li class="virtual_method"><a href="Geda3.BoxItem.draw.html">draw</a></li>
-          <li class="virtual_method"><a href="Geda3.BoxItem.read.html">read</a></li>
+          <li class="method"><a href="Geda3.BoxItem.get_corners.html">get_corners</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.intersects_box.html">intersects_box</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.invalidate_on.html">invalidate_on</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.mirror_x.html">mirror_x</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.mirror_y.html">mirror_y</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.read_with_params.html">read_with_params</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.rotate.html">rotate</a></li>
+          <li class="method"><a href="Geda3.BoxItem.set_corners.html">set_corners</a></li>
+          <li class="method"><a href="Geda3.BoxItem.set_point.html">set_point</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.shortest_distance.html">shortest_distance</a></li>
+          <li class="virtual_method"><a href="Geda3.BoxItem.translate.html">translate</a></li>
           <li class="virtual_method"><a href="Geda3.BoxItem.write.html">write</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_color.html">b_color</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_dash_length.html">b_dash_length</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_dash_space.html">b_dash_space</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_dash_type.html">b_dash_type</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_fill_angle_1.html">b_fill_angle_1</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_fill_angle_2.html">b_fill_angle_2</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_fill_pitch_1.html">b_fill_pitch_1</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_fill_pitch_2.html">b_fill_pitch_2</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_fill_type.html">b_fill_type</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_fill_width.html">b_fill_width</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_line_cap.html">b_line_cap</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_lower_x.html">b_lower_x</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_lower_y.html">b_lower_y</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_upper_x.html">b_upper_x</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_upper_y.html">b_upper_y</a></li>
-          <li class="field"><a href="Geda3.BoxItem.b_width.html">b_width</a></li>
         </ul>
       </div>
       <div class="site_content">
@@ -58,16 +62,19 @@
         <img class="main_diagram" usemap="#Geda3.BoxItem" alt="Object hierarchy for BoxItem" src="img/Geda3.BoxItem.png"/>
 
       <map id="Geda3.BoxItem" name="Geda3.BoxItem">
-<area shape="rect" id="node1" href="Geda3.BoxItem.html" title="Geda3.BoxItem" alt="" coords="28,197,167,245"/>
+<area shape="rect" id="node1" href="Geda3.BoxItem.html" title="Geda3.BoxItem" alt="" coords="379,197,517,245"/>
 <area shape="rect" id="node2" href="Geda3.SchematicItem.html" title="Geda3.SchematicItem" alt="" coords="5,101,189,149"/>
+<area shape="rect" id="node4" href="Geda3.Colorable.html" title="Geda3.Colorable" alt="" coords="214,101,359,149"/>
+<area shape="rect" id="node5" href="Geda3.Fillable.html" title="Geda3.Fillable" alt="" coords="383,101,513,149"/>
+<area shape="rect" id="node6" href="Geda3.Grippable.html" title="Geda3.Grippable" alt="" coords="537,101,684,149"/>
+<area shape="rect" id="node7" href="Geda3.StylableLine.html" title="Geda3.StylableLine" alt="" coords="708,101,873,149"/>
 </map>
 
         <h2 class="main_title">Description:</h2>
-        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">BoxItem</span></b> : <span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">BoxItem</span></b> : <span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>, <span class="main_type"><a href="Geda3.Colorable.html" class="interface">Colorable</a></span>, <span class="main_type"><a href="Geda3.Fillable.html" class="interface">Fillable</a></span>, <span class="main_type"><a href="Geda3.Grippable.html" class="interface">Grippable</a></span>, <span class="main_type"><a href="Geda3.StylableLine.html" class="interface">StylableLine</a></span>
         </div>
         <div class="description">
-          <p>Schematic box</p>
-          <p>Represents a graphic box on a schematic</p>
+          <p>Represents a graphical box on a schematic</p>
         </div><br/>
         <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
         </div>
@@ -81,185 +88,290 @@
             <div class="leaf_brief_description"><span class="brief_description">The type code used in schematic files</span>
             </div></li>
         </ul>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.color.html" class="property">color</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The color index</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.FillStyle.html" class="class">FillStyle</a></span> <b><a href="Geda3.BoxItem.fill_style.html" class="property">fill_style</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The fill style</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.LineStyle.html" class="class">LineStyle</a></span> <b><a href="Geda3.BoxItem.line_style.html" class="property">line_style</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The line style</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.lower_x.html" class="property">lower_x</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The x coordinate of the first corner</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.lower_y.html" class="property">lower_y</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The y coordinate of the first corner</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.upper_x.html" class="property">upper_x</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The x coordinate of the opposite corner</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.upper_y.html" class="property">upper_y</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The y coordinate of the opposite corner</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.width.html" class="property">width</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The line width</span>
+            </div></li>
+        </ul>
         <h3 class="main_title">Creation methods:</h3>
         <ul class="navi_inline">
           <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.BoxItem.BoxItem.html" class="creation_method">BoxItem</a></b> ()
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Create a schematic bus</span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a schematic box</span>
+            </div></li>
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.BoxItem.BoxItem.with_points.html" class="creation_method">BoxItem.with_points</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x0, <span class="main_basic_type"><span class="struct">int</span></span> y0, <span class="main_basic_type"><span class="struct">int</span></span> x1, <span class="main_basic_type"><span class="struct">int</span></span> y1)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a schematic box</span>
             </div></li>
         </ul>
         <h3 class="main_title">Methods:</h3>
         <ul class="navi_inline">
-          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> <b><a href="Geda3.BoxItem.calculate_bounds.html" class="virtual_method">calculate_bounds</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> <b><a href="Geda3.BoxItem.calculate_bounds.html" class="virtual_method">calculate_bounds</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_basic_type"><span class="struct">bool</span></span> reveal)
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Calculate the bounds of this item</span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the bounds of this schematic item</span>
             </div></li>
-          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.draw.html" class="virtual_method">draw</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><span class="interface">Collection</span></span>&lt;<span class="main_type"><a href="Geda3.Grip.html" class="abstract_class">Grip</a></span>&gt; <b><a href="Geda3.BoxItem.create_grips.html" class="method">create_grips</a></b> (<span class="main_type"><a href="Geda3.GripAssistant.html" class="interface">GripAssistant</a></span> assistant)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create grips for this schematic item</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.get_corners.html" class="method">get_corners</a></b> (<span class="main_keyword">out</span> <span class="main_basic_type"><span class="struct">int</span></span> x0, <span class="main_keyword">out</span> <span class="main_basic_type"><span class="struct">int</span></span> y0, <span class="main_keyword">out</span> <span class="main_basic_type"><span class="struct">int</span></span> x1, <span class="main_keyword">out</span> <span class="main_basic_type"><span class="struct">int</span></span> y1)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get two corners of the box</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.invalidate_on.html" class="virtual_method">invalidate_on</a></b> (<span class="main_type"><a href="Geda3.Invalidatable.html" class="interface">Invalidatable</a></span> invalidatable)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Draw this item using the given painter</span>
             </div></li>
-          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.read.html" class="virtual_method">read</a></b> (<span class="main_type"><span class="class">DataInputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>, <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.draw.html" class="virtual_method">draw</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_basic_type"><span class="struct">bool</span></span> reveal, <span class="main_basic_type"><span class="struct">bool</span></span> selected)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Draw this item using the given painter</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.BoxItem.intersects_box.html" class="virtual_method">intersects_box</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> box)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Check if this item intersects a box</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.mirror_x.html" class="virtual_method">mirror_x</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> cx)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Mirror the item and child attributes along the x axis</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.mirror_y.html" class="virtual_method">mirror_y</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> cy)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Mirror the item and child attributes along the y axis</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.read_with_params.html" class="virtual_method">read_with_params</a></b> (<span class="main_basic_type"><span class="class">string</span></span>[] @params, <span class="main_type"><span class="class">DataInputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>, <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Read this item from the input stream</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.rotate.html" class="virtual_method">rotate</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> cx, <span class="main_basic_type"><span class="struct">int</span></span> cy, <span class="main_basic_type"><span class="struct">int</span></span> angle)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Rotate this item and its child attributes</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.set_corners.html" class="method">set_corners</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x0, <span class="main_basic_type"><span class="struct">int</span></span> y0, <span class="main_basic_type"><span class="struct">int</span></span> x1, <span class="main_basic_type"><span class="struct">int</span></span> y1)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Set the corners of the box</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.set_point.html" class="method">set_point</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> index, <span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Change a corner point on the box</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_basic_type"><span class="struct">double</span></span> <b><a href="Geda3.BoxItem.shortest_distance.html" class="virtual_method">shortest_distance</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the shortest distance from the point to the item</span>
+            </div></li>
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.translate.html" class="virtual_method">translate</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> dx, <span class="main_basic_type"><span class="struct">int</span></span> dy)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Translate this item and its child attributes</span>
             </div></li>
           <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_keyword">void</span> <b><a href="Geda3.BoxItem.write.html" class="virtual_method">write</a></b> (<span class="main_type"><span class="class">DataOutputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Write this item to the output stream</span>
             </div></li>
         </ul>
-        <h3 class="main_title">Fields:</h3>
-        <ul class="navi_inline">
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_color.html" class="field">b_color</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store the color</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_dash_length.html" class="field">b_dash_length</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the dash length</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_dash_space.html" class="field">b_dash_space</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the spacing between dashes</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.DashType.html" class="enum">DashType</a></span> <b><a href="Geda3.BoxItem.b_dash_type.html" class="field">b_dash_type</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the dash type</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_fill_angle_1.html" class="field">b_fill_angle_1</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the first fill angle</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_fill_angle_2.html" class="field">b_fill_angle_2</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store the second fill angle</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_fill_pitch_1.html" class="field">b_fill_pitch_1</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the first fill pitch</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_fill_pitch_2.html" class="field">b_fill_pitch_2</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the second fill pitch</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.FillType.html" class="enum">FillType</a></span> <b><a href="Geda3.BoxItem.b_fill_type.html" class="field">b_fill_type</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the fill type</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_fill_width.html" class="field">b_fill_width</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store fill line width</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.CapType.html" class="enum">CapType</a></span> <b><a href="Geda3.BoxItem.b_line_cap.html" class="field">b_line_cap</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the line cap</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_lower_x.html" class="field">b_lower_x</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the lower x coordinate</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_lower_y.html" class="field">b_lower_y</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the lower y coordinate</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_upper_x.html" class="field">b_upper_x</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the upper x coordinate</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_upper_y.html" class="field">b_upper_y</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the upper y coordinate</span>
-            </div></li>
-          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.BoxItem.b_width.html" class="field">b_width</a></b>
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Backing store for the perimeter line width</span>
-            </div></li>
-        </ul>
         <h3 class="main_title">Inherited Members:</h3>
         <div class="box">
-          <div class="headline">
-            <div class="text">All known members inherited from class Geda3.SchematicItem</div>
-            <div class="toggle">
-              <img onclick="toggle_box  (this, 'box-content-0')" src="../coll_open.png">&nbsp;</div>
+          <div class="headline" onclick="toggle_box (this, 'box-content-38')">All known members inherited from class Geda3.SchematicItem</div>
+          <div class="content" id="box-content-38">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.calculate_bounds.html">calculate_bounds</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.draw.html">draw</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.intersects_box.html">intersects_box</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.invalidate_on.html">invalidate_on</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.mirror_x.html">mirror_x</a></li>
+              </ul>
             </div>
-            <div class="content" id="box-content-0">
-              <div class="column">
-                <ul class="navi_inline">
-                  <li class="abstract_method"><a href="Geda3.SchematicItem.calculate_bounds.html">calculate_bounds</a></li>
-                  <li class="abstract_method"><a href="Geda3.SchematicItem.draw.html">draw</a></li>
-                </ul>
-              </div>
-              <div class="column">
-                <ul class="navi_inline">
-                  <li class="abstract_method"><a href="Geda3.SchematicItem.read.html">read</a></li>
-                </ul>
-              </div>
-              <div class="column">
-                <ul class="navi_inline">
-                  <li class="abstract_method"><a href="Geda3.SchematicItem.write.html">write</a></li>
-                </ul>
-              </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.mirror_y.html">mirror_y</a></li>
+                <li class="virtual_method"><a href="Geda3.SchematicItem.read.html">read</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.read_with_params.html">read_with_params</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.rotate.html">rotate</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.shortest_distance.html">shortest_distance</a></li>
+              </ul>
             </div>
-          </div>
-          <div class="box">
-            <div class="headline">
-              <div class="text">All known members inherited from class GLib.Object</div>
-              <div class="toggle">
-                <img onclick="toggle_box  (this, 'box-content-1')" src="../coll_open.png">&nbsp;</div>
-              </div>
-              <div class="content" id="box-content-1">
-                <div class="column">
-                  <ul class="navi_inline">
-                    <li class="static_method">@new</li>
-                    <li class="static_method">newv</li>
-                    <li class="static_method">new_valist</li>
-                    <li class="method">get_type</li>
-                    <li class="method">get_class</li>
-                    <li class="method">@ref</li>
-                    <li class="method">unref</li>
-                    <li class="method">ref_sink</li>
-                    <li class="method">weak_ref</li>
-                    <li class="method">weak_unref</li>
-                    <li class="method">add_weak_pointer</li>
-                    <li class="method">remove_weak_pointer</li>
-                  </ul>
-                </div>
-                <div class="column">
-                  <ul class="navi_inline">
-                    <li class="method">@get</li>
-                    <li class="method">@set</li>
-                    <li class="method">get_property</li>
-                    <li class="method">set_property</li>
-                    <li class="method">get_data</li>
-                    <li class="method">set_data</li>
-                    <li class="method">set_data_full</li>
-                    <li class="method">steal_data</li>
-                    <li class="method">get_qdata</li>
-                    <li class="method">set_qdata</li>
-                    <li class="method">set_qdata_full</li>
-                    <li class="method">steal_qdata</li>
-                  </ul>
-                </div>
-                <div class="column">
-                  <ul class="navi_inline">
-                    <li class="method">freeze_notify</li>
-                    <li class="method">thaw_notify</li>
-                    <li class="virtual_method">dispose</li>
-                    <li class="virtual_method">constructed</li>
-                    <li class="method">notify_property</li>
-                    <li class="method">connect</li>
-                    <li class="method">disconnect</li>
-                    <li class="method">add_toggle_ref</li>
-                    <li class="method">remove_toggle_ref</li>
-                    <li class="method">bind_property</li>
-                    <li class="signal">notify</li>
-                    <li class="field">ref_count</li>
-                  </ul>
-                </div>
-              </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.translate.html">translate</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.write.html">write</a></li>
+                <li class="signal"><a href="Geda3.SchematicItem.attribute_changed.html">attribute_changed</a></li>
+                <li class="signal"><a href="Geda3.SchematicItem.invalidate.html">invalidate</a></li>
+              </ul>
             </div>
           </div>
-        </div><br/>
-        <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
         </div>
-      </body>
-    </html>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-39')">All known members inherited from class GLib.Object</div>
+          <div class="content" id="box-content-39">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">interface_find_property</li>
+                <li class="static_method">interface_install_property</li>
+                <li class="static_method">interface_list_properties</li>
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+                <li class="static_method">newv</li>
+                <li class="static_method">new_with_properties</li>
+                <li class="method">add_toggle_ref</li>
+                <li class="method">add_weak_pointer</li>
+                <li class="method">bind_property</li>
+                <li class="method">connect</li>
+                <li class="virtual_method">constructed</li>
+                <li class="method">disconnect</li>
+                <li class="virtual_method">dispose</li>
+                <li class="method">dup_data</li>
+                <li class="method">dup_qdata</li>
+                <li class="method">force_floating</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">freeze_notify</li>
+                <li class="method">@get</li>
+                <li class="method">get_class</li>
+                <li class="method">get_data</li>
+                <li class="method">get_property</li>
+                <li class="method">get_qdata</li>
+                <li class="method">get_type</li>
+                <li class="method">getv</li>
+                <li class="method">is_floating</li>
+                <li class="method">notify_property</li>
+                <li class="method">@ref</li>
+                <li class="method">ref_sink</li>
+                <li class="method">replace_data</li>
+                <li class="method">replace_qdata</li>
+                <li class="method">remove_toggle_ref</li>
+                <li class="method">remove_weak_pointer</li>
+                <li class="method">@set</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">set_data</li>
+                <li class="method">set_data_full</li>
+                <li class="method">set_property</li>
+                <li class="method">set_qdata</li>
+                <li class="method">set_qdata_full</li>
+                <li class="method">set_valist</li>
+                <li class="method">setv</li>
+                <li class="method">steal_data</li>
+                <li class="method">steal_qdata</li>
+                <li class="method">thaw_notify</li>
+                <li class="method">unref</li>
+                <li class="method">watch_closure</li>
+                <li class="method">weak_ref</li>
+                <li class="method">weak_unref</li>
+                <li class="signal">notify</li>
+                <li class="field">ref_count</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-40')">All known members inherited from interface Geda3.Colorable</div>
+          <div class="content" id="box-content-40">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_property"><a href="Geda3.Colorable.color.html">color</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-41')">All known members inherited from interface Geda3.Fillable</div>
+          <div class="content" id="box-content-41">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_property"><a href="Geda3.Fillable.fill_style.html">fill_style</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-42')">All known members inherited from interface Geda3.Grippable</div>
+          <div class="content" id="box-content-42">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.Grippable.create_grips.html">create_grips</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-43')">All known members inherited from interface Geda3.StylableLine</div>
+          <div class="content" id="box-content-43">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_property"><a href="Geda3.StylableLine.line_style.html">line_style</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_property"><a href="Geda3.StylableLine.width.html">width</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
+    </div>
+  </body>
+</html>

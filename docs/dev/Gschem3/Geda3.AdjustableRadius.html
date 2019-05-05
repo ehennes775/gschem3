@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.AdjustableRadius &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.AdjustableRadius &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="interface">AdjustableRadius</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="abstract_property"><a href="Geda3.AdjustableRadius.center_x.html">center_x</a></li>
+          <li class="abstract_property"><a href="Geda3.AdjustableRadius.center_y.html">center_y</a></li>
+          <li class="abstract_property"><a href="Geda3.AdjustableRadius.radius.html">radius</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">AdjustableRadius</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Geda3.AdjustableRadius" alt="Object hierarchy for AdjustableRadius" src="img/Geda3.AdjustableRadius.png"/>
+
+      <map id="Geda3.AdjustableRadius" name="Geda3.AdjustableRadius">
+<area shape="rect" id="node1" href="Geda3.AdjustableRadius.html" title="Geda3.AdjustableRadius" alt="" coords="5,197,207,245"/>
+<area shape="rect" id="node2" href="Geda3.SchematicItem.html" title="Geda3.SchematicItem" alt="" coords="14,101,198,149"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">interface</span> <b><span class="interface">AdjustableRadius</span></b> : <span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>
+        </div>
+        <div class="description">
+          <p>An interface for schematic items with an adjustable radius</p>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-134')">All known implementing classes:</div>
+          <div class="content" id="box-content-134">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="class"><a href="Geda3.ArcItem.html">ArcItem</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="class"><a href="Geda3.CircleItem.html">CircleItem</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+              </ul>
+            </div>
+          </div>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="abstract_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.AdjustableRadius.center_x.html" class="abstract_property">center_x</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The x coordinate of the center of the item</span>
+            </div></li>
+          <li class="abstract_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.AdjustableRadius.center_y.html" class="abstract_property">center_y</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The y coordinate of the center of the item</span>
+            </div></li>
+          <li class="abstract_property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">abstract</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.AdjustableRadius.radius.html" class="abstract_property">radius</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The radius</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-135')">All known members inherited from class Geda3.SchematicItem</div>
+          <div class="content" id="box-content-135">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.calculate_bounds.html">calculate_bounds</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.draw.html">draw</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.intersects_box.html">intersects_box</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.invalidate_on.html">invalidate_on</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.mirror_x.html">mirror_x</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.mirror_y.html">mirror_y</a></li>
+                <li class="virtual_method"><a href="Geda3.SchematicItem.read.html">read</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.read_with_params.html">read_with_params</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.rotate.html">rotate</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.shortest_distance.html">shortest_distance</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Geda3.SchematicItem.translate.html">translate</a></li>
+                <li class="abstract_method"><a href="Geda3.SchematicItem.write.html">write</a></li>
+                <li class="signal"><a href="Geda3.SchematicItem.attribute_changed.html">attribute_changed</a></li>
+                <li class="signal"><a href="Geda3.SchematicItem.invalidate.html">invalidate</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-136')">All known members inherited from class GLib.Object</div>
+          <div class="content" id="box-content-136">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">interface_find_property</li>
+                <li class="static_method">interface_install_property</li>
+                <li class="static_method">interface_list_properties</li>
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+                <li class="static_method">newv</li>
+                <li class="static_method">new_with_properties</li>
+                <li class="method">add_toggle_ref</li>
+                <li class="method">add_weak_pointer</li>
+                <li class="method">bind_property</li>
+                <li class="method">connect</li>
+                <li class="virtual_method">constructed</li>
+                <li class="method">disconnect</li>
+                <li class="virtual_method">dispose</li>
+                <li class="method">dup_data</li>
+                <li class="method">dup_qdata</li>
+                <li class="method">force_floating</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">freeze_notify</li>
+                <li class="method">@get</li>
+                <li class="method">get_class</li>
+                <li class="method">get_data</li>
+                <li class="method">get_property</li>
+                <li class="method">get_qdata</li>
+                <li class="method">get_type</li>
+                <li class="method">getv</li>
+                <li class="method">is_floating</li>
+                <li class="method">notify_property</li>
+                <li class="method">@ref</li>
+                <li class="method">ref_sink</li>
+                <li class="method">replace_data</li>
+                <li class="method">replace_qdata</li>
+                <li class="method">remove_toggle_ref</li>
+                <li class="method">remove_weak_pointer</li>
+                <li class="method">@set</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">set_data</li>
+                <li class="method">set_data_full</li>
+                <li class="method">set_property</li>
+                <li class="method">set_qdata</li>
+                <li class="method">set_qdata_full</li>
+                <li class="method">set_valist</li>
+                <li class="method">setv</li>
+                <li class="method">steal_data</li>
+                <li class="method">steal_qdata</li>
+                <li class="method">thaw_notify</li>
+                <li class="method">unref</li>
+                <li class="method">watch_closure</li>
+                <li class="method">weak_ref</li>
+                <li class="method">weak_unref</li>
+                <li class="signal">notify</li>
+                <li class="field">ref_count</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
+    </div>
+  </body>
+</html>

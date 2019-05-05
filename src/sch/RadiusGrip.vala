@@ -10,7 +10,7 @@ namespace Geda3
          *
          * @param assistant For calling functionality in the GUI
          * @param item The item with GrippablePoints
-         * @param angle
+         * @param angle The initial angle of the grip
          */
         public RadiusGrip(
             GripAssistant assistant,

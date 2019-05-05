@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8"/>
@@ -27,14 +27,21 @@
         </ul>
         <hr class="navi_hr"/>
         <ul class="navi_main">
+          <li class="property"><a href="Geda3.Schematic.items.html">items</a></li>
           <li class="property"><a href="Geda3.Schematic.version.html">version</a></li>
           <li class="creation_method"><a href="Geda3.Schematic.Schematic.html">Schematic</a></li>
           <li class="method"><a href="Geda3.Schematic.add.html">add</a></li>
           <li class="method"><a href="Geda3.Schematic.calculate_bounds.html">calculate_bounds</a></li>
+          <li class="method"><a href="Geda3.Schematic.closest_item.html">closest_item</a></li>
           <li class="method"><a href="Geda3.Schematic.draw.html">draw</a></li>
+          <li class="method"><a href="Geda3.Schematic.intersected_items.html">intersected_items</a></li>
           <li class="method"><a href="Geda3.Schematic.read.html">read</a></li>
+          <li class="method"><a href="Geda3.Schematic.read_async.html">read_async</a></li>
           <li class="method"><a href="Geda3.Schematic.read_from_file.html">read_from_file</a></li>
+          <li class="method"><a href="Geda3.Schematic.read_from_file_async.html">read_from_file_async</a></li>
           <li class="method"><a href="Geda3.Schematic.write.html">write</a></li>
+          <li class="signal"><a href="Geda3.Schematic.attribute_changed.html">attribute_changed</a></li>
+          <li class="signal"><a href="Geda3.Schematic.invalidate.html">invalidate</a></li>
         </ul>
       </div>
       <div class="site_content">
@@ -57,6 +64,10 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Properties:</h3>
         <ul class="navi_inline">
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><span class="interface">Collection</span></span>&lt;<span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>&gt; <b><a href="Geda3.Schematic.items.html" class="property">items</a></b> { <span class="main_keyword">owned</span> <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.FileVersion.html" class="struct">FileVersion</a></span> <b><a href="Geda3.Schematic.version.html" class="property">version</a></b> { <span class="main_keyword">get</span>; }
             </span>
             <div class="leaf_brief_description">
@@ -75,30 +86,57 @@
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Add an item to the schematic</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> <b><a href="Geda3.Schematic.calculate_bounds.html" class="method">calculate_bounds</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> <b><a href="Geda3.Schematic.calculate_bounds.html" class="method">calculate_bounds</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_basic_type"><span class="struct">bool</span></span> reveal)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Calculate the bounds of this schematic</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.draw.html" class="method">draw</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>? <b><a href="Geda3.Schematic.closest_item.html" class="method">closest_item</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y, <span class="main_basic_type"><span class="struct">double</span></span> max_distance)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Find the closest item the the given coordinates</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.draw.html" class="method">draw</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_type"><span class="interface">Set</span></span>&lt;<span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>&gt; selected, <span class="main_basic_type"><span class="struct">bool</span></span> reveal)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Draw the schematic</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><span class="interface">Set</span></span>&lt;<span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span>&gt; <b><a href="Geda3.Schematic.intersected_items.html" class="method">intersected_items</a></b> (<span class="main_type"><a href="Geda3.SchematicPainter.html" class="abstract_class">SchematicPainter</a></span> painter, <span class="main_type"><a href="Geda3.Bounds.html" class="struct">Bounds</a></span> box)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get all the items that intersect the box</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.read_from_file.html" class="method">read_from_file</a></b> (<span class="main_type"><span class="interface">File</span></span> file) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Read a schematic from an input file</span>
             </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">async</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.read_from_file_async.html" class="method">read_from_file_async</a></b> (<span class="main_type"><span class="interface">File</span></span> file, <span class="main_type"><span class="class">Cancellable</span></span>? cancel = <span class="main_literal">null</span>) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Read a schematic from an input file asynchronously</span>
+            </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.read.html" class="method">read</a></b> (<span class="main_type"><span class="class">DataInputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Read a schematic from an input stream</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">async</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.read_async.html" class="method">read_async</a></b> (<span class="main_type"><span class="class">DataInputStream</span></span> stream, <span class="main_type"><span class="class">Cancellable</span></span>? cancel = <span class="main_literal">null</span>) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Read a schematic from an input stream asyncronously</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.write.html" class="method">write</a></b> (<span class="main_type"><span class="class">DataOutputStream</span></span> stream) <span class="main_keyword">throws</span> <span class="main_type"><span class="errordomain">IOError</span></span>
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Write schematic to an output stream</span>
             </div></li>
         </ul>
+        <h3 class="main_title">Signals:</h3>
+        <ul class="navi_inline">
+          <li class="signal"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">signal</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.attribute_changed.html" class="signal">attribute_changed</a></b> (<span class="main_type"><a href="Geda3.AttributeChild.html" class="interface">AttributeChild</a></span> child, <span class="main_type"><a href="Geda3.AttributeParent.html" class="interface">AttributeParent</a></span> parent)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">A signal inicating an attriubte has changed</span>
+            </div></li>
+          <li class="signal"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">signal</span> <span class="main_keyword">void</span> <b><a href="Geda3.Schematic.invalidate.html" class="signal">invalidate</a></b> (<span class="main_type"><a href="Geda3.SchematicItem.html" class="abstract_class">SchematicItem</a></span> item)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">A signal requesting an item be redrawn</span>
+            </div></li>
+        </ul>
       </div>
     </div><br/>
-    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
     </div>
   </body>
 </html>

@@ -10,8 +10,8 @@ namespace Geda3
          *
          * @param assistant Provides access to GUI functionality
          * @param common Common data shared between all grips for am item
-         * @param x
-         * @param y
+         * @param x The index of the x coordinate
+         * @param y The index of the y coordinate
          */
         public BoxCornerGrip(
             GripAssistant assistant,

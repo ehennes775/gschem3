@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Geda3.PrintDimension &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Geda3.PrintDimension &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Geda3.html">Geda3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="struct">PrintDimension</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="property"><a href="Geda3.PrintDimension.number.html">number</a></li>
+          <li class="property"><a href="Geda3.PrintDimension.units.html">units</a></li>
+          <li class="static_method"><a href="Geda3.PrintDimension.parse.html">parse</a></li>
+          <li class="creation_method"><a href="Geda3.PrintDimension.PrintDimension.html">PrintDimension</a></li>
+          <li class="method"><a href="Geda3.PrintDimension.to_inches.html">to_inches</a></li>
+          <li class="method"><a href="Geda3.PrintDimension.to_millimeters.html">to_millimeters</a></li>
+          <li class="method"><a href="Geda3.PrintDimension.to_points.html">to_points</a></li>
+          <li class="method"><a href="Geda3.PrintDimension.to_string.html">to_string</a></li>
+          <li class="field"><a href="Geda3.PrintDimension.b_number.html">b_number</a></li>
+          <li class="field"><a href="Geda3.PrintDimension.b_units.html">b_units</a></li>
+          <li class="field"><a href="Geda3.PrintDimension.s_regex.html">s_regex</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">PrintDimension</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Geda3.PrintDimension" alt="Object hierarchy for PrintDimension" src="img/Geda3.PrintDimension.png"/>
+
+      <map id="Geda3.PrintDimension" name="Geda3.PrintDimension">
+<area shape="rect" id="node1" href="Geda3.PrintDimension.html" title="Geda3.PrintDimension" alt="" coords="5,5,195,53"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">struct</span> <b><span class="struct">PrintDimension</span></b>
+        </div>
+        <div class="description">
+          <p>A dimension for printing measurments</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Geda3.html">Geda3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">double</span></span> <b><a href="Geda3.PrintDimension.number.html" class="property">number</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The number without the units</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.PrintUnits.html" class="enum">PrintUnits</a></span> <b><a href="Geda3.PrintDimension.units.html" class="property">units</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The units for this dimension</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Static methods:</h3>
+        <ul class="navi_inline">
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_type"><span class="struct">PrintDimension</span></span> <b><a href="Geda3.PrintDimension.parse.html" class="static_method">parse</a></b> (<span class="main_basic_type"><span class="class">string</span></span> input) <span class="main_keyword">throws</span> <span class="main_type"><a href="Geda3.ParseError.html" class="errordomain">ParseError</a></span>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Parse a string representatin of a print dimension</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.PrintDimension.PrintDimension.html" class="creation_method">PrintDimension</a></b> (<span class="main_basic_type"><span class="struct">double</span></span> number, <span class="main_type"><a href="Geda3.PrintUnits.html" class="enum">PrintUnits</a></span> units)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a dimension</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">double</span></span> <b><a href="Geda3.PrintDimension.to_inches.html" class="method">to_inches</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get this print dimension in inches</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">double</span></span> <b><a href="Geda3.PrintDimension.to_millimeters.html" class="method">to_millimeters</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get this print dimension in millimeters</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">double</span></span> <b><a href="Geda3.PrintDimension.to_points.html" class="method">to_points</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get this print dimension in points</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Geda3.PrintDimension.to_string.html" class="method">to_string</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Return the string representaion of the print dimension</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Fields:</h3>
+        <ul class="navi_inline">
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_type"><span class="class">Regex</span></span>? <b><a href="Geda3.PrintDimension.s_regex.html" class="field">s_regex</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Regex used for parsing print dimensions</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">double</span></span> <b><a href="Geda3.PrintDimension.b_number.html" class="field">b_number</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the number</span>
+            </div></li>
+          <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.PrintUnits.html" class="enum">PrintUnits</a></span> <b><a href="Geda3.PrintDimension.b_units.html" class="field">b_units</a></b>
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Backing store for the units</span>
+            </div></li>
+        </ul>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
+    </div>
+  </body>
+</html>

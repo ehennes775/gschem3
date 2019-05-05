@@ -13,8 +13,8 @@
    height="24"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="simulation-folder.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="OrangeFolder.svg">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -33,7 +33,7 @@
      inkscape:pageopacity="0.50196078"
      inkscape:pageshadow="2"
      inkscape:zoom="49.208333"
-     inkscape:cx="8.42337"
+     inkscape:cx="5.3954276"
      inkscape:cy="12"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -80,13 +80,13 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc" />
     <path
-       style="fill:#f28300;fill-opacity:1;stroke:#404040;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       style="fill:#f57900;fill-opacity:1;stroke:#404040;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
        d="m 21.5,2.5 0,16 -17,0 0,-16 1,-2 5.5,0 1,2 z"
        id="path5280"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc" />
     <path
-       style="fill:#b16000;fill-opacity:1;stroke:#404040;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       style="fill:#ce5c00;fill-opacity:1;stroke:#404040;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
        d="m 1.5,5.5 2,13 17,0 -2,-13 z"
        id="path5284"
        inkscape:connector-curvature="0"

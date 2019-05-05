@@ -55,11 +55,11 @@ namespace Geda3
         /**
          * Rotate a point
          *
-         * @param cx
-         * @param cy
-         * @param angle
-         * @param x
-         * @param x
+         * @param cx The center of rotation x coordinate
+         * @param cy The center of rotation y coordinate
+         * @param angle The angle of rotation
+         * @param x The rotated x coordinate
+         * @param y The rotated y coordinate
          */
         public void rotate(int cx, int cy, int angle, ref int x, ref int y)
         {

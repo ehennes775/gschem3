@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Gschem3.LibraryAdapter &ndash; Gschem3 &ndash; Vala Binding Reference</title>
+    <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Gschem3.LibraryAdapter &ndash; Gschem3 Reference Manual</div>
+    <div class="site_body">
+      <div class="site_navigation">
+        <ul class="navi_main">
+          <li class="package_index"><a href="../index.html">Packages</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="package"><a href="index.htm">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="namespace"><a href="Gschem3.html">Gschem3</a></li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="class">LibraryAdapter</li>
+        </ul>
+        <hr class="navi_hr"/>
+        <ul class="navi_main">
+          <li class="enum"><a href="Gschem3.LibraryAdapter.Column.html">Column</a></li>
+          <li class="property"><a href="Gschem3.LibraryAdapter.library.html">library</a></li>
+          <li class="creation_method"><a href="Gschem3.LibraryAdapter.LibraryAdapter.html">LibraryAdapter</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.get_column_type.html">get_column_type</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.get_flags.html">get_flags</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.get_iter.html">get_iter</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.get_n_columns.html">get_n_columns</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.get_path.html">get_path</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.get_value.html">get_value</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.iter_children.html">iter_children</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.iter_has_child.html">iter_has_child</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.iter_n_children.html">iter_n_children</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.iter_next.html">iter_next</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.iter_nth_child.html">iter_nth_child</a></li>
+          <li class="method"><a href="Gschem3.LibraryAdapter.iter_parent.html">iter_parent</a></li>
+          <li class="signal"><a href="Gschem3.LibraryAdapter.refresh.html">refresh</a></li>
+        </ul>
+      </div>
+      <div class="site_content">
+        <h1 class="main_title">LibraryAdapter</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Gschem3.LibraryAdapter" alt="Object hierarchy for LibraryAdapter" src="img/Gschem3.LibraryAdapter.png"/>
+
+      <map id="Gschem3.LibraryAdapter" name="Gschem3.LibraryAdapter">
+<area shape="rect" id="node1" href="Gschem3.LibraryAdapter.html" title="Gschem3.LibraryAdapter" alt="" coords="32,101,239,149"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">LibraryAdapter</span></b> : <span class="main_type"><span class="class">Object</span></span>, <span class="main_type"><span class="interface">TreeModel</span></span>
+        </div>
+        <div class="description">
+          <p>Adapts a symbol library to a tree model</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Gschem3.html">Gschem3</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">Gschem3</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Enums:</h3>
+        <ul class="navi_inline">
+          <li class="enum"><a href="Gschem3.LibraryAdapter.Column.html">Column</a> - <span class="brief_description">An enumeration of the columns in 
+              the tree model</span></li>
+        </ul>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Geda3.SymbolLibrary.html" class="class">SymbolLibrary</a></span>? <b><a href="Gschem3.LibraryAdapter.library.html" class="property">library</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The project adapted to the tree model</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Gschem3.LibraryAdapter.LibraryAdapter.html" class="creation_method">LibraryAdapter</a></b> ()
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><span class="struct">Type</span></span> <b><a href="Gschem3.LibraryAdapter.get_column_type.html" class="method">get_column_type</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> column)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Returns the GLib.Type used in a column</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><span class="enum">TreeModelFlags</span></span> <b><a href="Gschem3.LibraryAdapter.get_flags.html" class="method">get_flags</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Returns the TreeModelFlags for this tree model</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Gschem3.LibraryAdapter.get_iter.html" class="method">get_iter</a></b> (<span class="main_keyword">out</span> <span class="main_type"><span class="struct">TreeIter</span></span> iter, <span class="main_type"><span class="class">TreePath</span></span> path)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Convert a tree path to an iterator</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Gschem3.LibraryAdapter.get_n_columns.html" class="method">get_n_columns</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Returns the number of columns in the tree</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><span class="class">TreePath</span></span>? <b><a href="Gschem3.LibraryAdapter.get_path.html" class="method">get_path</a></b> (<span class="main_type"><span class="struct">TreeIter</span></span> iter)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Converts a tree iterator into a tree path</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Gschem3.LibraryAdapter.get_value.html" class="method">get_value</a></b> (<span class="main_type"><span class="struct">TreeIter</span></span> iter, <span class="main_basic_type"><span class="struct">int</span></span> column, <span class="main_keyword">out</span> <span class="main_type"><span class="struct">Value</span></span> contents)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Gets the value in a column</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Gschem3.LibraryAdapter.iter_children.html" class="method">iter_children</a></b> (<span class="main_keyword">out</span> <span class="main_type"><span class="struct">TreeIter</span></span> first, <span class="main_type"><span class="struct">TreeIter</span></span>? parent)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get an iterator to the first child of a parent</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Gschem3.LibraryAdapter.iter_has_child.html" class="method">iter_has_child</a></b> (<span class="main_type"><span class="struct">TreeIter</span></span> parent)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Determines if the tree node has child nodes</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Gschem3.LibraryAdapter.iter_n_children.html" class="method">iter_n_children</a></b> (<span class="main_type"><span class="struct">TreeIter</span></span>? parent)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get the number of child nodes</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Gschem3.LibraryAdapter.iter_next.html" class="method">iter_next</a></b> (<span class="main_keyword">ref</span> <span class="main_type"><span class="struct">TreeIter</span></span> iter)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get the next iterator at the same level</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Gschem3.LibraryAdapter.iter_nth_child.html" class="method">iter_nth_child</a></b> (<span class="main_keyword">out</span> <span class="main_type"><span class="struct">TreeIter</span></span> child, <span class="main_type"><span class="struct">TreeIter</span></span>? parent, <span class="main_basic_type"><span class="struct">int</span></span> index)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get an iterator to the indexed child of a parent</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Gschem3.LibraryAdapter.iter_parent.html" class="method">iter_parent</a></b> (<span class="main_keyword">out</span> <span class="main_type"><span class="struct">TreeIter</span></span> parent, <span class="main_type"><span class="struct">TreeIter</span></span> child)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Get the parent node of a child</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Signals:</h3>
+        <ul class="navi_inline">
+          <li class="signal"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">signal</span> <span class="main_keyword">void</span> <b><a href="Gschem3.LibraryAdapter.refresh.html" class="signal">refresh</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Indicates the entire tree should be refreshed</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-289')">All known members inherited from class GLib.Object</div>
+          <div class="content" id="box-content-289">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">interface_find_property</li>
+                <li class="static_method">interface_install_property</li>
+                <li class="static_method">interface_list_properties</li>
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+                <li class="static_method">newv</li>
+                <li class="static_method">new_with_properties</li>
+                <li class="method">add_toggle_ref</li>
+                <li class="method">add_weak_pointer</li>
+                <li class="method">bind_property</li>
+                <li class="method">connect</li>
+                <li class="virtual_method">constructed</li>
+                <li class="method">disconnect</li>
+                <li class="virtual_method">dispose</li>
+                <li class="method">dup_data</li>
+                <li class="method">dup_qdata</li>
+                <li class="method">force_floating</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">freeze_notify</li>
+                <li class="method">@get</li>
+                <li class="method">get_class</li>
+                <li class="method">get_data</li>
+                <li class="method">get_property</li>
+                <li class="method">get_qdata</li>
+                <li class="method">get_type</li>
+                <li class="method">getv</li>
+                <li class="method">is_floating</li>
+                <li class="method">notify_property</li>
+                <li class="method">@ref</li>
+                <li class="method">ref_sink</li>
+                <li class="method">replace_data</li>
+                <li class="method">replace_qdata</li>
+                <li class="method">remove_toggle_ref</li>
+                <li class="method">remove_weak_pointer</li>
+                <li class="method">@set</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">set_data</li>
+                <li class="method">set_data_full</li>
+                <li class="method">set_property</li>
+                <li class="method">set_qdata</li>
+                <li class="method">set_qdata_full</li>
+                <li class="method">set_valist</li>
+                <li class="method">setv</li>
+                <li class="method">steal_data</li>
+                <li class="method">steal_qdata</li>
+                <li class="method">thaw_notify</li>
+                <li class="method">unref</li>
+                <li class="method">watch_closure</li>
+                <li class="method">weak_ref</li>
+                <li class="method">weak_unref</li>
+                <li class="signal">notify</li>
+                <li class="field">ref_count</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-290')">All known members inherited from interface Gtk.TreeModel</div>
+          <div class="content" id="box-content-290">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">@foreach</li>
+                <li class="method">@get</li>
+                <li class="abstract_method">get_column_type</li>
+                <li class="abstract_method">get_flags</li>
+                <li class="abstract_method">get_iter</li>
+                <li class="method">get_iter_first</li>
+                <li class="method">get_iter_from_string</li>
+                <li class="abstract_method">get_n_columns</li>
+                <li class="abstract_method">get_path</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">get_string_from_iter</li>
+                <li class="method">get_valist</li>
+                <li class="abstract_method">get_value</li>
+                <li class="abstract_method">iter_children</li>
+                <li class="abstract_method">iter_has_child</li>
+                <li class="abstract_method">iter_n_children</li>
+                <li class="abstract_method">iter_next</li>
+                <li class="abstract_method">iter_nth_child</li>
+                <li class="abstract_method">iter_parent</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="virtual_method">iter_previous</li>
+                <li class="virtual_method">ref_node</li>
+                <li class="method">rows_reordered_with_length</li>
+                <li class="virtual_method">unref_node</li>
+                <li class="signal">row_changed</li>
+                <li class="signal">row_deleted</li>
+                <li class="signal">row_has_child_toggled</li>
+                <li class="signal">row_inserted</li>
+                <li class="signal">rows_reordered</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
+    </div>
+  </body>
+</html>

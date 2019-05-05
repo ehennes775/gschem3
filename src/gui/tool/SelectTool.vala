@@ -27,7 +27,7 @@ namespace Gschem3
         /**
          * Create a new instance
          *
-         * @param window
+         * @param window The schematic window
          */
         public SelectTool(SchematicWindow? window = null)
         {

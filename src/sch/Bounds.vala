@@ -279,7 +279,7 @@ namespace Geda3
         /**
          * Create a string for debugging
          *
-         * @return
+         * @return A string representation for debugging
          */
         public string to_string()
         {

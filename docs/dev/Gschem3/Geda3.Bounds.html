@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8"/>
@@ -28,10 +28,19 @@
         <hr class="navi_hr"/>
         <ul class="navi_main">
           <li class="creation_method"><a href="Geda3.Bounds.Bounds.html">Bounds</a></li>
+          <li class="creation_method"><a href="Geda3.Bounds.Bounds.with_fpoints.html">Bounds.with_fpoints</a></li>
           <li class="creation_method"><a href="Geda3.Bounds.Bounds.with_points.html">Bounds.with_points</a></li>
           <li class="method"><a href="Geda3.Bounds.contains.html">contains</a></li>
           <li class="method"><a href="Geda3.Bounds.empty.html">empty</a></li>
           <li class="method"><a href="Geda3.Bounds.expand.html">expand</a></li>
+          <li class="method"><a href="Geda3.Bounds.get_height.html">get_height</a></li>
+          <li class="method"><a href="Geda3.Bounds.get_width.html">get_width</a></li>
+          <li class="method"><a href="Geda3.Bounds.intersection.html">intersection</a></li>
+          <li class="method"><a href="Geda3.Bounds.mirror_x.html">mirror_x</a></li>
+          <li class="method"><a href="Geda3.Bounds.overlaps.html">overlaps</a></li>
+          <li class="method"><a href="Geda3.Bounds.rotate.html">rotate</a></li>
+          <li class="method"><a href="Geda3.Bounds.to_string.html">to_string</a></li>
+          <li class="method"><a href="Geda3.Bounds.translate.html">translate</a></li>
           <li class="method"><a href="Geda3.Bounds.union.html">union</a></li>
           <li class="field"><a href="Geda3.Bounds.max_x.html">max_x</a></li>
           <li class="field"><a href="Geda3.Bounds.max_y.html">max_y</a></li>
@@ -70,6 +79,10 @@
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Create a bounds with points</span>
             </div></li>
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Geda3.Bounds.Bounds.with_fpoints.html" class="creation_method">Bounds.with_fpoints</a></b> (<span class="main_basic_type"><span class="struct">double</span></span> x0, <span class="main_basic_type"><span class="struct">double</span></span> y0, <span class="main_basic_type"><span class="struct">double</span></span> x1, <span class="main_basic_type"><span class="struct">double</span></span> y1)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a bounds with points</span>
+            </div></li>
         </ul>
         <h3 class="main_title">Methods:</h3>
         <ul class="navi_inline">
@@ -84,6 +97,38 @@
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.expand.html" class="method">expand</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> x, <span class="main_basic_type"><span class="struct">int</span></span> y)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Expand the bounds</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Bounds.get_height.html" class="method">get_height</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the height of the bounds</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Geda3.Bounds.get_width.html" class="method">get_width</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the width of the bounds</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.intersection.html" class="method">intersection</a></b> (<span class="main_type"><span class="struct">Bounds</span></span> other)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Calculate the intersection of two bounds</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.mirror_x.html" class="method">mirror_x</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Mirror the bounds on along the x axis</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Geda3.Bounds.overlaps.html" class="method">overlaps</a></b> (<span class="main_type"><span class="struct">Bounds</span></span> other)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Check if this bounds an another overlaps</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.rotate.html" class="method">rotate</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> angle)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Rotate the bounds around the origin</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Geda3.Bounds.to_string.html" class="method">to_string</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a string for debugging</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.translate.html" class="method">translate</a></b> (<span class="main_basic_type"><span class="struct">int</span></span> dx, <span class="main_basic_type"><span class="struct">int</span></span> dy)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Translate the bounds</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Geda3.Bounds.union.html" class="method">union</a></b> (<span class="main_type"><span class="struct">Bounds</span></span> other)
             </span>
@@ -111,7 +156,7 @@
         </ul>
       </div>
     </div><br/>
-    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    <div class="site_footer">Generated by <a href="https://wiki.gnome.org/Projects/Valadoc"><kbd>valadoc</kbd></a>
     </div>
   </body>
 </html>

@@ -63,7 +63,7 @@ namespace Gschem3
          * @param y0 The y coordinate of the first point
          * @param x1 TODO add this parameter 
          * @param y1 TODO add this parameter
-         * @return
+         * @return The new pin
          */
         public PinItemGroup create_pin(int x0, int y0)
         {

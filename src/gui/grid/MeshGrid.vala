@@ -165,7 +165,7 @@ namespace Gschem3
         /**
          * Calculate the line width for grid lines
          *
-         * @param context
+         * @param context The cairo context
          * @return The line width in user coordinates
          */
         public double calculate_width(Cairo.Context context)

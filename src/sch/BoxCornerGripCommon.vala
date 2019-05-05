@@ -14,7 +14,7 @@ namespace Geda3
         /**
          * Initialize a new instance
          *
-         * @param item
+         * @param item The gripped box item
          */
         public BoxCornerGripCommon(BoxItem item)
         {

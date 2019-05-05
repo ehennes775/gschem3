@@ -110,7 +110,7 @@ namespace Geda3
          * ||3||Dash Space||
          *
          * @param params The parameters
-         * @throw ParseError A parameter was invalid
+         * @throws ParseError A parameter was invalid
          */
         public void set_from_params(string[] params) throws ParseError
 
