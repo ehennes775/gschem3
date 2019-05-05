@@ -104,6 +104,14 @@ namespace Gschem3
         {
             m_name_renderer.edited.connect(on_item_name_edited);
             m_value_renderer.edited.connect(on_item_value_edited);
+
+            m_selection = m_view.get_selection();
+
+            m_selection.mode = Gtk.SelectionMode.MULTIPLE;
+            m_selection.changed.connect(on_view_selection_changed);
+
+            m_remove_button.sensitive = false;
+            m_remove_button.clicked.connect(on_remove_button_clicked);
         }
 
 
@@ -155,6 +163,27 @@ namespace Gschem3
          */
         [GtkChild(name="column-name-renderer-name")]
         private Gtk.CellRendererText m_name_renderer;
+
+
+
+        /**
+         * The button to remove attributes
+         */
+        [GtkChild(name="remove-button")]
+        private Gtk.Button m_remove_button;
+
+
+        /**
+         * The tree view selection containing the attributes
+         */
+        private Gtk.TreeSelection m_selection;
+
+
+        /**
+         * The tree view containing the attributes
+         */
+        [GtkChild(name="tree")]
+        private Gtk.TreeView m_view;
 
 
         /**
@@ -332,6 +361,47 @@ namespace Gschem3
             return_if_fail(name != null);
 
             attribute.set_pair(name, new_value);
+        }
+
+
+        /**
+         *
+         */
+        private void on_remove_button_clicked()
+
+            requires(b_item != null)
+            requires(m_selection != null)
+
+        {
+            var attributes = new Gee.HashSet<Geda3.AttributeChild>();
+            Gtk.TreeModel dummy;
+
+            foreach (var path in m_selection.get_selected_rows(out dummy))
+            {
+                var attribute = get_attribute_path(path);
+
+                attributes.add(attribute);
+            }
+
+            foreach (var attribute in attributes)
+            {
+                b_item.detach(attribute);
+            }
+        }
+
+
+        /**
+         *
+         */
+        private void on_view_selection_changed()
+
+            requires(m_remove_button != null)
+            requires(m_selection != null)
+
+        {
+            var count = m_selection.count_selected_rows();
+
+            m_remove_button.sensitive = count > 0;
         }
 
 
