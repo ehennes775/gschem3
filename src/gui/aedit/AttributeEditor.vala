@@ -36,6 +36,7 @@ namespace Gschem3
                 }
 
                 update_attribute_list();
+                update_insert_sensitivity();
             }
             default = null;
         }
@@ -112,6 +113,9 @@ namespace Gschem3
 
             m_remove_button.sensitive = false;
             m_remove_button.clicked.connect(on_remove_button_clicked);
+
+            m_remove_button.sensitive = true;
+            m_remove_button.clicked.connect(on_insert_button_clicked);
         }
 
 
@@ -149,6 +153,13 @@ namespace Gschem3
          * The backing store for the schematic window
          */
         private SchematicWindow? b_schematic_window;
+
+
+        /**
+         * The button to remove attributes
+         */
+        [GtkChild(name="insert-button")]
+        private Gtk.Button m_insert_button;
 
 
         /**
@@ -306,6 +317,17 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private void on_insert_button_clicked()
+
+            requires(b_item != null)
+
+        {
+        }
+
+
+        /**
          * Signal handler when the list of selected items changes
          */
         private void on_selection_changed()
@@ -374,9 +396,11 @@ namespace Gschem3
 
         {
             var attributes = new Gee.HashSet<Geda3.AttributeChild>();
-            Gtk.TreeModel dummy;
 
-            foreach (var path in m_selection.get_selected_rows(out dummy))
+            Gtk.TreeModel dummy;
+            var paths = m_selection.get_selected_rows(out dummy);
+
+            foreach (var path in paths)
             {
                 var attribute = get_attribute_path(path);
 
@@ -435,6 +459,21 @@ namespace Gschem3
                     // connect
                 }
             }
+        }
+
+
+        /**
+         *
+         */
+        private void update_insert_sensitivity()
+
+            requires(m_insert_button != null)
+
+        {
+            // will need to be subset of items that allow automatic
+            // insertion of new attributes
+            
+            m_insert_button.sensitive = b_item != null;
         }
 
 
