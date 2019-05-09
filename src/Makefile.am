@@ -151,7 +151,10 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
+	gui/aedit/AttributeCreating.vala \
+	gui/aedit/AttributeEditing.vala \
 	gui/aedit/AttributeEditor.vala \
+	gui/aedit/AttributeState.vala \
 	gui/dlg/ColumnHelper.vala \
 	gui/dlg/PinEditorDialog.vala \
 	gui/dlg/PinTypeColumnHelper.vala \

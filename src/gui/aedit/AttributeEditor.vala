@@ -114,8 +114,8 @@ namespace Gschem3
             m_remove_button.sensitive = false;
             m_remove_button.clicked.connect(on_remove_button_clicked);
 
-            m_remove_button.sensitive = true;
-            m_remove_button.clicked.connect(on_insert_button_clicked);
+            m_insert_button.sensitive = true;
+            m_insert_button.clicked.connect(on_insert_button_clicked);
         }
 
 
@@ -135,7 +135,7 @@ namespace Gschem3
          */
         private enum Column
         {
-            ITEM,
+            STATE,
             NAME,
             NAME_EDITABLE,
             VALUE,
@@ -228,12 +228,12 @@ namespace Gschem3
 
 
         /**
-         * Get the attribute from the model using an iterator
+         * Get the attribute state from the model using an iterator
          *
          * @param iter The iterator of the node in the model
-         * @return The attribute
+         * @return The attribute state
          */
-        private Geda3.AttributeChild get_attribute_iter(
+        private AttributeState get_attribute_state_iter(
             Gtk.TreeIter iter
             )
 
@@ -243,19 +243,19 @@ namespace Gschem3
         {
             Value @value;
 
-            m_list.get_value(iter, Column.ITEM, out @value);
+            m_list.get_value(iter, Column.STATE, out @value);
 
-            return @value.get_object() as Geda3.AttributeChild;
+            return @value.get_object() as AttributeState;
         }
 
 
         /**
-         * Get the attribute from the model using a path
+         * Get the attribute state from the model using a path
          *
          * @param path The path to the node in the model
-         * @return The attribute
+         * @return The attribute state
          */
-        private Geda3.AttributeChild get_attribute_path(
+        private AttributeState get_attribute_state_path(
             Gtk.TreePath path
             )
 
@@ -267,7 +267,7 @@ namespace Gschem3
             var success = m_list.get_iter(out iter, path);
             return_val_if_fail(success, null);
 
-            return get_attribute_iter(iter);
+            return get_attribute_state_iter(iter);
         }
 
 
@@ -321,9 +321,18 @@ namespace Gschem3
          */
         private void on_insert_button_clicked()
 
-            requires(b_item != null)
+            requires(m_list != null)
 
         {
+            Gtk.TreeIter iter;
+
+            m_list.append(out iter);
+
+            var state = new AttributeCreating(b_item);
+
+            m_list.@set(iter, Column.STATE, state);
+
+            update_row_iter(iter);
         }
 
 
@@ -351,13 +360,19 @@ namespace Gschem3
         {
             var path = new Gtk.TreePath.from_string(path_string);
 
-            var attribute = get_attribute_path(path);
-            return_if_fail(attribute != null);
+            var state = get_attribute_state_path(path);
+            return_if_fail(state != null);
 
-            var @value = attribute.@value;
-            return_if_fail(@value != null);
+            state.name = new_name;
 
-            attribute.set_pair(new_name, @value);
+            if (state.request_removal)
+            {
+                remove_row_path(path);
+            }
+            else
+            {
+                update_row_path(path);
+            }
         }
 
 
@@ -376,13 +391,19 @@ namespace Gschem3
         {
             var path = new Gtk.TreePath.from_string(path_string);
 
-            var attribute = get_attribute_path(path);
-            return_if_fail(attribute != null);
+            var state = get_attribute_state_path(path);
+            return_if_fail(state != null);
 
-            var name = attribute.name;
-            return_if_fail(name != null);
+            state.@value = new_value;
 
-            attribute.set_pair(name, new_value);
+            if (state.request_removal)
+            {
+                remove_row_path(path);
+            }
+            else
+            {
+                update_row_path(path);
+            }
         }
 
 
@@ -400,17 +421,17 @@ namespace Gschem3
             Gtk.TreeModel dummy;
             var paths = m_selection.get_selected_rows(out dummy);
 
-            foreach (var path in paths)
-            {
-                var attribute = get_attribute_path(path);
+            //foreach (var path in paths)
+            //{
+            //    var attribute = get_attribute_path(path);
 
-                attributes.add(attribute);
-            }
+            //    attributes.add(attribute);
+            //}
 
-            foreach (var attribute in attributes)
-            {
-                b_item.detach(attribute);
-            }
+            //foreach (var attribute in attributes)
+            //{
+            //    b_item.detach(attribute);
+            //}
         }
 
 
@@ -426,6 +447,23 @@ namespace Gschem3
             var count = m_selection.count_selected_rows();
 
             m_remove_button.sensitive = count > 0;
+        }
+
+
+        /**
+         *
+         */
+        private void remove_row_path(Gtk.TreePath path)
+
+            requires(m_selection != null)
+
+        {
+            Gtk.TreeIter iter;
+
+            var success = m_list.get_iter(out iter, path);
+            return_val_if_fail(success, null);
+
+            m_list.remove(ref iter);
         }
 
 
@@ -447,14 +485,11 @@ namespace Gschem3
 
                     m_list.append(out iter);
 
-                    m_list.@set(
-                        iter,
-                        Column.ITEM,           attribute,
-                        Column.NAME,           attribute.name ?? missing_text,
-                        Column.NAME_EDITABLE,  attribute.name != null,
-                        Column.VALUE,          attribute.@value ?? missing_text,
-                        Column.VALUE_EDITABLE, attribute.@value != null
-                        );
+                    var state = new AttributeEditing(attribute);
+
+                    m_list.@set(iter, Column.STATE, state);
+
+                    update_row_iter(iter);
 
                     // connect
                 }
@@ -474,6 +509,41 @@ namespace Gschem3
             // insertion of new attributes
             
             m_insert_button.sensitive = b_item != null;
+        }
+
+
+        /**
+         *
+         */
+        private void update_row_iter(Gtk.TreeIter iter)
+
+            requires(m_list != null)
+
+        {
+            var state = get_attribute_state_iter(iter);
+            return_if_fail(state != null);
+
+            m_list.@set(
+                iter,
+                Column.NAME,           state.name,
+                Column.NAME_EDITABLE,  true,
+                Column.VALUE,          state.@value,
+                Column.VALUE_EDITABLE, true
+                );
+        }
+
+
+        /**
+         *
+         */
+        private void update_row_path(Gtk.TreePath path)
+        {
+            Gtk.TreeIter iter;
+
+            var success = m_list.get_iter(out iter, path);
+            return_val_if_fail(success, null);
+
+            update_row_iter(iter);
         }
 
 

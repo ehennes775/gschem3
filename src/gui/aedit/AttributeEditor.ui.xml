@@ -41,6 +41,7 @@
                                         <property name="title">Name</property>
                                         <child>
                                             <object class="GtkCellRendererText" id="column-name-renderer-name">
+                                                <property name="placeholder-text">new name</property>
                                             </object>
                                             <attributes>
                                                 <attribute name="editable">2</attribute>
@@ -60,6 +61,7 @@
                                         <property name="title">Value</property>
                                         <child>
                                             <object class="GtkCellRendererText" id="column-value-renderer-value">
+                                                <property name="placeholder-text">new value</property>
                                             </object>
                                             <attributes>
                                                 <attribute name="editable">4</attribute>
@@ -102,7 +104,12 @@
                         <property name="vexpand">false</property>
                         <child>
                             <object class="GtkButton" id="insert-button">
-                                <property name="label">Insert...</property>
+                                <property name="label">Insert</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="detach-button">
+                                <property name="label">Detach</property>
                             </object>
                         </child>
                         <child>
