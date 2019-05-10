@@ -56,6 +56,25 @@ namespace Gschem3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override bool visible
+        {
+            get
+            {
+                return
+                    m_attribute.visibility == Geda3.Visibility.VISIBLE;
+            }
+            set
+            {
+                m_attribute.visibility = value ?
+                    Geda3.Visibility.VISIBLE :
+                    Geda3.Visibility.INVISIBLE;
+            }
+        }
+
+
+        /**
          *
          */
         public AttributeEditing(Geda3.AttributeChild attribute)

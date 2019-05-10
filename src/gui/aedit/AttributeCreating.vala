@@ -56,6 +56,17 @@ namespace Gschem3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public override bool visible
+        {
+            get;
+            set;
+            default = true;
+        }
+
+
+        /**
          *
          */
         public AttributeCreating(Geda3.AttributeParent item)

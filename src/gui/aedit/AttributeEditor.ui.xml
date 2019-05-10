@@ -83,8 +83,8 @@
                                             <object class="GtkCellRendererToggle" id="column-visible-renderer-visible">
                                             </object>
                                             <attributes>
-                                                <attribute name="active">2</attribute>
-                                                <attribute name="editable">2</attribute>
+                                                <attribute name="active">5</attribute>
+                                                <attribute name="editable">6</attribute>
                                             </attributes>
                                             <cell-packing>
                                                 <property name="expand">false</property>

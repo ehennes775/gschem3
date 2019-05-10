@@ -35,5 +35,15 @@ namespace Gschem3
             get;
             set;
         }
+
+
+        /**
+         * The visibility of the item
+         */
+        public abstract bool visible
+        {
+            get;
+            set;
+        }
     }
 }

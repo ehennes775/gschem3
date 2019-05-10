@@ -105,6 +105,7 @@ namespace Gschem3
         {
             m_name_renderer.edited.connect(on_item_name_edited);
             m_value_renderer.edited.connect(on_item_value_edited);
+            m_visible_renderer.toggled.connect(on_item_visible_toggled);
 
             m_selection = m_view.get_selection();
 
@@ -139,7 +140,9 @@ namespace Gschem3
             NAME,
             NAME_EDITABLE,
             VALUE,
-            VALUE_EDITABLE
+            VALUE_EDITABLE,
+            VISIBLE,
+            VISIBLE_EDITABLE
         }
 
 
@@ -202,6 +205,13 @@ namespace Gschem3
          */
         [GtkChild(name="column-value-renderer-value")]
         private Gtk.CellRendererText m_value_renderer;
+
+
+        /**
+         * The renderer for the attribute visibility
+         */
+        [GtkChild(name="column-visible-renderer-visible")]
+        private Gtk.CellRendererToggle m_visible_renderer;
 
 
         /**
@@ -408,6 +418,35 @@ namespace Gschem3
 
 
         /**
+         * Toggle the visibility of the item
+         *
+         * @param renderer Unused
+         * @param path_string The tree path in string represenation
+         */
+        private void on_item_visible_toggled(
+            Gtk.CellRendererToggle renderer,
+            string path_string
+            )
+        {
+            var path = new Gtk.TreePath.from_string(path_string);
+
+            var state = get_attribute_state_path(path);
+            return_if_fail(state != null);
+
+            state.visible = !state.visible;
+
+            if (state.request_removal)
+            {
+                remove_row_path(path);
+            }
+            else
+            {
+                update_row_path(path);
+            }
+        }
+
+
+        /**
          *
          */
         private void on_remove_button_clicked()
@@ -525,10 +564,12 @@ namespace Gschem3
 
             m_list.@set(
                 iter,
-                Column.NAME,           state.name,
-                Column.NAME_EDITABLE,  true,
-                Column.VALUE,          state.@value,
-                Column.VALUE_EDITABLE, true
+                Column.NAME,             state.name,
+                Column.NAME_EDITABLE,    true,
+                Column.VALUE,            state.@value,
+                Column.VALUE_EDITABLE,   true,
+                Column.VISIBLE,          state.visible,
+                Column.VISIBLE_EDITABLE, true
                 );
         }
 
