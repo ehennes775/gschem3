@@ -16,9 +16,13 @@ namespace Gschem3
             }
             set
             {
+                return_if_fail(!request_removal);
+
                 m_name = value;
 
                 m_name_set = true;
+
+                name_valid = validate_name(m_name);
             }
             default = UNSET;
         }
@@ -47,9 +51,13 @@ namespace Gschem3
             }
             set
             {
+                return_if_fail(!request_removal);
+
                 m_value = value;
 
                 m_value_set = true;
+                
+                value_valid = validate_value(m_value);
             }
             default = UNSET;
         }

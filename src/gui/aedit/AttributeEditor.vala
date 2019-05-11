@@ -112,10 +112,13 @@ namespace Gschem3
             m_selection.mode = Gtk.SelectionMode.MULTIPLE;
             m_selection.changed.connect(on_view_selection_changed);
 
+            m_detach_button.sensitive = false;
+            m_detach_button.clicked.connect(on_detach_button_clicked);
+
             m_remove_button.sensitive = false;
             m_remove_button.clicked.connect(on_remove_button_clicked);
 
-            m_insert_button.sensitive = true;
+            m_insert_button.sensitive = false;
             m_insert_button.clicked.connect(on_insert_button_clicked);
         }
 
@@ -127,6 +130,16 @@ namespace Gschem3
         {
             schematic_window = window as SchematicWindow;
         }
+
+
+        /**
+         * Delegate used to update the state of an attribute
+         *
+         * @param state The state to update with new values
+         */
+        private delegate void AttributeStateUpdater(
+            AttributeState state
+            );
 
 
         /**
@@ -159,7 +172,14 @@ namespace Gschem3
 
 
         /**
-         * The button to remove attributes
+         * The button to detach one or more attributes
+         */
+        [GtkChild(name="detach-button")]
+        private Gtk.Button m_detach_button;
+
+
+        /**
+         * The button to insert an attribute
          */
         [GtkChild(name="insert-button")]
         private Gtk.Button m_insert_button;
@@ -181,7 +201,7 @@ namespace Gschem3
 
 
         /**
-         * The button to remove attributes
+         * The button to remove one or more attributes
          */
         [GtkChild(name="remove-button")]
         private Gtk.Button m_remove_button;
@@ -234,6 +254,32 @@ namespace Gschem3
             }
 
             m_list.clear();
+        }
+
+
+        /**
+         *
+         */
+        private void change_attribute_state(
+            string path_string,
+            AttributeStateUpdater update
+            )
+        {
+            var path = new Gtk.TreePath.from_string(path_string);
+
+            var state = get_attribute_state_path(path);
+            return_if_fail(state != null);
+
+            update(state);
+
+            if (state.request_removal)
+            {
+                remove_row_path(path);
+            }
+            else
+            {
+                update_row_path(path);
+            }
         }
 
 
@@ -329,6 +375,34 @@ namespace Gschem3
         /**
          *
          */
+        private void on_detach_button_clicked()
+
+            requires(b_item != null)
+            requires(m_selection != null)
+
+        {
+            var attributes = new Gee.HashSet<Geda3.AttributeChild>();
+
+            Gtk.TreeModel dummy;
+            var paths = m_selection.get_selected_rows(out dummy);
+
+            //foreach (var path in paths)
+            //{
+            //    var attribute = get_attribute_path(path);
+
+            //    attributes.add(attribute);
+            //}
+
+            //foreach (var attribute in attributes)
+            //{
+            //    b_item.detach(attribute);
+            //}
+        }
+
+
+        /**
+         *
+         */
         private void on_insert_button_clicked()
 
             requires(m_list != null)
@@ -368,21 +442,10 @@ namespace Gschem3
             string new_name
             )
         {
-            var path = new Gtk.TreePath.from_string(path_string);
-
-            var state = get_attribute_state_path(path);
-            return_if_fail(state != null);
-
-            state.name = new_name;
-
-            if (state.request_removal)
-            {
-                remove_row_path(path);
-            }
-            else
-            {
-                update_row_path(path);
-            }
+            change_attribute_state(
+                path_string,
+                (state) => { state.name = new_name; }
+                );
         }
 
 
@@ -399,21 +462,10 @@ namespace Gschem3
             string new_value
             )
         {
-            var path = new Gtk.TreePath.from_string(path_string);
-
-            var state = get_attribute_state_path(path);
-            return_if_fail(state != null);
-
-            state.@value = new_value;
-
-            if (state.request_removal)
-            {
-                remove_row_path(path);
-            }
-            else
-            {
-                update_row_path(path);
-            }
+            change_attribute_state(
+                path_string,
+                (state) => { state.@value = new_value; }
+                );
         }
 
 
@@ -428,21 +480,10 @@ namespace Gschem3
             string path_string
             )
         {
-            var path = new Gtk.TreePath.from_string(path_string);
-
-            var state = get_attribute_state_path(path);
-            return_if_fail(state != null);
-
-            state.visible = !state.visible;
-
-            if (state.request_removal)
-            {
-                remove_row_path(path);
-            }
-            else
-            {
-                update_row_path(path);
-            }
+            change_attribute_state(
+                path_string,
+                (state) => { state.visible = !state.visible; }
+                );
         }
 
 
@@ -479,13 +520,17 @@ namespace Gschem3
          */
         private void on_view_selection_changed()
 
+            requires(m_detach_button != null)
             requires(m_remove_button != null)
             requires(m_selection != null)
 
         {
             var count = m_selection.count_selected_rows();
 
-            m_remove_button.sensitive = count > 0;
+            var sensitive = count > 0;
+
+            m_detach_button.sensitive = sensitive;
+            m_remove_button.sensitive = sensitive;
         }
 
 
@@ -557,6 +602,7 @@ namespace Gschem3
         private void update_row_iter(Gtk.TreeIter iter)
 
             requires(m_list != null)
+            requires(m_list.iter_is_valid(iter))
 
         {
             var state = get_attribute_state_iter(iter);
