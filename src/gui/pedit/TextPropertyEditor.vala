@@ -65,6 +65,14 @@ namespace Gschem3
 
 
         /**
+         * A delegate for applying properties to text items
+         */
+        private delegate void TextApplicator(
+            Geda3.TextItem item
+            );
+
+
+        /**
          * The backing store for the schematic window property
          */
         private SchematicWindow? b_schematic_window;
@@ -113,97 +121,21 @@ namespace Gschem3
 
 
         /**
+         * Apply a new property to text items
          *
-         *
-         * @param items The items to apply a new alignment
-         * @param alignment The new alignment to apply
+         * @param applicator A delegate for applying a new property
          */
-        private static void apply_alignment(Gee.Iterable<Geda3.TextItem> items, Geda3.TextAlignment alignment)
+        private void apply(
+            TextApplicator applicator
+            )
 
-            requires(alignment >= 0)
-            requires(alignment <= Geda3.TextAlignment.COUNT)
+            requires(m_items != null)
+            requires(m_items.all_match(i => i != null))
 
         {
-            foreach (var item in items)
+            foreach (var item in m_items)
             {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.alignment = alignment;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new alignment
-         * @param alignment The new alignment to apply
-         */
-        private static void apply_color(Gee.Iterable<Geda3.TextItem> items, int color)
-
-            requires(color >= Geda3.Color.MIN)
-            requires(color <= Geda3.Color.MAX)
-
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.color = color;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new rotation
-         * @param rotation The new rotation to apply
-         */
-        private static void apply_rotation(Gee.Iterable<Geda3.TextItem> items, int rotation)
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.angle = rotation;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new text size
-         * @param size The new text size to apply
-         */
-        private static void apply_size(Gee.Iterable<Geda3.TextItem> items, int size)
-
-            requires(size >= Geda3.TextSize.MIN)
-            requires(size <= Geda3.TextSize.MAX)
-
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.size = size;
+                applicator(item);
             }
         }
 
@@ -259,7 +191,6 @@ namespace Gschem3
          */
         private void on_apply_alignment()
 
-            requires(m_items != null)
             requires(m_alignment_combo != null)
 
         {
@@ -269,7 +200,9 @@ namespace Gschem3
                     m_alignment_combo.active_id
                     );
 
-                apply_alignment(m_items, alignment);
+                apply(
+                    (item) => { item.alignment = alignment; }
+                    );
             }
             catch (Error error)
             {
