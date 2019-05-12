@@ -8,6 +8,7 @@
         <file>gui/pedit/LineStyleEditor.ui.xml</file>
         <file>gui/pedit/PinPropertyEditor.ui.xml</file>
         <file>gui/pedit/TextPropertyEditor.ui.xml</file>
+        <file>gui/MainWindow.ui.xml</file>
         <file>ArcTool.svg</file>
         <file>Blank.svg</file>
         <file>BlueFolder.svg</file>
@@ -20,7 +21,6 @@
         <file>GreenFolder.svg</file>
         <file>LibraryWidget.ui.xml</file>
         <file>LineTool.svg</file>
-        <file>MainWindow.ui.xml</file>
         <file>Menus.ui.xml</file>
         <file>Missing.svg</file>
         <file>NetTool.svg</file>

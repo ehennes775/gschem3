@@ -1,6 +1,6 @@
 namespace Gschem3
 {
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/MainWindow.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/MainWindow.ui.xml")]
     public class MainWindow : Gtk.ApplicationWindow
     {
         /**
