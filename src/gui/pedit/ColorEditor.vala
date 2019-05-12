@@ -146,19 +146,16 @@ namespace Gschem3
         /**
          * Apply a color to the selected items
          *
-         * @param items The colorable items from the selection
          * @param color The new color to apply
          */
-        private static void apply_color(
-            Gee.Iterable<Geda3.Colorable> items,
-            int color
-            )
+        private void apply_color(int color)
 
             requires(color >= 0)
-            requires(items.all_match(i => i != null))
+            requires(m_items != null)
+            requires(m_items.all_match(i => i != null))
 
         {
-            foreach (var item in items)
+            foreach (var item in m_items)
             {
                 item.color = color;
             }
@@ -223,7 +220,7 @@ namespace Gschem3
                     m_color_combo.active_id
                     );
 
-                apply_color(m_items, color);
+                apply_color(color);
             }
             catch (Error error)
             {

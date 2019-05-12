@@ -212,6 +212,32 @@ namespace Gschem3
 
 
         /**
+         * Signal handler for applying a new text color to the
+         * selection
+         */
+        private void on_apply_color()
+
+            requires(m_color_combo != null)
+
+        {
+            try
+            {
+                var color = Geda3.Color.parse(
+                    m_color_combo.active_id
+                    );
+
+                apply(
+                    (item) => { item.color = color; }
+                    );
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
+        }
+
+
+        /**
          *
          *
          * @param param Unused

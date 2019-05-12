@@ -5,6 +5,7 @@ namespace Gschem3
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/SchematicWindow.ui.xml")]
     public class SchematicWindow : DocumentWindow,
+        ClipboardSupport,
         Fileable,
         Geda3.Invalidatable,
         Reloadable,
@@ -93,6 +94,36 @@ namespace Gschem3
          * The filename extension for symbol files
          */
         public const string SYMBOL_EXTENSION = ".sym";
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool can_copy
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool can_cut
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool can_paste
+        {
+            get;
+            protected set;
+        }
 
 
         /**
@@ -317,6 +348,41 @@ namespace Gschem3
             window.read(file);
 
             return window;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void copy(Gtk.Clipboard clipboard)
+        {
+            ClipboardHelper.clip(
+                clipboard,
+                selection
+                );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void cut(Gtk.Clipboard clipboard)
+        {
+            ClipboardHelper.clip(
+                clipboard,
+                selection
+                );
+
+            // TODO: remove the items
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void paste(Gtk.Clipboard clipboard)
+        {
+            stdout.printf("SchematicWindow.paste()\n");
         }
 
 

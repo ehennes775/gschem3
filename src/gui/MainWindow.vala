@@ -622,7 +622,13 @@ namespace Gschem3
          */
         private void on_edit_copy(SimpleAction action, Variant? parameter)
         {
-            stdout.printf("on_edit_copy\n");
+            var clipboard = Gtk.Clipboard.@get(Gdk.SELECTION_CLIPBOARD);
+            var support = m_current_document_window as ClipboardSupport;
+
+            return_if_fail(support != null);
+            //return_if_fail(support.can_copy);
+
+            support.copy(clipboard);
         }
 
 
@@ -634,7 +640,13 @@ namespace Gschem3
          */
         private void on_edit_cut(SimpleAction action, Variant? parameter)
         {
-            stdout.printf("on_edit_cut\n");
+            var clipboard = Gtk.Clipboard.@get(Gdk.SELECTION_CLIPBOARD);
+            var support = m_current_document_window as ClipboardSupport;
+
+            return_if_fail(support != null);
+            //return_if_fail(support.can_cut);
+
+            support.cut(clipboard);
         }
 
 
@@ -658,7 +670,13 @@ namespace Gschem3
          */
         private void on_edit_paste(SimpleAction action, Variant? parameter)
         {
-            stdout.printf("on_edit_paste\n");
+            var clipboard = Gtk.Clipboard.@get(Gdk.SELECTION_CLIPBOARD);
+            var support = m_current_document_window as ClipboardSupport;
+
+            return_if_fail(support != null);
+            //return_if_fail(support.can_paste);
+
+            support.paste(clipboard);
         }
 
 
