@@ -74,6 +74,14 @@ namespace Gschem3
 
 
         /**
+         * A delegate for applying a line style
+         */
+        private delegate void LineStyleApplicator(
+            Geda3.LineStyle style
+            );
+
+
+        /**
          *
          */
         [CCode(has_target=false)]
@@ -84,89 +92,22 @@ namespace Gschem3
 
 
         /**
-         * Apply a new cap type to the selected items
+         * Apply a new line style to the selected items
          *
-         * @param items The items with stylable line properties
-         * @param cap_type The cap type
+         * @param applicator A delegate for applying a line style
          */
-        private static void apply_cap_type(
-            Gee.Iterable<Geda3.StylableLine> items,
-            Geda3.CapType cap_type
+        private void apply_line_style(
+            LineStyleApplicator applicator
             )
 
-            requires(items.all_match(i => i != null))
-            requires(items.all_match(i => i.line_style != null))
+            requires(m_items != null)
+            requires(m_items.all_match(i => i != null))
+            requires(m_items.all_match(i => i.line_style != null))
 
         {
-            foreach (var item in items)
+            foreach (var item in m_items)
             {
-                item.line_style.cap_type = cap_type;
-            }
-        }
-
-
-        /**
-         * Apply a new dash length to the selected items
-         *
-         * @param items The items with stylable line properties
-         * @param dash_length The length of the dashes
-         */
-        private static void apply_dash_length(
-            Gee.Iterable<Geda3.StylableLine> items,
-            int dash_length
-            )
-
-            requires(items.all_match(i => i != null))
-            requires(items.all_match(i => i.line_style != null))
-
-        {
-            foreach (var item in items)
-            {
-                item.line_style.dash_length = dash_length;
-            }
-        }
-
-
-        /**
-         * Apply a new dash space to the selected items
-         *
-         * @param items The items with stylable line properties
-         * @param dash_space The space between dashes
-         */
-        private static void apply_dash_space(
-            Gee.Iterable<Geda3.StylableLine> items,
-            int dash_space
-            )
-
-            requires(items.all_match(i => i != null))
-            requires(items.all_match(i => i.line_style != null))
-
-        {
-            foreach (var item in items)
-            {
-                item.line_style.dash_space = dash_space;
-            }
-        }
-
-
-        /**
-         * Apply a new dash type to the selected items
-         *
-         * @param items The items with stylable line properties
-         * @param dash_type The dash type
-         */
-        private static void apply_dash_type(
-            Gee.Iterable<Geda3.StylableLine> items,
-            Geda3.DashType dash_type
-            )
-
-            requires(items.all_match(i => i != null))
-            requires(items.all_match(i => i.line_style != null))
-
-        {
-            foreach (var item in items)
-            {
-                item.line_style.dash_type = dash_type;
+                applicator(item.line_style);
             }
         }
 
@@ -411,7 +352,9 @@ namespace Gschem3
                     m_cap_type_combo.active_id
                     );
 
-                apply_cap_type(m_items, cap_type);
+                apply_line_style(
+                    (style) => { style.cap_type = cap_type; }
+                    );
             }
             catch (Error error)
             {
@@ -435,7 +378,9 @@ namespace Gschem3
                     m_dash_length_combo.content
                     );
 
-                apply_dash_length(m_items, dash_length);
+                apply_line_style(
+                    (style) => { style.dash_length = dash_length; }
+                    );
             }
             catch (Error error)
             {
@@ -459,7 +404,9 @@ namespace Gschem3
                     m_dash_space_combo.content
                     );
 
-                apply_dash_space(m_items, dash_space);
+                apply_line_style(
+                    (style) => { style.dash_space = dash_space; }
+                    );
             }
             catch (Error error)
             {
@@ -483,7 +430,9 @@ namespace Gschem3
                     m_dash_type_combo.active_id
                     );
 
-                apply_dash_type(m_items, dash_type);
+                apply_line_style(
+                    (style) => { style.dash_type = dash_type; }
+                    );
             }
             catch (Error error)
             {
