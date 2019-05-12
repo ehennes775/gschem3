@@ -448,8 +448,8 @@ namespace Gschem3
         {
             var attributes = new Gee.HashSet<Geda3.AttributeChild>();
 
-            Gtk.TreeModel dummy;
-            var paths = m_selection.get_selected_rows(out dummy);
+            //Gtk.TreeModel dummy;
+            //var paths = m_selection.get_selected_rows(out dummy);
 
             //foreach (var path in paths)
             //{
@@ -458,10 +458,10 @@ namespace Gschem3
             //    attributes.add(attribute);
             //}
 
-            //foreach (var attribute in attributes)
-            //{
-            //    b_item.detach(attribute);
-            //}
+            foreach (var attribute in attributes)
+            {
+                b_item.detach(attribute);
+            }
         }
 
 
@@ -630,8 +630,8 @@ namespace Gschem3
         {
             var attributes = new Gee.HashSet<Geda3.AttributeChild>();
 
-            Gtk.TreeModel dummy;
-            var paths = m_selection.get_selected_rows(out dummy);
+            //Gtk.TreeModel dummy;
+            //var paths = m_selection.get_selected_rows(out dummy);
 
             //foreach (var path in paths)
             //{
@@ -640,10 +640,10 @@ namespace Gschem3
             //    attributes.add(attribute);
             //}
 
-            //foreach (var attribute in attributes)
-            //{
-            //    b_item.detach(attribute);
-            //}
+            foreach (var attribute in attributes)
+            {
+                b_item.detach(attribute);
+            }
         }
 
 

@@ -4,13 +4,6 @@ namespace Gschem3
     public class MainWindow : Gtk.ApplicationWindow
     {
         /**
-         * The name of the program as it appears in the title bar
-         */
-        [CCode(cname = "PACKAGE_NAME")]
-        private static extern const string PROGRAM_TITLE;
-
-
-        /**
          * The currently open project
          *
          * This property functions as a source for bindings. A null
@@ -282,6 +275,13 @@ namespace Gschem3
                 ErrorDialog.show_with_file(this, error, file);
             }
         }
+
+
+        /**
+         * The name of the program as it appears in the title bar
+         */
+        [CCode(cname = "PACKAGE_NAME")]
+        private extern const string PROGRAM_TITLE;
 
 
         /**

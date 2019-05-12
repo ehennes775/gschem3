@@ -70,12 +70,6 @@ namespace Gschem3
         /**
          *
          */
-        private int m_item_column;
-
-
-        /**
-         *
-         */
         private string m_name;
 
 
