@@ -622,13 +622,21 @@ namespace Gschem3
          */
         private void on_edit_copy(SimpleAction action, Variant? parameter)
         {
-            var clipboard = Gtk.Clipboard.@get(Gdk.SELECTION_CLIPBOARD);
-            var support = m_current_document_window as ClipboardSupport;
+            try
+            {
+                var clipboard = Gtk.Clipboard.@get(
+                    Gdk.SELECTION_CLIPBOARD
+                    );
 
-            return_if_fail(support != null);
-            //return_if_fail(support.can_copy);
+                var support = m_current_document_window as ClipboardSupport;
+                return_if_fail(support != null);
 
-            support.copy(clipboard);
+                support.copy(clipboard);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
         }
 
 
@@ -640,13 +648,21 @@ namespace Gschem3
          */
         private void on_edit_cut(SimpleAction action, Variant? parameter)
         {
-            var clipboard = Gtk.Clipboard.@get(Gdk.SELECTION_CLIPBOARD);
-            var support = m_current_document_window as ClipboardSupport;
+            try
+            {
+                var clipboard = Gtk.Clipboard.@get(
+                    Gdk.SELECTION_CLIPBOARD
+                    );
 
-            return_if_fail(support != null);
-            //return_if_fail(support.can_cut);
+                var support = m_current_document_window as ClipboardSupport;
+                return_if_fail(support != null);
 
-            support.cut(clipboard);
+                support.cut(clipboard);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
         }
 
 
@@ -670,13 +686,21 @@ namespace Gschem3
          */
         private void on_edit_paste(SimpleAction action, Variant? parameter)
         {
-            var clipboard = Gtk.Clipboard.@get(Gdk.SELECTION_CLIPBOARD);
-            var support = m_current_document_window as ClipboardSupport;
+            try
+            {
+                var clipboard = Gtk.Clipboard.@get(
+                    Gdk.SELECTION_CLIPBOARD
+                    );
 
-            return_if_fail(support != null);
-            //return_if_fail(support.can_paste);
+                var support = m_current_document_window as ClipboardSupport;
+                return_if_fail(support != null);
 
-            support.paste(clipboard);
+                support.paste(clipboard);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
         }
 
 

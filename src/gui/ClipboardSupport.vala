@@ -40,7 +40,9 @@ namespace Gschem3
          *
          * @param clipboard The clipboard
          */
-        public abstract void copy(Gtk.Clipboard clipboard);
+        public abstract void copy(
+            Gtk.Clipboard clipboard
+            ) throws Error;
 
 
         /**
@@ -48,7 +50,9 @@ namespace Gschem3
          *
          * @param clipboard The clipboard
          */
-        public abstract void cut(Gtk.Clipboard clipboard);
+        public abstract void cut(
+            Gtk.Clipboard clipboard
+            ) throws Error;
 
 
         /**
@@ -56,6 +60,8 @@ namespace Gschem3
          *
          * @param clipboard The clipboard
          */
-        public abstract void paste(Gtk.Clipboard clipboard);
+        public abstract void paste(
+            Gtk.Clipboard clipboard
+            ) throws Error;
     }
 }

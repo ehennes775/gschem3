@@ -354,7 +354,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void copy(Gtk.Clipboard clipboard)
+        public void copy(Gtk.Clipboard clipboard) throws Error
         {
             ClipboardHelper.clip(
                 clipboard,
@@ -366,7 +366,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void cut(Gtk.Clipboard clipboard)
+        public void cut(Gtk.Clipboard clipboard) throws Error
         {
             ClipboardHelper.clip(
                 clipboard,
@@ -380,9 +380,18 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public void paste(Gtk.Clipboard clipboard)
+        public void paste(Gtk.Clipboard clipboard) throws Error
         {
-            stdout.printf("SchematicWindow.paste()\n");
+            // rough
+
+            var temp_schematic = ClipboardHelper.extract(clipboard);
+
+            return_if_fail(temp_schematic != null);
+
+            foreach (var item in temp_schematic.items)
+            {
+                add_item(item);
+            }
         }
 
 

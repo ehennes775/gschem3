@@ -14,10 +14,8 @@ namespace Gschem3
         public static void clip(
             Gtk.Clipboard clipboard,
             Gee.Collection<Geda3.SchematicItem> items
-            )
+            ) throws Error
         {
-            stdout.printf("clip\n");
-
             clipboard.clear();
 
             var helper = new ClipboardHelper.with_items(items);
@@ -28,6 +26,41 @@ namespace Gschem3
                 clipboard_clear,
                 helper.@ref()
                 );
+        }
+
+
+        /**
+         * Extract schematic items from the clipboard
+         *
+         * @param clipbaord The clipboard containing the items
+         * @return A schematic containing the items
+         */
+        public static Geda3.Schematic extract(
+            Gtk.Clipboard clipboard
+            ) throws Error
+        {
+            var type = Gdk.Atom.intern(
+                "application/x-lepton-schematic",
+                false
+                );
+
+            var selection_data = clipboard.wait_for_contents(type);
+
+            return_val_if_fail(selection_data != null, null);
+
+            var data = selection_data.get_data_with_length();
+
+            var memory_stream = new MemoryInputStream.from_data(
+                data
+                );
+
+            var input_stream = new DataInputStream(memory_stream);
+
+            var schematic = new Geda3.Schematic();
+
+            schematic.read(input_stream);
+
+            return schematic;
         }
 
 
@@ -48,10 +81,13 @@ namespace Gschem3
          */
         private ClipboardHelper.with_items(
             Gee.Collection<Geda3.SchematicItem> items
-            )
+            ) throws Error
         {
             var memory_stream = new MemoryOutputStream.resizable();
             var output_stream = new DataOutputStream(memory_stream);
+
+            // temp
+            Geda3.FileVersion.LATEST.write(output_stream);
 
             foreach (var item in items)
             {
