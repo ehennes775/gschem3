@@ -107,6 +107,10 @@ namespace Gschem3
             m_value_renderer.edited.connect(on_item_value_edited);
             m_visible_renderer.toggled.connect(on_item_visible_toggled);
 
+            m_show_name_renderer.toggled.connect(on_item_show_name_toggled);
+            m_show_name_value_renderer.toggled.connect(on_item_show_name_value_toggled);
+            m_show_value_renderer.toggled.connect(on_item_show_value_toggled);
+
             m_selection = m_view.get_selection();
 
             m_selection.mode = Gtk.SelectionMode.MULTIPLE;
@@ -155,7 +159,13 @@ namespace Gschem3
             VALUE,
             VALUE_EDITABLE,
             VISIBLE,
-            VISIBLE_EDITABLE
+            VISIBLE_EDITABLE,
+            SHOW_NAME,
+            SHOW_NAME_EDITABLE,
+            SHOW_VALUE,
+            SHOW_VALUE_EDITABLE,
+            SHOW_NAME_VALUE,
+            SHOW_NAME_VALUE_EDITABLE
         }
 
 
@@ -211,6 +221,27 @@ namespace Gschem3
          * The tree view selection containing the attributes
          */
         private Gtk.TreeSelection m_selection;
+
+
+        /**
+         * The renderer for the attribute name presentation
+         */
+        [GtkChild(name="column-presentation-renderer-name")]
+        private Gtk.CellRendererToggle m_show_name_renderer;
+
+
+        /**
+         * The renderer for the attribute name and value presentation
+         */
+        [GtkChild(name="column-presentation-renderer-name-value")]
+        private Gtk.CellRendererToggle m_show_name_value_renderer;
+
+
+        /**
+         * The renderer for the attribute value presentation
+         */
+        [GtkChild(name="column-presentation-renderer-value")]
+        private Gtk.CellRendererToggle m_show_value_renderer;
 
 
         /**
@@ -274,12 +305,46 @@ namespace Gschem3
 
             if (state.request_removal)
             {
-                remove_row_path(path);
+                create_and_attach(
+                    path_string,
+                    state as AttributeCreating
+                    );
             }
             else
             {
                 update_row_path(path);
             }
+        }
+
+
+        /**
+         *
+         */
+        private void create_and_attach(
+            string path_string,
+            AttributeCreating current_state
+            )
+
+            requires(m_list != null)
+            
+        {
+            // block
+
+            var new_attribute = current_state.create_and_attach();
+
+            // unblock
+            
+            var path = new Gtk.TreePath.from_string(path_string);
+
+            Gtk.TreeIter iter;
+            var success = m_list.get_iter(out iter, path);
+            return_val_if_fail(success, null);
+
+            var next_state = new AttributeEditing(new_attribute);
+
+            m_list.@set(iter, Column.STATE, next_state);
+
+            update_row_iter(iter);
         }
 
 
@@ -408,11 +473,14 @@ namespace Gschem3
             requires(m_list != null)
 
         {
+            var creator = b_item as Geda3.AttributeCreator;
+            return_if_fail(creator != null);
+            
             Gtk.TreeIter iter;
 
             m_list.append(out iter);
 
-            var state = new AttributeCreating(b_item);
+            var state = new AttributeCreating(creator);
 
             m_list.@set(iter, Column.STATE, state);
 
@@ -445,6 +513,70 @@ namespace Gschem3
             change_attribute_state(
                 path_string,
                 (state) => { state.name = new_name; }
+                );
+        }
+
+
+        /**
+         * Set the presentation to show the name of the attribute
+         *
+         * @param renderer Unused
+         * @param path_string The tree path in string represenation
+         */
+        private void on_item_show_name_toggled(
+            Gtk.CellRendererToggle renderer,
+            string path_string
+            )
+        {
+            change_attribute_state(
+                path_string,
+                (state) =>
+                {
+                    state.presentation = Geda3.TextPresentation.NAME;
+                }
+                );
+        }
+
+
+        /**
+         * Set the presentation to show the name and value of the
+         * attribute
+         *
+         * @param renderer Unused
+         * @param path_string The tree path in string represenation
+         */
+        private void on_item_show_name_value_toggled(
+            Gtk.CellRendererToggle renderer,
+            string path_string
+            )
+        {
+            change_attribute_state(
+                path_string,
+                (state) =>
+                {
+                    state.presentation = Geda3.TextPresentation.BOTH;
+                }
+                );
+        }
+
+
+        /**
+         * Set the presentation to show the value of the attribute
+         *
+         * @param renderer Unused
+         * @param path_string The tree path in string represenation
+         */
+        private void on_item_show_value_toggled(
+            Gtk.CellRendererToggle renderer,
+            string path_string
+            )
+        {
+            change_attribute_state(
+                path_string,
+                (state) =>
+                {
+                    state.presentation = Geda3.TextPresentation.VALUE;
+                }
                 );
         }
 
@@ -589,10 +721,11 @@ namespace Gschem3
             requires(m_insert_button != null)
 
         {
-            // will need to be subset of items that allow automatic
-            // insertion of new attributes
-            
-            m_insert_button.sensitive = b_item != null;
+            var creator = b_item as Geda3.AttributeCreator;
+
+            m_insert_button.sensitive =
+                (creator != null) &&
+                creator.can_create_and_attach;
         }
 
 
@@ -610,12 +743,18 @@ namespace Gschem3
 
             m_list.@set(
                 iter,
-                Column.NAME,             state.name,
-                Column.NAME_EDITABLE,    true,
-                Column.VALUE,            state.@value,
-                Column.VALUE_EDITABLE,   true,
-                Column.VISIBLE,          state.visible,
-                Column.VISIBLE_EDITABLE, true
+                Column.NAME,                      state.name,
+                Column.NAME_EDITABLE,             true,
+                Column.VALUE,                     state.@value,
+                Column.VALUE_EDITABLE,            true,
+                Column.VISIBLE,                   state.visible,
+                Column.VISIBLE_EDITABLE,          true,
+                Column.SHOW_NAME,                 state.presentation == Geda3.TextPresentation.NAME,
+                Column.SHOW_NAME_EDITABLE,        true,
+                Column.SHOW_VALUE,                state.presentation == Geda3.TextPresentation.VALUE,
+                Column.SHOW_VALUE_EDITABLE,       true,
+                Column.SHOW_NAME_VALUE,           state.presentation == Geda3.TextPresentation.BOTH,
+                Column.SHOW_NAME_VALUE_EDITABLE,  true
                 );
         }
 

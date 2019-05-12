@@ -62,6 +62,7 @@ libgeda3_a_SOURCES = \
 	sch/Angle.vala \
 	sch/AngleGrip.vala \
 	sch/AttributeChild.vala \
+	sch/AttributeCreator.vala \
 	sch/AttributeParent.vala \
 	sch/ArcItem.vala \
 	sch/Bounds.vala \

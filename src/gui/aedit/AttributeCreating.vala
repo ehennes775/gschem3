@@ -31,6 +31,16 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
+        public override Geda3.TextPresentation presentation
+        {
+            get;
+            set;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override bool request_removal
         {
             get
@@ -77,12 +87,31 @@ namespace Gschem3
         /**
          *
          */
-        public AttributeCreating(Geda3.AttributeParent item)
+        public AttributeCreating(Geda3.AttributeCreator item)
         {
             m_item = item;
 
             m_name_set = false;
             m_value_set = false;
+        }
+
+
+
+        /**
+         *
+         */
+        public Geda3.AttributeChild create_and_attach()
+
+            requires(m_item != null)
+            requires(m_item.can_create_and_attach)
+
+        {
+            return m_item.create_and_attach(
+                m_name,
+                m_value,
+                presentation,
+                Geda3.Visibility.from_boolean(visible)
+                );
         }
 
 
@@ -95,7 +124,7 @@ namespace Gschem3
         /**
          *
          */
-        private Geda3.AttributeParent m_item;
+        private Geda3.AttributeCreator m_item;
 
 
         /**

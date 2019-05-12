@@ -30,6 +30,16 @@ namespace Geda3
 
 
         /**
+         * The visibility of the attribute
+         */
+        public abstract TextPresentation presentation
+        {
+            get;
+            construct set;
+        }
+
+
+        /**
          * The attribute value
          */
         public abstract string? @value

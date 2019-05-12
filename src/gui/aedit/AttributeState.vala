@@ -41,6 +41,16 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public abstract Geda3.TextPresentation presentation
+        {
+            get;
+            set;
+        }
+
+
+        /**
          * Indicates this row is requesting removal
          *
          * Rows representing temporary states use this property to

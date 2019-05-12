@@ -118,14 +118,17 @@ namespace Geda3
             {
                 return b_presentation;
             }
-            set
+            construct set
             {
                 return_if_fail(value >= 0);
                 return_if_fail(value < TextPresentation.COUNT);
 
                 b_presentation = value;
 
-                update_visible_text();
+                if (b_lines != null)
+                {
+                    update_visible_text();
+                }
             }
             default = TextPresentation.BOTH;
         }

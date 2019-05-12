@@ -27,6 +27,22 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
+        public override Geda3.TextPresentation presentation
+        {
+            get
+            {
+                return m_attribute.presentation;
+            }
+            set
+            {
+                m_attribute.presentation = value;
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override bool request_removal
         {
             get

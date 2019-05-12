@@ -58,5 +58,19 @@ namespace Geda3
 
             return (Visibility) result2;
         }
+
+
+        /**
+         * Convert boolean to visibility
+         *
+         * @param visible The boolean
+         * @return The visibility
+         */
+        public static Visibility from_boolean(bool visible)
+        {
+            return visible ?
+                Geda3.Visibility.VISIBLE :
+                Geda3.Visibility.INVISIBLE;
+        }
     }
 }

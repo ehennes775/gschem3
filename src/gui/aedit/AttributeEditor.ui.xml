@@ -11,6 +11,12 @@
             <column type="gboolean"/>
             <column type="gboolean"/>
             <column type="gboolean"/>
+            <column type="gboolean"/>
+            <column type="gboolean"/>
+            <column type="gboolean"/>
+            <column type="gboolean"/>
+            <column type="gboolean"/>
+            <column type="gboolean"/>
         </columns>
     </object>
 
@@ -56,6 +62,7 @@
                                 <child>
                                     <object class="GtkTreeViewColumn" id="column-value">
                                         <property name="clickable">TRUE</property>
+                                        <property name="expand">TRUE</property>
                                         <property name="resizable">TRUE</property>
                                         <property name="sort-column-id">3</property>
                                         <property name="title">Value</property>
@@ -85,6 +92,53 @@
                                             <attributes>
                                                 <attribute name="active">5</attribute>
                                                 <attribute name="editable">6</attribute>
+                                            </attributes>
+                                            <cell-packing>
+                                                <property name="expand">false</property>
+                                            </cell-packing>
+                                        </child>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkTreeViewColumn" id="column-presentation">
+                                        <property name="clickable">TRUE</property>
+                                        <property name="expand">FALSE</property>
+                                        <property name="resizable">FALSE</property>
+                                        <property name="title">Presentation</property>
+                                        <child>
+                                            <object class="GtkCellRendererToggle" id="column-presentation-renderer-name">
+                                                <property name="radio">TRUE</property>
+                                                <property name="xalign">0.0</property>
+                                            </object>
+                                            <attributes>
+                                                <attribute name="active">7</attribute>
+                                                <attribute name="editable">8</attribute>
+                                            </attributes>
+                                            <cell-packing>
+                                                <property name="expand">false</property>
+                                            </cell-packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkCellRendererToggle" id="column-presentation-renderer-value">
+                                                <property name="radio">TRUE</property>
+                                                <property name="xalign">0.0</property>
+                                            </object>
+                                            <attributes>
+                                                <attribute name="active">9</attribute>
+                                                <attribute name="editable">10</attribute>
+                                            </attributes>
+                                            <cell-packing>
+                                                <property name="expand">false</property>
+                                            </cell-packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkCellRendererToggle" id="column-presentation-renderer-name-value">
+                                                <property name="radio">TRUE</property>
+                                                <property name="xalign">0.0</property>
+                                            </object>
+                                            <attributes>
+                                                <attribute name="active">11</attribute>
+                                                <attribute name="editable">12</attribute>
                                             </attributes>
                                             <cell-packing>
                                                 <property name="expand">false</property>
