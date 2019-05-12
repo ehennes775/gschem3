@@ -83,6 +83,14 @@ namespace Gschem3
 
 
         /**
+         * A delegate for applying a fill style
+         */
+        private delegate void FillStyleApplicator(
+            Geda3.FillStyle style
+            );
+
+
+        /**
          *
          */
         [CCode(has_target=false)]
@@ -184,171 +192,20 @@ namespace Gschem3
 
 
         /**
+         * Apply a fill style to the selection
          *
-         *
-         * @param items The items to apply a new angle
-         * @param angle The new angle to apply
+         * @param applicator A delegate to apply the new style
          */
-        private static void apply_angle_1(Gee.Iterable<Geda3.Fillable> items, int angle)
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
+        private void apply_fill_style(FillStyleApplicator applicator)
 
-                if (item.fill_style == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.fill_style.fill_angle_1 = angle;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new angle
-         * @param angle The new angle to apply
-         */
-        private static void apply_angle_2(Gee.Iterable<Geda3.Fillable> items, int angle)
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                if (item.fill_style == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.fill_style.fill_angle_2 = angle;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new fill type
-         * @param fill_type The new fill type to apply
-         */
-        private static void apply_fill_type(Gee.Iterable<Geda3.Fillable> items, Geda3.FillType fill_type)
-
-            requires(fill_type >= 0)
-            requires(fill_type < Geda3.FillType.COUNT)
+            requires(m_items != null)
+            requires(m_items.all_match((i) => i != null))
+            requires(m_items.all_match((i) => i.fill_style != null))
 
         {
-            foreach (var item in items)
+            foreach (var item in m_items)
             {
-                if (item == null)
-                {
-                    warn_if_reached();
-
-                    continue;
-                }
-
-                item.fill_style.fill_type = fill_type;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new line width
-         * @param width The new line width to apply
-         */
-        private static void apply_line_width(Gee.Iterable<Geda3.Fillable> items, int width)
-
-            requires(width > 0)
-
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                if (item.fill_style == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.fill_style.fill_width = width;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new pitch
-         * @param pitch The new pitch value to apply
-         */
-        private static void apply_pitch_1(Gee.Iterable<Geda3.Fillable> items, int pitch)
-
-            requires(pitch > 0)
-
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                if (item.fill_style == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.fill_style.fill_pitch_1 = pitch;
-            }
-        }
-
-
-        /**
-         *
-         *
-         * @param items The items to apply a new pitch
-         * @param pitch The new pitch value to apply
-         */
-        private static void apply_pitch_2(Gee.Iterable<Geda3.Fillable> items, int pitch)
-
-            requires(pitch > 0)
-
-        {
-            foreach (var item in items)
-            {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                if (item.fill_style == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
-
-                item.fill_style.fill_pitch_2 = pitch;
+                applicator(item.fill_style);
             }
         }
 
@@ -636,7 +493,9 @@ namespace Gschem3
             {
                 var angle = Geda3.Angle.parse(m_angle_combo_1.content);
 
-                apply_angle_1(m_items, angle);
+                apply_fill_style(
+                    (style) => { style.fill_angle_1 = angle; }
+                    );
             }
             catch (Error error)
             {
@@ -658,7 +517,9 @@ namespace Gschem3
             {
                 var angle = Geda3.Angle.parse(m_angle_combo_2.content);
 
-                apply_angle_2(m_items, angle);
+                apply_fill_style(
+                    (style) => { style.fill_angle_2 = angle; }
+                    );
             }
             catch (Error error)
             {
@@ -678,9 +539,13 @@ namespace Gschem3
         {
             try
             {
-                var fill_type = Geda3.FillType.parse(m_type_combo.active_id);
+                var fill_type = Geda3.FillType.parse(
+                    m_type_combo.active_id
+                    );
 
-                apply_fill_type(m_items, fill_type);
+                apply_fill_style(
+                    (style) => { style.fill_type = fill_type; }
+                    );
             }
             catch (Error error)
             {
@@ -702,7 +567,9 @@ namespace Gschem3
             {
                 var pitch = Geda3.Coord.parse(m_pitch_combo_1.content);
 
-                apply_pitch_1(m_items, pitch);
+                apply_fill_style(
+                    (style) => { style.fill_pitch_1 = pitch; }
+                    );
             }
             catch (Error error)
             {
@@ -724,7 +591,9 @@ namespace Gschem3
             {
                 var pitch = Geda3.Coord.parse(m_pitch_combo_2.content);
 
-                apply_pitch_2(m_items, pitch);
+                apply_fill_style(
+                    (style) => { style.fill_pitch_2 = pitch; }
+                    );
             }
             catch (Error error)
             {
@@ -746,7 +615,9 @@ namespace Gschem3
             {
                 var width = Geda3.Coord.parse(m_width_combo.content);
 
-                apply_line_width(m_items, width);
+                apply_fill_style(
+                    (style) => { style.fill_width = width; }
+                    );
             }
             catch (Error error)
             {
