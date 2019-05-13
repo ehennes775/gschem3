@@ -3,10 +3,12 @@ namespace Gschem3
     /**
      *
      */
-    public class SchematicWindowFactory : Object
+    public class SchematicWindowFactory : DocumentWindowFactory
     {
         /**
+         * Initialize a new instance
          *
+         * @param library_widget
          */
         public SchematicWindowFactory(LibraryWidget library_widget)
         {
@@ -17,9 +19,12 @@ namespace Gschem3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
-        public SchematicWindow create()
+        public override DocumentWindow create()
+
+            requires(m_complex_factory != null)
+
         {
             return new SchematicWindow(
                 m_complex_factory
@@ -28,9 +33,12 @@ namespace Gschem3
 
 
         /**
-         *
+         * {@inheritDoc}
          */
-        public SchematicWindow create_with_file(File file)
+        public override DocumentWindow create_with_file(File file)
+
+            requires(m_complex_factory != null)
+
         {
             return SchematicWindow.create(
                 file,
@@ -39,6 +47,9 @@ namespace Gschem3
         }
 
 
+        /**
+         * The complex factory to use for new instances
+         */
         private ComplexFactory m_complex_factory;
     }
 }

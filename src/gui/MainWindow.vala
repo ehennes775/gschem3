@@ -90,7 +90,7 @@ namespace Gschem3
 
             m_library_widget.open_files.connect(open);
 
-            m_schematic_window_factory = new SchematicWindowFactory(
+            m_document_window_factory = new SchematicWindowFactory(
                 m_library_widget
                 );
 
@@ -208,7 +208,7 @@ namespace Gschem3
          */
         public void open(File[] files)
 
-            requires (m_schematic_window_factory != null)
+            requires (m_document_window_factory != null)
             requires (notebook != null)
 
         {
@@ -222,7 +222,7 @@ namespace Gschem3
 
                     if (window == null)
                     {
-                        window = m_schematic_window_factory.create_with_file(
+                        window = m_document_window_factory.create_with_file(
                             file
                             );
 
@@ -426,7 +426,7 @@ namespace Gschem3
         /**
          *
          */
-        private SchematicWindowFactory m_schematic_window_factory;
+        private DocumentWindowFactory m_document_window_factory;
 
 
         /**
@@ -779,10 +779,11 @@ namespace Gschem3
          */
         private void on_file_new(SimpleAction action, Variant? parameter)
 
+            requires (m_document_window_factory != null)
             requires(notebook != null)
 
         {
-            var window = m_schematic_window_factory.create();
+            var window = m_document_window_factory.create();
 
             window.show_all();
             var tab = new DocumentTab(window);

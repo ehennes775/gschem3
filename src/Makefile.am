@@ -172,6 +172,7 @@ libgschem3_a_SOURCES = \
 	gui/ClipboardSupport.vala \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \
+	gui/DocumentWindowFactory.vala \
 	gui/DrawingTool.vala \
 	gui/DrawingToolSet.vala \
 	gui/ErrorDialog.vala \
