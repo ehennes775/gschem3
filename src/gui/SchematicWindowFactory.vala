@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      *
      */
-    public class SchematicWindowFactory : DocumentWindowFactory
+    public class SchematicWindowFactory : SpecificWindowFactory
     {
         /**
          * Initialize a new instance

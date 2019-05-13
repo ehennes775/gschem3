@@ -3,12 +3,37 @@ namespace Gschem3
     /**
      *
      */
-    public abstract class DocumentWindowFactory : Object
+    public class DocumentWindowFactory : Object
     {
+        /**
+         *
+         */
+        construct
+        {
+            m_factories = new Gee.ArrayList<SpecificWindowFactory>();
+        }
+
+
+        /**
+         *
+         */
+        public void add_factory(SpecificWindowFactory factory)
+        {
+
+            m_factories.add(factory);
+        }
+
+
         /**
          * Create a new document window
          */
-        public abstract DocumentWindow create();
+        public DocumentWindow create()
+        {
+            var factory = m_factories.first_match(i => true);
+            return_val_if_fail(factory != null, null);
+
+            return factory.create();
+        }
 
 
         /**
@@ -16,6 +41,18 @@ namespace Gschem3
          *
          * @param file The file to edit in the schematic window
          */
-        public abstract DocumentWindow create_with_file(File file);
+        public DocumentWindow create_with_file(File file)
+        {
+            var factory = m_factories.first_match(i => true);
+            return_val_if_fail(factory != null, null);
+
+            return factory.create_with_file(file);
+        }
+
+
+        /**
+         *
+         */
+        private Gee.ArrayList<SpecificWindowFactory> m_factories;
     }
 }

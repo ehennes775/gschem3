@@ -90,8 +90,10 @@ namespace Gschem3
 
             m_library_widget.open_files.connect(open);
 
-            m_document_window_factory = new SchematicWindowFactory(
-                m_library_widget
+            m_document_window_factory = new DocumentWindowFactory();
+
+            m_document_window_factory.add_factory(
+                new SchematicWindowFactory(m_library_widget)
                 );
 
             m_drawing_tools = new DrawingToolSet(m_complex_factory);
