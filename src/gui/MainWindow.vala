@@ -90,7 +90,9 @@ namespace Gschem3
 
             m_library_widget.open_files.connect(open);
 
-            m_complex_factory = new MainComplexFactory(m_library_widget);
+            m_schematic_window_factory = new SchematicWindowFactory(
+                m_library_widget
+                );
 
             m_drawing_tools = new DrawingToolSet(m_complex_factory);
 
@@ -206,6 +208,7 @@ namespace Gschem3
          */
         public void open(File[] files)
 
+            requires (m_schematic_window_factory != null)
             requires (notebook != null)
 
         {
@@ -219,7 +222,10 @@ namespace Gschem3
 
                     if (window == null)
                     {
-                        window = SchematicWindow.create(file, m_complex_factory);
+                        window = m_schematic_window_factory.create_with_file(
+                            file
+                            );
+
                         window.show_all();
                         var tab = new DocumentTab(window);
                         tab.show_all();
@@ -415,6 +421,12 @@ namespace Gschem3
          */
         [GtkChild(name="editor")]
         private AttributeEditor m_attribute_widget;
+
+
+        /**
+         *
+         */
+        private SchematicWindowFactory m_schematic_window_factory;
 
 
         /**
@@ -770,7 +782,8 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            var window = new SchematicWindow(m_complex_factory);
+            var window = m_schematic_window_factory.create();
+
             window.show_all();
             var tab = new DocumentTab(window);
             tab.show_all();
