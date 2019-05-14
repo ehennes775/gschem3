@@ -120,6 +120,7 @@ namespace Gschem3
          */
         public void paste()
         {
+            select_tool(SelectTool.NAME);
         }
 
 
