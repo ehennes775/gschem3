@@ -276,7 +276,6 @@ namespace Gschem3
          * Create a schematic window with an untitled schematic
          */
         public SchematicWindow(
-            ComplexFactory factory,
             SchematicPasteHandler handler
             )
         {
@@ -345,11 +344,10 @@ namespace Gschem3
          */
         public static SchematicWindow create(
             File file,
-            ComplexFactory factory,
             SchematicPasteHandler handler
             ) throws Error
         {
-            var window = new SchematicWindow(factory, handler);
+            var window = new SchematicWindow(handler);
             
             window.read(file);
 

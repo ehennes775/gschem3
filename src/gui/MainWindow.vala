@@ -100,7 +100,7 @@ namespace Gschem3
             m_document_window_factory = new DocumentWindowFactory();
 
             m_document_window_factory.add_factory(
-                new SchematicWindowFactory(m_complex_factory, m_drawing_tools)
+                new SchematicWindowFactory(m_drawing_tools)
                 );
 
             add_property_editor(new ColorEditor());
