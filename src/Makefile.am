@@ -194,6 +194,7 @@ libgschem3_a_SOURCES = \
 	gui/ProjectWidget.vala \
 	gui/Reloadable.vala \
 	gui/Savable.vala \
+	gui/SchematicPasteHandler.vala \
 	gui/SchematicWindow.vala \
 	gui/SchematicWindowFactory.vala \
 	gui/SchematicWindowSettings.vala \

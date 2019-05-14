@@ -10,11 +10,13 @@ namespace Gschem3
          *
          * @param library_widget
          */
-        public SchematicWindowFactory(LibraryWidget library_widget)
+        public SchematicWindowFactory(
+            ComplexFactory complex_factory,
+            SchematicPasteHandler paste_handler
+            )
         {
-            m_complex_factory = new MainComplexFactory(
-                library_widget
-                );
+            m_complex_factory = complex_factory;
+            m_paste_handler = paste_handler;
         }
 
 
@@ -27,7 +29,8 @@ namespace Gschem3
 
         {
             return new SchematicWindow(
-                m_complex_factory
+                m_complex_factory,
+                m_paste_handler
                 );
         }
 
@@ -42,7 +45,8 @@ namespace Gschem3
         {
             return SchematicWindow.create(
                 file,
-                m_complex_factory
+                m_complex_factory,
+                m_paste_handler
                 );
         }
 
@@ -51,5 +55,11 @@ namespace Gschem3
          * The complex factory to use for new instances
          */
         private ComplexFactory m_complex_factory;
+
+
+        /**
+         *
+         */
+        private SchematicPasteHandler m_paste_handler;
     }
 }

@@ -275,8 +275,13 @@ namespace Gschem3
         /**
          * Create a schematic window with an untitled schematic
          */
-        public SchematicWindow(ComplexFactory factory)
+        public SchematicWindow(
+            ComplexFactory factory,
+            SchematicPasteHandler handler
+            )
         {
+            m_paste_handler = handler;
+
             tab = @"untitled_$(++untitled_number)$(SCHEMATIC_EXTENSION)";
         }
 
@@ -340,10 +345,11 @@ namespace Gschem3
          */
         public static SchematicWindow create(
             File file,
-            ComplexFactory factory
+            ComplexFactory factory,
+            SchematicPasteHandler handler
             ) throws Error
         {
-            var window = new SchematicWindow(factory);
+            var window = new SchematicWindow(factory, handler);
             
             window.read(file);
 
@@ -381,6 +387,9 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public void paste(Gtk.Clipboard clipboard) throws Error
+
+            requires(m_paste_handler != null)
+
         {
             // rough
 
@@ -388,10 +397,12 @@ namespace Gschem3
 
             return_if_fail(temp_schematic != null);
 
-            foreach (var item in temp_schematic.items)
-            {
-                add_item(item);
-            }
+            m_paste_handler.paste();
+
+            //foreach (var item in temp_schematic.items)
+            //{
+            //    add_item(item);
+            //}
         }
 
 
@@ -1007,6 +1018,12 @@ namespace Gschem3
          * A number used in the untitled filename to make it unique
          */
         private static int untitled_number = 0;
+
+
+        /**
+         *
+         */
+        private SchematicPasteHandler m_paste_handler;
 
 
         /**

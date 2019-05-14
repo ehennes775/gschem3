@@ -4,8 +4,16 @@ namespace Gschem3
      *
      *
      */
-    public class DrawingToolSet
+    public class DrawingToolSet : Object,
+        SchematicPasteHandler
     {
+        /**
+         *
+         * @param name The name of the selected tool
+         */
+        public signal void tool_selected(string name);
+
+
         /**
          *
          *
@@ -108,6 +116,14 @@ namespace Gschem3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void paste()
+        {
+        }
+
+
+        /**
          * Select a drawing tool by name
          *
          * The m_current_tool should not be null, but this function
@@ -134,6 +150,8 @@ namespace Gschem3
             return_if_fail(m_current_tool != null);
 
             m_current_tool.reset();
+
+            tool_selected(name);
         }
 
 
@@ -166,6 +184,8 @@ namespace Gschem3
             return_if_fail(m_current_tool != null);
 
             m_current_tool.reset_with_point(x, y);
+
+            tool_selected(name);
         }
 
 

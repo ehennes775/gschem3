@@ -88,15 +88,20 @@ namespace Gschem3
 
             // Setup library signal handling
 
+            m_complex_factory = new MainComplexFactory(
+                m_library_widget
+                );
+
+            m_drawing_tools = new DrawingToolSet(m_complex_factory);
+            m_drawing_tools.tool_selected.connect(on_tool_selected);
+
             m_library_widget.open_files.connect(open);
 
             m_document_window_factory = new DocumentWindowFactory();
 
             m_document_window_factory.add_factory(
-                new SchematicWindowFactory(m_library_widget)
+                new SchematicWindowFactory(m_complex_factory, m_drawing_tools)
                 );
-
-            m_drawing_tools = new DrawingToolSet(m_complex_factory);
 
             add_property_editor(new ColorEditor());
             add_property_editor(new LineStyleEditor());
@@ -1176,12 +1181,26 @@ namespace Gschem3
             return_if_fail(next_tool != null);
 
             // Since a signal handler was added to the change_state
-            // signal, this function is responsibe for setting the
+            // signal, this application is responsibe for setting the
             // state of the action.
 
-            action.set_state(state);
-
             m_drawing_tools.select_tool(next_tool);
+        }
+
+
+        /**
+         * Update the GUI to show the currently selected tool
+         *
+         * @param name The name of the selected tool
+         */
+        private void on_tool_selected(string name)
+        {
+            var action = lookup_action("select-tool") as SimpleAction;
+            return_if_fail(action != null);
+
+            var next_state = new Variant.string(name);
+
+            action.set_state(next_state);
         }
 
 
