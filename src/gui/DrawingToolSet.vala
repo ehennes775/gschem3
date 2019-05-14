@@ -19,7 +19,7 @@ namespace Gschem3
          *
          * @param factory
          */
-        public DrawingToolSet(ComplexFactory factory)
+        public DrawingToolSet(ComplexSelector selector)
         {
             m_tools = new Gee.HashMap<string,DrawingTool>();
 
@@ -29,7 +29,7 @@ namespace Gschem3
                 new BoxTool(),
                 new BusTool(),
                 new CircleTool(),
-                new ComplexTool(factory),
+                new ComplexTool(selector),
                 new LineTool(),
                 new NetTool(),
                 new PathTool(),

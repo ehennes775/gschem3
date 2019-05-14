@@ -88,11 +88,7 @@ namespace Gschem3
 
             // Setup library signal handling
 
-            m_complex_factory = new MainComplexFactory(
-                m_library_widget
-                );
-
-            m_drawing_tools = new DrawingToolSet(m_complex_factory);
+            m_drawing_tools = new DrawingToolSet(m_library_widget);
             m_drawing_tools.tool_selected.connect(on_tool_selected);
 
             m_library_widget.open_files.connect(open);
@@ -365,9 +361,6 @@ namespace Gschem3
          * Actions for this ApplicationWindow
          */
         private CustomAction[] m_actions;
-
-
-        private MainComplexFactory m_complex_factory;
 
 
         /**

@@ -186,7 +186,6 @@ libgschem3_a_SOURCES = \
 	gui/ItemEditor.vala \
 	gui/LibraryAdapter.vala \
 	gui/LibraryWidget.vala \
-	gui/MainComplexFactory.vala \
 	gui/MainWindow.vala \
 	gui/NewProjectDialog.vala \
 	gui/PreviewWidget.vala \
@@ -206,7 +205,7 @@ libgschem3_a_SOURCES = \
 	gui/tool/BoxTool.vala \
 	gui/tool/BusTool.vala \
 	gui/tool/CircleTool.vala \
-	gui/tool/ComplexFactory.vala \
+	gui/tool/ComplexSelector.vala \
 	gui/tool/ComplexTool.vala \
 	gui/tool/LineTool.vala \
 	gui/tool/NetTool.vala \

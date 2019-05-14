@@ -24,28 +24,28 @@ namespace Gschem3
 
 
         /**
-         * The factory for creating complex items to place
+         * The object for selecting complex items to place
          */
-        private ComplexFactory factory
+        private ComplexSelector selector
         {
             get
             {
-                return b_factory;
+                return b_selector;
             }
             protected set
             {
                 return_if_fail(value != null);
 
-                if (b_factory != null)
+                if (b_selector != null)
                 {
-                    b_factory.recreate.disconnect(on_recreate);
+                    b_selector.recreate.disconnect(on_recreate);
                 }
 
-                b_factory = value;
+                b_selector = value;
 
-                b_factory.recreate.connect(on_recreate);
+                b_selector.recreate.connect(on_recreate);
 
-                complex = b_factory.create();
+                complex = b_selector.create();
             }
         }
 
@@ -55,11 +55,11 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public ComplexTool(ComplexFactory factory, SchematicWindow? window = null)
+        public ComplexTool(ComplexSelector selector, SchematicWindow? window = null)
         {
             base(window);
 
-            this.factory = factory;
+            this.selector = selector;
 
             reset();
         }
@@ -70,7 +70,7 @@ namespace Gschem3
          */
         public override bool button_pressed(Gdk.EventButton event)
 
-            requires(b_factory != null)
+            requires(b_selector != null)
             requires(m_window != null)
 
         {
@@ -79,7 +79,7 @@ namespace Gschem3
                 m_window.add_item(b_complex);
             }
 
-            complex = b_factory.create();
+            complex = b_selector.create();
 
             m_x = event.x;
             m_y = event.y;
@@ -266,7 +266,7 @@ namespace Gschem3
         /**
          * The backing store for factory to create items to place
          */
-        private ComplexFactory b_factory;
+        private ComplexSelector b_selector;
 
 
         /**
@@ -348,10 +348,10 @@ namespace Gschem3
          */
         private void on_recreate()
 
-            requires(b_factory != null)
+            requires(b_selector != null)
 
         {
-            complex = b_factory.create();
+            complex = b_selector.create();
         }
     }
 }

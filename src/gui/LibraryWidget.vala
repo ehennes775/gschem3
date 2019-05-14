@@ -4,7 +4,8 @@ namespace Gschem3
      * Provides a user interface for the symbol library
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/LibraryWidget.ui.xml")]
-    public class LibraryWidget : Gtk.Bin
+    public class LibraryWidget : Gtk.Bin,
+        ComplexSelector
     {
         /**
          * Requests files to be opened in an editor
@@ -56,6 +57,8 @@ namespace Gschem3
             construct set
             {
                 b_name = value;
+
+                recreate();
             }
             default = null;
         }
@@ -120,6 +123,35 @@ namespace Gschem3
                 );
 
             return items;
+        }
+
+
+        // temp located here for development
+        private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
+
+
+        // temp located here for development
+        private static Geda3.AttributePromoter m_promoter = new Geda3.StandardPromoter();
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Geda3.ComplexItem? create()
+        {
+            var complex = new Geda3.ComplexItem.with_name(
+                m_library,
+                symbol_name
+                );
+
+            var promoted = m_promoter.promote(complex.symbol.schematic.items);
+
+            foreach (var attribute in promoted)
+            {
+                complex.attach(attribute);
+            }
+
+            return complex;
         }
 
 

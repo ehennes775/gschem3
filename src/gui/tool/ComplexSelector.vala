@@ -1,9 +1,9 @@
 namespace Gschem3
 {
     /**
-     * Creates complex items for the complex drawing tool
+     * Selects complex items for the complex drawing tool
      */
-    public abstract class ComplexFactory : Object
+    public abstract interface ComplexSelector : Object
     {
         /**
          * This signal indicates changes to the complex item and
@@ -15,7 +15,7 @@ namespace Gschem3
         /**
          * The name of the complex item from the library
          */
-        public abstract string? name
+        public abstract string? symbol_name
         {
             get;
             construct set;
