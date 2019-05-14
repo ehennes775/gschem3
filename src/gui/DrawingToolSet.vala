@@ -23,6 +23,8 @@ namespace Gschem3
         {
             m_tools = new Gee.HashMap<string,DrawingTool>();
 
+            m_select_tool = new SelectTool();
+
             DrawingTool[] tools =
             {
                 new ArcTool(),
@@ -34,7 +36,7 @@ namespace Gschem3
                 new NetTool(),
                 new PathTool(),
                 new PinTool(),
-                new SelectTool(),
+                m_select_tool,
                 new ZoomTool()
             };
 
@@ -119,8 +121,11 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public void paste()
+
+            requires(m_select_tool != null)
+
         {
-            select_tool(SelectTool.NAME);
+            select_tool(m_select_tool.name);
         }
 
 
@@ -270,6 +275,12 @@ namespace Gschem3
          * The current drawing tool
          */
         private DrawingTool m_current_tool;
+
+
+        /**
+         * The select tool
+         */
+        private SelectTool m_select_tool;
 
 
         /**
