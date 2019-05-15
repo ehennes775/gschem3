@@ -47,6 +47,7 @@ namespace Gschem3
         public override bool button_pressed(Gdk.EventButton event)
 
             requires(m_window != null)
+            requires(m_state != State.S5 || m_paste_items != null)
 
         {
             if (m_state == State.S0)
@@ -69,6 +70,13 @@ namespace Gschem3
                 {
                     m_state = State.S1;
                 }
+            }
+            else if (m_state == State.S5)
+            {
+                m_window.place_items(m_paste_items);
+
+                m_paste_items = null;
+                m_state = State.S0;
             }
 
             return true;
@@ -160,6 +168,9 @@ namespace Gschem3
             out int ux,
             out int uy
             )
+
+            requires(m_window != null)
+
         {
             var x = dx;
             var y = dy;
@@ -192,6 +203,19 @@ namespace Gschem3
                 {
                     grip.draw(painter, GRIP_HALF_WIDTH);
                 }
+            }
+
+            if (m_paste_items != null)
+            {
+                painter.draw_items(
+                    0,
+                    0,
+                    0,
+                    false,
+                    m_paste_items,
+                    true,
+                    true
+                    );
             }
         }
 
@@ -244,6 +268,7 @@ namespace Gschem3
         public override bool motion_notify(Gdk.EventMotion event)
 
             requires(m_window != null)
+            requires(m_state != State.S5 || m_paste_items != null)
 
         {
             base.motion_notify(event);
@@ -281,18 +306,55 @@ namespace Gschem3
 
                 m_grip.move(m_x[1], m_y[1]);
             }
+            else if (m_state == State.S5)
+            {
+                m_x[1] = event.x;
+                m_y[1] = event.y;
+
+                device_to_user(m_x[1], m_y[1], out m_px[1], out m_py[1]);
+
+                snap_point(ref m_px[1], ref m_py[1]);
+
+                var dx = m_px[1] - m_px[0];
+                var dy = m_py[1] - m_py[0];
+
+                m_px[0] = m_px[1];
+                m_py[0] = m_py[1];
+
+                foreach (var item in m_paste_items)
+                {
+                    m_window.invalidate_item(item, true);
+
+                    item.translate(dx, dy);
+
+                    m_window.invalidate_item(item, true);
+                }
+            }
 
             return true;
         }
 
 
         /**
+         * Set tool to place items in the schematic
          *
-         *
-         *
+         * @param items The items to place in the schematic
          */
-        public void paste()
+        public void paste(
+            Gee.Collection<Geda3.SchematicItem> items
+            )
+
+            requires(items.all_match(i => i != null))
+
         {
+            reset();
+
+            m_px[0] = m_px[1] = 0;
+            m_py[0] = m_py[1] = 0;
+
+            m_paste_items = items;
+
+            m_state = State.S5;
         }
 
 
@@ -405,7 +467,8 @@ namespace Gschem3
             S0,
             S1,
             S2,
-            S4
+            S4,
+            S5
         }
 
 
@@ -431,6 +494,18 @@ namespace Gschem3
          *
          */
         private Gee.Collection<Geda3.SchematicItem> m_paste_items;
+
+
+        /**
+         *
+         */
+        private int m_px[2];
+
+
+        /**
+         *
+         */
+        private int m_py[2];
 
 
         /**

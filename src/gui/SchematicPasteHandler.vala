@@ -8,6 +8,8 @@ namespace Gschem3
         /**
          *
          */
-        public abstract void paste();
+        public abstract void paste(
+            Gee.Collection<Geda3.SchematicItem> items
+            );
     }
 }

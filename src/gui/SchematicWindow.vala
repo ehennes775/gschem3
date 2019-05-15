@@ -414,18 +414,10 @@ namespace Gschem3
             requires(m_paste_handler != null)
 
         {
-            // rough
-
             var temp_schematic = ClipboardHelper.extract(clipboard);
-
             return_if_fail(temp_schematic != null);
 
-            m_paste_handler.paste();
-
-            //foreach (var item in temp_schematic.items)
-            //{
-            //    add_item(item);
-            //}
+            m_paste_handler.paste(temp_schematic.items);
         }
 
 
@@ -635,6 +627,30 @@ namespace Gschem3
             var dy = (height / 2) - y;
 
             pan_displacement(dx, dy);
+        }
+
+
+        /**
+         *
+         */
+        public void place_items(
+            Gee.Collection<Geda3.SchematicItem> items
+            )
+
+            requires(items.all_match(i => i != null))
+            requires(m_selected != null)
+
+        {
+            foreach (var item in items)
+            {
+                add_item(item);
+            }
+
+            m_selected.clear();
+            m_selected.add_all(items);
+
+            queue_draw();
+            selection_changed();
         }
 
 

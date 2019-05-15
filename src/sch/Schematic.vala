@@ -1,6 +1,6 @@
 namespace Geda3
 {
-    public class Schematic
+    public class Schematic : Object
     {
         /**
          * A signal inicating an attriubte has changed
@@ -36,7 +36,7 @@ namespace Geda3
 
 
         /**
-         *
+         * A read only view of the items in the schematic
          */
         public Gee.Collection<SchematicItem> items
         {
