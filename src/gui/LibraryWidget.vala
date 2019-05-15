@@ -58,7 +58,8 @@ namespace Gschem3
             {
                 b_name = value;
 
-                recreate();
+                recreate_symbol();
+                symbol_changed();
             }
             default = null;
         }
@@ -137,7 +138,7 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public Geda3.ComplexItem? create()
+        public Geda3.ComplexItem? create_symbol()
         {
             var complex = new Geda3.ComplexItem.with_name(
                 m_library,

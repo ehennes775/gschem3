@@ -38,14 +38,18 @@ namespace Gschem3
 
                 if (b_selector != null)
                 {
-                    b_selector.recreate.disconnect(on_recreate);
+                    b_selector.recreate_symbol.disconnect(
+                        on_recreate_symbol
+                        );
                 }
 
                 b_selector = value;
 
-                b_selector.recreate.connect(on_recreate);
+                b_selector.recreate_symbol.connect(
+                    on_recreate_symbol
+                    );
 
-                complex = b_selector.create();
+                complex = b_selector.create_symbol();
             }
         }
 
@@ -79,7 +83,7 @@ namespace Gschem3
                 m_window.add_item(b_complex);
             }
 
-            complex = b_selector.create();
+            complex = b_selector.create_symbol();
 
             m_x = event.x;
             m_y = event.y;
@@ -346,12 +350,12 @@ namespace Gschem3
         /**
          * Recreate the complex item to incorporate changes
          */
-        private void on_recreate()
+        private void on_recreate_symbol()
 
             requires(b_selector != null)
 
         {
-            complex = b_selector.create();
+            complex = b_selector.create_symbol();
         }
     }
 }

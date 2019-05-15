@@ -23,20 +23,18 @@ namespace Gschem3
         {
             m_tools = new Gee.HashMap<string,DrawingTool>();
 
-            m_select_tool = new SelectTool();
-
             DrawingTool[] tools =
             {
                 new ArcTool(),
                 new BoxTool(),
                 new BusTool(),
                 new CircleTool(),
-                new ComplexTool(selector),
+                m_complex_tool = new ComplexTool(selector),
                 new LineTool(),
                 new NetTool(),
                 new PathTool(),
                 new PinTool(),
-                m_select_tool,
+                m_select_tool = new SelectTool(),
                 new ZoomTool()
             };
 
@@ -46,6 +44,8 @@ namespace Gschem3
             }
 
             m_current_tool = m_tools[SelectTool.NAME];
+
+            selector.symbol_changed.connect(on_symbol_changed);
         }
 
 
@@ -126,6 +126,7 @@ namespace Gschem3
 
         {
             select_tool(m_select_tool.name);
+            m_select_tool.paste();
         }
 
 
@@ -278,6 +279,12 @@ namespace Gschem3
 
 
         /**
+         * The complex tool
+         */
+        private ComplexTool m_complex_tool;
+
+
+        /**
          * The select tool
          */
         private SelectTool m_select_tool;
@@ -327,6 +334,18 @@ namespace Gschem3
 
         {
             select_tool(SelectTool.NAME);
+        }
+
+
+        /**
+         * The user has selected a different symbol
+         */
+        private void on_symbol_changed()
+
+            requires(m_complex_tool != null)
+
+        {
+            select_tool(m_complex_tool.name);
         }
 
 

@@ -36,6 +36,7 @@ namespace Gschem3
             m_grip = null;
             m_gripped = null;
             m_grips = null;
+            m_paste_items = null;
             m_state = State.S0;
         }
 
@@ -286,6 +287,16 @@ namespace Gschem3
 
 
         /**
+         *
+         *
+         *
+         */
+        public void paste()
+        {
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public override void reset()
@@ -293,6 +304,7 @@ namespace Gschem3
             m_grip = null;
             m_gripped = null;
             m_grips = null;
+            m_paste_items = null;
             m_state = State.S0;
         }
 
@@ -413,6 +425,12 @@ namespace Gschem3
          *
          */
         private Geda3.Grippable m_gripped;
+
+
+        /**
+         *
+         */
+        private Gee.Collection<Geda3.SchematicItem> m_paste_items;
 
 
         /**
