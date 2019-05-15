@@ -377,7 +377,32 @@ namespace Gschem3
                 selection
                 );
 
-            // TODO: remove the items
+            delete_selection();
+        }
+
+
+        /**
+         * Delete items
+         *
+         * @param items The items to delete
+         */
+        public void delete_items(
+            Gee.Collection<Geda3.SchematicItem> items
+            )
+
+            requires(items.all_match(i => i != null))
+
+        {
+            // TODO
+        }
+
+
+        /**
+         * Delete the selected items
+         */
+        public void delete_selection()
+        {
+            delete_items(selection);
         }
 
 
