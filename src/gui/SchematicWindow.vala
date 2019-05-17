@@ -425,9 +425,6 @@ namespace Gschem3
                 out insert_y
                 );
 
-            stdout.printf(@"    x=$(insert_x)\n");
-            stdout.printf(@"    y=$(insert_y)\n");
-
             if (success)
             {
                 m_paste_handler.paste(

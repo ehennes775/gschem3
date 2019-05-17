@@ -47,7 +47,7 @@ namespace Gschem3
         public override bool button_pressed(Gdk.EventButton event)
 
             requires(m_window != null)
-            requires(m_state != State.S5 || m_paste_items != null)
+            requires(m_state != State.PLACING_ITEMS || m_paste_items != null)
 
         {
             if (m_state == State.S0)
@@ -71,7 +71,7 @@ namespace Gschem3
                     m_state = State.S1;
                 }
             }
-            else if (m_state == State.S5)
+            else if (m_state == State.PLACING_ITEMS)
             {
                 m_window.place_items(m_paste_items);
 
@@ -268,7 +268,7 @@ namespace Gschem3
         public override bool motion_notify(Gdk.EventMotion event)
 
             requires(m_window != null)
-            requires(m_state != State.S5 || m_paste_items != null)
+            requires(m_state != State.PLACING_ITEMS || m_paste_items != null)
 
         {
             base.motion_notify(event);
@@ -306,7 +306,7 @@ namespace Gschem3
 
                 m_grip.move(m_x[1], m_y[1]);
             }
-            else if (m_state == State.S5)
+            else if (m_state == State.PLACING_ITEMS)
             {
                 m_x[1] = event.x;
                 m_y[1] = event.y;
@@ -338,7 +338,11 @@ namespace Gschem3
         /**
          * Set tool to place items in the schematic
          *
-         * @param items The items to place in the schematic
+         * The list of items cannot be empty
+         *
+         * @param x The x coordinate of the insertion point
+         * @param y The y coordinate of the insertion point
+         * @param items The items to place into the schematic
          */
         public void paste(
             int x,
@@ -346,7 +350,11 @@ namespace Gschem3
             Gee.Collection<Geda3.SchematicItem> items
             )
 
+            requires(!items.is_empty)
             requires(items.all_match(i => i != null))
+            ensures(m_state != State.PLACING_ITEMS || m_paste_items != null)
+            ensures(m_state != State.PLACING_ITEMS || !m_paste_items.is_empty)
+            ensures(m_state == State.PLACING_ITEMS || m_paste_items == null)
 
         {
             reset();
@@ -358,7 +366,7 @@ namespace Gschem3
 
             m_paste_items = items;
 
-            m_state = State.S5;
+            m_state = State.PLACING_ITEMS;
         }
 
 
@@ -472,7 +480,7 @@ namespace Gschem3
             S1,
             S2,
             S4,
-            S5
+            PLACING_ITEMS
         }
 
 
