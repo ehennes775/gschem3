@@ -33,10 +33,11 @@ namespace Gschem3
         {
             base(window);
             
+            m_drag_items = null;
             m_grip = null;
             m_gripped = null;
             m_grips = null;
-            m_paste_items = null;
+            m_place_items = null;
             m_state = State.S0;
         }
 
@@ -47,7 +48,7 @@ namespace Gschem3
         public override bool button_pressed(Gdk.EventButton event)
 
             requires(m_window != null)
-            requires(m_state != State.PLACING_ITEMS || m_paste_items != null)
+            requires(m_state != State.PLACING_ITEMS || m_place_items != null)
 
         {
             if (m_state == State.S0)
@@ -64,18 +65,37 @@ namespace Gschem3
                 {
                     m_grip.grab(m_x[1], m_y[1]);
 
-                    m_state = State.S4;
+                    m_state = State.DRAGGING_GRIP;
                 }
                 else
                 {
-                    m_state = State.S1;
+                    m_drag_items = find_drag_items(m_x[1], m_y[1]);
+
+                    if (m_drag_items != null)
+                    {
+                        var x0 = m_x[0];
+                        var y0 = m_y[0];
+
+                        m_window.device_to_user(ref x0, ref y0);
+
+                        m_px[0] = (int)Math.round(x0);
+                        m_px[1] = 0;
+                        m_py[0] = (int)Math.round(y0);
+                        m_py[1] = 0;
+
+                        m_state = State.DRAGGING_ITEMS;
+                    }
+                    else
+                    {
+                        m_state = State.S1;
+                    }
                 }
             }
             else if (m_state == State.PLACING_ITEMS)
             {
-                m_window.place_items(m_paste_items);
+                m_window.place_items(m_place_items);
 
-                m_paste_items = null;
+                m_place_items = null;
                 m_state = State.S0;
             }
 
@@ -136,9 +156,13 @@ namespace Gschem3
 
                 m_window.select_box(bounds);
             }
-            else if (m_state == State.S4)
+            else if (m_state == State.DRAGGING_GRIP)
             {
                 m_grip.drop(m_x[1], m_y[1]);
+            }
+            else if (m_state == State.DRAGGING_ITEMS)
+            {
+                m_drag_items = null;
             }
 
             m_grip = null;
@@ -205,14 +229,14 @@ namespace Gschem3
                 }
             }
 
-            if (m_paste_items != null)
+            if (m_place_items != null)
             {
                 painter.draw_items(
                     0,
                     0,
                     0,
                     false,
-                    m_paste_items,
+                    m_place_items,
                     true,
                     true
                     );
@@ -268,7 +292,7 @@ namespace Gschem3
         public override bool motion_notify(Gdk.EventMotion event)
 
             requires(m_window != null)
-            requires(m_state != State.PLACING_ITEMS || m_paste_items != null)
+            requires(m_state != State.PLACING_ITEMS || m_place_items != null)
 
         {
             base.motion_notify(event);
@@ -299,12 +323,36 @@ namespace Gschem3
 
                 m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
             }
-            else if (m_state == State.S4)
+            else if (m_state == State.DRAGGING_GRIP)
             {
                 m_x[1] = event.x;
                 m_y[1] = event.y;
 
                 m_grip.move(m_x[1], m_y[1]);
+            }
+            else if (m_state == State.DRAGGING_ITEMS)
+            {
+                m_x[1] = event.x;
+                m_y[1] = event.y;
+
+                device_to_user(m_x[1], m_y[1], out m_px[1], out m_py[1]);
+
+                snap_point(ref m_px[1], ref m_py[1]);
+
+                var dx = m_px[1] - m_px[0];
+                var dy = m_py[1] - m_py[0];
+
+                m_px[0] = m_px[1];
+                m_py[0] = m_py[1];
+
+                foreach (var item in m_drag_items)
+                {
+                    m_window.invalidate_item(item, true);
+
+                    item.translate(dx, dy);
+
+                    m_window.invalidate_item(item, true);
+                }
             }
             else if (m_state == State.PLACING_ITEMS)
             {
@@ -321,7 +369,7 @@ namespace Gschem3
                 m_px[0] = m_px[1];
                 m_py[0] = m_py[1];
 
-                foreach (var item in m_paste_items)
+                foreach (var item in m_place_items)
                 {
                     m_window.invalidate_item(item, true);
 
@@ -338,7 +386,7 @@ namespace Gschem3
         /**
          * Set tool to place items in the schematic
          *
-         * The list of items cannot be empty
+         * The list of items cannot be empty.
          *
          * @param x The x coordinate of the insertion point
          * @param y The y coordinate of the insertion point
@@ -352,9 +400,9 @@ namespace Gschem3
 
             requires(!items.is_empty)
             requires(items.all_match(i => i != null))
-            ensures(m_state != State.PLACING_ITEMS || m_paste_items != null)
-            ensures(m_state != State.PLACING_ITEMS || !m_paste_items.is_empty)
-            ensures(m_state == State.PLACING_ITEMS || m_paste_items == null)
+            ensures(m_state != State.PLACING_ITEMS || m_place_items != null)
+            ensures(m_state != State.PLACING_ITEMS || !m_place_items.is_empty)
+            ensures(m_state == State.PLACING_ITEMS || m_place_items == null)
 
         {
             reset();
@@ -364,7 +412,7 @@ namespace Gschem3
             m_py[0] = y;
             m_py[1] = 0;
 
-            m_paste_items = items;
+            m_place_items = items;
 
             m_state = State.PLACING_ITEMS;
         }
@@ -375,10 +423,11 @@ namespace Gschem3
          */
         public override void reset()
         {
+            m_drag_items = null;
             m_grip = null;
             m_gripped = null;
             m_grips = null;
-            m_paste_items = null;
+            m_place_items = null;
             m_state = State.S0;
         }
 
@@ -479,9 +528,16 @@ namespace Gschem3
             S0,
             S1,
             S2,
-            S4,
+            DRAGGING_GRIP,
+            DRAGGING_ITEMS,
             PLACING_ITEMS
         }
+
+
+        /**
+         *
+         */
+        private Gee.Collection<Geda3.SchematicItem>? m_drag_items;
 
 
         /**
@@ -505,7 +561,7 @@ namespace Gschem3
         /**
          *
          */
-        private Gee.Collection<Geda3.SchematicItem> m_paste_items;
+        private Gee.Collection<Geda3.SchematicItem>? m_place_items;
 
 
         /**
@@ -545,17 +601,62 @@ namespace Gschem3
          * @param y
          * @return
          */
+        private Gee.Collection<Geda3.SchematicItem>? find_drag_items(
+            double x,
+            double y
+            )
+
+            requires(m_window != null)
+
+        {
+            Gee.Collection<Geda3.SchematicItem>? items = null;
+
+            var x0 = x;
+            var y0 = y;
+
+            m_window.device_to_user(ref x0, ref y0);
+
+            var item = m_window.closest_item(
+                (int)Math.round(x0),
+                (int)Math.round(y0),
+                MAX_SELECT_DISTANCE
+                );
+
+            if (item != null)
+            {
+                items = new Gee.LinkedList<Geda3.SchematicItem>();
+
+                if (item in m_window.selection)
+                {
+                    items.add_all(m_window.selection);
+                }
+                else
+                {
+                    items.add(item);
+                }
+            }
+
+            return items;
+        }
+
+
+        /**
+         *
+         *
+         * @param x
+         * @param y
+         * @return
+         */
         private Geda3.Grip? find_grip(double x, double y)
+
+            requires(m_grips == null || m_grips.all_match(i => i != null))
+
         {
             if (m_grips != null)
             {
                 foreach (var grip in m_grips)
                 {
-                    if (grip == null)
-                    {
-                        warning("grip is null");
-                    }
-                    else if (grip.contacts(x, y, GRIP_HALF_WIDTH))
+                    if (grip.contacts(x, y, GRIP_HALF_WIDTH))
                     {
                         return grip;
                     }
