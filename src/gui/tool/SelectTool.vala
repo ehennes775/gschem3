@@ -69,29 +69,7 @@ namespace Gschem3
                 }
                 else
                 {
-                    var x0 = m_x[0];
-                    var y0 = m_y[0];
-
-                    m_window.device_to_user(ref x0, ref y0);
-
-                    m_px[0] = (int)Math.round(x0);
-                    m_py[0] = (int)Math.round(y0);
-
-                    m_drag_items = find_drag_items(m_px[0], m_py[0]);
-
-                    if (m_drag_items != null)
-                    {
-                        m_window.snap_point(ref m_px[0], ref m_py[0]);
-
-                        m_px[1] = 0;
-                        m_py[1] = 0;
-
-                        m_state = State.DRAGGING_ITEMS;
-                    }
-                    else
-                    {
-                        m_state = State.S1;
-                    }
+                    m_state = State.S1;
                 }
             }
             else if (m_state == State.PLACING_ITEMS)
@@ -312,9 +290,31 @@ namespace Gschem3
 
                 if (distance > BOX_DISTANCE)
                 {
-                    m_state = State.S2;
+                    var x0 = m_x[0];
+                    var y0 = m_y[0];
 
-                    m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
+                    m_window.device_to_user(ref x0, ref y0);
+
+                    m_px[0] = (int)Math.round(x0);
+                    m_py[0] = (int)Math.round(y0);
+
+                    m_drag_items = find_drag_items(m_px[0], m_py[0]);
+
+                    if (m_drag_items != null)
+                    {
+                        m_window.snap_point(ref m_px[0], ref m_py[0]);
+
+                        m_px[1] = 0;
+                        m_py[1] = 0;
+
+                        m_state = State.DRAGGING_ITEMS;
+                    }
+                    else
+                    {
+                        m_state = State.S2;
+
+                        m_window.invalidate_device(m_x[0], m_y[0], m_x[1], m_y[1]);
+                    }
                 }
             }
             else if (m_state == State.S2)
