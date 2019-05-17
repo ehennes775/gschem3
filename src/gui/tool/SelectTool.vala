@@ -69,18 +69,21 @@ namespace Gschem3
                 }
                 else
                 {
-                    m_drag_items = find_drag_items(m_x[1], m_y[1]);
+                    var x0 = m_x[0];
+                    var y0 = m_y[0];
+
+                    m_window.device_to_user(ref x0, ref y0);
+
+                    m_px[0] = (int)Math.round(x0);
+                    m_py[0] = (int)Math.round(y0);
+
+                    m_drag_items = find_drag_items(m_px[0], m_py[0]);
 
                     if (m_drag_items != null)
                     {
-                        var x0 = m_x[0];
-                        var y0 = m_y[0];
+                        m_window.snap_point(ref m_px[0], ref m_py[0]);
 
-                        m_window.device_to_user(ref x0, ref y0);
-
-                        m_px[0] = (int)Math.round(x0);
                         m_px[1] = 0;
-                        m_py[0] = (int)Math.round(y0);
                         m_py[1] = 0;
 
                         m_state = State.DRAGGING_ITEMS;
@@ -602,8 +605,8 @@ namespace Gschem3
          * @return
          */
         private Gee.Collection<Geda3.SchematicItem>? find_drag_items(
-            double x,
-            double y
+            int x,
+            int y
             )
 
             requires(m_window != null)
@@ -611,14 +614,9 @@ namespace Gschem3
         {
             Gee.Collection<Geda3.SchematicItem>? items = null;
 
-            var x0 = x;
-            var y0 = y;
-
-            m_window.device_to_user(ref x0, ref y0);
-
             var item = m_window.closest_item(
-                (int)Math.round(x0),
-                (int)Math.round(y0),
+                x,
+                y,
                 MAX_SELECT_DISTANCE
                 );
 
