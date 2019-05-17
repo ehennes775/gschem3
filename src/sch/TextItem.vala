@@ -413,6 +413,21 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override bool locate_insertion_point(
+            out int x,
+            out int y
+            )
+        {
+            x = b_x;
+            y = b_y;
+
+            return true;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void mirror_x(int cx)
         {
             invalidate(this);

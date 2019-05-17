@@ -417,7 +417,25 @@ namespace Gschem3
             var temp_schematic = ClipboardHelper.extract(clipboard);
             return_if_fail(temp_schematic != null);
 
-            m_paste_handler.paste(temp_schematic.items);
+            int insert_x;
+            int insert_y;
+
+            var success = temp_schematic.locate_insertion_point(
+                out insert_x,
+                out insert_y
+                );
+
+            stdout.printf(@"    x=$(insert_x)\n");
+            stdout.printf(@"    y=$(insert_y)\n");
+
+            if (success)
+            {
+                m_paste_handler.paste(
+                    insert_x,
+                    insert_y,
+                    temp_schematic.items
+                    );
+            }
         }
 
 

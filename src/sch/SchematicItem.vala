@@ -89,6 +89,19 @@ namespace Geda3
 
 
         /**
+         * Determine an insertion point for this scematic item
+         *
+         * @param x The x coordinate of the insertion point
+         * @param y The y coordinate of the insertion point
+         * @return True, if the function was able to get coordinates
+         */
+        public abstract bool locate_insertion_point(
+            out int x,
+            out int y
+            );
+
+
+        /**
          * Mirror the item and child attributes along the x axis
          *
          * This function emits the invalidate signal twice for this

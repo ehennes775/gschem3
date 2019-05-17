@@ -180,6 +180,49 @@ namespace Geda3
 
 
         /**
+         * Locate an insertion point for the items in this schematic
+         *
+         * @param x The x coordinate of the insertion point
+         * @param y The y coordinate of the insertion point
+         * @return True, if the function was able to get coordinates
+         */
+        public bool locate_insertion_point(out int x, out int y)
+
+            requires(m_items != null)
+            requires(m_items.all_match(i => i != null))
+
+        {
+            var success = false;
+            var temp_x = int.MAX;
+            var temp_y = int.MAX;
+
+            foreach (var item in m_items)
+            {
+                int item_x;
+                int item_y;
+
+                var item_success = item.locate_insertion_point(
+                    out item_x,
+                    out item_y
+                    );
+
+                if (item_success)
+                {
+                    temp_x = int.min(temp_x, item_x);
+                    temp_y = int.min(temp_y, item_y);
+
+                    success = true;
+                }
+            }
+
+            x = temp_x;
+            y = temp_y;
+
+            return success;
+        }
+
+
+        /**
          * Get all the items that intersect the box
          *
          * @param painter The painter to use for calculations

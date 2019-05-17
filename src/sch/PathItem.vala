@@ -188,6 +188,20 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override bool locate_insertion_point(
+            out int x,
+            out int y
+            )
+        {
+            // TODO
+
+            return false;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void draw(
             SchematicPainter painter,
             bool reveal,

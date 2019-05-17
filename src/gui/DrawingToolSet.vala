@@ -121,6 +121,8 @@ namespace Gschem3
          * {@inheritDoc}
          */
         public void paste(
+            int x,
+            int y,
             Gee.Collection<Geda3.SchematicItem> items
             )
 
@@ -128,7 +130,7 @@ namespace Gschem3
 
         {
             select_tool(m_select_tool.name);
-            m_select_tool.paste(items);
+            m_select_tool.paste(x, y, items);
         }
 
 

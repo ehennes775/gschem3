@@ -341,6 +341,8 @@ namespace Gschem3
          * @param items The items to place in the schematic
          */
         public void paste(
+            int x,
+            int y,
             Gee.Collection<Geda3.SchematicItem> items
             )
 
@@ -349,8 +351,10 @@ namespace Gschem3
         {
             reset();
 
-            m_px[0] = m_px[1] = 0;
-            m_py[0] = m_py[1] = 0;
+            m_px[0] = x;
+            m_px[1] = 0;
+            m_py[0] = y;
+            m_py[1] = 0;
 
             m_paste_items = items;
 
