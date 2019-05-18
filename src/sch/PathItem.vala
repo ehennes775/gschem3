@@ -142,6 +142,10 @@ namespace Geda3
             SchematicPainter painter,
             bool reveal
             )
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+
         {
             var bounds = Bounds();
             var context = PathContext();
@@ -165,6 +169,10 @@ namespace Geda3
         public Gee.Collection<Grip> create_grips(
             GripAssistant assistant
             )
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+
         {
             var grips = new Gee.ArrayList<Grip>();
 
@@ -192,6 +200,10 @@ namespace Geda3
             out int x,
             out int y
             )
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+
         {
             var context = PathContext();
             var success = false;
@@ -208,8 +220,6 @@ namespace Geda3
                     out command_x,
                     out command_y
                     );
-
-            stdout.printf(@"ip = $(command_x), $(command_y)\n");
 
                 if (command_success)
                 {
@@ -266,6 +276,10 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void mirror_x(int cx)
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+
         {
             invalidate(this);
 
@@ -282,6 +296,10 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void mirror_y(int cy)
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+
         {
             invalidate(this);
 
@@ -332,6 +350,10 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void rotate(int cx, int cy, int angle)
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+
         {
             invalidate(this);
 
@@ -355,7 +377,9 @@ namespace Geda3
          */
         public void set_point(int index, int x, int y)
 
-            requires (index == 0)
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+            requires(index == 0)
 
         {
             invalidate(this);
@@ -399,6 +423,10 @@ namespace Geda3
          * {@inheritDoc}
          */
         public override void translate(int dx, int dy)
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+
         {
             invalidate(this);
 
