@@ -193,9 +193,37 @@ namespace Geda3
             out int y
             )
         {
-            // TODO
+            var context = PathContext();
+            var success = false;
+            var temp_x = int.MAX;
+            var temp_y = int.MAX;
 
-            return false;
+            foreach (var command in b_commands)
+            {
+                int command_x;
+                int command_y;
+
+                var command_success = command.locate_insertion_point(
+                    ref context,
+                    out command_x,
+                    out command_y
+                    );
+
+            stdout.printf(@"ip = $(command_x), $(command_y)\n");
+
+                if (command_success)
+                {
+                    temp_x = int.min(temp_x, command_x);
+                    temp_y = int.min(temp_y, command_y);
+
+                    success = true;
+                }
+            }
+
+            x = temp_x;
+            y = temp_y;
+
+            return success;
         }
 
 

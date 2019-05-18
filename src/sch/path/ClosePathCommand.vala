@@ -48,6 +48,32 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override bool locate_insertion_point(
+            ref PathContext context,
+            out int x,
+            out int y
+            )
+        {
+            x = int.min(
+                context.current_x,
+                context.move_to_x
+                );
+
+            y = int.min(
+                context.current_y,
+                context.move_to_y
+                );
+
+            context.current_x = context.move_to_x;
+            context.current_y = context.move_to_y;
+
+            return true;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void mirror_x(int cx)
         {
         }
