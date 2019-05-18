@@ -176,12 +176,50 @@ namespace Geda3
         {
             var grips = new Gee.ArrayList<Grip>();
 
-            foreach (var command in b_commands)
+            for (int index = 0; index < b_commands.size; index++)
             {
-                command.build_grips(assistant, grips);
+                b_commands[index].build_grips(
+                    assistant,
+                    this,
+                    index,
+                    grips
+                    );
             }
 
             return grips;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void get_point(
+            int command_index,
+            int point_index,
+            out int x,
+            out int y
+            )
+
+            requires(b_commands != null)
+            requires(b_commands.all_match(c => c != null))
+            requires(command_index >= 0)
+            requires(command_index < b_commands.size)
+            requires(point_index >= 0)
+
+        {
+            var context = PathContext();
+
+            for (int index = 0; index < command_index; index++)
+            {
+                b_commands[index].advance_context(ref context);
+            }
+
+            b_commands[command_index].get_point(
+                ref context,
+                point_index,
+                out x,
+                out y
+                );
         }
 
 
@@ -375,16 +413,35 @@ namespace Geda3
          * @param x The new x coordinate for the point
          * @param y The new y coordinate for the point
          */
-        public void set_point(int index, int x, int y)
+        public void set_point(
+            int command_index,
+            int point_index,
+            int x,
+            int y
+            )
 
             requires(b_commands != null)
             requires(b_commands.all_match(c => c != null))
-            requires(index == 0)
+            requires(command_index >= 0)
+            requires(command_index < b_commands.size)
+            requires(point_index >= 0)
 
         {
             invalidate(this);
 
-            // modify points
+            var context = PathContext();
+
+            for (int index = 0; index < command_index; index++)
+            {
+                b_commands[index].advance_context(ref context);
+            }
+
+            b_commands[command_index].set_point(
+                ref context,
+                point_index,
+                x,
+                y
+                );
 
             invalidate(this);
         }

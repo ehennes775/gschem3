@@ -6,6 +6,12 @@ namespace Geda3
     public abstract class PathCommand : Object
     {
         /**
+         *
+         */
+        public abstract void advance_context(ref PathContext context);
+
+
+        /**
          * Include the bounds of this path command in the overall
          * path bounds calculation
          *
@@ -23,7 +29,20 @@ namespace Geda3
          */
         public abstract void build_grips(
             GripAssistant assistant,
+            PathItem parent,
+            int command_index,
             Gee.List<Grip> grips
+            );
+
+
+        /**
+         *
+         */
+        public abstract void get_point(
+            ref PathContext context,
+            int index,
+            out int x,
+            out int y
             );
 
 
@@ -64,6 +83,17 @@ namespace Geda3
          *
          */
         public abstract void rotate(int cx, int cy, int angle);
+
+
+        /**
+         *
+         */
+        public abstract void set_point(
+            ref PathContext context,
+            int index,
+            int x,
+            int y
+            );
 
 
         /**

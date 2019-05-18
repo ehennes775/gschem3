@@ -3,8 +3,7 @@ namespace Geda3
     /**
      * Represents a line to path command with relative coordinates
      */
-    public class RelativeLineToCommand : PathCommand,
-        GrippablePoints
+    public class RelativeLineToCommand : PathCommand
     {
         /**
          * The ID used in path strings
@@ -28,6 +27,16 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void advance_context(ref PathContext context)
+        {
+            context.current_x += b_x;
+            context.current_y += b_y;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void build_bounds(
             ref PathContext context,
             ref Bounds bounds
@@ -42,8 +51,7 @@ namespace Geda3
 
             bounds.union(temp_bounds);
 
-            context.current_x += b_x;
-            context.current_y += b_y;
+            advance_context(ref context);
         }
 
 
@@ -52,22 +60,34 @@ namespace Geda3
          */
         public override void build_grips(
             GripAssistant assistant,
+            PathItem parent,
+            int command_index,
             Gee.List<Grip> grips
             )
         {
-            grips.add(new PointGrip(assistant, this, 0));
+            grips.add(new PathPointGrip(
+                assistant,
+                parent,
+                command_index,
+                0
+                ));
         }
 
 
         /**
          * {@inheritDoc}
          */
-        public void get_point(int index, out int x, out int y)
+        public override void get_point(
+            ref PathContext context,
+            int index,
+            out int x,
+            out int y
+            )
         {
-            x = b_x;
-            y = b_y;
+            x = context.current_x + b_x;
+            y = context.current_y + b_y;
 
-            return_if_fail(index != 0);
+            return_if_fail(index == 0);
         }
 
 
@@ -90,8 +110,7 @@ namespace Geda3
                 context.current_y + b_y
                 );
 
-            context.current_x = b_x;
-            context.current_y = b_y;
+            advance_context(ref context);
 
             return true;
         }
@@ -136,13 +155,18 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public void set_point(int index, int x, int y)
+        public override void set_point(
+            ref PathContext context,
+            int index,
+            int x,
+            int y
+            )
 
             requires(index == 0)
 
         {
-            b_x = x;
-            b_y = y;
+            b_x = x - context.current_x;
+            b_y = y - context.current_y;
         }
 
 
@@ -164,8 +188,7 @@ namespace Geda3
                 y
                 );
 
-            context.current_x += b_x;
-            context.current_y += b_y;
+            advance_context(ref context);
 
             return distance;
         }

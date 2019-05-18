@@ -24,10 +24,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void build_bounds(
-            ref PathContext context,
-            ref Bounds bounds
-            )
+        public override void advance_context(ref PathContext context)
         {
             context.current_x = context.move_to_x;
             context.current_y = context.move_to_y;
@@ -37,11 +34,39 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void build_bounds(
+            ref PathContext context,
+            ref Bounds bounds
+            )
+        {
+            advance_context(ref context);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void build_grips(
             GripAssistant assistant,
+            PathItem parent,
+            int command_index,
             Gee.List<Grip> grips
             )
         {
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void get_point(
+            ref PathContext context,
+            int index,
+            out int x,
+            out int y
+            )
+        {
+            assert_not_reached();
         }
 
 
@@ -64,8 +89,7 @@ namespace Geda3
                 context.move_to_y
                 );
 
-            context.current_x = context.move_to_x;
-            context.current_y = context.move_to_y;
+            advance_context(ref context);
 
             return true;
         }
@@ -107,6 +131,20 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void set_point(
+            ref PathContext context,
+            int index,
+            int x,
+            int y
+            )
+        {
+            assert_not_reached();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override double shortest_distance(
             ref PathContext context,
             int x,
@@ -115,15 +153,14 @@ namespace Geda3
         {
             var distance = Coord.shortest_distance_line(
                 context.current_x,
-                context.current_x,
+                context.current_y,
                 context.move_to_x,
                 context.move_to_y,
                 x,
                 y
                 );
 
-            context.current_x = context.move_to_x;
-            context.current_y = context.move_to_y;
+            advance_context(ref context);
 
             return distance;
         }

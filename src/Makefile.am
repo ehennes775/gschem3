@@ -96,6 +96,7 @@ libgeda3_a_SOURCES = \
 	sch/PathCommandConverter.vala \
 	sch/PathCommandReceiver.vala \
 	sch/PathItem.vala \
+	sch/PathPointGrip.vala \
 	sch/PinItem.vala \
 	sch/PinType.vala \
 	sch/PointGrip.vala \

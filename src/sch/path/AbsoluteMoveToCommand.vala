@@ -3,8 +3,7 @@ namespace Geda3
     /**
      * Represents a move to path command with absolute coordinates
      */
-    public class AbsoluteMoveToCommand : PathCommand,
-        GrippablePoints
+    public class AbsoluteMoveToCommand : PathCommand
     {
         /**
          * The ID used in path strings
@@ -28,10 +27,7 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void build_bounds(
-            ref PathContext context,
-            ref Bounds bounds
-            )
+        public override void advance_context(ref PathContext context)
         {
             context.current_x = b_x;
             context.current_y = b_y;
@@ -43,24 +39,48 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void build_grips(
-            GripAssistant assistant,
-            Gee.List<Grip> grips
+        public override void build_bounds(
+            ref PathContext context,
+            ref Bounds bounds
             )
         {
-            grips.add(new PointGrip(assistant, this, 0));
+            advance_context(ref context);
         }
 
 
         /**
          * {@inheritDoc}
          */
-        public void get_point(int index, out int x, out int y)
+        public override void build_grips(
+            GripAssistant assistant,
+            PathItem parent,
+            int command_index,
+            Gee.List<Grip> grips
+            )
+        {
+            grips.add(new PathPointGrip(
+                assistant,
+                parent,
+                command_index,
+                0
+                ));
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void get_point(
+            ref PathContext context,
+            int index,
+            out int x,
+            out int y
+            )
         {
             x = b_x;
             y = b_y;
 
-            return_if_fail(index != 0);
+            return_if_fail(index == 0);
         }
 
 
@@ -76,10 +96,7 @@ namespace Geda3
             x = b_x;
             y = b_y;
 
-            context.current_x = b_x;
-            context.current_y = b_y;
-            context.move_to_x = b_x;
-            context.move_to_y = b_y;
+            advance_context(ref context);
 
             return true;
         }
@@ -124,7 +141,12 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public void set_point(int index, int x, int y)
+        public override void set_point(
+            ref PathContext context,
+            int index,
+            int x,
+            int y
+            )
 
             requires(index == 0)
 
@@ -150,10 +172,7 @@ namespace Geda3
                 y
                 );
 
-            context.current_x = b_x;
-            context.current_y = b_y;
-            context.move_to_x = b_x;
-            context.move_to_y = b_y;
+            advance_context(ref context);
 
             return distance;
         }
