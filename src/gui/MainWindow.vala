@@ -336,7 +336,7 @@ namespace Gschem3
             { "file-save-all", on_file_save_all, null, null, null },
             { "file-save-as", on_file_save_as, null, null, null },
             { "file-open", on_file_open, null, null, null },
-            { "file-new", on_file_new, null, null, null },
+            { "file-new", on_file_new, "s", null, null },
             { "file-reload", on_file_reload, null, null, null },
             { "project-save", on_project_save, null, null, null },
             { "project-open", on_project_open, null, null, null },
@@ -775,21 +775,32 @@ namespace Gschem3
          * Create a new file
          *
          * @param action the action that activated this function call
-         * @param parameter unused
+         * @param parameter The type of document window to create
          */
         private void on_file_new(SimpleAction action, Variant? parameter)
 
             requires (m_document_window_factory != null)
             requires(notebook != null)
+            requires(parameter != null)
+            requires(parameter.is_of_type(VariantType.STRING))
 
         {
-            var window = m_document_window_factory.create();
+            try
+            {
+                var window = m_document_window_factory.create(
+                    parameter.get_string()
+                    );
 
-            window.show_all();
-            var tab = new DocumentTab(window);
-            tab.show_all();
+                window.show_all();
+                var tab = new DocumentTab(window);
+                tab.show_all();
 
-            notebook.append_page(window, tab);
+                notebook.append_page(window, tab);
+            }
+            catch (Error error)
+            {
+                assert_not_reached();
+            }
         }
 
 

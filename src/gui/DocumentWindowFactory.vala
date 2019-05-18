@@ -26,8 +26,10 @@ namespace Gschem3
 
         /**
          * Create a new document window
+         *
+         * @param name Specifies the type of document window
          */
-        public DocumentWindow create()
+        public DocumentWindow create(string name)
         {
             var factory = m_factories.first_match(i => true);
             return_val_if_fail(factory != null, null);

@@ -12,10 +12,21 @@
                                 <attribute name="label" translatable="yes">Project...</attribute>
                                 <attribute name="action">win.project-new</attribute>
                             </item>
-                            <item>
-                                <attribute name="label" translatable="yes">File...</attribute>
-                                <attribute name="action">win.file-new</attribute>
-                            </item>
+                            <submenu>
+                                <attribute name="label" translatable="yes">File</attribute>
+                                <section>
+                                    <item>
+                                        <attribute name="label" translatable="yes">Schematic</attribute>
+                                        <attribute name="action">win.file-new</attribute>
+                                        <attribute name="target">sch</attribute>
+                                    </item>
+                                    <item>
+                                        <attribute name="label" translatable="yes">Symbol</attribute>
+                                        <attribute name="action">win.file-new</attribute>
+                                        <attribute name="target">sym</attribute>
+                                    </item>
+                                </section>
+                            </submenu>
                         </section>
                     </submenu>
                     <submenu>
