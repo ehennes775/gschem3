@@ -80,6 +80,59 @@ namespace Geda3
 
 
         /**
+         * Calculate the shortest distance between a point and a line
+         *
+         * @param x0 The x coordinate of the first endpoint on the line
+         * @param y0 The y coordinate of the first endpoint on the line
+         * @param x1 The x coordinate of the second endpoint on the line
+         * @param y1 The y coordinate of the second endpoint on the line
+         * @param x The x coordinate of the point
+         * @param y The y coordinate of the point
+         * @return The shortest distance from the point to the line
+         */
+        public double shortest_distance_line(
+            int x0,
+            int y0,
+            int x1,
+            int y1,
+            int x,
+            int y
+            )
+        {
+            double dx;
+            double dy;
+
+            var lx0 = (double)x0;
+            var ly0 = (double)y0;
+            var ldx = (double)(x1 - lx0);
+            var ldy = (double)(y1 - ly0);
+
+            if (ldx == 0 && ldy == 0)
+            {
+                dx = x - lx0;
+                dy = y - ly0;
+            }
+            else
+            {
+                var dx0 = ldx * (x - lx0);
+                var dy0 = ldy * (y - ly0);
+
+                var t = (dx0 + dy0) / (ldx * ldx + ldy * ldy);
+
+                t = t.clamp(0.0, 1.0);
+
+                var cx = t * ldx + lx0;
+                var cy = t * ldy + ly0;
+
+                dx = x - cx;
+                dy = y - cy;
+            }
+
+            return Math.hypot(dx, dy);
+        }
+
+
+        /**
          * Snap a coordinate to the nearest grid
          *
          * @param coord the coordinate

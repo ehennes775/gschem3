@@ -347,7 +347,23 @@ namespace Geda3
             int y
             )
         {
-            return double.MAX;
+            return_val_if_fail(b_commands != null, double.MAX);
+
+            var distance = double.MAX;
+            var context = PathContext();
+
+            foreach (var command in b_commands)
+            {
+                var temp_distance = command.shortest_distance(
+                    ref context,
+                    x,
+                    y
+                    );
+
+                distance = double.min(distance, temp_distance);
+            }
+
+            return distance;
         }
 
 

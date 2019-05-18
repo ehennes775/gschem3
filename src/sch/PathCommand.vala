@@ -6,9 +6,16 @@ namespace Geda3
     public abstract class PathCommand : Object
     {
         /**
+         * Include the bounds of this path command in the overall
+         * path bounds calculation
          *
+         * @param context
+         * @param bounds
          */
-        public abstract void build_bounds(ref PathContext context, ref Bounds bounds);
+        public abstract void build_bounds(
+            ref PathContext context,
+            ref Bounds bounds
+            );
 
 
         /**
@@ -42,6 +49,23 @@ namespace Geda3
          *
          */
         public abstract void rotate(int cx, int cy, int angle);
+
+
+        /**
+         * Include the shortest distance of this path command in the
+         * overall shortest distance calcuation
+         *
+         * @param context
+         * @param x The x coordinate of the point
+         * @param y The y coordinate of the point
+         * @return The shortest distance between the point and this
+         * command
+         */
+        public abstract double shortest_distance(
+            ref PathContext context,
+            int x,
+            int y
+            );
 
 
         /**

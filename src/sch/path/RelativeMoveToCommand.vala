@@ -28,7 +28,10 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
-        public override void build_bounds(ref PathContext context, ref Bounds bounds)
+        public override void build_bounds(
+            ref PathContext context,
+            ref Bounds bounds
+            )
         {
             context.current_x += b_x;
             context.current_y += b_y;
@@ -107,6 +110,31 @@ namespace Geda3
         {
             b_x = x;
             b_y = y;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override double shortest_distance(
+            ref PathContext context,
+            int x,
+            int y
+            )
+        {
+            var distance = Coord.distance(
+                context.current_x + b_x,
+                context.current_y + b_y,
+                x,
+                y
+                );
+
+            context.current_x += b_x;
+            context.current_y += b_y;
+            context.move_to_x = context.current_x;
+            context.move_to_y = context.current_y;
+
+            return distance;
         }
 
 
