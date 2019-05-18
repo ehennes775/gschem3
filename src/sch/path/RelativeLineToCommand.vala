@@ -179,6 +179,8 @@ namespace Geda3
             int y
             )
         {
+            return_val_if_fail(context.initial_move, double.MAX);
+
             var distance = Coord.shortest_distance_line(
                 context.current_x,
                 context.current_y,

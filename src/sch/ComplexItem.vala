@@ -411,7 +411,25 @@ namespace Geda3
             int y
             )
         {
-            return double.MAX;
+            return_val_if_fail(m_unpromoted_items != null, double.MAX);
+
+            var distance = double.MAX;
+
+            foreach (var item in m_unpromoted_items)
+            {
+                var temp_x = x - b_insert_x;
+                var temp_y = y - b_insert_y;
+
+                var temp_distance = item.shortest_distance(
+                    painter,
+                    temp_x,
+                    temp_y
+                    );
+
+                distance = double.min(distance, temp_distance);
+            }
+
+            return distance;
         }
 
 

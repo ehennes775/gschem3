@@ -41,6 +41,9 @@ namespace Geda3
             ref PathContext context,
             ref Bounds bounds
             )
+
+            requires(context.initial_move)
+
         {
             var temp_bounds = Bounds.with_points(
                 context.current_x,
@@ -83,6 +86,9 @@ namespace Geda3
             out int x,
             out int y
             )
+
+            requires(context.initial_move)
+
         {
             x = b_x;
             y = b_y;
@@ -99,6 +105,9 @@ namespace Geda3
             out int x,
             out int y
             )
+
+            requires(context.initial_move)
+
         {
             x = int.min(
                 context.current_x,
@@ -162,6 +171,7 @@ namespace Geda3
             int y
             )
 
+            requires(context.initial_move)
             requires(index == 0)
 
         {
@@ -179,6 +189,8 @@ namespace Geda3
             int y
             )
         {
+            return_val_if_fail(context.initial_move, double.MAX);
+
             var distance = Coord.shortest_distance_line(
                 context.current_x,
                 context.current_y,

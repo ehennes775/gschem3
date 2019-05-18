@@ -76,6 +76,9 @@ namespace Geda3
             out int x,
             out int y
             )
+
+            requires(context.initial_move)
+
         {
             x = context.current_x + b_x;
             y = context.current_y + b_y;
@@ -92,6 +95,9 @@ namespace Geda3
             out int x,
             out int y
             )
+
+            requires(context.initial_move)
+
         {
             x = context.current_x + b_x;
             y = context.current_y + b_y;
@@ -148,6 +154,7 @@ namespace Geda3
             int y
             )
 
+            requires(context.initial_move)
             requires(index == 0)
 
         {
@@ -165,6 +172,8 @@ namespace Geda3
             int y
             )
         {
+            return_val_if_fail(context.initial_move, double.MAX);
+
             var distance = Coord.distance(
                 context.current_x + b_x,
                 context.current_y + b_y,

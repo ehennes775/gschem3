@@ -33,6 +33,8 @@ namespace Geda3
             context.current_y = b_y;
             context.move_to_x = b_x;
             context.move_to_y = b_y;
+
+            context.initial_move = true;
         }
 
 
