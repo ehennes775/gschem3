@@ -26,6 +26,7 @@ namespace Gschem3
             DrawingTool[] tools =
             {
                 new ArcTool(),
+                new AttributeTool(),
                 new BoxTool(),
                 new BusTool(),
                 new CircleTool(),
