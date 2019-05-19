@@ -175,6 +175,18 @@
                 </section>
                 <section>
                     <item>
+                        <attribute name="label" translatable="yes">Attribute</attribute>
+                        <attribute name="action">win.select-tool</attribute>
+                        <attribute name="target">attribute</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Text</attribute>
+                        <attribute name="action">win.select-tool</attribute>
+                        <attribute name="target">text</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
                         <attribute name="label" translatable="yes">Arc</attribute>
                         <attribute name="action">win.select-tool</attribute>
                         <attribute name="target">arc</attribute>

@@ -203,6 +203,7 @@ libgschem3_a_SOURCES = \
 	gui/grid/MeshGrid.vala \
 	gui/grid/NoGrid.vala \
 	gui/tool/ArcTool.vala \
+	gui/tool/AttributeFactory.vala \
 	gui/tool/AttributeTool.vala \
 	gui/tool/BoxTool.vala \
 	gui/tool/BusTool.vala \
@@ -217,7 +218,11 @@ libgschem3_a_SOURCES = \
 	gui/tool/PinSettings.vala \
 	gui/tool/PinTool.vala \
 	gui/tool/PinUpdater.vala \
+	gui/tool/PlacementFactory.vala \
+	gui/tool/PlacementTool.vala \
 	gui/tool/SelectTool.vala \
+	gui/tool/TextFactory.vala \
+	gui/tool/TextTool.vala \
 	gui/tool/ZoomTool.vala
 
 libgschem3_a_VALAFLAGS = \

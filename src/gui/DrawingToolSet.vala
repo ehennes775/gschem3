@@ -36,6 +36,7 @@ namespace Gschem3
                 new PathTool(),
                 new PinTool(),
                 m_select_tool = new SelectTool(),
+                new TextTool(),
                 new ZoomTool()
             };
 

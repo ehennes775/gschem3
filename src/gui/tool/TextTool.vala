@@ -1,14 +1,14 @@
 namespace Gschem3
 {
     /**
-     * Places detached attributes onto a schematic
+     * Places text items onto a schematic
      */
-    public class AttributeTool : PlacementTool
+    public class TextTool : PlacementTool
     {
         /**
          * The name of the tool for action parameters
          */
-        public const string NAME = "attribute";
+        public const string NAME = "text";
 
 
         /**
@@ -28,11 +28,11 @@ namespace Gschem3
          *
          * @param window The document window this tool is drawing into
          */
-        public AttributeTool(
+        public TextTool(
             SchematicWindow? window = null
             )
         {
-            base(new AttributeFactory(), window);
+            base(new TextFactory(), window);
         }
     }
 }
