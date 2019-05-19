@@ -1,6 +1,6 @@
 namespace Gschem3
 {
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/ProjectWidget.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/ProjectWidget.ui.xml")]
     public class ProjectWidget : Gtk.Box, Gtk.Buildable
     {
         /**
@@ -149,7 +149,7 @@ namespace Gschem3
 
         {
             var builder2 = new Gtk.Builder.from_resource(
-                "/com/github/ehennes775/gschem3/ProjectWidgetMenu.ui.xml"
+                "/com/github/ehennes775/gschem3/gui/ProjectWidgetMenu.ui.xml"
                 );
 
             context = builder2.get_object("context") as MenuModel;

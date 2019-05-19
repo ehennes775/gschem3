@@ -94,43 +94,43 @@ namespace Gschem3
             s_icons = new Gdk.Pixbuf[Geda3.ProjectIcon.COUNT];
             
             s_icons[Geda3.ProjectIcon.BLANK] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/Blank.svg"
+                "/com/github/ehennes775/gschem3/gui/img/Blank.svg"
                 );
 
             s_icons[Geda3.ProjectIcon.BLUE_FOLDER] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/BlueFolder.svg"
+                "/com/github/ehennes775/gschem3/gui/img/BlueFolder.svg"
                 );
 
             s_icons[Geda3.ProjectIcon.MISSING] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/Missing.svg"
+                "/com/github/ehennes775/gschem3/gui/img/Missing.svg"
                 );
 
             s_icons[Geda3.ProjectIcon.ORANGE_FOLDER] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/OrangeFolder.svg"
+                "/com/github/ehennes775/gschem3/gui/img/OrangeFolder.svg"
                 );
 
             s_icons[Geda3.ProjectIcon.SCHEMATIC] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/Schematic.svg"
+                "/com/github/ehennes775/gschem3/gui/img/Schematic.svg"
                 );
 
             s_icons[Geda3.ProjectIcon.SYMBOL] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/Symbol.svg"
+                "/com/github/ehennes775/gschem3/gui/img/Symbol.svg"
                 );
 
             s_icons[Geda3.ProjectIcon.RED_FOLDER] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/RedFolder.svg"
+                "/com/github/ehennes775/gschem3/gui/img/RedFolder.svg"
                 );
                 
             s_icons[Geda3.ProjectIcon.GREEN_FOLDER] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/GreenFolder.svg"
+                "/com/github/ehennes775/gschem3/gui/img/GreenFolder.svg"
                 );
                 
             s_icons[Geda3.ProjectIcon.PLUM_FOLDER] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/PlumFolder.svg"
+                "/com/github/ehennes775/gschem3/gui/img/PlumFolder.svg"
                 );
                 
             s_icons[Geda3.ProjectIcon.YELLOW_FOLDER] = new Gdk.Pixbuf.from_resource(
-                "/com/github/ehennes775/gschem3/YellowFolder.svg"
+                "/com/github/ehennes775/gschem3/gui/img/YellowFolder.svg"
                 );
         }
 

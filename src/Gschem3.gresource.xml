@@ -3,44 +3,44 @@
     <gresource prefix="/com/github/ehennes775/gschem3">
         <file>gui/aedit/AttributeEditor.ui.xml</file>
         <file>gui/dlg/PinEditorDialog.ui.xml</file>
+        <file>gui/img/ArcTool.svg</file>
+        <file>gui/img/Blank.svg</file>
+        <file>gui/img/BlueFolder.svg</file>
+        <file>gui/img/BoxTool.svg</file>
+        <file>gui/img/BusTool.svg</file>
+        <file>gui/img/CircleTool.svg</file>
+        <file>gui/img/GreenFolder.svg</file>
+        <file>gui/img/LineTool.svg</file>
+        <file>gui/img/Missing.svg</file>
+        <file>gui/img/NetTool.svg</file>
+        <file>gui/img/OrangeFolder.svg</file>
+        <file>gui/img/PathTool.svg</file>
+        <file>gui/img/PinTool.svg</file>
+        <file>gui/img/PlumFolder.svg</file>
+        <file>gui/img/RedFolder.svg</file>
+        <file>gui/img/SelectTool.svg</file>
+        <file>gui/img/Schematic.svg</file>
+        <file>gui/img/Symbol.svg</file>
+        <file>gui/img/YellowFolder.svg</file>
+        <file>gui/img/ZoomExtents.svg</file>
+        <file>gui/img/ZoomIn.svg</file>
+        <file>gui/img/ZoomOut.svg</file>
+        <file>gui/img/ZoomTool.svg</file>
         <file>gui/pedit/ColorEditor.ui.xml</file>
         <file>gui/pedit/FillStyleEditor.ui.xml</file>
         <file>gui/pedit/LineStyleEditor.ui.xml</file>
         <file>gui/pedit/PinPropertyEditor.ui.xml</file>
         <file>gui/pedit/TextPropertyEditor.ui.xml</file>
         <file>gui/MainWindow.ui.xml</file>
-        <file>ArcTool.svg</file>
-        <file>Blank.svg</file>
-        <file>BlueFolder.svg</file>
-        <file>BoxTool.svg</file>
-        <file>BusTool.svg</file>
-        <file>CircleTool.svg</file>
-        <file>DocumentTab.ui.xml</file>
+        <file>gui/DocumentTab.ui.xml</file>
+        <file>gui/LibraryWidget.ui.xml</file>
+        <file>gui/ProjectWidget.ui.xml</file>
+        <file>gui/ProjectWidgetMenu.ui.xml</file>
+        <file>gui/SchematicWindow.ui.xml</file>
         <file>ExportBillOfMaterialDialog.ui.xml</file>
         <file>ExportNetlistDialog.ui.xml</file>
-        <file>GreenFolder.svg</file>
-        <file>LibraryWidget.ui.xml</file>
-        <file>LineTool.svg</file>
         <file>Menus.ui.xml</file>
-        <file>Missing.svg</file>
-        <file>NetTool.svg</file>
         <file>NewProjectDialog.xml</file>
-        <file>OrangeFolder.svg</file>
-        <file>PathTool.svg</file>
-        <file>PinTool.svg</file>
-        <file>PlumFolder.svg</file>
         <file>PreviewWidget.ui.xml</file>
-        <file>ProjectWidget.ui.xml</file>
-        <file>ProjectWidgetMenu.ui.xml</file>
-        <file>RedFolder.svg</file>
-        <file>SelectTool.svg</file>
-        <file>Schematic.svg</file>
-        <file>SchematicWindow.ui.xml</file>
-        <file>Symbol.svg</file>
-        <file>YellowFolder.svg</file>
-        <file>ZoomExtents.svg</file>
-        <file>ZoomIn.svg</file>
-        <file>ZoomOut.svg</file>
-        <file>ZoomTool.svg</file>
     </gresource>
 </gresources>

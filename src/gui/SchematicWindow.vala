@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      * A document window for editing a gschem schematic
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/SchematicWindow.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/SchematicWindow.ui.xml")]
     public class SchematicWindow : DocumentWindow,
         ClipboardSupport,
         Fileable,

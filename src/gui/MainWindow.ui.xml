@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <interface>
     <object class="GtkImage" id="icon-tool-select">
-        <property name="resource">/com/github/ehennes775/gschem3/SelectTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/SelectTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-arc">
-        <property name="resource">/com/github/ehennes775/gschem3/ArcTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/ArcTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-box">
-        <property name="resource">/com/github/ehennes775/gschem3/BoxTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/BoxTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-circle">
-        <property name="resource">/com/github/ehennes775/gschem3/CircleTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/CircleTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-line">
-        <property name="resource">/com/github/ehennes775/gschem3/LineTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/LineTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-path">
-        <property name="resource">/com/github/ehennes775/gschem3/PathTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/PathTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-bus">
-        <property name="resource">/com/github/ehennes775/gschem3/BusTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/BusTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-net">
-        <property name="resource">/com/github/ehennes775/gschem3/NetTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/NetTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-pin">
-        <property name="resource">/com/github/ehennes775/gschem3/PinTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/PinTool.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-select-2">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-select-3">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-select-4">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-select-5">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-select-6">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-select-7">
-        <property name="resource">/com/github/ehennes775/gschem3/Schematic.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/Schematic.svg</property>
     </object>
     <object class="GtkImage" id="icon-project-switch">
-        <property name="resource">/com/github/ehennes775/gschem3/OrangeFolder.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/OrangeFolder.svg</property>
     </object>
     <object class="GtkImage" id="icon-zoom-extents">
-        <property name="resource">/com/github/ehennes775/gschem3/ZoomExtents.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/ZoomExtents.svg</property>
     </object>
     <object class="GtkImage" id="icon-zoom-in">
-        <property name="resource">/com/github/ehennes775/gschem3/ZoomIn.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/ZoomIn.svg</property>
     </object>
     <object class="GtkImage" id="icon-zoom-out">
-        <property name="resource">/com/github/ehennes775/gschem3/ZoomOut.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/ZoomOut.svg</property>
     </object>
     <object class="GtkImage" id="icon-tool-zoom">
-        <property name="resource">/com/github/ehennes775/gschem3/ZoomTool.svg</property>
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/ZoomTool.svg</property>
     </object>
     <template class="Gschem3MainWindow" parent="GtkApplicationWindow">
         <child>

@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      * Provides a widget to act as a notebook tab for a document window
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/DocumentTab.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/DocumentTab.ui.xml")]
     public class DocumentTab : Gtk.Grid
     {
         /**
