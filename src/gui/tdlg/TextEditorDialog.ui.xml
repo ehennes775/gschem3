@@ -105,12 +105,52 @@
         </columns>
         <data>
             <row>
+                <col id="0">author</col>
+                <col id="1">Attached to components to provide credit to the creator</col>
+            </row>
+            <row>
+                <col id="0">comment</col>
+                <col id="1">Provides a message ignored by tools</col>
+            </row>
+            <row>
+                <col id="0">desription</col>
+                <col id="1">Attached to components to provide a description</col>
+            </row>
+            <row>
+                <col id="0">dist-license</col>
+                <col id="1"></col>
+            </row>
+            <row>
+                <col id="0">documentation</col>
+                <col id="1">A filename or URL attached to components for reference</col>
+            </row>
+            <row>
+                <col id="0">device</col>
+                <col id="1">Attached to components to indicate the type of device</col>
+            </row>
+            <row>
                 <col id="0">footprint</col>
                 <col id="1">Attached to components to specify a footprint name</col>
             </row>
             <row>
+                <col id="0">graphical</col>
+                <col id="1">Attached to components to exclude from netlists</col>
+            </row>
+            <row>
+                <col id="0">net</col>
+                <col id="1">See documentation</col>
+            </row>
+            <row>
                 <col id="0">netname</col>
                 <col id="1">Attached to nets to indicate the net name</col>
+            </row>
+            <row>
+                <col id="0">nobom</col>
+                <col id="1">Attached to components to exclude from BOMs</col>
+            </row>
+            <row>
+                <col id="0">numslots</col>
+                <col id="1">Attached to components to indicate the number of parts in a package</col>
             </row>
             <row>
                 <col id="0">pinlabel</col>
@@ -122,7 +162,7 @@
             </row>
             <row>
                 <col id="0">pinseq</col>
-                <col id="1">Attached to pins to indicate ordering</col>
+                <col id="1">Attached to pins for ordering and slotting</col>
             </row>
             <row>
                 <col id="0">pintype</col>
@@ -131,6 +171,22 @@
             <row>
                 <col id="0">refdes</col>
                 <col id="1">Attached to components for a designation</col>
+            </row>
+            <row>
+                <col id="0">slot</col>
+                <col id="1">Attached to components to indicate which part in a package</col>
+            </row>
+            <row>
+                <col id="0">slotdef</col>
+                <col id="1">Attached to components for slotting</col>
+            </row>
+            <row>
+                <col id="0">symversion</col>
+                <col id="1">Attached to components for versioning</col>
+            </row>
+            <row>
+                <col id="0">use-license</col>
+                <col id="1"></col>
             </row>
             <row>
                 <col id="0">value</col>
