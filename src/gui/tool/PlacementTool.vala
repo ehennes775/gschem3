@@ -33,7 +33,12 @@ namespace Gschem3
         {
             if (b_item != null)
             {
-                m_window.add_item(b_item);
+                var success = edit_item(b_item);
+
+                if (success)
+                {
+                    m_window.add_item(b_item);
+                }
             }
 
             item = create_item(event.x, event.y);
@@ -197,6 +202,12 @@ namespace Gschem3
                 b_item.translate(dx, dy);
             }
         }
+
+
+        /**
+         *
+         */
+        protected abstract bool edit_item(Geda3.TextItem item);
 
 
         /**

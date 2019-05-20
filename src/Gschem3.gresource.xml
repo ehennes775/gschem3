@@ -31,6 +31,7 @@
         <file>gui/pedit/LineStyleEditor.ui.xml</file>
         <file>gui/pedit/PinPropertyEditor.ui.xml</file>
         <file>gui/pedit/TextPropertyEditor.ui.xml</file>
+        <file>gui/tdlg/TextEditorDialog.ui.xml</file>
         <file>gui/MainWindow.ui.xml</file>
         <file>gui/DocumentTab.ui.xml</file>
         <file>gui/LibraryWidget.ui.xml</file>

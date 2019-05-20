@@ -169,6 +169,7 @@ libgschem3_a_SOURCES = \
 	gui/pedit/PropertyComboBox.vala \
 	gui/pedit/TextPropertyEditor.vala \
 	gui/pedit/ValueState.vala \
+	gui/tdlg/TextEditorDialog.vala \
 	gui/ClipboardHelper.vala \
 	gui/ClipboardSupport.vala \
 	gui/DocumentTab.vala \

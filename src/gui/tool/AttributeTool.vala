@@ -34,5 +34,20 @@ namespace Gschem3
         {
             base(new AttributeFactory(), window);
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        protected override bool edit_item(Geda3.TextItem item)
+        {
+            var dialog = new TextEditorDialog();
+
+            var result = dialog.run();
+
+            dialog.destroy();
+
+            return result == Gtk.ResponseType.OK;
+        }
     }
 }
