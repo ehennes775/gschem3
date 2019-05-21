@@ -381,7 +381,7 @@
                             </packing>
                         </child>
                         <child>
-                            <object class="Gschem3AlignmentComboBox" id="combo-alignemnt">
+                            <object class="Gschem3AlignmentComboBox" id="combo-alignment">
                                 <property name="hexpand">true</property>
                                 <property name="visible">TRUE</property>
                             </object>

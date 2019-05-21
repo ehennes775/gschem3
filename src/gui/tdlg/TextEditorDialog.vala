@@ -40,7 +40,53 @@ namespace Gschem3
          */
         construct
         {
+            notify["item"].connect(on_notify_alignment);
+
+            m_alignment_combo.apply.connect(on_apply_alignment);
         }
+
+
+        /**
+         *
+         */
+        [GtkChild(name="combo-alignment")]
+        private AlignmentComboBox m_alignment_combo;
+
+
+        /**
+         *
+         */
+        private void on_apply_alignment()
+
+            requires(b_item != null)
+            requires(m_alignment_combo != null)
+
+        {
+            b_item.alignment = m_alignment_combo.alignment;
+        }
+
+
+        /**
+         * Signal handler when the item or the item alignment changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_alignment(ParamSpec param)
+
+            requires(m_alignment_combo != null)
+
+        {
+            if (b_item != null)
+            {
+                m_alignment_combo.alignment = b_item.alignment;
+                m_alignment_combo.sensitive = true;
+            }
+            else
+            {
+                m_alignment_combo.sensitive = false;
+            }
+        }
+
 
 
         /**

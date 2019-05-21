@@ -43,6 +43,8 @@ namespace Gschem3
         {
             var dialog = new TextEditorDialog();
 
+            dialog.item = item;
+
             var result = dialog.run();
 
             dialog.destroy();
