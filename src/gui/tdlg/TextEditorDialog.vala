@@ -24,6 +24,15 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        static construct
+        {
+            stdout.printf("%s\n",typeof(RotationComboBox).name());
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct

@@ -73,31 +73,6 @@
         </data>
     </object>
 
-    <object class="GtkListStore" id="rotation-list">
-        <columns>
-            <column type="gchararray"/>
-            <column type="gint"/>
-        </columns>
-        <data>
-            <row>
-                <col id="0">0</col>
-                <col id="1">0</col>
-            </row>
-            <row>
-                <col id="0">90</col>
-                <col id="1">90</col>
-            </row>
-            <row>
-                <col id="0">180</col>
-                <col id="1">180</col>
-            </row>
-            <row>
-                <col id="0">270</col>
-                <col id="1">270</col>
-            </row>
-        </data>
-    </object>
-
     <object class="GtkListStore" id="attribute-name-list">
         <columns>
             <column type="gchararray"/> <!-- attribute name -->
@@ -540,20 +515,9 @@
                             </packing>
                         </child>
                         <child>
-                            <object class="Gschem3PropertyComboBox" id="combo-rotation">
+                            <object class="Gschem3RotationComboBox" id="combo-rotation">
                                 <property name="hexpand">true</property>
-                                <property name="model">rotation-list</property>
                                 <property name="visible">TRUE</property>
-                                <child>
-                                    <object class="GtkCellRendererText" id="rotation-renderer">
-                                    </object>
-                                    <attributes>
-                                        <attribute name="text">0</attribute>
-                                    </attributes>
-                                    <cell-packing>
-                                        <property name="expand">true</property>
-                                    </cell-packing>
-                                </child>
                             </object>
                             <packing>
                                 <property name="left-attach">3</property>

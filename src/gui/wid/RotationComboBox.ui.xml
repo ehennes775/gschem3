@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<interface>
+
+    <object class="GtkListStore" id="rotation-list">
+        <columns>
+            <column type="gchararray"/>
+            <column type="gint"/>
+        </columns>
+        <data>
+            <row>
+                <col id="0">0</col>
+                <col id="1">0</col>
+            </row>
+            <row>
+                <col id="0">90</col>
+                <col id="1">90</col>
+            </row>
+            <row>
+                <col id="0">180</col>
+                <col id="1">180</col>
+            </row>
+            <row>
+                <col id="0">270</col>
+                <col id="1">270</col>
+            </row>
+        </data>
+    </object>
+
+    <template class="Gschem3RotationComboBox" parent="Gschem3PropertyComboBox">
+        <property name="model">rotation-list</property>
+        <child>
+            <object class="GtkCellRendererText" id="rotation-renderer">
+            </object>
+            <attributes>
+                <attribute name="text">0</attribute>
+            </attributes>
+            <cell-packing>
+                <property name="expand">true</property>
+            </cell-packing>
+        </child>
+    </template>
+
+</interface>

@@ -166,7 +166,6 @@ libgschem3_a_SOURCES = \
 	gui/pedit/FillStyleEditor.vala \
 	gui/pedit/LineStyleEditor.vala \
 	gui/pedit/PinPropertyEditor.vala \
-	gui/pedit/PropertyComboBox.vala \
 	gui/pedit/TextPropertyEditor.vala \
 	gui/pedit/ValueState.vala \
 	gui/tdlg/TextEditorDialog.vala \
@@ -224,7 +223,9 @@ libgschem3_a_SOURCES = \
 	gui/tool/SelectTool.vala \
 	gui/tool/TextFactory.vala \
 	gui/tool/TextTool.vala \
-	gui/tool/ZoomTool.vala
+	gui/tool/ZoomTool.vala \
+	gui/wid/PropertyComboBox.vala \
+	gui/wid/RotationComboBox.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \
