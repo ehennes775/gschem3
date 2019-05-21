@@ -37,6 +37,17 @@ namespace Gschem3
 
 
         /**
+         * Initialize the class
+         */
+        static construct
+        {
+            stdout.printf("%s\n",typeof(AlignmentComboBox).name());
+            stdout.printf("%s\n",typeof(ColorComboBox).name());
+            stdout.printf("%s\n",typeof(RotationComboBox).name());
+            stdout.printf("%s\n",typeof(TextSizeComboBox).name());
+        }
+
+        /**
          *
          */
         construct
