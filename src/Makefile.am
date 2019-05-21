@@ -224,8 +224,11 @@ libgschem3_a_SOURCES = \
 	gui/tool/TextFactory.vala \
 	gui/tool/TextTool.vala \
 	gui/tool/ZoomTool.vala \
+	gui/wid/AlignmentComboBox.vala \
+	gui/wid/ColorComboBox.vala \
 	gui/wid/PropertyComboBox.vala \
-	gui/wid/RotationComboBox.vala
+	gui/wid/RotationComboBox.vala \
+	gui/wid/TextSizeComboBox.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \
