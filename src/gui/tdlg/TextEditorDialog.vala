@@ -1,7 +1,10 @@
 namespace Gschem3
 {
     /**
-     * A dialog for attributes and text
+     * A dialog for text items in schematics
+     *
+     * This dialog edits both attributes and text. Also, this dialog
+     * switches between the two types as needed.
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/tdlg/TextEditorDialog.ui.xml")]
     public class TextEditorDialog : Gtk.Dialog
@@ -34,8 +37,8 @@ namespace Gschem3
          */
         static construct
         {
-            // ensure dependent types, from the UI file, are registered
-            // with the type system
+            // Ensure dependent types, from the UI file, are registered
+            // with the type system before the builder parses the file.
 
             stdout.printf("%s\n",typeof(AlignmentComboBox).name());
             stdout.printf("%s\n",typeof(ColorComboBox).name());
@@ -50,15 +53,63 @@ namespace Gschem3
         construct
         {
             notify["item"].connect(on_notify_alignment);
+            notify["item"].connect(on_notify_attribute_name);
+            notify["item"].connect(on_notify_attribute_value);
             notify["item"].connect(on_notify_color);
+            notify["item"].connect(on_notify_presentation);
             notify["item"].connect(on_notify_rotation);
             notify["item"].connect(on_notify_size);
+            notify["item"].connect(on_notify_visibility);
 
+            // attribute name - updated every character
+            m_attribute_name_entry.buffer.inserted_text.connect(
+                on_apply_attribute_name
+                );
+            m_attribute_name_entry.buffer.deleted_text.connect(
+                on_apply_attribute_name
+                );
+
+            // attribute value - updated every character
+            m_attribute_value_view.buffer.changed.connect(
+                on_apply_attribute_value
+                );
+
+            // attribute presentation
+            m_show_name_radio.toggled.connect(on_apply_presentation);
+            m_show_name_value_radio.toggled.connect(on_apply_presentation);
+            m_show_value_radio.toggled.connect(on_apply_presentation);
+
+            // attribute visiblity
+            m_hidden_radio.toggled.connect(on_apply_visibility);
+            m_visible_radio.toggled.connect(on_apply_visibility);
+
+            // text properties
             m_alignment_combo.apply.connect(on_apply_alignment);
             m_color_combo.apply.connect(on_apply_color);
             m_rotation_combo.apply.connect(on_apply_rotation);
             m_size_combo.apply.connect(on_apply_size);
         }
+
+
+        /**
+         * The attribute name combo
+         */
+        [GtkChild(name="combo-attribute-name")]
+        private Gtk.ComboBox m_attribute_name_combo;
+
+
+        /**
+         * The attribute name entry
+         */
+        [GtkChild(name="entry-attribute-name")]
+        private Gtk.Entry m_attribute_name_entry;
+
+
+        /**
+         * The attribute name entry
+         */
+        [GtkChild(name="entry-attribute-value")]
+        private Gtk.TextView m_attribute_value_view;
 
 
         /**
@@ -76,6 +127,13 @@ namespace Gschem3
 
 
         /**
+         * The hidden radio button
+         */
+        [GtkChild(name="radio-hidden")]
+        private Gtk.RadioButton m_hidden_radio;
+
+
+        /**
          * The text rotation widget
          */
         [GtkChild(name="combo-rotation")]
@@ -83,10 +141,38 @@ namespace Gschem3
 
 
         /**
+         * The radio button that shows the name only
+         */
+        [GtkChild(name="radio-name")]
+        private Gtk.RadioButton m_show_name_radio;
+
+
+        /**
+         * The radio button that shows the value only
+         */
+        [GtkChild(name="radio-value")]
+        private Gtk.RadioButton m_show_value_radio;
+
+
+        /**
+         * The radio button that shows the name and value
+         */
+        [GtkChild(name="radio-name-value")]
+        private Gtk.RadioButton m_show_name_value_radio;
+
+
+        /**
          * The text size widget
          */
         [GtkChild(name="combo-size")]
         private TextSizeComboBox m_size_combo;
+
+
+        /**
+         * The visible radio button
+         */
+        [GtkChild(name="radio-visible")]
+        private Gtk.RadioButton m_visible_radio;
 
 
         /**
@@ -103,6 +189,44 @@ namespace Gschem3
 
 
         /**
+         * Signal handler when the user enters an attribute name
+         */
+        private void on_apply_attribute_name()
+
+            requires(b_item != null)
+            requires(m_attribute_name_entry != null)
+            requires(m_attribute_name_entry.buffer != null)
+            requires(m_attribute_value_view != null)
+            requires(m_attribute_value_view.buffer != null)
+
+        {
+            b_item.set_pair(
+                m_attribute_name_entry.buffer.text,
+                m_attribute_value_view.buffer.text
+                );
+        }
+
+
+        /**
+         * Signal handler when the user enters an attribute value
+         */
+        private void on_apply_attribute_value()
+
+            requires(b_item != null)
+            requires(m_attribute_name_entry != null)
+            requires(m_attribute_name_entry.buffer != null)
+            requires(m_attribute_value_view != null)
+            requires(m_attribute_value_view.buffer != null)
+
+        {
+            b_item.set_pair(
+                m_attribute_name_entry.buffer.text,
+                m_attribute_value_view.buffer.text
+                );
+        }
+
+
+        /**
          * Signal handler when the user selects a color
          */
         private void on_apply_color()
@@ -112,6 +236,34 @@ namespace Gschem3
 
         {
             b_item.color = m_color_combo.color;
+        }
+
+
+        /**
+         * Signal handler when the user selects a presentation
+         */
+        private void on_apply_presentation()
+
+            requires(b_item != null)
+            requires(m_show_name_radio != null)
+            requires(m_show_value_radio != null)
+            requires(m_show_name_value_radio != null)
+
+        {
+            if (m_show_name_radio.active)
+            {
+                b_item.presentation = Geda3.TextPresentation.NAME;
+            }
+
+            if (m_show_value_radio.active)
+            {
+                b_item.presentation = Geda3.TextPresentation.VALUE;
+            }
+
+            if (m_show_name_value_radio.active)
+            {
+                b_item.presentation = Geda3.TextPresentation.BOTH;
+            }
         }
 
 
@@ -142,6 +294,28 @@ namespace Gschem3
 
 
         /**
+         * Signal handler when the user selects a visibility
+         */
+        private void on_apply_visibility()
+
+            requires(b_item != null)
+            requires(m_hidden_radio != null)
+            requires(m_visible_radio != null)
+
+        {
+            if (m_hidden_radio.active)
+            {
+                b_item.visibility = Geda3.Visibility.INVISIBLE;
+            }
+
+            if (m_visible_radio.active)
+            {
+                b_item.visibility = Geda3.Visibility.VISIBLE;
+            }
+        }
+
+
+        /**
          * Signal handler when the item or the item alignment changes
          *
          * @param param Unused
@@ -164,6 +338,59 @@ namespace Gschem3
 
 
         /**
+         * Signal handler when the item or the attribute name changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_attribute_name(ParamSpec param)
+
+            requires(m_attribute_name_combo != null)
+            requires(m_attribute_name_entry != null)
+            requires(m_attribute_name_entry.buffer != null)
+
+        {
+            if ((b_item != null) && (b_item.name != null))
+            {
+                // compile error - probably issue with bindings
+                //m_attribute_name_entry.text = b_item.name;
+
+                m_attribute_name_combo.sensitive = true;
+            }
+            else
+            {
+                // compile error - probably issue with bindings
+                //m_attribute_name_entry.text = "".data;
+
+                m_attribute_name_combo.sensitive = false;
+            }
+        }
+
+
+        /**
+         * Signal handler when the item or the attribute value changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_attribute_value(ParamSpec param)
+
+            requires(m_attribute_value_view != null)
+            requires(m_attribute_value_view.buffer != null)
+
+        {
+            if ((b_item != null) && (b_item.@value != null))
+            {
+                m_attribute_value_view.buffer.text = b_item.value;
+                m_attribute_value_view.sensitive = true;
+            }
+            else
+            {
+                m_attribute_value_view.buffer.text = "";
+                m_attribute_value_view.sensitive = false;
+            }
+        }
+
+
+        /**
          * Signal handler when the item or the item color changes
          *
          * @param param Unused
@@ -181,6 +408,53 @@ namespace Gschem3
             else
             {
                 m_color_combo.sensitive = false;
+            }
+        }
+
+
+        /**
+         * Signal handler when the item or the item presentation
+         * changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_presentation(ParamSpec param)
+
+            requires(m_show_name_radio != null)
+            requires(m_show_value_radio != null)
+            requires(m_show_name_value_radio != null)
+
+        {
+            if (b_item != null)
+            {
+                switch (b_item.presentation)
+                {
+                    case Geda3.TextPresentation.NAME:
+                        m_show_name_radio.active = true;
+                        break;
+
+                    case Geda3.TextPresentation.VALUE:
+                        m_show_value_radio.active = true;
+                        break;
+
+                    case Geda3.TextPresentation.BOTH:
+                        m_show_name_value_radio.active = true;
+                        break;
+
+                    default:
+                        assert_not_reached();
+                        break;
+                }
+
+                m_show_name_radio.sensitive = true;
+                m_show_value_radio.sensitive = true;
+                m_show_name_value_radio.sensitive = true;
+            }
+            else
+            {
+                m_show_name_radio.sensitive = false;
+                m_show_value_radio.sensitive = false;
+                m_show_name_value_radio.sensitive = false;
             }
         }
 
@@ -225,6 +499,45 @@ namespace Gschem3
             else
             {
                 m_size_combo.sensitive = false;
+            }
+        }
+
+
+        /**
+         * Signal handler when the item or the item visibility changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_visibility(ParamSpec param)
+
+            requires(m_hidden_radio != null)
+            requires(m_visible_radio != null)
+
+        {
+            if (b_item != null)
+            {
+                switch (b_item.visibility)
+                {
+                    case Geda3.Visibility.INVISIBLE:
+                        m_hidden_radio.active = true;
+                        break;
+
+                    case Geda3.Visibility.VISIBLE:
+                        m_visible_radio.active = true;
+                        break;
+
+                    default:
+                        assert_not_reached();
+                        break;
+                }
+
+                m_hidden_radio.sensitive = true;
+                m_visible_radio.sensitive = true;
+            }
+            else
+            {
+                m_hidden_radio.sensitive = false;
+                m_visible_radio.sensitive = false;
             }
         }
 
