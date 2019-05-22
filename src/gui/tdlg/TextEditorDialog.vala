@@ -50,10 +50,12 @@ namespace Gschem3
         construct
         {
             notify["item"].connect(on_notify_alignment);
+            notify["item"].connect(on_notify_color);
             notify["item"].connect(on_notify_rotation);
             notify["item"].connect(on_notify_size);
 
             m_alignment_combo.apply.connect(on_apply_alignment);
+            m_color_combo.apply.connect(on_apply_color);
             m_rotation_combo.apply.connect(on_apply_rotation);
             m_size_combo.apply.connect(on_apply_size);
         }
@@ -64,6 +66,13 @@ namespace Gschem3
          */
         [GtkChild(name="combo-alignment")]
         private AlignmentComboBox m_alignment_combo;
+
+
+        /**
+         * The text color widget
+         */
+        [GtkChild(name="combo-color")]
+        private ColorComboBox m_color_combo;
 
 
         /**
@@ -90,6 +99,19 @@ namespace Gschem3
 
         {
             b_item.alignment = m_alignment_combo.alignment;
+        }
+
+
+        /**
+         * Signal handler when the user selects a color
+         */
+        private void on_apply_color()
+
+            requires(b_item != null)
+            requires(m_color_combo != null)
+
+        {
+            b_item.color = m_color_combo.color;
         }
 
 
@@ -137,6 +159,28 @@ namespace Gschem3
             else
             {
                 m_alignment_combo.sensitive = false;
+            }
+        }
+
+
+        /**
+         * Signal handler when the item or the item color changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_color(ParamSpec param)
+
+            requires(m_color_combo != null)
+
+        {
+            if (b_item != null)
+            {
+                m_color_combo.color = b_item.color;
+                m_color_combo.sensitive = true;
+            }
+            else
+            {
+                m_color_combo.sensitive = false;
             }
         }
 
