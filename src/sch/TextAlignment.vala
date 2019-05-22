@@ -57,6 +57,17 @@ namespace Geda3
 
 
         /**
+         * Extract the text alignment from a value
+         *
+         * @param input The value to extract a text alignment from
+         */
+        public static TextAlignment from_value(Value input)
+        {
+            return (TextAlignment) input.get_enum();
+        }
+
+
+        /**
          * Parse the input file representation of a TextAlignment
          *
          * @param input the string representation of the text alignment

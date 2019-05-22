@@ -49,6 +49,87 @@ namespace Gschem3
 
         /**
          *
+         */
+        protected delegate bool CompareValueFunc(Value val);
+
+
+        /**
+         *
+         *
+         * @param column
+         * @param val
+         */
+        protected bool get_active_value(
+            int column,
+            out Value val
+            )
+
+            requires(model != null)
+
+        {
+            Gtk.TreeIter iter;
+
+            var success = get_active_iter(out iter);
+
+            if (success)
+            {
+                model.get_value(
+                    iter,
+                    column,
+                    out val
+                    );
+            }
+
+            return success;
+        }
+
+
+        /**
+         * Set the active row using a value
+         *
+         * @param column The index of the column containing the value
+         * @param compare A delegate returning true when the matching
+         * row is found
+         * @return Returns true if a row was found
+         */
+        protected bool set_active_by_value(
+            int column,
+            CompareValueFunc compare
+            )
+
+            requires(model != null)
+
+        {
+            Gtk.TreeIter iter;
+
+            var success = model.get_iter_first(out iter);
+
+            while (success)
+            {
+                Value val;
+
+                model.get_value(
+                    iter,
+                    column,
+                    out val
+                    );
+
+                if (compare(val))
+                {
+                    set_active_iter(iter);
+
+                    break;
+                }
+
+                success = model.iter_next(ref iter);
+            }
+
+            return success;
+        }
+
+
+        /**
+         *
          *
          * @param widget
          */

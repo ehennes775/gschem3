@@ -13,53 +13,26 @@ namespace Gschem3
         {
             get
             {
-                return_val_if_fail(m_alignment_list != null, FAIL_VALUE);
+                Value alignment;
 
-                Gtk.TreeIter iter;
-
-                var success = m_alignment_list.iter_nth_child(
-                    out iter,
-                    null,
-                    get_active()
+                var success = get_active_value(
+                    Column.ALIGNMENT,
+                    out alignment
                     );
 
                 return_val_if_fail(success, FAIL_VALUE);
 
-                Value alignment;
-
-                m_alignment_list.get_value(
-                    iter,
-                    1,
-                    out alignment
-                    );
-
-                return (Geda3.TextAlignment) alignment.get_enum();
+                return Geda3.TextAlignment.from_value(alignment);
             }
             set
             {
-                Gtk.TreeIter iter;
-
-                var success = m_alignment_list.get_iter_first(out iter);
-
-                while (success)
-                {
-                    Value alignment;
-
-                    m_alignment_list.get_value(
-                        iter,
-                        1,
-                        out alignment
-                        );
-
-                    var temp = (Geda3.TextAlignment) alignment.get_enum();
-
-                    if (temp == value)
+                set_active_by_value(
+                    Column.ALIGNMENT,
+                    (v) =>
                     {
-                        set_active_iter(iter);
+                        return value == Geda3.TextAlignment.from_value(v);
                     }
-
-                    success = m_alignment_list.iter_next(ref iter);
-                }
+                    );
             }
         }
 
@@ -88,6 +61,16 @@ namespace Gschem3
          */
         private Geda3.TextAlignment FAIL_VALUE = Geda3.TextAlignment.LOWER_LEFT;
 
+
+        /**
+         *
+         */
+        private enum Column
+        {
+            NAME,
+            ALIGNMENT,
+            COUNT
+        }
 
         /**
          * The list store containing the available text alignments
