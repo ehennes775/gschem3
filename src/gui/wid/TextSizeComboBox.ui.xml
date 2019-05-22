@@ -55,18 +55,6 @@
     </object>
 
     <template class="Gschem3TextSizeComboBox" parent="Gschem3PropertyComboBox">
-        <child>
-            <!--
-            <object class="GtkCellRendererText" id="text-size-renderer">
-            </object>
-            <attributes>
-                <attribute name="text">0</attribute>
-            </attributes>
-            <cell-packing>
-                <property name="expand">true</property>
-            </cell-packing>
-            -->
-        </child>
     </template>
 
 </interface>

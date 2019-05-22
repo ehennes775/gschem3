@@ -51,9 +51,11 @@ namespace Gschem3
         {
             notify["item"].connect(on_notify_alignment);
             notify["item"].connect(on_notify_rotation);
+            notify["item"].connect(on_notify_size);
 
             m_alignment_combo.apply.connect(on_apply_alignment);
             m_rotation_combo.apply.connect(on_apply_rotation);
+            m_size_combo.apply.connect(on_apply_size);
         }
 
 
@@ -69,6 +71,13 @@ namespace Gschem3
          */
         [GtkChild(name="combo-rotation")]
         private RotationComboBox m_rotation_combo;
+
+
+        /**
+         * The text size widget
+         */
+        [GtkChild(name="combo-size")]
+        private TextSizeComboBox m_size_combo;
 
 
         /**
@@ -94,6 +103,19 @@ namespace Gschem3
 
         {
             b_item.angle = m_rotation_combo.rotation;
+        }
+
+
+        /**
+         * Signal handler when the user selects a text size
+         */
+        private void on_apply_size()
+
+            requires(b_item != null)
+            requires(m_size_combo != null)
+
+        {
+            b_item.size = m_size_combo.size;
         }
 
 
@@ -137,6 +159,28 @@ namespace Gschem3
             else
             {
                 m_rotation_combo.sensitive = false;
+            }
+        }
+
+
+        /**
+         * Signal handler when the item or the item text size changes
+         *
+         * @param param Unused
+         */
+        private void on_notify_size(ParamSpec param)
+
+            requires(m_size_combo != null)
+
+        {
+            if (b_item != null)
+            {
+                m_size_combo.size = b_item.size;
+                m_size_combo.sensitive = true;
+            }
+            else
+            {
+                m_size_combo.sensitive = false;
             }
         }
 
