@@ -53,12 +53,14 @@ namespace Gschem3
         construct
         {
             notify["item"].connect(on_notify_alignment);
+            notify["item"].connect(on_notify_attribute);
             notify["item"].connect(on_notify_attribute_name);
             notify["item"].connect(on_notify_attribute_value);
             notify["item"].connect(on_notify_color);
             notify["item"].connect(on_notify_presentation);
             notify["item"].connect(on_notify_rotation);
             notify["item"].connect(on_notify_size);
+            notify["item"].connect(on_notify_text_value);
             notify["item"].connect(on_notify_visibility);
 
             // attribute name - updated every character
@@ -82,6 +84,11 @@ namespace Gschem3
             // attribute visiblity
             m_hidden_radio.toggled.connect(on_apply_visibility);
             m_visible_radio.toggled.connect(on_apply_visibility);
+
+            // text value - updated every character
+            m_text_view.buffer.changed.connect(
+                on_apply_text_value
+                );
 
             // text properties
             m_alignment_combo.apply.connect(on_apply_alignment);
@@ -166,6 +173,20 @@ namespace Gschem3
          */
         [GtkChild(name="combo-size")]
         private TextSizeComboBox m_size_combo;
+
+
+        /**
+         * The widget used to switch between attributes and text
+         */
+        [GtkChild(name="stack")]
+        private Gtk.Stack m_stack;
+
+
+        /**
+         * The widget used to switch between attributes and text
+         */
+        [GtkChild(name="entry-text")]
+        private Gtk.TextView m_text_view;
 
 
         /**
@@ -294,6 +315,20 @@ namespace Gschem3
 
 
         /**
+         * Signal handler when the user enters an attribute value
+         */
+        private void on_apply_text_value()
+
+            requires(b_item != null)
+            requires(m_text_view != null)
+            requires(m_text_view.buffer != null)
+
+        {
+            b_item.text = m_text_view.buffer.text;
+        }
+
+
+        /**
          * Signal handler when the user selects a visibility
          */
         private void on_apply_visibility()
@@ -333,6 +368,35 @@ namespace Gschem3
             else
             {
                 m_alignment_combo.sensitive = false;
+            }
+        }
+
+
+        /**
+         * Signal handler when the item changes or the item switches
+         * between an attribute and text
+         *
+         * @param param Unused
+         */
+        private void on_notify_attribute(ParamSpec param)
+
+            requires(m_stack != null)
+
+        {
+            if (b_item != null)
+            {
+                var attribute = b_item.name != null;
+
+                if (attribute)
+                {
+                    stdout.printf("attribute-widgets\n");
+                    m_stack.visible_child_name = "attribute-widgets";
+                }
+                else
+                {
+                    stdout.printf("text-widgets\n");
+                    m_stack.visible_child_name = "text-widgets";
+                }
             }
         }
 
@@ -499,6 +563,30 @@ namespace Gschem3
             else
             {
                 m_size_combo.sensitive = false;
+            }
+        }
+
+
+        /**
+         * Signal handler when the item or the item text
+         *
+         * @param param Unused
+         */
+        private void on_notify_text_value(ParamSpec param)
+
+            requires(m_text_view != null)
+            requires(m_text_view.buffer != null)
+
+        {
+            if ((b_item != null) && (b_item.text != null))
+            {
+                m_text_view.buffer.text = b_item.text;
+                m_text_view.sensitive = true;
+            }
+            else
+            {
+                m_text_view.buffer.text = "";
+                m_text_view.sensitive = false;
             }
         }
 
