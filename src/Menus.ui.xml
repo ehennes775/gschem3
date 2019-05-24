@@ -130,6 +130,10 @@
                 </section>
                 <section>
                     <item>
+                        <attribute name="label" translatable="yes">Item...</attribute>
+                        <attribute name="action">win.edit-item</attribute>
+                    </item>
+                    <item>
                         <attribute name="label" translatable="yes">Pins...</attribute>
                         <attribute name="action">win.edit-pins</attribute>
                     </item>

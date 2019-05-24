@@ -1,8 +1,22 @@
 namespace Gschem3
 {
+    /**
+     *
+     */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/MainWindow.ui.xml")]
     public class MainWindow : Gtk.ApplicationWindow
     {
+        /**
+         * The current document window
+         */
+        public DocumentWindow? document_window
+        {
+            get;
+            private construct set;
+            default = null;
+        }
+
+
         /**
          * The currently open project
          *
@@ -42,18 +56,6 @@ namespace Gschem3
             add_action_entries(action_entries, this);
 
             m_project_widget.add_actions(this);
-
-            m_actions = new CustomAction[]
-            {
-                new ExportBillOfMaterial(this),
-                new ExportNetlist(this),
-                new ExportSchematics(this)
-            };
-
-            foreach (var action in m_actions)
-            {
-                add_action(action.create_action());
-            }
 
             // Setup drag and drop
 
@@ -107,6 +109,21 @@ namespace Gschem3
 
             key_press_event.connect(on_key_press_event);
             key_release_event.connect(on_key_release_event);
+
+            // setup actions
+
+            m_actions = new CustomAction[]
+            {
+                new EditItemAction(this),
+                new ExportBillOfMaterial(this),
+                new ExportNetlist(this),
+                new ExportSchematics(this)
+            };
+
+            foreach (var action in m_actions)
+            {
+                add_action(action.action);
+            }
         }
 
 
@@ -364,12 +381,6 @@ namespace Gschem3
 
 
         /**
-         * The current document window
-         */
-        private DocumentWindow? m_current_document_window = null;
-
-
-        /**
          * The drawing tools
          */
         private DrawingToolSet m_drawing_tools;
@@ -440,7 +451,7 @@ namespace Gschem3
             requires(m_property_editor != null)
 
         {
-            editor.update_document_window(m_current_document_window);
+            editor.update_document_window(document_window);
             m_editors.add(editor);
             m_property_editor.add(editor);
         }
@@ -640,7 +651,7 @@ namespace Gschem3
                     Gdk.SELECTION_CLIPBOARD
                     );
 
-                var support = m_current_document_window as ClipboardSupport;
+                var support = document_window as ClipboardSupport;
                 return_if_fail(support != null);
 
                 support.copy(clipboard);
@@ -666,7 +677,7 @@ namespace Gschem3
                     Gdk.SELECTION_CLIPBOARD
                     );
 
-                var support = m_current_document_window as ClipboardSupport;
+                var support = document_window as ClipboardSupport;
                 return_if_fail(support != null);
 
                 support.cut(clipboard);
@@ -704,7 +715,7 @@ namespace Gschem3
                     Gdk.SELECTION_CLIPBOARD
                     );
 
-                var support = m_current_document_window as ClipboardSupport;
+                var support = document_window as ClipboardSupport;
                 return_if_fail(support != null);
 
                 support.paste(clipboard);
@@ -727,7 +738,7 @@ namespace Gschem3
             var dialog = new PinEditorDialog();
 
             dialog.set_transient_for(this);
-            dialog.update_document_window(m_current_document_window);
+            dialog.update_document_window(document_window);
 
             var response = dialog.run();
 
@@ -1148,20 +1159,20 @@ namespace Gschem3
                 // needs to enable the action
             }
 
-            m_current_document_window = page as DocumentWindow;
+            document_window = page as DocumentWindow;
 
             m_drawing_tools.update_document_window(
-                m_current_document_window
+                document_window
                 );
 
             m_attribute_widget.update_document_window(
-                m_current_document_window
+                document_window
                 );
 
             foreach (var editor in m_editors)
             {
                 editor.update_document_window(
-                    m_current_document_window
+                    document_window
                     );
             }
         }

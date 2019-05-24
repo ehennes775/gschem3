@@ -24,29 +24,22 @@ namespace Gschem3
         public ExportBillOfMaterial(Gtk.Window? parent)
         {
             m_parent = parent;
-        }
 
-
-        /**
-         * {@inheritDoc}
-         */
-        public override Action create_action()
-        {
-            var action = new SimpleAction(
+            var temp_action = new SimpleAction(
                 "export-bill-of-material",
                 null
                 );
 
             bind_property(
                 "enabled",
-                action,
+                temp_action,
                 "enabled",
                 BindingFlags.SYNC_CREATE
                 );
 
-            action.activate.connect(activate);
+            temp_action.activate.connect(activate);
 
-            return action;
+            action = temp_action;
         }
 
 

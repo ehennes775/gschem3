@@ -123,7 +123,6 @@ libgeda3_a_SOURCES = \
 	sch/path/RelativeLineToCommand.vala \
 	AttributePromoter.vala \
 	ColorScheme.vala \
-	CustomAction.vala \
 	Fileable.vala \
 	GeeEx.vala \
 	Invalidatable.vala \
@@ -153,6 +152,11 @@ libgeda3_a_VALAFLAGS = \
 	--vapi=libgeda3.vapi
 
 libgschem3_a_SOURCES = \
+	gui/act/CustomAction.vala \
+	gui/act/EditItemAction.vala \
+	gui/act/ExportBillOfMaterial.vala \
+	gui/act/ExportNetlist.vala \
+	gui/act/ExportSchematics.vala \
 	gui/aedit/AttributeCreating.vala \
 	gui/aedit/AttributeEditing.vala \
 	gui/aedit/AttributeEditor.vala \
@@ -177,11 +181,8 @@ libgschem3_a_SOURCES = \
 	gui/DrawingTool.vala \
 	gui/DrawingToolSet.vala \
 	gui/ErrorDialog.vala \
-	gui/ExportBillOfMaterial.vala \
 	gui/ExportBillOfMaterialDialog.vala \
-	gui/ExportNetlist.vala \
 	gui/ExportNetlistDialog.vala \
-	gui/ExportSchematics.vala \
 	gui/FillSwatchRenderer.vala \
 	gui/Grid.vala \
 	gui/ItemEditor.vala \

@@ -3,6 +3,16 @@ namespace Gschem3
     public abstract class CustomAction : Object
     {
         /**
+         * An action for this operation
+         */
+        public Action action
+        {
+            get;
+            protected set;
+        }
+
+
+        /**
          * Initialize the class
          */
         static construct
@@ -13,14 +23,9 @@ namespace Gschem3
             }
             catch (Error error)
             {
+                assert_not_reached();
             }
         }
-
-
-        /**
-         * Create an action for this operation
-         */
-        public abstract Action create_action();
 
 
         /**
