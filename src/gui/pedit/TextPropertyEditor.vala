@@ -22,14 +22,18 @@ namespace Gschem3
             {
                 if (b_schematic_window != null)
                 {
-                    b_schematic_window.selection_changed.disconnect(on_selection_change);
+                    b_schematic_window.selection_changed.disconnect(
+                        on_selection_change
+                        );
                 }
 
                 b_schematic_window = value;
 
                 if (b_schematic_window != null)
                 {
-                    b_schematic_window.selection_changed.connect(on_selection_change);
+                    b_schematic_window.selection_changed.connect(
+                        on_selection_change
+                        );
                 }
             }
             default = null;
@@ -58,9 +62,10 @@ namespace Gschem3
             margin_top = 8;                      // not getting set in the XML
             use_markup = true;                   // not getting set in the XML
 
-            m_alignment_apply_signal_id = m_alignment_combo.apply.connect(
-                on_apply_alignment
-                );
+            m_alignment_combo.apply.connect(on_apply_alignment);
+            m_color_combo.apply.connect(on_apply_color);
+            m_rotation_combo.apply.connect(on_apply_rotation);
+            m_size_combo.apply.connect(on_apply_size);
 
             notify["schematic-window"].connect(on_notify_schematic_window);
         }
@@ -84,31 +89,32 @@ namespace Gschem3
 
 
         /**
+         * A delegate for comparing two text items 
+         */
+        private delegate bool TextCompare(
+            Geda3.TextItem first,
+            Geda3.TextItem second
+            );
+
+
+        /**
          * The backing store for the schematic window property
          */
         private SchematicWindow? b_schematic_window;
 
 
         /**
-         * This id is used to block signal handling with updating the
-         * combo box with a new value. Blocking prevents an infinite
-         * loop of signal handlers.
-         */
-        private ulong m_alignment_apply_signal_id;
-
-
-        /**
          *
          */
         [GtkChild(name="alignment-combo")]
-        private PropertyComboBox m_alignment_combo;
+        private AlignmentComboBox m_alignment_combo;
 
 
         /**
          *
          */
         [GtkChild(name="color-combo")]
-        private PropertyComboBox m_color_combo;
+        private ColorComboBox m_color_combo;
 
 
         /**
@@ -121,7 +127,7 @@ namespace Gschem3
          *
          */
         [GtkChild(name="rotation-combo")]
-        private PropertyComboBox m_rotation_combo;
+        private RotationComboBox m_rotation_combo;
 
 
         /**
@@ -134,11 +140,9 @@ namespace Gschem3
         /**
          * Apply a new property to text items
          *
-         * @param applicator A delegate for applying a new property
+         * @param applicator A delegate for applying the new property
          */
-        private void apply(
-            TextApplicator applicator
-            )
+        private void apply(TextApplicator applicator)
 
             requires(m_items != null)
             requires(m_items.all_match(i => i != null))
@@ -152,48 +156,33 @@ namespace Gschem3
 
 
         /**
-         * Retrieve the text alignment from the selection
+         * Fetch a consistent text item
          *
-         * @param items The text items from the selection
-         * @param alignment The new text alignment to apply
-         * @return The state of the text alignment data
+         * @param compare A delegate to compare item properties
+         * @return The consistent text item, or null if none
          */
-        private static ValueState fetch_alignment(Gee.Iterable<Geda3.TextItem> items, out Geda3.TextAlignment alignment)
+        private Geda3.TextItem? fetch(TextCompare compare)
+
+            requires(m_items != null)
+            requires(m_items.all_match(i => i != null))
+
         {
-            var state = ValueState.UNAVAILABLE;
-            var temp_alignment = Geda3.TextAlignment.LOWER_LEFT;
+            var first = m_items.first_match(i => true);
 
-            foreach (var item in items)
+            if (first != null)
             {
-                if (item == null)
-                {
-                    warn_if_reached();
-                    continue;
-                }
+                var matching = m_items.all_match(
+                    i => compare(first, i)
+                    );
 
-                if (state == ValueState.UNAVAILABLE)
+                if (!matching)
                 {
-                    temp_alignment = item.alignment;
-                    state = ValueState.AVAILABLE;
-                    continue;
-                }
-
-                if (state == ValueState.AVAILABLE)
-                {
-                    if (temp_alignment != item.alignment)
-                    {
-                        state = ValueState.INCONSISTENT;
-                        break;
-                    }
+                    first = null;
                 }
             }
 
-            alignment = temp_alignment;
-
-            return state;
+            return first;
         }
-
-
 
 
         /**
@@ -203,22 +192,14 @@ namespace Gschem3
         private void on_apply_alignment()
 
             requires(m_alignment_combo != null)
+            requires(m_alignment_combo.active >= 0)
 
         {
-            try
-            {
-                var alignment = Geda3.TextAlignment.parse(
-                    m_alignment_combo.active_id
-                    );
+            var alignment = m_alignment_combo.alignment;
 
-                apply(
-                    (item) => { item.alignment = alignment; }
-                    );
-            }
-            catch (Error error)
-            {
-                assert_not_reached();
-            }
+            apply(
+                (item) => { item.alignment = alignment; }
+                );
         }
 
 
@@ -229,16 +210,50 @@ namespace Gschem3
         private void on_apply_color()
 
             requires(m_color_combo != null)
+            requires(m_color_combo.active >= 0)
+
+        {
+            var color = m_color_combo.color;
+
+            apply(
+                (item) => { item.color = color; }
+                );
+        }
+
+
+        /**
+         * Signal handler for applying a new rotation to the
+         * selection
+         */
+        private void on_apply_rotation()
+
+            requires(m_rotation_combo != null)
+            requires(m_rotation_combo.active >= 0)
+
+        {
+            var rotation = m_rotation_combo.rotation;
+
+            apply(
+                (item) => { item.angle = rotation; }
+                );
+        }
+
+
+        /**
+         * Signal handler for applying a new text size to the
+         * selection
+         */
+        private void on_apply_size()
+
+            requires(m_size_combo != null)
 
         {
             try
             {
-                var color = Geda3.Color.parse(
-                    m_color_combo.active_id
-                    );
+                var size = Geda3.TextSize.parse(m_size_combo.content);
 
                 apply(
-                    (item) => { item.color = color; }
+                    (item) => { item.size = size; }
                     );
             }
             catch (Error error)
@@ -272,10 +287,13 @@ namespace Gschem3
          *
          */
         private void update()
+
+            requires((b_schematic_window == null) || (b_schematic_window.selection != null))
+
         {
             m_items.clear();
 
-            if ((b_schematic_window != null) && (b_schematic_window.selection != null))
+            if (b_schematic_window != null)
             {
                 foreach (var item in b_schematic_window.selection)
                 {
@@ -290,64 +308,160 @@ namespace Gschem3
                 }
             }
 
-            update_alignment_combo(m_items);
-            update_sensitivities(m_items);
+            update_alignment_combo();
+            update_color_combo();
+            update_size_combo();
+            update_rotation_combo();
         }
 
 
         /**
-         * Update data in the text alignment combo
-         *
-         * @param items Text items in the selection
+         * Update the alignment combo box state
          */
-        private void update_alignment_combo(Gee.Iterable<Geda3.TextItem> items)
+        private void update_alignment_combo()
 
             requires(m_alignment_combo != null)
+            requires(m_items != null)
 
         {
-            var alignment = Geda3.TextAlignment.LOWER_LEFT;
-            var state = fetch_alignment(items, out alignment);
-            
-            SignalHandler.block(
-                m_alignment_combo,
-                m_alignment_apply_signal_id
-                );
+            var sensitive = m_items.any_match(item => true);
 
-            if (state.is_available())
+            m_alignment_combo.sensitive = sensitive;
+
+            if (sensitive)
             {
-                m_alignment_combo.active_id = "%d".printf(alignment);
+                var item = fetch(
+                    (first, item) => { return first.alignment == item.alignment; }
+                    );
+                
+                //SignalHandler.block(
+                //    m_alignment_combo,
+                //    m_alignment_apply_signal_id
+                //    );
+
+                if (item != null)
+                {
+                    m_alignment_combo.alignment = item.alignment;
+                }
+                else
+                {
+                    m_alignment_combo.active = -1;
+                }
+
+                //SignalHandler.unblock(
+                //    m_alignment_combo,
+                //    m_alignment_apply_signal_id
+                //    );
             }
             else
             {
                 m_alignment_combo.active = -1;
             }
-
-            SignalHandler.unblock(
-                m_alignment_combo,
-                m_alignment_apply_signal_id
-                );
         }
 
 
         /**
-         * Update sensitivities for combo boxes
-         *
-         * @param items Text items in the selection
+         * Update the text color combo box state
          */
-        private void update_sensitivities(Gee.Iterable<Geda3.TextItem> items)
+        private void update_color_combo()
 
-            requires(m_alignment_combo != null)
             requires(m_color_combo != null)
-            requires(m_rotation_combo != null)
+            requires(m_items != null)
+
+        {
+            var sensitive = m_items.any_match(item => true);
+
+            m_color_combo.sensitive = sensitive;
+
+            if (sensitive)
+            {
+                var item = fetch(
+                    (first, item) => { return first.color == item.color; }
+                    );
+                
+                if (item != null)
+                {
+                    m_color_combo.color = item.color;
+                }
+                else
+                {
+                    m_color_combo.active = -1;
+                }
+            }
+            else
+            {
+                m_color_combo.active = -1;
+            }
+        }
+
+
+        /**
+         * Update the text size combo box state
+         */
+        private void update_size_combo()
+
+            requires(m_items != null)
             requires(m_size_combo != null)
 
         {
-            var sensitive = items.any_match(item => true);
+            var sensitive = m_items.any_match(item => true);
 
-            m_alignment_combo.sensitive = sensitive;
-            m_color_combo.sensitive = sensitive;
-            m_rotation_combo.sensitive = sensitive;
             m_size_combo.sensitive = sensitive;
+
+            if (sensitive)
+            {
+                var item = fetch(
+                    (first, item) => { return first.size == item.size; }
+                    );
+                
+                if (item != null)
+                {
+                    m_size_combo.content = item.size.to_string();
+                }
+                else
+                {
+                    m_size_combo.content = "";
+                }
+            }
+            else
+            {
+                m_size_combo.content = "";
+            }
+        }
+
+
+        /**
+         * Update the rotation combo box state
+         */
+        private void update_rotation_combo()
+
+            requires(m_items != null)
+            requires(m_rotation_combo != null)
+
+        {
+            var sensitive = m_items.any_match(item => true);
+
+            m_rotation_combo.sensitive = sensitive;
+
+            if (sensitive)
+            {
+                var item = fetch(
+                    (first, item) => { return first.angle == item.angle; }
+                    );
+                
+                if (item != null)
+                {
+                    m_rotation_combo.rotation = item.angle;
+                }
+                else
+                {
+                    m_rotation_combo.active = -1;
+                }
+            }
+            else
+            {
+                m_rotation_combo.active = -1;
+            }
         }
     }
 }
