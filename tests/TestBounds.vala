@@ -14,7 +14,7 @@ namespace GedaTest.Bounds
             var x = Test.rand_int();
             var y = Test.rand_int();
 
-            assert_true(!bounds.contains(x, y));
+            assert_true(!bounds.contains_point(x, y));
         }
     }
 
@@ -42,10 +42,10 @@ namespace GedaTest.Bounds
             assert_true(bounds.get_width() != 0);
             assert_true(bounds.get_height() != 0);
 
-            assert_true(bounds.contains(x0, y0));
-            assert_true(bounds.contains(x0, y1));
-            assert_true(bounds.contains(x1, y1));
-            assert_true(bounds.contains(x1, y0));
+            assert_true(bounds.contains_point(x0, y0));
+            assert_true(bounds.contains_point(x0, y1));
+            assert_true(bounds.contains_point(x1, y1));
+            assert_true(bounds.contains_point(x1, y0));
         }
     }
 
@@ -93,7 +93,10 @@ namespace GedaTest.Bounds
             {
                 for (var yi = 0; yi < y.length; yi++)
                 {
-                    assert_true(bounds.contains(x[xi], y[yi]));
+                    assert_true(bounds.contains_point(
+                        x[xi],
+                        y[yi]
+                        ));
                 }
             }
         }
@@ -111,32 +114,32 @@ namespace GedaTest.Bounds
                 Test.rand_int_range(int.MIN + 1, int.MAX)
                 );
 
-            assert_true(!bounds.contains(bounds.min_x, bounds.min_y - 1));
-            assert_true(!bounds.contains(bounds.min_x - 1, bounds.min_y));
+            assert_true(!bounds.contains_point(bounds.min_x, bounds.min_y - 1));
+            assert_true(!bounds.contains_point(bounds.min_x - 1, bounds.min_y));
 
-            assert_true(!bounds.contains(bounds.max_x, bounds.max_y + 1));
-            assert_true(!bounds.contains(bounds.max_x + 1, bounds.max_y));
+            assert_true(!bounds.contains_point(bounds.max_x, bounds.max_y + 1));
+            assert_true(!bounds.contains_point(bounds.max_x + 1, bounds.max_y));
 
-            assert_true(!bounds.contains(bounds.min_x, bounds.max_y + 1));
-            assert_true(!bounds.contains(bounds.min_x - 1, bounds.max_y));
+            assert_true(!bounds.contains_point(bounds.min_x, bounds.max_y + 1));
+            assert_true(!bounds.contains_point(bounds.min_x - 1, bounds.max_y));
 
-            assert_true(!bounds.contains(bounds.max_x, bounds.min_y - 1));
-            assert_true(!bounds.contains(bounds.max_x + 1, bounds.min_y));
+            assert_true(!bounds.contains_point(bounds.max_x, bounds.min_y - 1));
+            assert_true(!bounds.contains_point(bounds.max_x + 1, bounds.min_y));
 
             var bounds2 = bounds;
             bounds2.expand(1, 1);
 
-            assert_true(bounds2.contains(bounds.min_x, bounds.min_y - 1));
-            assert_true(bounds2.contains(bounds.min_x - 1, bounds.min_y));
+            assert_true(bounds2.contains_point(bounds.min_x, bounds.min_y - 1));
+            assert_true(bounds2.contains_point(bounds.min_x - 1, bounds.min_y));
 
-            assert_true(bounds2.contains(bounds.max_x, bounds.max_y + 1));
-            assert_true(bounds2.contains(bounds.max_x + 1, bounds.max_y));
+            assert_true(bounds2.contains_point(bounds.max_x, bounds.max_y + 1));
+            assert_true(bounds2.contains_point(bounds.max_x + 1, bounds.max_y));
 
-            assert_true(bounds2.contains(bounds.min_x, bounds.max_y + 1));
-            assert_true(bounds2.contains(bounds.min_x - 1, bounds.max_y));
+            assert_true(bounds2.contains_point(bounds.min_x, bounds.max_y + 1));
+            assert_true(bounds2.contains_point(bounds.min_x - 1, bounds.max_y));
 
-            assert_true(bounds2.contains(bounds.max_x, bounds.min_y - 1));
-            assert_true(bounds2.contains(bounds.max_x + 1, bounds.min_y));
+            assert_true(bounds2.contains_point(bounds.max_x, bounds.min_y - 1));
+            assert_true(bounds2.contains_point(bounds.max_x + 1, bounds.min_y));
         }
     }
 

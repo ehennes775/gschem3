@@ -90,21 +90,6 @@ namespace Geda3
 
 
         /**
-         * Checks if a point lies inside the bounds
-         *
-         * @return true if the point lies inside the bounds
-         */
-        public bool contains(int x, int y)
-        {
-            return
-                (x >= min_x) &&
-                (x <= max_x) &&
-                (y >= min_y) &&
-                (y <= max_y);
-        }
-
-
-        /**
          * Check if this bounds includes another bounds
          *
          * @param other The other bounds for the test
@@ -118,6 +103,21 @@ namespace Geda3
                 (max_x >= other.max_x) &&
                 (min_y <= other.min_y) &&
                 (max_y >= other.max_y);
+        }
+
+
+        /**
+         * Checks if a point lies inside the bounds
+         *
+         * @return true if the point lies inside the bounds
+         */
+        public bool contains_point(int x, int y)
+        {
+            return
+                (x >= min_x) &&
+                (x <= max_x) &&
+                (y >= min_y) &&
+                (y <= max_y);
         }
 
 
