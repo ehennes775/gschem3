@@ -62,9 +62,9 @@ namespace Gschem3
             margin_top = 8;                      // not getting set in the XML
             use_markup = true;                   // not getting set in the XML
 
-            m_block_items =
+            m_update_entries =
             {
-                BlockItem()
+                UpdateEntry()
                 {
                     object = m_alignment_combo,
                     signal_id = m_alignment_combo.apply.connect(
@@ -72,7 +72,7 @@ namespace Gschem3
                         ),
                     update = update_alignment_combo
                 },
-                BlockItem()
+                UpdateEntry()
                 {
                     object = m_color_combo,
                     signal_id = m_color_combo.apply.connect(
@@ -80,7 +80,7 @@ namespace Gschem3
                         ),
                     update = update_color_combo
                 },
-                BlockItem()
+                UpdateEntry()
                 {
                     object = m_rotation_combo,
                     signal_id = m_rotation_combo.apply.connect(
@@ -88,7 +88,7 @@ namespace Gschem3
                         ),
                     update = update_rotation_combo
                 },
-                BlockItem()
+                UpdateEntry()
                 {
                     object = m_size_combo,
                     signal_id = m_size_combo.apply.connect(
@@ -97,6 +97,8 @@ namespace Gschem3
                     update = update_size_combo
                 }
             };
+
+            m_items = new Gee.ArrayList<Geda3.TextItem>();
 
             notify["schematic-window"].connect(
                 on_notify_schematic_window
@@ -130,14 +132,21 @@ namespace Gschem3
             );
 
 
-        private struct BlockItem
+        /**
+         * A delegate to update the state of a property editor
+         */
+        private delegate void ItemUpdater();
+
+
+        /**
+         *
+         */
+        private struct UpdateEntry
         {
             Object object;
             ulong signal_id;
-            Updater update;
+            ItemUpdater update;
         }
-
-        private delegate void Updater();
 
 
         /**
@@ -157,7 +166,7 @@ namespace Gschem3
         /**
          *
          */
-        private BlockItem[] m_block_items;
+        private UpdateEntry[] m_update_entries;
 
 
         /**
@@ -170,7 +179,7 @@ namespace Gschem3
         /**
          *
          */
-        private Gee.List<Geda3.TextItem> m_items = new Gee.ArrayList<Geda3.TextItem>();
+        private Gee.List<Geda3.TextItem> m_items;
 
 
         /**
@@ -358,13 +367,13 @@ namespace Gschem3
                 }
             }
 
-            foreach (var item in m_block_items)
+            foreach (var entry in m_update_entries)
             {
-                SignalHandler.block(item.object, item.signal_id);
+                SignalHandler.block(entry.object, entry.signal_id);
 
-                item.update();
+                entry.update();
 
-                SignalHandler.unblock(item.object, item.signal_id);
+                SignalHandler.unblock(entry.object, entry.signal_id);
             }
         }
 
