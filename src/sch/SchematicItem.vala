@@ -67,6 +67,27 @@ namespace Geda3
 
 
         /**
+         * Check if this item resides inside the given box
+         *
+         * @param painter The painter to use for calculations
+         * @param box The box to test
+         * @return True if this item resides inside the box
+         */
+        public virtual bool inside_box(
+            SchematicPainter painter,
+            Bounds box
+            )
+        {
+            var bounds = calculate_bounds(
+                painter,
+                false
+                );
+
+            return box.contains_bounds(bounds);
+        }
+
+
+        /**
          * Check if this item intersects a box
          *
          * @param painter The painter to use for calculations
@@ -128,7 +149,9 @@ namespace Geda3
          *
          * @param stream The input stream to read from
          */
-        public virtual void read(DataInputStream stream) throws IOError, ParseError
+        public virtual void read(
+            DataInputStream stream
+            ) throws IOError, ParseError
         {
             var input = stream.read_line(null);
 
@@ -144,7 +167,10 @@ namespace Geda3
          * @param params 
          * @param stream The input stream to read from
          */
-        public abstract void read_with_params(string[] params, DataInputStream stream) throws IOError, ParseError;
+        public abstract void read_with_params(
+            string[] params,
+            DataInputStream stream
+            ) throws IOError, ParseError;
 
 
         /**
@@ -195,6 +221,8 @@ namespace Geda3
          *
          * @param stream The output stream to write to
          */
-        public abstract void write(DataOutputStream stream) throws IOError;
+        public abstract void write(
+            DataOutputStream stream
+            ) throws IOError;
     }
 }

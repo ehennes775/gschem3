@@ -6,8 +6,8 @@ namespace Geda3
      * Represents text or an attribute on a schematic
      */
     public class TextItem : SchematicItem,
-        AttributeChild,
-        Colorable
+        //Colorable,    // causes SIGSEGV
+        AttributeChild
     {
         /**
          * The type code, for text, used in schematic files

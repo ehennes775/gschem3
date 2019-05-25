@@ -329,7 +329,7 @@ namespace Gschem3
 
             dx = Math.fabs(dx);
 
-            return schematic.closest_item(painter, x, y, dx);
+            return schematic.closest_item(m_painter, x, y, dx);
         }
 
 
@@ -558,7 +558,7 @@ namespace Gschem3
             bool reveal
             )
         {
-            var bounds = item.calculate_bounds(painter, reveal);
+            var bounds = item.calculate_bounds(m_painter, reveal);
 
             invalidate_user(bounds);
         }
@@ -567,7 +567,7 @@ namespace Gschem3
         // this function needs to be reconcied with the above.
         public void on_invalidate_item(Geda3.SchematicItem item)
         {
-            var bounds = item.calculate_bounds(painter, true);
+            var bounds = item.calculate_bounds(m_painter, true);
 
             invalidate_user(bounds);
         }
@@ -767,8 +767,9 @@ namespace Gschem3
             requires(m_selected != null)
 
         {
-            var items = schematic.intersected_items(
-                painter,
+            var items = schematic.inside_items(
+            //var items = schematic.intersected_items(
+                m_painter,
                 box
                 );
 
@@ -1045,7 +1046,7 @@ namespace Gschem3
         /**
          * The painter used to draw schematics
          */
-        private Geda3.SchematicPainterCairo painter = new Geda3.SchematicPainterCairo();
+        private Geda3.SchematicPainterCairo m_painter = new Geda3.SchematicPainterCairo();
 
 
         /**
@@ -1171,14 +1172,14 @@ namespace Gschem3
          */
         private bool on_draw(Cairo.Context context)
 
-            requires(painter != null)
+            requires(m_painter != null)
             //requires(m_current_tool != null)
             requires(b_settings != null)
             requires(schematic != null)
 
         {
-            painter.pango_context = Pango.cairo_create_context(context);
-            Pango.cairo_context_set_resolution(painter.pango_context, 936);
+            m_painter.pango_context = Pango.cairo_create_context(context);
+            Pango.cairo_context_set_resolution(m_painter.pango_context, 936);
 
             if (m_initial_zoom)
             {
@@ -1207,25 +1208,25 @@ namespace Gschem3
 
             context.translate(0.5, 0.5);
 
-            painter.matrix0 = context.get_matrix();
-            painter.matrix1 = matrix;
+            m_painter.matrix0 = context.get_matrix();
+            m_painter.matrix1 = matrix;
 
             context.transform(matrix);
 
             b_settings.grid.draw(context, b_settings.scheme);
 
-            painter.cairo_context = context;
-            painter.color_scheme = b_settings.scheme;
+            m_painter.cairo_context = context;
+            m_painter.color_scheme = b_settings.scheme;
 
             schematic.draw(
-                painter,
+                m_painter,
                 m_selected,
                 b_settings.reveal
                 );
 
-            draw_tool(painter);
+            draw_tool(m_painter);
 
-            painter.cairo_context = null;
+            m_painter.cairo_context = null;
 
             return true;
         }
@@ -1388,7 +1389,7 @@ namespace Gschem3
 
             requires(b_settings != null)
             requires(drawing != null)
-            requires(painter != null)
+            requires(m_painter != null)
             requires(schematic != null)
 
         {
@@ -1405,7 +1406,7 @@ namespace Gschem3
                     );
 
                 var bounds = schematic.calculate_bounds(
-                    painter,
+                    m_painter,
                     b_settings.reveal
                     );
 

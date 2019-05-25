@@ -105,6 +105,23 @@ namespace Geda3
 
 
         /**
+         * Check if this bounds includes another bounds
+         *
+         * @param other The other bounds for the test
+         * @return True if this bounds contains the other bounds
+         */
+        public bool contains_bounds(Bounds other)
+        {
+            return
+                !empty() &&
+                (min_x <= other.min_x) &&
+                (max_x >= other.max_x) &&
+                (min_y <= other.min_y) &&
+                (max_y >= other.max_y);
+        }
+
+
+        /**
          * Checks if the bounds is empty
          *
          * @return true if the bounds is empty
