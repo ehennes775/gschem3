@@ -25,11 +25,11 @@ namespace Geda3
      */
     public class CircleItem : SchematicItem,
         AdjustableColor,
+        AdjustableFillStyle,
+        AdjustableLineStyle,
         AdjustableRadius,
-        Fillable,
         Grippable,
-        GrippablePoints,
-        StylableLine
+        GrippablePoints
     {
         /**
          * The radius for logic bubbles

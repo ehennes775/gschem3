@@ -5,9 +5,9 @@ namespace Geda3
      */
     public class BoxItem : SchematicItem,
         AdjustableColor,
-        Fillable,
-        Grippable,
-        StylableLine
+        AdjustableFillStyle,
+        AdjustableLineStyle,
+        Grippable
     {
         /**
          * The type code used in schematic files

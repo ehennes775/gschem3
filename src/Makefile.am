@@ -58,6 +58,8 @@ libgeda3_a_SOURCES = \
 	prj/key/KeyFileSymbolLibrary.vala \
 	prj/key/KeyProjectFileMapper.vala \
 	sch/AdjustableColor.vala \
+	sch/AdjustableFillStyle.vala \
+	sch/AdjustableLineStyle.vala \
 	sch/AdjustableRadius.vala \
 	sch/AdjustableSweep.vala \
 	sch/Angle.vala \
@@ -81,7 +83,6 @@ libgeda3_a_SOURCES = \
 	sch/Coord.vala \
 	sch/DashType.vala \
 	sch/FileVersion.vala \
-	sch/Fillable.vala \
 	sch/FillStyle.vala \
 	sch/FillType.vala \
 	sch/Grip.vala \
@@ -106,7 +107,6 @@ libgeda3_a_SOURCES = \
 	sch/SchematicPainter.vala \
 	sch/SchematicReader.vala \
 	sch/StartAngleGrip.vala \
-	sch/StylableLine.vala \
 	sch/Sweep.vala \
 	sch/SweepAngleGrip.vala \
 	sch/TextAlignment.vala \

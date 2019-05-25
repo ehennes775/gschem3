@@ -5,9 +5,9 @@ namespace Geda3
      */
     public class LineItem : SchematicItem,
         AdjustableColor,
+        AdjustableLineStyle,
         Grippable,
-        GrippablePoints,
-        StylableLine
+        GrippablePoints
     {
         /**
          * The type code for a graphical line

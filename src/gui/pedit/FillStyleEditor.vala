@@ -94,7 +94,7 @@ namespace Gschem3
          *
          */
         [CCode(has_target=false)]
-        private delegate ValueState Fetcher(Gee.Iterable<Geda3.Fillable> items, out int @value);
+        private delegate ValueState Fetcher(Gee.Iterable<Geda3.AdjustableFillStyle> items, out int @value);
 
 
         /**
@@ -140,7 +140,7 @@ namespace Gschem3
         /**
          *
          */
-        private Gee.List<Geda3.Fillable> m_items = new Gee.ArrayList<Geda3.Fillable>();
+        private Gee.List<Geda3.AdjustableFillStyle> m_items = new Gee.ArrayList<Geda3.AdjustableFillStyle>();
 
 
         /**
@@ -213,7 +213,7 @@ namespace Gschem3
         /**
          *
          */
-        private static ValueState fetch_angle_1(Gee.Iterable<Geda3.Fillable> items, out int angle)
+        private static ValueState fetch_angle_1(Gee.Iterable<Geda3.AdjustableFillStyle> items, out int angle)
         {
             var state = ValueState.UNAVAILABLE;
             var temp_angle = Geda3.FillStyle.DEFAULT_ANGLE_1;
@@ -258,7 +258,7 @@ namespace Gschem3
         /**
          *
          */
-        private static ValueState fetch_angle_2(Gee.Iterable<Geda3.Fillable> items, out int angle)
+        private static ValueState fetch_angle_2(Gee.Iterable<Geda3.AdjustableFillStyle> items, out int angle)
         {
             var state = ValueState.UNAVAILABLE;
             var temp_angle = Geda3.FillStyle.DEFAULT_ANGLE_2;
@@ -303,7 +303,7 @@ namespace Gschem3
         /**
          *
          */
-        private static ValueState fetch_pitch_1(Gee.Iterable<Geda3.Fillable> items, out int pitch)
+        private static ValueState fetch_pitch_1(Gee.Iterable<Geda3.AdjustableFillStyle> items, out int pitch)
         {
             var state = ValueState.UNAVAILABLE;
             var temp_pitch = Geda3.FillStyle.DEFAULT_PITCH_1;
@@ -348,7 +348,7 @@ namespace Gschem3
         /**
          *
          */
-        private static ValueState fetch_pitch_2(Gee.Iterable<Geda3.Fillable> items, out int pitch)
+        private static ValueState fetch_pitch_2(Gee.Iterable<Geda3.AdjustableFillStyle> items, out int pitch)
         {
             var state = ValueState.UNAVAILABLE;
             var temp_pitch = Geda3.FillStyle.DEFAULT_PITCH_2;
@@ -393,7 +393,7 @@ namespace Gschem3
         /**
          *
          */
-        private static ValueState fetch_type(Gee.Iterable<Geda3.Fillable> items, out Geda3.FillType type)
+        private static ValueState fetch_type(Gee.Iterable<Geda3.AdjustableFillStyle> items, out Geda3.FillType type)
         {
             var state = ValueState.UNAVAILABLE;
             var temp_type = Geda3.FillType.HOLLOW;
@@ -438,7 +438,7 @@ namespace Gschem3
         /**
          *
          */
-        private static ValueState fetch_width(Gee.Iterable<Geda3.Fillable> items, out int width)
+        private static ValueState fetch_width(Gee.Iterable<Geda3.AdjustableFillStyle> items, out int width)
         {
             var state = ValueState.UNAVAILABLE;
             var temp_width = Geda3.FillStyle.DEFAULT_WIDTH;
@@ -667,7 +667,7 @@ namespace Gschem3
             {
                 foreach (var item in b_schematic_window.selection)
                 {
-                    var fillable = item as Geda3.Fillable;
+                    var fillable = item as Geda3.AdjustableFillStyle;
 
                     if (fillable == null)
                     {
@@ -700,7 +700,7 @@ namespace Gschem3
          *
          * @param items Items in the selection implementing Fillable
          */
-        private void update_fill_type_combo(Gee.Iterable<Geda3.Fillable> items)
+        private void update_fill_type_combo(Gee.Iterable<Geda3.AdjustableFillStyle> items)
 
             requires(m_type_combo != null)
 
@@ -733,7 +733,7 @@ namespace Gschem3
          * @param combo
          */
         private static void update_combo(
-            Gee.Iterable<Geda3.Fillable> items,
+            Gee.Iterable<Geda3.AdjustableFillStyle> items,
             Fetcher fetcher,
             PropertyComboBox combo
             )
@@ -758,7 +758,7 @@ namespace Gschem3
          *
          * @param items Items in the selection implementing Fillable
          */
-        private void update_sensitivities(Gee.Iterable<Geda3.Fillable> items)
+        private void update_sensitivities(Gee.Iterable<Geda3.AdjustableFillStyle> items)
 
             requires(m_angle_combo_1 != null)
             requires(m_angle_combo_2 != null)

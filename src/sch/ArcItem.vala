@@ -21,11 +21,11 @@ namespace Geda3
      */
     public class ArcItem : SchematicItem,
         AdjustableColor,
+        AdjustableLineStyle,
         AdjustableRadius,
         AdjustableSweep,
         Grippable,
-        GrippablePoints,
-        StylableLine
+        GrippablePoints
     {
         /**
          * The type code used in schematic files

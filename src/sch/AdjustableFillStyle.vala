@@ -3,7 +3,7 @@ namespace Geda3
     /**
      *
      */
-    public interface Fillable : Object
+    public interface AdjustableFillStyle : Object
     {
         /**
          * The fill style

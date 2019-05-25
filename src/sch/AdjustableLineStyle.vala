@@ -3,7 +3,7 @@ namespace Geda3
     /**
      *
      */
-    public interface StylableLine : Object
+    public interface AdjustableLineStyle : Object
     {
         /**
          * The line style

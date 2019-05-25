@@ -86,7 +86,7 @@ namespace Gschem3
          */
         [CCode(has_target=false)]
         private delegate ValueState Fetcher(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             out int @value
             );
 
@@ -119,7 +119,7 @@ namespace Gschem3
          * @param width The line width
          */
         private static void apply_line_width(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             int width
             )
 
@@ -140,7 +140,7 @@ namespace Gschem3
          *
          */
         private static ValueState fetch_cap_type(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             out Geda3.CapType cap_type
             )
 
@@ -180,7 +180,7 @@ namespace Gschem3
          *
          */
         private static ValueState fetch_dash_length(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             out int dash_length
             )
 
@@ -220,7 +220,7 @@ namespace Gschem3
          *
          */
         private static ValueState fetch_dash_space(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             out int dash_space
             )
 
@@ -262,7 +262,7 @@ namespace Gschem3
          *
          */
         private static ValueState fetch_dash_type(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             out Geda3.DashType dash_type
             )
 
@@ -302,7 +302,7 @@ namespace Gschem3
          *
          */
         private static ValueState fetch_width(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             out int width
             )
 
@@ -516,7 +516,7 @@ namespace Gschem3
         /**
          *
          */
-        private Gee.List<Geda3.StylableLine> m_items = new Gee.ArrayList<Geda3.StylableLine>();
+        private Gee.List<Geda3.AdjustableLineStyle> m_items = new Gee.ArrayList<Geda3.AdjustableLineStyle>();
 
 
         /**
@@ -563,7 +563,7 @@ namespace Gschem3
             {
                 foreach (var item in b_schematic_window.selection)
                 {
-                    var stylable = item as Geda3.StylableLine;
+                    var stylable = item as Geda3.AdjustableLineStyle;
 
                     if (stylable == null)
                     {
@@ -597,7 +597,7 @@ namespace Gschem3
          * @param items
          */
         private void update_cap_type_combo(
-            Gee.Iterable<Geda3.StylableLine> items
+            Gee.Iterable<Geda3.AdjustableLineStyle> items
             )
 
             requires(m_cap_type_combo != null)
@@ -627,7 +627,7 @@ namespace Gschem3
          * @param combo
          */
         private static void update_combo(
-            Gee.Iterable<Geda3.StylableLine> items,
+            Gee.Iterable<Geda3.AdjustableLineStyle> items,
             Fetcher fetcher,
             PropertyComboBox combo
             )
@@ -653,7 +653,7 @@ namespace Gschem3
          * @param items
          */
         private void update_dash_type_combo(
-            Gee.Iterable<Geda3.StylableLine> items
+            Gee.Iterable<Geda3.AdjustableLineStyle> items
             )
 
             requires(m_dash_type_combo != null)
@@ -680,7 +680,7 @@ namespace Gschem3
          *
          * @param items Items in the selection with sytlable lines
          */
-        private void update_sensitivities(Gee.Iterable<Geda3.StylableLine> items)
+        private void update_sensitivities(Gee.Iterable<Geda3.AdjustableLineStyle> items)
 
             requires(m_cap_type_combo != null)
             requires(m_dash_length_combo != null)

@@ -5,9 +5,9 @@ namespace Geda3
      */
     public class PathItem : SchematicItem,
         AdjustableColor,
-        Fillable,
-        Grippable,
-        StylableLine
+        AdjustableFillStyle,
+        AdjustableLineStyle,
+        Grippable
     {
         /**
          * The type code, for a path, used in schematic files
