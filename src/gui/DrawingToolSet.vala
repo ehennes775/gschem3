@@ -17,16 +17,20 @@ namespace Gschem3
         /**
          *
          *
-         * @param factory
+         * @param parent The transient parent for dialog boxes
+         * @param selector
          */
-        public DrawingToolSet(ComplexSelector selector)
+        public DrawingToolSet(
+            Gtk.Window parent,
+            ComplexSelector selector
+            )
         {
             m_tools = new Gee.HashMap<string,DrawingTool>();
 
             DrawingTool[] tools =
             {
                 new ArcTool(),
-                new AttributeTool(),
+                new AttributeTool(parent),
                 new BoxTool(),
                 new BusTool(),
                 new CircleTool(),
@@ -36,7 +40,7 @@ namespace Gschem3
                 new PathTool(),
                 new PinTool(),
                 m_select_tool = new SelectTool(),
-                new TextTool(),
+                new TextTool(parent),
                 new ZoomTool()
             };
 

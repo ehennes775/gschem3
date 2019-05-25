@@ -29,11 +29,20 @@ namespace Gschem3
          * @param window The document window this tool is drawing into
          */
         public TextTool(
+            Gtk.Window parent,
             SchematicWindow? window = null
             )
         {
             base(new TextFactory(), window);
+
+            m_parent = parent;
         }
+
+
+        /**
+         * The transient parent for dialog boxes
+         */
+        private Gtk.Window m_parent;
 
 
         /**
@@ -43,6 +52,7 @@ namespace Gschem3
         {
             var dialog = new TextEditorDialog();
 
+            dialog.set_transient_for(m_parent);
             dialog.item = item;
 
             var result = dialog.run();
