@@ -87,7 +87,7 @@ namespace Geda3
         public string? name
         {
             get;
-            private set;
+            protected set;
         }
 
 
@@ -165,7 +165,7 @@ namespace Geda3
         public string? @value
         {
             get;
-            private set;
+            protected set;
         }
 
 
