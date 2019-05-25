@@ -117,8 +117,8 @@ namespace Gschem3
         /**
          * The colorable items from the selection
          */
-        private Gee.List<Geda3.Colorable> m_items =
-            new Gee.ArrayList<Geda3.Colorable>();
+        private Gee.List<Geda3.AdjustableColor> m_items =
+            new Gee.ArrayList<Geda3.AdjustableColor>();
 
 
         /**
@@ -170,7 +170,7 @@ namespace Gschem3
          * @return The state of the color data
          */
         private static ValueState fetch_color(
-            Gee.Iterable<Geda3.Colorable> items,
+            Gee.Iterable<Geda3.AdjustableColor> items,
             out int color
             )
 
@@ -290,7 +290,7 @@ namespace Gschem3
             {
                 foreach (var item in b_schematic_window.selection)
                 {
-                    var colorable = item as Geda3.Colorable;
+                    var colorable = item as Geda3.AdjustableColor;
 
                     if (colorable == null)
                     {
@@ -311,7 +311,9 @@ namespace Gschem3
          *
          * @param items Colorable items in the selection
          */
-        private void update_color(Gee.Iterable<Geda3.Colorable> items)
+        private void update_color(
+            Gee.Iterable<Geda3.AdjustableColor> items
+            )
 
             requires(m_color_combo != null)
 
@@ -383,7 +385,7 @@ namespace Gschem3
          * @param items Colorable items in the selection
          */
         private void update_sensitivities(
-            Gee.Iterable<Geda3.Colorable> items
+            Gee.Iterable<Geda3.AdjustableColor> items
             )
 
             requires(m_color_combo != null)

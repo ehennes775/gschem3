@@ -24,8 +24,8 @@ namespace Geda3
      * ||15||int32 ||The spacing between the second set of fill lines||
      */
     public class CircleItem : SchematicItem,
+        AdjustableColor,
         AdjustableRadius,
-        Colorable,
         Fillable,
         Grippable,
         GrippablePoints,

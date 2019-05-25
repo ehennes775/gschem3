@@ -20,9 +20,9 @@ namespace Geda3
      * ||11||int32 ||The spacing between the dashes    ||
      */
     public class ArcItem : SchematicItem,
+        AdjustableColor,
         AdjustableRadius,
         AdjustableSweep,
-        Colorable,
         Grippable,
         GrippablePoints,
         StylableLine

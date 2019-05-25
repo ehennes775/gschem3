@@ -4,7 +4,7 @@ namespace Geda3
      * Represents a graphical line in a schematic or symbol file
      */
     public class LineItem : SchematicItem,
-        Colorable,
+        AdjustableColor,
         Grippable,
         GrippablePoints,
         StylableLine

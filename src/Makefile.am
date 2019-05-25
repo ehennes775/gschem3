@@ -57,6 +57,7 @@ libgeda3_a_SOURCES = \
 	prj/key/KeyFileSymbolFolder.vala \
 	prj/key/KeyFileSymbolLibrary.vala \
 	prj/key/KeyProjectFileMapper.vala \
+	sch/AdjustableColor.vala \
 	sch/AdjustableRadius.vala \
 	sch/AdjustableSweep.vala \
 	sch/Angle.vala \
@@ -74,7 +75,6 @@ libgeda3_a_SOURCES = \
 	sch/CircleItem.vala \
 	sch/CapType.vala \
 	sch/Color.vala \
-	sch/Colorable.vala \
 	sch/ComplexItem.vala \
 	sch/ComplexLibrary.vala \
 	sch/ComplexSymbol.vala \

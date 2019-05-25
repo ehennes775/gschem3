@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * An interface for schematic items that can change color
      */
-    public interface Colorable : SchematicItem
+    public interface AdjustableColor : SchematicItem
     {
         /**
          * The color index

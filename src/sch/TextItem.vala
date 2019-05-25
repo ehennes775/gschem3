@@ -6,7 +6,7 @@ namespace Geda3
      * Represents text or an attribute on a schematic
      */
     public class TextItem : SchematicItem,
-        //Colorable,    // causes SIGSEGV
+        //AdjustableColor,    // causes SIGSEGV
         AttributeChild
     {
         /**

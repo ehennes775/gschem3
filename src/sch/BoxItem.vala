@@ -4,7 +4,7 @@ namespace Geda3
      * Represents a graphical box on a schematic
      */
     public class BoxItem : SchematicItem,
-        Colorable,
+        AdjustableColor,
         Fillable,
         Grippable,
         StylableLine

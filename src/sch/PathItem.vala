@@ -4,7 +4,7 @@ namespace Geda3
      * Represents a graphical path on a schematic or symbol
      */
     public class PathItem : SchematicItem,
-        Colorable,
+        AdjustableColor,
         Fillable,
         Grippable,
         StylableLine
