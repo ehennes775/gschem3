@@ -62,12 +62,45 @@ namespace Gschem3
             margin_top = 8;                      // not getting set in the XML
             use_markup = true;                   // not getting set in the XML
 
-            m_alignment_combo.apply.connect(on_apply_alignment);
-            m_color_combo.apply.connect(on_apply_color);
-            m_rotation_combo.apply.connect(on_apply_rotation);
-            m_size_combo.apply.connect(on_apply_size);
+            m_block_items =
+            {
+                BlockItem()
+                {
+                    object = m_alignment_combo,
+                    signal_id = m_alignment_combo.apply.connect(
+                        on_apply_alignment
+                        ),
+                    update = update_alignment_combo
+                },
+                BlockItem()
+                {
+                    object = m_color_combo,
+                    signal_id = m_color_combo.apply.connect(
+                        on_apply_color
+                        ),
+                    update = update_color_combo
+                },
+                BlockItem()
+                {
+                    object = m_rotation_combo,
+                    signal_id = m_rotation_combo.apply.connect(
+                        on_apply_rotation
+                        ),
+                    update = update_rotation_combo
+                },
+                BlockItem()
+                {
+                    object = m_size_combo,
+                    signal_id = m_size_combo.apply.connect(
+                        on_apply_size
+                        ),
+                    update = update_size_combo
+                }
+            };
 
-            notify["schematic-window"].connect(on_notify_schematic_window);
+            notify["schematic-window"].connect(
+                on_notify_schematic_window
+                );
         }
 
 
@@ -97,6 +130,16 @@ namespace Gschem3
             );
 
 
+        private struct BlockItem
+        {
+            Object object;
+            ulong signal_id;
+            Updater update;
+        }
+
+        private delegate void Updater();
+
+
         /**
          * The backing store for the schematic window property
          */
@@ -108,6 +151,13 @@ namespace Gschem3
          */
         [GtkChild(name="alignment-combo")]
         private AlignmentComboBox m_alignment_combo;
+
+
+
+        /**
+         *
+         */
+        private BlockItem[] m_block_items;
 
 
         /**
@@ -308,10 +358,14 @@ namespace Gschem3
                 }
             }
 
-            update_alignment_combo();
-            update_color_combo();
-            update_size_combo();
-            update_rotation_combo();
+            foreach (var item in m_block_items)
+            {
+                SignalHandler.block(item.object, item.signal_id);
+
+                item.update();
+
+                SignalHandler.unblock(item.object, item.signal_id);
+            }
         }
 
 
@@ -331,14 +385,12 @@ namespace Gschem3
             if (sensitive)
             {
                 var item = fetch(
-                    (first, item) => { return first.alignment == item.alignment; }
+                    (first, item) =>
+                    {
+                        return first.alignment == item.alignment;
+                    }
                     );
                 
-                //SignalHandler.block(
-                //    m_alignment_combo,
-                //    m_alignment_apply_signal_id
-                //    );
-
                 if (item != null)
                 {
                     m_alignment_combo.alignment = item.alignment;
@@ -347,11 +399,6 @@ namespace Gschem3
                 {
                     m_alignment_combo.active = -1;
                 }
-
-                //SignalHandler.unblock(
-                //    m_alignment_combo,
-                //    m_alignment_apply_signal_id
-                //    );
             }
             else
             {
@@ -376,7 +423,10 @@ namespace Gschem3
             if (sensitive)
             {
                 var item = fetch(
-                    (first, item) => { return first.color == item.color; }
+                    (first, item) =>
+                    {
+                        return first.color == item.color;
+                    }
                     );
                 
                 if (item != null)
@@ -446,7 +496,10 @@ namespace Gschem3
             if (sensitive)
             {
                 var item = fetch(
-                    (first, item) => { return first.angle == item.angle; }
+                    (first, item) =>
+                    {
+                        return first.angle == item.angle;
+                    }
                     );
                 
                 if (item != null)
