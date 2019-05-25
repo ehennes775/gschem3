@@ -34,6 +34,10 @@ namespace Gschem3
          *
          * @param context The context to use for drawing the grid
          */
-        public abstract void draw(Cairo.Context context, Geda3.ColorScheme scheme);
+        public abstract void draw(
+            Cairo.Context context,
+            Geda3.ColorScheme scheme,
+            int grid_index
+            );
     }
 }

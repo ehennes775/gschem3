@@ -103,6 +103,20 @@ namespace Gschem3
 
             if (event.get_keyval(out keyval))
             {
+                if (keyval == Gdk.Key.bracketleft)
+                {
+                    stdout.printf("Gdk.Key.bracketleft\n");
+                    m_window.scale_grid_down();
+                    return true;
+                }
+
+                if (keyval == Gdk.Key.bracketright)
+                {
+                    stdout.printf("Gdk.Key.bracketright\n");
+                    m_window.scale_grid_up();
+                    return true;
+                }
+
                 if (m_key_map.has_key(keyval))
                 {
                     var function = m_key_map[keyval];

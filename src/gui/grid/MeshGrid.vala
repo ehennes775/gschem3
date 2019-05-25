@@ -57,7 +57,11 @@ namespace Gschem3
         /**
          * {@inheritDoc}
          */
-        public override void draw(Cairo.Context context, Geda3.ColorScheme scheme)
+        public override void draw(
+            Cairo.Context context,
+            Geda3.ColorScheme scheme,
+            int grid_index
+            )
         {
             context.save();
 
@@ -73,10 +77,12 @@ namespace Gschem3
             var max_x = double.max(x[0], x[1]);
             var max_y = double.max(y[0], y[1]);
 
-            var min_xc = (int)Math.ceil(min_x / 100.0);
-            var min_yc = (int)Math.ceil(min_y / 100.0);
-            var max_xc = (int)Math.floor(max_x / 100.0);
-            var max_yc = (int)Math.floor(max_y / 100.0);
+            var grid_size = GridSize.grid_size(grid_index);
+
+            var min_xc = (int)Math.ceil(min_x / grid_size);
+            var min_yc = (int)Math.ceil(min_y / grid_size);
+            var max_xc = (int)Math.floor(max_x / grid_size);
+            var max_yc = (int)Math.floor(max_y / grid_size);
 
             // Draw the minor grid lines
 
@@ -84,8 +90,8 @@ namespace Gschem3
             {
                 if ((xc % 5) != 0)
                 {
-                    context.move_to(100.0 * xc, min_y);
-                    context.line_to(100.0 * xc, max_y);
+                    context.move_to(grid_size * xc, min_y);
+                    context.line_to(grid_size * xc, max_y);
                 }
             }
 
@@ -93,8 +99,8 @@ namespace Gschem3
             {
                 if ((yc % 5) != 0)
                 {
-                    context.move_to(min_x, 100.0 * yc);
-                    context.line_to(max_x, 100.0 * yc);
+                    context.move_to(min_x, grid_size * yc);
+                    context.line_to(max_x, grid_size * yc);
                 }
             }
 
@@ -115,8 +121,8 @@ namespace Gschem3
             {
                 if (((xc % 5) == 0) && (xc != 0))
                 {
-                    context.move_to(100.0 * xc, min_y);
-                    context.line_to(100.0 * xc, max_y);
+                    context.move_to(grid_size * xc, min_y);
+                    context.line_to(grid_size * xc, max_y);
                 }
             }
 
@@ -124,8 +130,8 @@ namespace Gschem3
             {
                 if (((yc % 5) == 0) && (yc != 0))
                 {
-                    context.move_to(min_x, 100.0 * yc);
-                    context.line_to(max_x, 100.0 * yc);
+                    context.move_to(min_x, grid_size * yc);
+                    context.line_to(max_x, grid_size * yc);
                 }
             }
 

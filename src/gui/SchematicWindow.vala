@@ -727,11 +727,21 @@ namespace Gschem3
 
         public void scale_grid_down()
         {
+            m_grid_index = GridSize.scale_down(m_grid_index);
+
+            stdout.printf("%d\n", m_grid_index);
+
+            queue_draw();
         }
 
 
         public void scale_grid_up()
         {
+            m_grid_index = GridSize.scale_up(m_grid_index);
+
+            stdout.printf("%d\n", m_grid_index);
+
+            queue_draw();
         }
 
 
@@ -1013,6 +1023,12 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private int m_grid_index = GridSize.DEFAULT;
+
+
+        /**
          * Indicates the schematic should be zoomed on initial draw
          */
         private bool m_initial_zoom = true;
@@ -1213,7 +1229,11 @@ namespace Gschem3
 
             context.transform(matrix);
 
-            b_settings.grid.draw(context, b_settings.scheme);
+            b_settings.grid.draw(
+                context,
+                b_settings.scheme,
+                m_grid_index
+                );
 
             m_painter.cairo_context = context;
             m_painter.color_scheme = b_settings.scheme;

@@ -235,7 +235,11 @@ namespace Gschem3
 
             context.transform(m_matrix);
 
-            b_settings.grid.draw(context, b_settings.scheme);
+            b_settings.grid.draw(
+                context,
+                b_settings.scheme,
+                GridSize.DEFAULT
+                );
 
             m_painter.cairo_context = context;
             m_painter.color_scheme = b_settings.scheme;
