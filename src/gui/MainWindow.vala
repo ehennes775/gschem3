@@ -357,9 +357,6 @@ namespace Gschem3
         private const ActionEntry[] action_entries =
         {
             { "select-tool", on_select_tool, "s", "'select'", on_tool_change },
-            { "zoom-extents", on_zoom_extents, null, null, null },
-            { "zoom-in", on_zoom_in, null, null, null },
-            { "zoom-out", on_zoom_out, null, null, null },
             { "edit-delete", on_edit_delete, null, null, null },
             { "edit-undo", on_edit_undo, null, null, null },
             { "edit-redo", on_edit_redo, null, null, null },
@@ -1261,72 +1258,6 @@ namespace Gschem3
             // state of the action.
 
             action.set_state(state);
-        }
-
-
-        /**
-         * Zoom the current view to the extents
-         *
-         * The associated action for this method should be disabled
-         * when the notebook does not have a current page, or the page
-         * does not support this action. So, it is considered a logic
-         * error to call this method without current page that can
-         * accept this action.
-         *
-         * @param action the action that activated this function call
-         * @param parameter unused
-         */
-        private void on_zoom_extents(SimpleAction action, Variant? parameter)
-        {
-            var page = get_current_page() as Zoomable;
-
-            return_if_fail(page != null);
-
-            page.zoom_extents();
-        }
-
-
-        /**
-         * Zoom in on the center of the current view
-         *
-         * The associated action for this method should be disabled
-         * when the notebook does not have a current page, or the page
-         * does not support this action. So, it is considered a logic
-         * error to call this method without current page that can
-         * accept this action.
-         *
-         * @param action the action that activated this function call
-         * @param parameter unused
-         */
-        private void on_zoom_in(SimpleAction action, Variant? parameter)
-        {
-            var page = get_current_page() as Zoomable;
-
-            return_if_fail(page != null);
-
-            page.zoom_in_center();
-        }
-
-
-        /**
-         * Zoom out on the center of the current view
-         *
-         * The associated action for this method should be disabled
-         * when the notebook does not have a current page, or the page
-         * does not support this action. So, it is considered a logic
-         * error to call this method without current page that can
-         * accept this action.
-         *
-         * @param action the action that activated this function call
-         * @param parameter unused
-         */
-        private void on_zoom_out(SimpleAction action, Variant? parameter)
-        {
-            var page = get_current_page() as Zoomable;
-
-            return_if_fail(page != null);
-
-            page.zoom_out_center();
         }
     }
 }

@@ -201,7 +201,6 @@ libgschem3_a_SOURCES = \
 	gui/SchematicWindowFactory.vala \
 	gui/SchematicWindowSettings.vala \
 	gui/SpecificWindowFactory.vala \
-	gui/Zoomable.vala \
 	gui/grid/MeshGrid.vala \
 	gui/grid/NoGrid.vala \
 	gui/tool/ArcTool.vala \

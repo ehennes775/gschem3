@@ -9,8 +9,7 @@ namespace Gschem3
         Fileable,
         Geda3.Invalidatable,
         Reloadable,
-        Savable,
-        Zoomable
+        Savable
     {
         /**
          * A signal inicating an attriubte has changed
@@ -290,10 +289,40 @@ namespace Gschem3
                 on_scale_up
                 );
 
+            m_zoom_extents_action = new SimpleAction(
+                "zoom-extents",
+                null
+                );
+
+            m_zoom_extents_action.activate.connect(
+                on_zoom_extents
+                );
+
+            m_zoom_in_center_action = new SimpleAction(
+                "zoom-in",
+                null
+                );
+
+            m_zoom_in_center_action.activate.connect(
+                on_zoom_in_center
+                );
+
+            m_zoom_out_center_action = new SimpleAction(
+                "zoom-out",
+                null
+                );
+
+            m_zoom_out_center_action.activate.connect(
+                on_zoom_out_center
+                );
+
             m_actions =
             {
                 m_scale_down_action,
-                m_scale_up_action
+                m_scale_up_action,
+                m_zoom_extents_action,
+                m_zoom_in_center_action,
+                m_zoom_out_center_action
             };
 
         }
@@ -340,6 +369,9 @@ namespace Gschem3
 
         private SimpleAction m_scale_down_action;
         private SimpleAction m_scale_up_action;
+        private SimpleAction m_zoom_extents_action;
+        private SimpleAction m_zoom_in_center_action;
+        private SimpleAction m_zoom_out_center_action;
 
 
         /**
@@ -986,35 +1018,6 @@ namespace Gschem3
 
 
         /**
-         * Zoom the schematic to fit the view
-         */
-        public void zoom_extents()
-
-            requires(drawing != null)
-
-        {
-            zoom_extents_no_redraw();
-
-            drawing.queue_draw();
-        }
-
-
-        /**
-         * Zoom in on the center of the window
-         */
-        public void zoom_in_center()
-
-            requires(drawing != null)
-
-        {
-            var width = drawing.get_allocated_width();
-            var height = drawing.get_allocated_height();
-
-            zoom_in_point(width / 2, height / 2);
-        }
-
-
-        /**
          * Zoom in and center point in window
          *
          * @param x The center point in device units
@@ -1025,21 +1028,6 @@ namespace Gschem3
             zoom_point(x, y, 1.25);
         }
 
-
-        /**
-         * Zoom out on the center of the window
-         */
-        public void zoom_out_center()
-
-            requires(drawing != null)
-
-        {
-            var width = drawing.get_allocated_width();
-            var height = drawing.get_allocated_height();
-
-            zoom_out_point(width / 2, height / 2);
-        }
-        
 
         /**
          * Zoom out and center point in window
@@ -1382,6 +1370,68 @@ namespace Gschem3
             queue_draw();
         }
 
+
+        /**
+         * Zoom the current view to the extents
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_zoom_extents(
+            SimpleAction action,
+            Variant? parameter
+            )
+
+            requires(drawing != null)
+
+        {
+            zoom_extents_no_redraw();
+
+            drawing.queue_draw();
+        }
+
+
+        /**
+         * Zoom in on the center of the current view
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_zoom_in_center(
+            SimpleAction action,
+            Variant? parameter
+            )
+
+            requires(drawing != null)
+
+        {
+            var width = drawing.get_allocated_width();
+            var height = drawing.get_allocated_height();
+
+            zoom_in_point(width / 2, height / 2);
+        }
+
+
+        /**
+         * Zoom out on the center of the current view
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_zoom_out_center(
+            SimpleAction action,
+            Variant? parameter
+            )
+
+            requires(drawing != null)
+
+        {
+            var width = drawing.get_allocated_width();
+            var height = drawing.get_allocated_height();
+
+            zoom_out_point(width / 2, height / 2);
+        }
+        
 
         /**
          *
