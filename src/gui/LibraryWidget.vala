@@ -32,7 +32,7 @@ namespace Gschem3
         /**
          * The symbol library
          */
-        public Geda3.SymbolLibrary? library
+        public Geda3.SymbolLibraryBase? library
         {
             get
             {

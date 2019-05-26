@@ -43,9 +43,12 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
+	lib/LibraryContributor.vala \
 	lib/LibraryFile.vala \
 	lib/LibraryFolder.vala \
 	lib/LibraryItem.vala \
+	lib/LibraryStore.vala \
+	lib/SymbolLibraryBase.vala \
 	prj/Project.vala \
 	prj/ProjectFile.vala \
 	prj/ProjectFolder.vala \

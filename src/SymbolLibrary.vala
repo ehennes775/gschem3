@@ -3,34 +3,8 @@ namespace Geda3
     /**
      * Schematic symbol libraries
      */
-    public class SymbolLibrary
+    public class SymbolLibrary : Object, SymbolLibraryBase
     {
-        /**
-         * Indicates a node changed in the library
-         *
-         * @param node The new node inserted into the library
-         */
-        public signal void node_changed(void* node);
-
-
-        /**
-         * Indicates a new node inserted into the library
-         *
-         * @param node The new node inserted into the library
-         */
-        public signal void node_inserted(void* node);
-
-
-        /**
-         * Indicates a node has been removed from the library
-         *
-         * @param parent The parent of the removed node
-         * @param index The location of the node before removal
-         */
-        public signal void node_removed(void* parent, int index);
-
-
-
         public signal void symbol_used(Symbol symbol);
         public signal void symbol_unused(string name);
 
