@@ -11,10 +11,29 @@ namespace Gschem3
          */
         public DocumentWindow? document_window
         {
-            get;
-            private construct set;
+            get
+            {
+                return b_document_window;
+            }
+            private construct set
+            {
+                if (b_document_window != null)
+                {
+                    b_document_window.detach_actions(this);
+                }
+
+                b_document_window = value;
+
+                if (b_document_window != null)
+                {
+                    b_document_window.attach_actions(this);
+                }
+            }
             default = null;
         }
+
+
+        public DocumentWindow? b_document_window = null;
 
 
         /**

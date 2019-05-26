@@ -97,23 +97,19 @@ namespace Gschem3
          */
         public virtual bool key_pressed(Gdk.EventKey event)
         {
-            stdout.printf("on_key_press_event\n");
-
             uint keyval;
 
             if (event.get_keyval(out keyval))
             {
                 if (keyval == Gdk.Key.bracketleft)
                 {
-                    stdout.printf("Gdk.Key.bracketleft\n");
-                    m_window.scale_grid_down();
+                    //m_window.scale_grid_down();
                     return true;
                 }
 
                 if (keyval == Gdk.Key.bracketright)
                 {
-                    stdout.printf("Gdk.Key.bracketright\n");
-                    m_window.scale_grid_up();
+                    //m_window.scale_grid_up();
                     return true;
                 }
 

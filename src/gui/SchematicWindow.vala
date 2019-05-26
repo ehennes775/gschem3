@@ -269,6 +269,33 @@ namespace Gschem3
 
             //drawing.can_focus = true;
             drawing.sensitive = true;
+
+            // create actions
+
+            m_scale_down_action = new SimpleAction(
+                "scale-down",
+                null
+                );
+
+            m_scale_down_action.activate.connect(
+                on_scale_down
+                );
+
+            m_scale_up_action = new SimpleAction(
+                "scale-up",
+                null
+                );
+
+            m_scale_up_action.activate.connect(
+                on_scale_up
+                );
+
+            m_actions =
+            {
+                m_scale_down_action,
+                m_scale_up_action
+            };
+
         }
 
 
@@ -283,6 +310,36 @@ namespace Gschem3
 
             tab = @"untitled_$(++untitled_number)$(SCHEMATIC_EXTENSION)";
         }
+
+
+        /**
+         *
+         */
+        public override void attach_actions(ActionMap map)
+        {
+            foreach (var action in m_actions)
+            {
+                map.add_action(action);
+            }
+        }
+
+
+        /**
+         *
+         */
+        public override void detach_actions(ActionMap map)
+        {
+            foreach (var action in m_actions)
+            {
+                map.remove_action(action.name);
+            }
+        }
+
+
+        private Action[] m_actions;
+
+        private SimpleAction m_scale_down_action;
+        private SimpleAction m_scale_up_action;
 
 
         /**
@@ -725,26 +782,6 @@ namespace Gschem3
         }
 
 
-        public void scale_grid_down()
-        {
-            m_grid_index = GridSize.scale_down(m_grid_index);
-
-            stdout.printf("%d\n", m_grid_index);
-
-            queue_draw();
-        }
-
-
-        public void scale_grid_up()
-        {
-            m_grid_index = GridSize.scale_up(m_grid_index);
-
-            stdout.printf("%d\n", m_grid_index);
-
-            queue_draw();
-        }
-
-
         /**
          * Select all items in the schematic
          */
@@ -876,8 +913,12 @@ namespace Gschem3
          */
         public void snap_point(ref int x, ref int y)
         {
-            x = Geda3.Coord.snap(x, 100);
-            y = Geda3.Coord.snap(y, 100);
+            var size = (int) Math.round(
+                GridSize.grid_size(m_grid_index)
+                );
+            
+            x = Geda3.Coord.snap(x, size);
+            y = Geda3.Coord.snap(y, size);
         }
 
 
@@ -1292,6 +1333,52 @@ namespace Gschem3
          */
         private void on_notify_settings(ParamSpec spec)
         {
+            queue_draw();
+        }
+
+
+        /**
+         * Scale down the grid spacing
+         */
+        public void on_scale_down(Action action, Variant? parameter)
+
+            requires(m_scale_down_action != null)
+            requires(m_scale_up_action != null)
+
+        {
+            m_grid_index = GridSize.scale_down(m_grid_index);
+
+            m_scale_down_action.set_enabled(
+                m_grid_index > GridSize.MIN
+                );
+
+            m_scale_up_action.set_enabled(
+                m_grid_index < GridSize.MIN
+                );
+
+            queue_draw();
+        }
+
+
+        /**
+         * Scale up the grid spacing
+         */
+        public void on_scale_up(Action action, Variant? parameter)
+
+            requires(m_scale_down_action != null)
+            requires(m_scale_up_action != null)
+
+        {
+            m_grid_index = GridSize.scale_up(m_grid_index);
+
+            m_scale_down_action.set_enabled(
+                m_grid_index > GridSize.MIN
+                );
+
+            m_scale_up_action.set_enabled(
+                m_grid_index < GridSize.MIN
+                );
+
             queue_draw();
         }
 

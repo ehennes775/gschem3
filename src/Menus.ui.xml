@@ -165,6 +165,16 @@
                         <attribute name="action">win.view-reveal</attribute>
                     </item>
                 </section>
+                <section>
+                    <item>
+                        <attribute name="label" translatable="yes">Scale Grid Down</attribute>
+                        <attribute name="action">win.scale-down</attribute>
+                    </item>
+                    <item>
+                        <attribute name="label" translatable="yes">Scale Grid Up</attribute>
+                        <attribute name="action">win.scale-up</attribute>
+                    </item>
+                </section>
             </submenu>
         </section>
         <section>

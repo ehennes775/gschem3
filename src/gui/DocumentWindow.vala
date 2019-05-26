@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      * The application window for the schematic editor
      */
-    public class DocumentWindow : Gtk.Bin
+    public abstract class DocumentWindow : Gtk.Bin
     {
         /**
          * Initialize the instance
@@ -19,5 +19,17 @@ namespace Gschem3
             get;
             protected set;
         }
+
+
+        /**
+         *
+         */
+        public abstract void attach_actions(ActionMap map);
+
+
+        /**
+         *
+         */
+        public abstract void detach_actions(ActionMap map);
     }
 }
