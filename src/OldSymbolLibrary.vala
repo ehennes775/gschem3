@@ -3,13 +3,13 @@ namespace Geda3
     /**
      * Schematic symbol libraries
      */
-    public class SymbolLibrary : Object, SymbolLibraryBase
+    public class OldSymbolLibrary : Object, SymbolLibrary
     {
         public signal void symbol_used(Symbol symbol);
         public signal void symbol_unused(string name);
 
 
-        public SymbolLibrary()
+        public OldSymbolLibrary()
         {
             m_root = new Node<LibraryItem>(s_dummy);
 

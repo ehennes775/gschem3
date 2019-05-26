@@ -108,7 +108,7 @@ namespace Geda3
          *
          * @param library The library needing refreshing
          */
-        public virtual void perform_refresh(SymbolLibrary library)
+        public virtual void perform_refresh(OldSymbolLibrary library)
         {
         }
 

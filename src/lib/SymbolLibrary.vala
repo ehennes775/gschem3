@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * A base class for objects providing symbol library browsing
      */
-    public abstract interface SymbolLibraryBase : Object
+    public abstract interface SymbolLibrary : Object
     {
         /**
          * Indicates a node changed in the library

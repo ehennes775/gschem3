@@ -48,7 +48,7 @@ libgeda3_a_SOURCES = \
 	lib/LibraryFolder.vala \
 	lib/LibraryItem.vala \
 	lib/LibraryStore.vala \
-	lib/SymbolLibraryBase.vala \
+	lib/SymbolLibrary.vala \
 	prj/Project.vala \
 	prj/ProjectFile.vala \
 	prj/ProjectFolder.vala \
@@ -132,6 +132,7 @@ libgeda3_a_SOURCES = \
 	Mapper.vala \
 	MapError.vala \
 	NullMapper.vala \
+	OldSymbolLibrary.vala \
 	ParseError.vala \
 	PrintDimension.vala \
 	PrintFormat.vala \
@@ -143,8 +144,7 @@ libgeda3_a_SOURCES = \
 	SchematicList.vala \
 	SchematicPainterCairo.vala \
 	StandardPromoter.vala \
-	Symbol.vala \
-	SymbolLibrary.vala
+	Symbol.vala
 
 libgeda3_a_VALAFLAGS = \
 	--target-glib=2.40 \

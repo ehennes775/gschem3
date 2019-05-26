@@ -4,7 +4,7 @@ namespace Geda3
      *
      */
     public class LibraryStore : Object,
-        SymbolLibraryBase
+        SymbolLibrary
     {
         /**
          * The object contributing symbols at the project level

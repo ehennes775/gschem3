@@ -135,7 +135,7 @@ namespace Geda3
          *
          *
          */
-        public override void perform_refresh(SymbolLibrary library)
+        public override void perform_refresh(OldSymbolLibrary library)
         {
             var node = library.find_item(this);
             return_if_fail(node != null);

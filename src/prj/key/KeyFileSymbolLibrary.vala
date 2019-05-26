@@ -3,7 +3,7 @@ namespace Geda3
     /**
      * A schematic symbol libraries based off of a key file
      */
-    public class KeyFileSymbolLibrary : SymbolLibrary
+    public class KeyFileSymbolLibrary : OldSymbolLibrary
     {
         /**
          * Create a new symbol library based off a key file

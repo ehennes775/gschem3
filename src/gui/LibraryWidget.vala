@@ -32,7 +32,7 @@ namespace Gschem3
         /**
          * The symbol library
          */
-        public Geda3.SymbolLibraryBase? library
+        public Geda3.SymbolLibrary? library
         {
             get
             {
@@ -79,7 +79,7 @@ namespace Gschem3
             m_sort_model = new Gtk.TreeModelSort.with_model(m_filter_model);
             m_tree_view.model = m_sort_model;
 
-            library = new Geda3.SymbolLibrary();
+            library = new Geda3.OldSymbolLibrary();
 
             // set up tree selection
 

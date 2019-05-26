@@ -55,7 +55,7 @@ namespace Gschem3
         /**
          * The project adapted to the tree model
          */
-        public Geda3.SymbolLibraryBase? library
+        public Geda3.SymbolLibrary? library
         {
             get
             {
@@ -538,7 +538,7 @@ namespace Gschem3
         /**
          *
          */
-        private Geda3.SymbolLibraryBase? m_library;
+        private Geda3.SymbolLibrary? m_library;
 
 
         /**
