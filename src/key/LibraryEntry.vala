@@ -50,12 +50,14 @@ namespace Geda3
         /**
          * Read the library entries from a key file
          *
+         * TODO If an error is encountered, instead of skipping,
+         * provide an error entry for the GUI. 
+         *
          * @param key_file The key file to read the entries from
          */
         public static Gee.Collection<LibraryEntry> read(
             KeyFile key_file
             )
-            throws KeyFileError
         {
             var entries = new Gee.ArrayList<LibraryEntry>();
 
@@ -63,12 +65,19 @@ namespace Geda3
             {
                 if (group_name.has_suffix(LIBRARY_SUFFIX))
                 {
-                    var entry = create(
-                        key_file,
-                        group_name
-                        );
+                    try
+                    {
+                        var entry = create(
+                            key_file,
+                            group_name
+                            );
 
-                    entries.add(entry);
+                        entries.add(entry);
+                    }
+                    catch (Error error)
+                    {
+                        warn_if_reached();
+                    }    
                 }
             }
 

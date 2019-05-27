@@ -25,24 +25,11 @@ namespace Geda3
             }
             set
             {
-                if (b_project_contributor != null)
-                {
-                    remove_contributor(b_project_contributor);
-                }
-
-                b_project_contributor = null;
-
-                if (value != null)
-                {
-                    b_project_contributor = new ContributorAdapter(
-                        value
-                        );
-                }
-
-                if (b_project_contributor != null)
-                {
-                    add_contributor(b_project_contributor);
-                }
+                set_contributor(
+                    ref b_project_contributor,
+                    value,
+                    ProjectIcon.ORANGE_FOLDER
+                    );
             }
         }
 
@@ -65,27 +52,15 @@ namespace Geda3
             }
             set
             {
-                if (b_system_contributor != null)
-                {
-                    remove_contributor(b_system_contributor);
-
-                }
-
-                b_system_contributor = null;
-
-                if (value != null)
-                {
-                    b_system_contributor = new ContributorAdapter(
-                        value
-                        );
-                }
-
-                if (b_system_contributor != null)
-                {
-                    add_contributor(b_system_contributor);
-                }
+                set_contributor(
+                    ref b_system_contributor,
+                    value,
+                    ProjectIcon.PLUM_FOLDER
+                    );
             }
         }
+
+        public signal void bif();
 
 
         /**
@@ -112,17 +87,34 @@ namespace Geda3
         }
 
 
+        private static int s_times = 0;
+
         /**
          * The library is a singleton for development
          *
          * Needs to be 1:1 with the main window in the future
+         *
+         * This singleton method is really incompatible with the
+         * gobject system. This function can be reentered during
+         * type initializaion.
          */
         public static LibraryStore get_instance()
         {
+            stdout.printf("Entering LibraryStore.get_instance()\n");
+            s_times++;
+
+            if (s_times > 1)
+            {
+                critical("Reentered LibraryStore.get_instance()");
+            }
+
             if (s_instance == null)
             {
                 s_instance = new LibraryStore();
             }
+
+            stdout.printf("Exiting LibraryStore.get_instance()\n");
+            s_times--;
 
             return s_instance;
         }
@@ -312,7 +304,7 @@ namespace Geda3
 
             temp_node->unlink();
 
-            node_removed(parent, index);            
+            node_removed(parent, index);
         }
 
 
@@ -330,7 +322,7 @@ namespace Geda3
          *
          * Needs to be 1:1 with the main window in the future
          */
-        private static LibraryStore s_instance = null;
+        private static LibraryStore s_instance; // = null;
 
 
         /**
@@ -487,6 +479,46 @@ namespace Geda3
                         return false;
                     }
                     );
+            }
+        }
+
+
+        /**
+         * Set the contributor backing store
+         *
+         * (Removes common code for between properties of the same
+         * type.)
+         *
+         * TODO: keep the two contributors in an order, so hinting
+         * for s symbol path occurs in deterministic order.
+         *
+         * @param adapter The backing store for the contributor adapter
+         * @param contributor The underlying contributor
+         */
+        private void set_contributor(
+            ref ContributorAdapter? adapter,
+            LibraryContributor? contributor,
+            ProjectIcon icon
+            )
+        {
+            if (adapter != null)
+            {
+                remove_contributor(adapter);
+            }
+
+            adapter = null;
+
+            if (contributor != null)
+            {
+                adapter = new ContributorAdapter(
+                    contributor,
+                    icon
+                    );
+            }
+
+            if (adapter != null)
+            {
+                add_contributor(adapter);
             }
         }
 

@@ -192,7 +192,7 @@ namespace Geda3
 
 
         // temp located here for development
-        private static ComplexLibrary m_library = LibraryStore.get_instance();
+        private static ComplexLibrary m_library = null;
 
 
         /**
@@ -228,6 +228,11 @@ namespace Geda3
 
         private static SchematicItem create_complex()
         {
+            if (m_library == null)
+            {
+                m_library = LibraryStore.get_instance();
+            }
+
             return new ComplexItem(m_library);
         }
 

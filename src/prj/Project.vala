@@ -50,7 +50,7 @@ namespace Geda3
         {
             get
             {
-                return CONTRIBUTOR_NAME;
+                return tab;
             }
         }
 
@@ -84,6 +84,17 @@ namespace Geda3
 
 
         /**
+         * A short name for this project
+         */
+        public string tab
+        {
+            get;
+            protected set;
+            default = "Unset";
+        }
+
+
+        /**
          * Initialize the instance
          */
         construct
@@ -105,6 +116,8 @@ namespace Geda3
                     new ProjectFolder(ProjectIcon.BLUE_FOLDER, "sch")
                     )
                 );
+
+            notify["file"].connect(on_notify_project_file);
         }
 
 
@@ -435,6 +448,37 @@ namespace Geda3
 
 
         /**
+         * Signal handler when the project file changes
+         *
+         * Three propery notifications are connected to this signal
+         * handler. When the project property of this object changes,
+         * or the file property of the project object, this handler
+         * keeps the tab up to date.
+         * 
+         * @param param unused
+         */
+        private void on_notify_project_file(ParamSpec param)
+        {
+            try
+            {
+                var file_info = file.query_info(
+                    FileAttribute.STANDARD_DISPLAY_NAME,
+                    FileQueryInfoFlags.NONE
+                    );
+
+                tab = "%s%s".printf(
+                    file_info.get_display_name(),
+                    changed ? "*" : ""
+                    );
+            }
+            catch (Error error)
+            {
+                tab = "Error";
+            }
+        }
+
+
+        /**
          * Remove a node from the project
          *
          * @param file The node to remove from the project
@@ -453,11 +497,5 @@ namespace Geda3
 
             node_removed(parent, index);
         }
-
-
-        /**
-         * The name of this configuration shown in the symbol widget
-         */
-        private const string CONTRIBUTOR_NAME = "Project Library";
     }
 }

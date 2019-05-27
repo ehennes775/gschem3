@@ -114,9 +114,15 @@ namespace Geda3
         public abstract void* nth_child(void* parent, int index);
 
 
+        /**
+         *
+         */
         public abstract void* find_item(LibraryItem item);
 
-        public abstract void remove_node(void* node);
 
+        /**
+         *
+         */
+        public abstract void remove_node(void* node);
     }
 }

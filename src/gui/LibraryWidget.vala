@@ -65,6 +65,13 @@ namespace Gschem3
         }
 
 
+        static construct
+        {
+            stdout.printf("%s\n",typeof(Geda3.SchematicReader).name());
+            m_library = Geda3.LibraryStore.get_instance();
+        }
+
+
         /**
          * Initialize the instance
          */
@@ -80,7 +87,7 @@ namespace Gschem3
             m_tree_view.model = m_sort_model;
 
             //library = new Geda3.OldSymbolLibrary();
-            library = new Geda3.LibraryStore();
+            library = m_library;
 
             // set up tree selection
 
@@ -129,7 +136,7 @@ namespace Gschem3
 
 
         // temp located here for development
-        private static Geda3.ComplexLibrary m_library = Geda3.LibraryStore.get_instance();
+        private static Geda3.LibraryStore m_library;
 
 
         // temp located here for development

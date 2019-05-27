@@ -50,11 +50,14 @@ namespace Geda3
          *
          * @param contributor The contributor to wrap
          */
-        public ContributorAdapter(LibraryContributor contributor)
+        public ContributorAdapter(
+            LibraryContributor contributor,
+            ProjectIcon icon
+            )
         {
             this.contributor = contributor;
             description = DESCRIPTION;
-            icon = ProjectIcon.PLUM_FOLDER;
+            this.icon = icon;
             tab = contributor.contributor_name;
         }
 

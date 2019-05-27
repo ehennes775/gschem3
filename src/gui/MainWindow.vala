@@ -103,6 +103,13 @@ namespace Gschem3
                 BindingFlags.SYNC_CREATE
                 );
 
+            bind_property(
+                "project",
+                Geda3.LibraryStore.get_instance(),
+                "project-contributor",
+                BindingFlags.SYNC_CREATE
+                );
+
             // Setup notebook signal handling
 
             notebook.switch_page.connect(on_switch_page);
