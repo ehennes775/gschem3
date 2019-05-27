@@ -5,7 +5,8 @@ namespace Geda3
      *
      * {{uml/ProjectUml.svg}}
      */
-    public class Project : Object
+    public class Project : Object,
+        LibraryContributor
     {
         /**
          * Indicates a node changed in the project
@@ -40,6 +41,19 @@ namespace Geda3
             get;
             protected set;
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public string contributor_name
+        {
+            get
+            {
+                return CONTRIBUTOR_NAME;
+            }
+        }
+
 
         /**
          * The project file
@@ -210,6 +224,18 @@ namespace Geda3
             var temp = (Node<ProjectItem>*) node ?? m_root;
 
             return temp->is_leaf();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gee.Collection<LibraryEntry> load_library_entries()
+
+            requires(m_storage != null)
+
+        {
+            return m_storage.load_library_entries();
         }
 
 
@@ -427,5 +453,11 @@ namespace Geda3
 
             node_removed(parent, index);
         }
+
+
+        /**
+         * The name of this configuration shown in the symbol widget
+         */
+        private const string CONTRIBUTOR_NAME = "Project Library";
     }
 }

@@ -52,12 +52,10 @@ namespace Geda3
          */
         public ContributorAdapter(LibraryContributor contributor)
         {
-            Object(
-                contributor : contributor,
-                description : DESCRIPTION,
-                icon : ProjectIcon.PLUM_FOLDER,
-                tab : contributor.contributor_name
-                );
+            this.contributor = contributor;
+            description = DESCRIPTION;
+            icon = ProjectIcon.PLUM_FOLDER;
+            tab = contributor.contributor_name;
         }
 
 

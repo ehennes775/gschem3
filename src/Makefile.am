@@ -47,12 +47,12 @@ libgeda3_a_SOURCES = \
 	lib/ContributorAdapter.vala \
 	lib/LibraryContributor.vala \
 	lib/LibraryContributorTest.vala \
-	lib/LibraryEntry.vala \
 	lib/LibraryFile.vala \
 	lib/LibraryFolder.vala \
 	lib/LibraryItem.vala \
 	lib/LibraryStore.vala \
 	lib/SymbolLibrary.vala \
+	key/LibraryEntry.vala \
 	prj/Project.vala \
 	prj/ProjectFile.vala \
 	prj/ProjectFolder.vala \

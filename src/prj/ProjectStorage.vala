@@ -81,6 +81,14 @@ namespace Geda3
 
 
         /**
+         * Load the libraries from the project file
+         *
+         * @return The library entries from the project file
+         */
+        public abstract Gee.Collection<LibraryEntry> load_library_entries();
+
+
+        /**
          * Save the project
          *
          * Writes the values in memory to storage.

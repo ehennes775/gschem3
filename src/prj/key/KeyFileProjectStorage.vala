@@ -174,6 +174,17 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override Gee.Collection<LibraryEntry> load_library_entries()
+        {
+            return LibraryEntry.read(
+                m_key_file
+                );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void save() throws Error
 
             requires(file != null)
