@@ -121,12 +121,27 @@ namespace Geda3
         /**
          * Initialize an instance
          *
-         * @param file The underlying file this item represents
+         * @param folder The underlying folder this item represents
          */
-        public LibraryFolder(File file)
+        public LibraryFolder(File folder)
         {
             Object(
-                file : file
+                file : folder
+                );
+        }
+
+
+        /**
+         * Initialize an instance
+         *
+         * @param entry The library entry read from a file
+         */
+        public LibraryFolder.with_entry(LibraryEntry entry)
+        {
+            Object(
+                description : entry.description,
+                file : entry.folder,
+                tab : entry.name
                 );
         }
 
