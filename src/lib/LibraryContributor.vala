@@ -5,5 +5,18 @@ namespace Geda3
      */
     public abstract interface LibraryContributor : Object
     {
+        /**
+         *
+         */
+        public abstract string contributor_name
+        {
+            get;
+        }
+
+
+        /**
+         *
+         */
+        public abstract Gee.Collection<LibraryEntry> load_library_entries();
     }
 }

@@ -79,7 +79,8 @@ namespace Gschem3
             m_sort_model = new Gtk.TreeModelSort.with_model(m_filter_model);
             m_tree_view.model = m_sort_model;
 
-            library = new Geda3.OldSymbolLibrary();
+            //library = new Geda3.OldSymbolLibrary();
+            library = new Geda3.LibraryStore();
 
             // set up tree selection
 
@@ -128,7 +129,7 @@ namespace Gschem3
 
 
         // temp located here for development
-        private static Geda3.ComplexLibrary m_library = new Geda3.ComplexLibrary();
+        private static Geda3.ComplexLibrary m_library = Geda3.LibraryStore.get_instance();
 
 
         // temp located here for development

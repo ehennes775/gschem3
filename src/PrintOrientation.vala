@@ -52,7 +52,7 @@ namespace Geda3
          * This string is compatible with the command line arguments
          * for the lepton-cli utility.
          */
-        private static const string AUTO_NAME = "auto";
+        private const string AUTO_NAME = "auto";
 
 
         /**
@@ -61,7 +61,7 @@ namespace Geda3
          * This string is compatible with the command line arguments
          * for the lepton-cli utility.
          */
-        private static const string LANDSCAPE_NAME = "landscape";
+        private const string LANDSCAPE_NAME = "landscape";
 
 
         /**
@@ -70,7 +70,7 @@ namespace Geda3
          * This string is compatible with the command line arguments
          * for the lepton-cli utility.
          */
-        private static const string PORTRAIT_NAME = "portrait";
+        private const string PORTRAIT_NAME = "portrait";
 
 
         /**

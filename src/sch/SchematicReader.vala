@@ -192,7 +192,7 @@ namespace Geda3
 
 
         // temp located here for development
-        private static ComplexLibrary m_library = new ComplexLibrary();
+        private static ComplexLibrary m_library = LibraryStore.get_instance();
 
 
         /**
