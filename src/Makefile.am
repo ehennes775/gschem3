@@ -62,7 +62,6 @@ libgeda3_a_SOURCES = \
 	prj/ProjectStorage.vala \
 	prj/key/KeyFileProjectStorage.vala \
 	prj/key/KeyFileSymbolFolder.vala \
-	prj/key/KeyFileSymbolLibrary.vala \
 	prj/key/KeyProjectFileMapper.vala \
 	sch/AdjustableColor.vala \
 	sch/AdjustableFillStyle.vala \
@@ -136,7 +135,6 @@ libgeda3_a_SOURCES = \
 	Mapper.vala \
 	MapError.vala \
 	NullMapper.vala \
-	OldSymbolLibrary.vala \
 	ParseError.vala \
 	PrintDimension.vala \
 	PrintFormat.vala \
