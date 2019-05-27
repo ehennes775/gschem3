@@ -43,6 +43,7 @@ noinst_LIBRARIES = \
 	libgschem3.a
 
 libgeda3_a_SOURCES = \
+	cfg/SystemLibrary.vala \
 	lib/ContributorAdapter.vala \
 	lib/LibraryContributor.vala \
 	lib/LibraryContributorTest.vala \
@@ -52,7 +53,6 @@ libgeda3_a_SOURCES = \
 	lib/LibraryItem.vala \
 	lib/LibraryStore.vala \
 	lib/SymbolLibrary.vala \
-	lib/SystemLibrary.vala \
 	prj/Project.vala \
 	prj/ProjectFile.vala \
 	prj/ProjectFolder.vala \

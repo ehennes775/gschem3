@@ -382,7 +382,7 @@ namespace Geda3
 
             foreach (var entry in entries)
             {
-                var file = File.new_for_path(entry.folder);
+                var file = entry.folder;
 
                 var item = new LibraryFolder(file);
                 
