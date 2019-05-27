@@ -1,7 +1,7 @@
 namespace Geda3
 {
     /**
-     *
+     * Wraps a library contributor for use in the library tree model
      */
     public class ContributorAdapter : LibraryItem
     {
@@ -46,15 +46,25 @@ namespace Geda3
 
 
         /**
+         * Initialize the instance
          *
+         * @param contributor The contributor to wrap
          */
         public ContributorAdapter(LibraryContributor contributor)
         {
-            this.contributor = contributor;
-
-            description = "none";
-            icon = ProjectIcon.PLUM_FOLDER;
-            tab = contributor.contributor_name;
+            Object(
+                contributor : contributor,
+                description : DESCRIPTION,
+                icon : ProjectIcon.PLUM_FOLDER,
+                tab : contributor.contributor_name
+                );
         }
+
+
+        /**
+         * Uses an empty string for descriptoions to reduce clutter in
+         * the UI.
+         */
+        private const string DESCRIPTION = "";
     }
 }
