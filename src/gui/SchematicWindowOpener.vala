@@ -54,12 +54,10 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            var window = SchematicWindow.create(
+            notebook.add_document_window_using_file(
                 file,
-                m_paste_handler
+                create_window
                 );
-
-            notebook.add_document_window(window);
         }
 
 
@@ -72,10 +70,10 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            foreach (var file in files)
-            {
-                open_with_file(file);
-            }
+            notebook.add_document_windows_using_files(
+                files,
+                create_window
+                );
         }
 
 
@@ -83,5 +81,17 @@ namespace Gschem3
          *
          */
         private SchematicPasteHandler m_paste_handler;
+
+
+        /**
+         *
+         */
+        private DocumentWindow create_window(File file)
+        {
+            return SchematicWindow.create(
+                file,
+                m_paste_handler
+                );
+        }
     }
 }
