@@ -180,6 +180,8 @@ libgschem3_a_SOURCES = \
 	gui/tdlg/TextEditorDialog.vala \
 	gui/ClipboardHelper.vala \
 	gui/ClipboardSupport.vala \
+	gui/DocumentOpener.vala \
+	gui/DocumentSelector.vala \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \
 	gui/DocumentWindowFactory.vala \

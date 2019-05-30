@@ -4,10 +4,11 @@ namespace Gschem3
      *
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/MainWindow.ui.xml")]
-    public class MainWindow : Gtk.ApplicationWindow
+    public class MainWindow : Gtk.ApplicationWindow,
+        DocumentSelector
     {
         /**
-         * The current document window
+         * {@inheritDoc}
          */
         public DocumentWindow? document_window
         {
@@ -15,7 +16,7 @@ namespace Gschem3
             {
                 return b_document_window;
             }
-            private construct set
+            protected construct set
             {
                 if (b_document_window != null)
                 {
@@ -33,9 +34,6 @@ namespace Gschem3
         }
 
 
-        public DocumentWindow? b_document_window = null;
-
-
         /**
          * The currently open project
          *
@@ -45,7 +43,7 @@ namespace Gschem3
         public Geda3.Project? project
         {
             get;
-            private set;
+            protected set;
         }
 
 
@@ -150,6 +148,8 @@ namespace Gschem3
             {
                 add_action(action.action);
             }
+
+            Geda3.LibraryStore.get_instance().system_contributor = new Geda3.SystemLibrary();
         }
 
 
@@ -455,6 +455,12 @@ namespace Gschem3
          */
         [GtkChild(name="editor")]
         private AttributeEditor m_attribute_widget;
+
+
+        /**
+         *
+         */
+        private DocumentWindow? b_document_window = null;
 
 
         /**

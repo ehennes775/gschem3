@@ -147,8 +147,18 @@ namespace Geda3
 
 
         /**
-         *
-         *
+         * {@inheritDoc}
+         */
+        public override void collect_library_paths(
+            Gee.Collection<File> paths
+            )
+        {
+            paths.add(file);
+        }
+
+
+        /**
+         * {@inheritDoc}
          */
         public override void perform_refresh(SymbolLibrary library)
         {

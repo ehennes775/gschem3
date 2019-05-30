@@ -60,30 +60,12 @@ namespace Geda3
             }
         }
 
-        public signal void bif();
-
-
         /**
          * Initialize the instance
          */
         construct
         {
-            project_contributor = new LibraryContributorTest();
-            system_contributor = new SystemLibrary();
-
-            m_paths = new Gee.ArrayList<string>();
-
-            m_paths.add(
-                "/home/ehennes/Projects/edalib/symbols"
-                );
-
-
-            var schematic = new Schematic();
-
-            var file = File.new_for_path("/home/ehennes/Projects/edalib/symbols/ech-crystal-4.sym");
-            schematic.read_from_file(file);
-
-            m_symbol = new ComplexSymbol(schematic);
+            m_paths = null;
         }
 
 
@@ -133,6 +115,64 @@ namespace Geda3
             return_val_if_fail(temp_child->parent != null, -1);
 
             return temp_child->parent.child_position(temp_child);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public ComplexSymbol? @get(string name)
+        {
+            if (m_paths == null)
+            {
+                m_paths = build_paths();
+            }
+
+            foreach (var path_string in m_paths)
+            {
+                var path = Path.build_filename(
+                    path_string,
+                    name
+                    );
+
+                var file = File.new_for_path(path);
+
+                if (file.query_exists())
+                {
+                    var schematic = new Schematic();
+                    schematic.read_from_file(file);
+
+                    // Currently, a shortcut:
+                    // change all the detached attributes from the
+                    // detached color to the attached color.
+
+                    foreach (var item in schematic.items)
+                    {
+                        var attribute = item as AttributeChild;
+
+                        if (attribute == null)
+                        {
+                            continue;
+                        }
+
+                        if (attribute.name == null)
+                        {
+                            continue;
+                        }
+
+                        if (attribute.visibility != Visibility.VISIBLE)
+                        {
+                            continue;
+                        }
+
+                        attribute.color = Color.ATTRIBUTE;
+                    }
+
+                    return new ComplexSymbol(schematic);
+                }
+            }
+            
+            return null;
         }
 
 
@@ -337,8 +377,20 @@ namespace Geda3
         private ContributorAdapter? b_system_contributor = null;
 
 
+        /**
+         * TODO in the future, a fast index
+         */
         private Gee.Map<LibraryItem,unowned Node<LibraryItem>> m_index =
             new Gee.HashMap<LibraryItem,unowned Node<LibraryItem>>();
+
+
+        /**
+         * The paths to search for symbols
+         *
+         * This field uses lazy evaluation. When null, the data needs
+         * to be recreated.
+         */
+        private Gee.List<string>? m_paths;
 
 
         /**
@@ -376,15 +428,89 @@ namespace Geda3
             {
                 var item = new LibraryFolder.with_entry(entry);
                 
-                item_node.append(
+                unowned Node<LibraryItem> temp_node = item_node.append(
                     new Node<LibraryItem>(item)
                     );
+
+                node_inserted(temp_node);
 
                 item.item_changed.connect(on_item_changed);
                 item.request_insertion.connect(on_request_insertion);
 
                 item.perform_refresh(this);
             }
+
+            m_paths = null;
+        }
+
+
+        /**
+         *
+         *
+         */
+        private Gee.List<string> build_paths()
+        {
+            var files = new Gee.ArrayList<File>();
+
+            m_root.traverse(
+                TraverseType.PRE_ORDER,
+                TraverseFlags.ALL,
+                -1,
+                (node) =>
+                {
+                    var temp_node = (Node<LibraryItem>*)node;
+
+                    temp_node->data.collect_library_paths(files);
+
+                    return false;    // continue traversal
+                }
+                );
+
+            var paths = new Gee.ArrayList<string>();
+
+            foreach (var file in files)
+            {
+                var path = file.get_path();
+
+                paths.add(path);
+            }
+
+            return paths;
+        }
+
+
+        /**
+         * Write the library tree for debugging
+         */
+        private void log_tree()
+
+            requires(m_root != null)
+
+        {
+            m_root.traverse(
+                TraverseType.PRE_ORDER,
+                TraverseFlags.ALL,
+                -1,
+                (node) =>
+                {
+                    var temp_node = (Node<LibraryItem>*)node;
+
+                    var depth = node.depth();
+                    var indent = string.nfill(4 * depth, ' ');
+
+                    var tab = temp_node != null ?
+                        temp_node->data.tab : "(nil)";
+
+                    stdout.printf(
+                        "(%3u)%s%s\n",
+                        depth,
+                        indent,
+                        tab
+                        );
+
+                    return false;    // continue traversal
+                }
+                );
         }
 
 
@@ -480,6 +606,8 @@ namespace Geda3
                     }
                     );
             }
+
+            m_paths = null;
         }
 
 
@@ -521,62 +649,5 @@ namespace Geda3
                 add_contributor(adapter);
             }
         }
-
-
-        public ComplexSymbol @get(string name)
-        {
-            foreach (var path_string in m_paths)
-            {
-                var path = Path.build_filename(
-                    path_string,
-                    name
-                    );
-
-                var file = File.new_for_path(path);
-
-                if (file.query_exists())
-                {
-                    var schematic = new Schematic();
-                    schematic.read_from_file(file);
-
-                    // Currently, a shortcut:
-                    // change all the detached attributes from the
-                    // detached color to the attached color.
-
-                    foreach (var item in schematic.items)
-                    {
-                        var attribute = item as AttributeChild;
-
-                        if (attribute == null)
-                        {
-                            continue;
-                        }
-
-                        if (attribute.name == null)
-                        {
-                            continue;
-                        }
-
-                        if (attribute.visibility != Visibility.VISIBLE)
-                        {
-                            continue;
-                        }
-
-                        attribute.color = Color.ATTRIBUTE;
-                    }
-
-                    return new ComplexSymbol(schematic);
-                }
-            }
-            
-            return m_symbol;
-        }
-
-
-        private Gee.List<string> m_paths;
-
-
-        private ComplexSymbol m_symbol;
-
     }
 }

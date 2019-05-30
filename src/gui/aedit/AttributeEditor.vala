@@ -8,6 +8,22 @@ namespace Gschem3
         Gtk.Buildable
     {
         /**
+         *
+         */
+        public DocumentSelector selector
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                stdout.printf("Setting to main window\n");
+            }
+        }
+
+
+        /**
          * The current item being edited
          *
          * When null, no item, representing an attribute, is currently

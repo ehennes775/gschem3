@@ -79,6 +79,18 @@ namespace Geda3
 
 
         /**
+         * Appends the paths for this node to the argument
+         *
+         * @param paths The container to receive the paths
+         */
+        public virtual void collect_library_paths(
+            Gee.Collection<File> paths
+            )
+        {
+        }
+
+
+        /**
          * Determines if this item is renamable
          *
          * Currently, this function is static so it can be passed in
