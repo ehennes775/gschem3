@@ -4,14 +4,6 @@ namespace Gschem3
     public class ProjectWidget : Gtk.Box, Gtk.Buildable
     {
         /**
-         * Requests files to be opened in an editor
-         *
-         * @param files The files to open in an editor
-         */
-        public signal void open_files(File[] files);
-
-
-        /**
          * Indicates files can be added to the project
          */
         public bool can_add_files
@@ -60,6 +52,16 @@ namespace Gschem3
             // The default value establishes the initial value of the
             // "enabled" property on the action.
             default = false;
+        }
+
+
+        /**
+         * For opening files in the application
+         */
+        public DocumentOpener opener
+        {
+            get;
+            set;
         }
 
 
@@ -666,7 +668,7 @@ namespace Gschem3
 
             }
 
-            open_files(files.to_array());
+            opener.open_with_files(files.to_array());
         }
 
 

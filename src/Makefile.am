@@ -184,6 +184,7 @@ libgschem3_a_SOURCES = \
 	gui/DocumentSelector.vala \
 	gui/DocumentTab.vala \
 	gui/DocumentWindow.vala \
+	gui/DocumentWindowNotebook.vala \
 	gui/DocumentWindowFactory.vala \
 	gui/DrawingTool.vala \
 	gui/DrawingToolSet.vala \
@@ -205,9 +206,8 @@ libgschem3_a_SOURCES = \
 	gui/Savable.vala \
 	gui/SchematicPasteHandler.vala \
 	gui/SchematicWindow.vala \
-	gui/SchematicWindowFactory.vala \
+	gui/SchematicWindowOpener.vala \
 	gui/SchematicWindowSettings.vala \
-	gui/SpecificWindowFactory.vala \
 	gui/grid/MeshGrid.vala \
 	gui/grid/NoGrid.vala \
 	gui/tool/ArcTool.vala \

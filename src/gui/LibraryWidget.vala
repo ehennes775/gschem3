@@ -8,14 +8,6 @@ namespace Gschem3
         ComplexSelector
     {
         /**
-         * Requests files to be opened in an editor
-         *
-         * @param files The files to open in an editor
-         */
-        public signal void open_files(File[] files);
-
-
-        /**
          * Indicates files can be opened from the library
          */
         public bool can_open_files
@@ -42,6 +34,16 @@ namespace Gschem3
             {
                 m_adapter.library = value;
             }
+        }
+
+
+        /**
+         * For opening files in the application
+         */
+        public DocumentOpener opener
+        {
+            get;
+            set;
         }
 
 

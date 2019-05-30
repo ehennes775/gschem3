@@ -92,8 +92,6 @@ namespace Gschem3
 
             // Setup project signal handling
 
-            m_project_widget.open_files.connect(open);
-
             bind_property(
                 "project",
                 m_project_widget,
@@ -117,13 +115,20 @@ namespace Gschem3
             m_drawing_tools = new DrawingToolSet(this, m_library_widget);
             m_drawing_tools.tool_selected.connect(on_tool_selected);
 
-            m_library_widget.open_files.connect(open);
+            // set up the openers
 
-            m_document_window_factory = new DocumentWindowFactory();
+            m_document_opener = new DocumentWindowFactory();
 
-            m_document_window_factory.add_factory(
-                new SchematicWindowFactory(m_drawing_tools)
+            m_document_opener.add_opener(
+                new SchematicWindowOpener(
+                    notebook,
+                    m_drawing_tools
+                    )
                 );
+
+            m_library_widget.opener = m_document_opener;
+            m_project_widget.opener = m_document_opener;
+
 
             add_property_editor(new ColorEditor());
             add_property_editor(new LineStyleEditor());
@@ -254,51 +259,19 @@ namespace Gschem3
          */
         public void open(File[] files)
 
-            requires (m_document_window_factory != null)
+            requires (m_document_opener != null)
             requires (notebook != null)
 
         {
-            Gtk.Widget? last_window = null;
-
-            foreach (var file in files)
+            try
             {
-                try
-                {
-                    var window = find_by_file(file);
-
-                    if (window == null)
-                    {
-                        window = m_document_window_factory.create_with_file(
-                            file
-                            );
-
-                        window.show_all();
-                        var tab = new DocumentTab(window);
-                        tab.show_all();
-
-                        notebook.append_page(window, tab);
-                    }
-
-                    last_window = window;
-                }
-                catch (Error error)
-                {
-                    ErrorDialog.show_with_file(this, error, file);
-                }
+                m_document_opener.open_with_files(
+                    files
+                    );
             }
-
-            if (last_window != null)
+            catch (Error error)
             {
-                var page_index = notebook.page_num(last_window);
-
-                if (page_index >= 0)
-                {
-                    notebook.set_current_page(page_index);
-                }
-                else
-                {
-                    warn_if_reached();
-                }
+                //ErrorDialog.show_with_file(this, error, file);
             }
         }
 
@@ -433,7 +406,7 @@ namespace Gschem3
          * The notebook containing the document windows
          */
         [GtkChild]
-        private Gtk.Notebook notebook;
+        private DocumentWindowNotebook notebook;
 
 
         /**
@@ -466,7 +439,7 @@ namespace Gschem3
         /**
          *
          */
-        private DocumentWindowFactory m_document_window_factory;
+        private DocumentWindowFactory m_document_opener;
 
 
         /**
@@ -819,7 +792,7 @@ namespace Gschem3
          */
         private void on_file_new(SimpleAction action, Variant? parameter)
 
-            requires (m_document_window_factory != null)
+            requires(m_document_opener != null)
             requires(notebook != null)
             requires(parameter != null)
             requires(parameter.is_of_type(VariantType.STRING))
@@ -827,15 +800,9 @@ namespace Gschem3
         {
             try
             {
-                var window = m_document_window_factory.create(
+                m_document_opener.open_new(
                     parameter.get_string()
                     );
-
-                window.show_all();
-                var tab = new DocumentTab(window);
-                tab.show_all();
-
-                notebook.append_page(window, tab);
             }
             catch (Error error)
             {

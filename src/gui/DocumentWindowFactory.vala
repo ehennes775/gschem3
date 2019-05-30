@@ -3,58 +3,67 @@ namespace Gschem3
     /**
      *
      */
-    public class DocumentWindowFactory : Object
+    public class DocumentWindowFactory : Object,
+        DocumentOpener
     {
         /**
          *
          */
         construct
         {
-            m_factories = new Gee.ArrayList<SpecificWindowFactory>();
+            m_openers = new Gee.ArrayList<DocumentOpener>();
         }
 
 
         /**
          *
          */
-        public void add_factory(SpecificWindowFactory factory)
+        public void add_opener(DocumentOpener opener)
         {
 
-            m_factories.add(factory);
+            m_openers.add(opener);
         }
 
 
         /**
-         * Create a new document window
-         *
-         * @param name Specifies the type of document window
+         * {@inheritDoc}
          */
-        public DocumentWindow create(string name)
+        public void open_new(string type)
         {
-            var factory = m_factories.first_match(i => true);
-            return_val_if_fail(factory != null, null);
+            var opener = m_openers.first_match(i => true);
+            return_if_fail(opener != null);
 
-            return factory.create();
+            opener.open_new(type);
         }
 
 
         /**
-         * Create a new window from a file
-         *
-         * @param file The file to edit in the schematic window
+         * {@inheritDoc}
          */
-        public DocumentWindow create_with_file(File file)
+        public void open_with_file(File file)
         {
-            var factory = m_factories.first_match(i => true);
-            return_val_if_fail(factory != null, null);
+            var opener = m_openers.first_match(i => true);
+            return_if_fail(opener != null);
 
-            return factory.create_with_file(file);
+            opener.open_with_file(file);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void open_with_files(File[] files)
+        {
+            var opener = m_openers.first_match(i => true);
+            return_if_fail(opener != null);
+
+            opener.open_with_files(files);
         }
 
 
         /**
          *
          */
-        private Gee.ArrayList<SpecificWindowFactory> m_factories;
+        private Gee.ArrayList<DocumentOpener> m_openers;
     }
 }

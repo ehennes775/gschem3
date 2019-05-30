@@ -8,6 +8,9 @@ namespace Gschem3
         /**
          * Open an new document
          *
+         * Specify document types as the file extension without the
+         * dot.
+         *
          * @param type Specifies the type of document to create
          */
         public abstract void open_new(string type);
@@ -16,8 +19,16 @@ namespace Gschem3
         /**
          * Open an existing document
          *
-         * @param file The document to open as a file
+         * @param file The document to open from a file
          */
         public abstract void open_with_file(File file);
+
+
+        /**
+         * Open existing documents
+         *
+         * @param files The documents to open from files
+         */
+        public abstract void open_with_files(File[] files);
     }
 }

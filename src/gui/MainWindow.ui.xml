@@ -60,7 +60,7 @@
     <object class="GtkImage" id="icon-tool-zoom">
         <property name="resource">/com/github/ehennes775/gschem3/gui/img/ZoomTool.svg</property>
     </object>
-    <template class="Gschem3MainWindow" parent="GtkApplicationWindow" id="hello">
+    <template class="Gschem3MainWindow" parent="GtkApplicationWindow">
         <child>
             <object class ="GtkBox" id="box">
                 <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
@@ -274,7 +274,7 @@
                             </packing>
                         </child>
                         <child>
-                            <object class="GtkNotebook" id="notebook">
+                            <object class="Gschem3DocumentWindowNotebook" id="notebook">
                                 <property name="hexpand">true</property>
                                 <property name="scrollable">true</property>
                                 <property name="vexpand">true</property>
