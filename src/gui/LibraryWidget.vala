@@ -8,20 +8,6 @@ namespace Gschem3
         ComplexSelector
     {
         /**
-         * Indicates files can be opened from the library
-         */
-        public bool can_open_files
-        {
-            get;
-            private set;
-
-            // The default value establishes the initial value of the
-            // "enabled" property on the action.
-            default = false;
-        }
-
-
-        /**
          * The symbol library
          */
         public Geda3.SymbolLibrary? library
@@ -182,6 +168,69 @@ namespace Gschem3
                 file_item.can_open
                 );
         }
+
+
+        /**
+         * Determines if the item is removable
+         *
+         * @param item The item to check if it can be removed
+         * @return This function returns true when the item is removable
+         */
+        private bool is_removable(Geda3.LibraryItem item)
+        {
+            var removable_item = item as Geda3.RemovableItem;
+
+            return (
+                (removable_item != null) &&
+                removable_item.can_remove
+                );
+        }
+
+
+        /**
+         * Determines if an item is renamable
+         *
+         * @param item The item to check if it can be renamed
+         * @return This function returns true when the item is renamable
+         */
+        public bool is_renamable(Geda3.LibraryItem item)
+        {
+            var renamable_item = item as Geda3.RenamableItem;
+
+            return (
+                (renamable_item != null) &&
+                renamable_item.can_rename
+                );
+        }
+
+
+        /**
+         * Open a symbol from the library
+         */
+        private SimpleAction m_open_symbol_action = new SimpleAction(
+            "open-library-symbol",
+            null
+            );
+
+
+        /**
+         * Removes a symbol from the library
+         *
+         * (This Should probably renamed to delete.)
+         */
+        private SimpleAction m_remove_symbol_action = new SimpleAction(
+            "remove-library-symbol",
+            null
+            );
+
+
+        /**
+         * Renames a symbol in the library
+         */
+        private SimpleAction m_rename_symbol_action = new SimpleAction(
+            "rename-library-symbol",
+            null
+            );
 
 
         /**
@@ -485,22 +534,24 @@ namespace Gschem3
         private void update_sensitivities(Gee.Collection<Geda3.LibraryItem> items)
 
             requires(items != null)
+            requires(items.all_match(i => i != null))
 
         {
-            can_open_files = Geda3.GeeEx.any_match(
-                items,
-                is_openable
-                );
+            m_open_symbol_action.set_enabled(
+                items.any_match(
+                    is_openable
+                    ));
 
-            //can_remove_files = Geda3.GeeEx.any_match(
-            //    items,
-            //    is_removable
-            //    );
+            m_remove_symbol_action.set_enabled(
+                items.any_match(
+                    is_removable
+                    ));
 
-            //can_rename_item = Geda3.GeeEx.one_match(
-            //    items,
-            //    Geda3.ProjectItem.is_renamable
-            //    );
+            m_rename_symbol_action.set_enabled(
+                Geda3.GeeEx.one_match(
+                    items,
+                    is_renamable
+                    ));
         }
     }
 }
