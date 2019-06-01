@@ -325,11 +325,6 @@ namespace Geda3
             b_insert_x = 2 * cx - b_insert_x;
 
             mirror = !mirror;    // includes an invalidate(this);
-
-            foreach (var attribute in attributes)
-            {
-                attribute.mirror_x(cx);
-            }
         }
         
 
@@ -344,11 +339,6 @@ namespace Geda3
             b_insert_y = 2 * cy - b_insert_y;
 
             mirror = !mirror;    // includes an invalidate(this);
-
-            foreach (var attribute in attributes)
-            {
-                attribute.mirror_y(cy);
-            }
         }
 
 
@@ -389,11 +379,6 @@ namespace Geda3
             b_angle = Geda3.Angle.normalize(b_angle + angle);
 
             invalidate(this);
-
-            foreach (var attribute in attributes)
-            {
-                attribute.rotate(cx, cy, angle);
-            }
         }
 
 
@@ -439,11 +424,6 @@ namespace Geda3
             b_insert_y += dy;
 
             invalidate(this);
-
-            foreach (var attribute in attributes)
-            {
-                attribute.translate(dx, dy);
-            }
         }
 
 

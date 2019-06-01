@@ -296,11 +296,6 @@ namespace Geda3
             }
 
             invalidate(this);
-
-            foreach (var attribute in attributes)
-            {
-                attribute.mirror_x(cx);
-            }
         }
 
 
@@ -317,11 +312,6 @@ namespace Geda3
             }
 
             invalidate(this);
-
-            foreach (var attribute in attributes)
-            {
-                attribute.mirror_y(cy);
-            }
         }
 
 
@@ -363,11 +353,6 @@ namespace Geda3
             }
 
             invalidate(this);
-
-            foreach (var attribute in attributes)
-            {
-                attribute.rotate(cx, cy, angle);
-            }
         }
 
 
@@ -450,11 +435,6 @@ namespace Geda3
             b_y[0] += dy;
             b_x[1] += dx;
             b_y[1] += dy;
-
-            foreach (var attribute in attributes)
-            {
-                attribute.translate(dx, dy);
-            }
 
             invalidate(this);
         }
