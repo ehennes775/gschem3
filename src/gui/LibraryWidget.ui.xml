@@ -64,7 +64,21 @@
                             </object>
                         </child>
                         <child>
-                            <object class="GtkEntry" id="library-filter">
+                            <object class="GtkBox" id="library-filter-box">
+                                <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+                                <property name="spacing">12</property>
+                                <child>
+                                    <object class="GtkEntry" id="library-filter">
+                                        <property name="hexpand">TRUE</property>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkButton" id="library-filter-clear">
+                                        <property name="action-name">win.library-filter-clear</property>
+                                        <property name="hexpand">FALSE</property>
+                                        <property name="label">CLR</property>
+                                    </object>
+                                </child>
                             </object>
                         </child>
                         <child>

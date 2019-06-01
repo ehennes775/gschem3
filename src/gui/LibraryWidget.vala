@@ -95,6 +95,10 @@ namespace Gschem3
                 on_notify_filter
                 );
 
+            m_clear_filter_action.activate.connect(
+                on_filter_clear
+                );
+
             m_open_symbol_action.activate.connect(
                 on_open_library_symbol
                 );
@@ -106,6 +110,7 @@ namespace Gschem3
          */
         public void add_actions_to(ActionMap map)
         {
+            map.add_action(m_clear_filter_action);
             map.add_action(m_open_symbol_action);
             map.add_action(m_remove_symbol_action);
             map.add_action(m_rename_symbol_action);
@@ -161,6 +166,15 @@ namespace Gschem3
          * Adapts the SymbolLibrary to a Gtk.TreeModel
          */
         private LibraryAdapter m_adapter;
+
+
+        /**
+         * Clear the filter entry
+         */
+        private SimpleAction m_clear_filter_action = new SimpleAction(
+            "library-filter-clear",
+            null
+            );
 
 
         /**
@@ -223,7 +237,8 @@ namespace Gschem3
 
 
         // temp located here for development
-        private static Geda3.AttributePromoter m_promoter = new Geda3.StandardPromoter();
+        private static Geda3.AttributePromoter m_promoter =
+            new Geda3.StandardPromoter();
 
 
         /**
@@ -453,6 +468,21 @@ namespace Gschem3
 
 
         /**
+         * Clear the filter entry
+         *
+         * @param parameter Unused
+         */
+        private void on_filter_clear(Variant? parameter)
+
+            requires(m_library_filter != null)
+            requires(m_library_filter.buffer != null)
+
+        {
+            m_library_filter.buffer.delete_text(0, -1);
+        }
+
+
+        /**
          * Signal handler for opening library symbols
          *
          * The user requests to open the library symbols selected in
@@ -503,6 +533,8 @@ namespace Gschem3
 
             requires(m_filter_model != null)
             requires(m_library_filter != null)
+            requires(m_library_filter.buffer != null)
+
 
         {
             var text = m_library_filter.buffer.text;
