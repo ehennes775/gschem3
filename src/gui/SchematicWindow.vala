@@ -847,7 +847,6 @@ namespace Gschem3
 
         {
             var items = schematic.inside_items(
-            //var items = schematic.intersected_items(
                 m_painter,
                 box
                 );

@@ -275,6 +275,19 @@ namespace Geda3
                 {
                     x.add(item);
                 }
+
+                var parent = item as AttributeParent;
+
+                if (parent != null)
+                {
+                    foreach (var child in parent.attributes)
+                    {
+                        if (child.inside_box(painter, box))
+                        {
+                            x.add(child);
+                        }
+                    }
+                }
             }
 
             return x;
