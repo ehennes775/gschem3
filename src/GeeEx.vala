@@ -42,7 +42,7 @@ namespace Geda3
          *
          * @param trav The traversible with the items to test
          * @param pred The predicate to test items with
-         * @return If ony one item in traversible matches the predicate
+         * @return If only one item in traversible matches the predicate
          */
         public bool one_match<G>(Gee.Traversable<G> trav, Gee.Predicate<G> pred)
         {
@@ -59,6 +59,42 @@ namespace Geda3
             });
 
             return count == 1;
+        }
+
+
+        /**
+         * Returns the only one item matching the predicate, or null
+         *
+         * If one item matches the predicate, this function returns
+         * that item. If no item matches the predicate, or two or more
+         * items match the predicate, thif function returns null.
+         *
+         * @param trav The traversible with the items to test
+         * @param pred The predicate to test items with
+         * @return The one item in traversible matching the predicate
+         */
+        public G single_match<G>(Gee.Traversable<G> trav, Gee.Predicate<G> pred)
+        {
+            G? single = null;
+
+            trav.foreach((item) =>
+            {
+                if (pred(item))
+                {
+                    if (single != null)
+                    {
+                        single = null;
+
+                        return false;
+                    }
+
+                    single = item;
+                }
+
+                return true;
+            });
+
+            return single;
         }
     }
 }

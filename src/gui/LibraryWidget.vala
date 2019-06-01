@@ -91,15 +91,45 @@ namespace Gschem3
             m_tree_view.events |= Gdk.EventMask.BUTTON_PRESS_MASK;
             m_tree_view.button_press_event.connect(on_button_release_event);
 
-            //
-
-            m_library_filter.buffer.notify["text"].connect(on_notify_filter);
-
-
+            m_library_filter.buffer.notify["text"].connect(
+                on_notify_filter
+                );
 
             m_open_symbol_action.activate.connect(
                 on_open_library_symbol
                 );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void add_actions_to(ActionMap map)
+        {
+            map.add_action(m_open_symbol_action);
+            map.add_action(m_remove_symbol_action);
+            map.add_action(m_rename_symbol_action);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Geda3.ComplexItem? create_symbol()
+        {
+            var complex = new Geda3.ComplexItem.with_name(
+                m_library,
+                symbol_name
+                );
+
+            var promoted = m_promoter.promote(complex.symbol.schematic.items);
+
+            foreach (var attribute in promoted)
+            {
+                complex.attach(attribute);
+            }
+
+            return complex;
         }
 
 
@@ -117,6 +147,122 @@ namespace Gschem3
 
             m_context_menu = builder2.get_object("context") as MenuModel;
         }
+
+
+        /**
+         * The name of the selected symbol
+         */
+        private string? b_name;
+
+
+        /**
+         * An adapter for the symbol library
+         *
+         * Adapts the SymbolLibrary to a Gtk.TreeModel
+         */
+        private LibraryAdapter m_adapter;
+
+
+        /**
+         * The model for the context menu
+         */
+        private MenuModel m_context_menu;
+
+
+        /**
+         * The column for the library item description
+         */
+        [GtkChild(name="column-description")]
+        private Gtk.TreeViewColumn m_description_column;
+
+
+        /**
+         * Provides sorting functionality for library items
+         */
+        private Gtk.TreeModelFilter m_filter_model;
+
+
+        // temp located here for development
+        private static Geda3.LibraryStore m_library;
+
+
+        /**
+         * The entry widget with the filter text
+         */
+        [GtkChild(name="library-filter")]
+        private Gtk.Entry m_library_filter;
+
+
+        /**
+         * The column for the library item name
+         */
+        [GtkChild(name="column-name")]
+        private Gtk.TreeViewColumn m_name_column;
+
+
+        /**
+         * Open a symbol from the library
+         */
+        private SimpleAction m_open_symbol_action = new SimpleAction(
+            "open-library-symbol",
+            null
+            );
+
+
+        /**
+         * A pattern used to filter items in the tree
+         */
+        private PatternSpec? m_pattern = null;
+
+
+        /**
+         * The column for the library item name
+         */
+        [GtkChild(name="preview-widget")]
+        private PreviewWidget m_preview_widget;
+
+
+        // temp located here for development
+        private static Geda3.AttributePromoter m_promoter = new Geda3.StandardPromoter();
+
+
+        /**
+         * Removes a symbol from the library
+         *
+         * (This Should probably renamed to delete.)
+         */
+        private SimpleAction m_remove_symbol_action = new SimpleAction(
+            "remove-library-symbol",
+            null
+            );
+
+
+        /**
+         * Renames a symbol in the library
+         */
+        private SimpleAction m_rename_symbol_action = new SimpleAction(
+            "rename-library-symbol",
+            null
+            );
+
+
+        /**
+         * The selection from the Gtk.TreeView widget
+         */
+        private Gtk.TreeSelection m_selection;
+
+
+        /**
+         * Provides sorting functionality for library items
+         */
+        private Gtk.TreeSortable m_sort_model;
+
+
+        /**
+         * The TreeView containing the library items
+         */
+        [GtkChild(name="tree")]
+        private Gtk.TreeView m_tree_view;
 
 
         /**
@@ -150,46 +296,6 @@ namespace Gschem3
                 );
 
             return items;
-        }
-
-
-        // temp located here for development
-        private static Geda3.LibraryStore m_library;
-
-
-        // temp located here for development
-        private static Geda3.AttributePromoter m_promoter = new Geda3.StandardPromoter();
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public void add_actions_to(ActionMap map)
-        {
-            map.add_action(m_open_symbol_action);
-            map.add_action(m_remove_symbol_action);
-            map.add_action(m_rename_symbol_action);
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        public Geda3.ComplexItem? create_symbol()
-        {
-            var complex = new Geda3.ComplexItem.with_name(
-                m_library,
-                symbol_name
-                );
-
-            var promoted = m_promoter.promote(complex.symbol.schematic.items);
-
-            foreach (var attribute in promoted)
-            {
-                complex.attach(attribute);
-            }
-
-            return complex;
         }
 
 
@@ -243,111 +349,6 @@ namespace Gschem3
                 renamable_item.can_rename
                 );
         }
-
-
-        /**
-         * Open a symbol from the library
-         */
-        private SimpleAction m_open_symbol_action = new SimpleAction(
-            "open-library-symbol",
-            null
-            );
-
-
-        /**
-         * Removes a symbol from the library
-         *
-         * (This Should probably renamed to delete.)
-         */
-        private SimpleAction m_remove_symbol_action = new SimpleAction(
-            "remove-library-symbol",
-            null
-            );
-
-
-        /**
-         * Renames a symbol in the library
-         */
-        private SimpleAction m_rename_symbol_action = new SimpleAction(
-            "rename-library-symbol",
-            null
-            );
-
-
-        /**
-         * The backing store for the symbol library
-         */
-        // private Geda3.SymbolLibrary? b_library;
-
-
-        private string? b_name;
-
-
-        /**
-         * An adapter for the symbol library
-         *
-         * Adapts the SymbolLibrary to a Gtk.TreeModel
-         */
-        private LibraryAdapter m_adapter;
-
-
-        private MenuModel m_context_menu;
-
-
-        /**
-         * The column for the library item description
-         */
-        [GtkChild(name="column-description")]
-        private Gtk.TreeViewColumn m_description_column;
-
-
-        /**
-         * Provides sorting functionality for library items
-         */
-        private Gtk.TreeModelFilter m_filter_model;
-
-
-        /**
-         * The column for the library item name
-         */
-        [GtkChild(name="column-name")]
-        private Gtk.TreeViewColumn m_name_column;
-
-
-        /**
-         * A pattern used to filter items in the tree
-         */
-        private PatternSpec? m_pattern = null;
-
-
-        /**
-         * The column for the library item name
-         */
-        [GtkChild(name="preview-widget")]
-        private PreviewWidget m_preview_widget;
-
-
-        /**
-         * The selection from the Gtk.TreeView widget
-         */
-        private Gtk.TreeSelection m_selection;
-
-
-        /**
-         * Provides sorting functionality for library items
-         */
-        private Gtk.TreeSortable m_sort_model;
-
-
-        /**
-         * The TreeView containing the library items
-         */
-        [GtkChild(name="tree")]
-        private Gtk.TreeView m_tree_view;
-
-
-        [GtkChild(name="library-filter")]
-        private Gtk.Entry m_library_filter;
 
 
         /**
@@ -410,82 +411,8 @@ namespace Gschem3
 
 
         /**
-         * Signal handler when the tree selection changes
-         */
-        private void on_changed_selection()
-        {
-            var items = get_selected_items();
-
-            update_preview(items);
-            update_sensitivities(items);
-        }
-
-
-        /**
-         * Adjusts sorting in response to tree column clicks
          *
-         * If the Gtk.TreeView model property implements
-         * Gtk.TreeSortable, then this functionality is built-in. Not
-         * sure what happens if an adapter is in between, so this code
-         * is kept around.
          *
-         * Clicking on an tree column that is not sorted will make that
-         * column the sorted column. Clicking on a tree column that is
-         * sorted will toggle the sort ordering.
-         *
-         * If the current Gtk.TreeView model does not implement
-         * Gtk.TreeSortable, then the column sort indicator and column
-         * sort order must be updated manually. If the Gtk.TreeView
-         * model implements TreeSortable, then the column sort indicator
-         * and column sort order will update through signal handling.
-         *
-         * @param column The column that was clicked
-         */
-        private void on_clicked_column(Gtk.TreeViewColumn column)
-        {
-            var sort_order = column.sort_order;
-
-            if (column.sort_indicator)
-            {
-                if (sort_order == Gtk.SortType.ASCENDING)
-                {
-                    sort_order = Gtk.SortType.DESCENDING;
-                }
-                else
-                {
-                    sort_order = Gtk.SortType.ASCENDING;
-                }
-
-                // Not needed if the Gtk.TreeView model implements
-                // Gtk.TreeSortable. But, if the property values are
-                // correct, then the property setters won't trigger
-                // superfluous signals.
-
-                column.sort_order = sort_order;
-            }
-            else
-            {
-                // Not needed if the Gtk.TreeView model implements
-                // Gtk.TreeSortable. But, if the property values are
-                // correct, then the property setters won't trigger
-                // superfluous signals.
-
-                m_description_column.sort_indicator = false;
-                m_name_column.sort_indicator = false;
-
-                column.sort_indicator = true;
-            }
-
-            m_sort_model.set_sort_column_id(
-                column.sort_column_id,
-                sort_order
-                );
-        }
-
-
-        /**
-         *
-         * @todo This function is not displaying a popup menu.
          */
         private bool on_button_release_event(Gdk.EventButton event)
         {
@@ -493,7 +420,7 @@ namespace Gschem3
             {
                 var menu = new Gtk.Menu.from_model(m_context_menu);
 
-                //menu.show_all();
+                menu.attach_to_widget(m_tree_view, null);
 
                 // Depricated GTK+ 3.22
                 menu.popup(
@@ -510,6 +437,18 @@ namespace Gschem3
             }
 
             return false;
+        }
+
+
+        /**
+         * Signal handler when the tree selection changes
+         */
+        private void on_changed_selection()
+        {
+            var items = get_selected_items();
+
+            update_preview(items);
+            update_sensitivities(items);
         }
 
 
@@ -582,40 +521,26 @@ namespace Gschem3
 
 
         /**
-         *
+         * Update the preview widget with the selected item
          *
          * @param items The selected items
          */
-        private void update_preview(Gee.Collection<Geda3.LibraryItem> items)
+        private void update_preview(
+            Gee.Collection<Geda3.LibraryItem> items
+            )
 
-            requires(items != null)
+            requires(items.all_match(i => i != null))
             requires(m_preview_widget != null)
 
         {
-            var previewable = Geda3.GeeEx.one_match(
+            var previewable_item = Geda3.GeeEx.single_match(
                 items,
                 is_openable
                 );
 
-            if (previewable)
+            if (previewable_item != null)
             {
-                // available in Gee 19.91
-                // var item = items.first_match(is_openable);
-
-                Geda3.LibraryItem? item = null;
-
-                foreach (var iter in items)
-                {
-                    if (is_openable(iter))
-                    {
-                        item = iter;
-                        break;
-                    }
-                }
-
-                return_if_fail(item != null);
-
-                var file_item = item as Geda3.LibraryFile;
+                var file_item = previewable_item as Geda3.LibraryFile;
                 return_if_fail(file_item != null);
 
                 m_preview_widget.load(file_item.file);
@@ -639,8 +564,10 @@ namespace Gschem3
             Gee.Collection<Geda3.LibraryItem> items
             )
 
-            requires(items != null)
             requires(items.all_match(i => i != null))
+            requires(m_open_symbol_action != null)
+            requires(m_remove_symbol_action != null)
+            requires(m_rename_symbol_action != null)
 
         {
             m_open_symbol_action.set_enabled(
