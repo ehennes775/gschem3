@@ -21,14 +21,14 @@
     </object>
 
     <template class="Gschem3AttributeEditor" parent="GtkBox">
-        <property name="margin">10</property>
+        <property name="margin">12</property>
         <property name="missing_text">missing</property>
         <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
         <child>
             <object class="GtkBox" id="box">
                 <property name="hexpand">true</property>
                 <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
-                <property name="spacing">10</property>
+                <property name="spacing">12</property>
                 <property name="vexpand">true</property>
                 <child>
                     <object class="GtkScrolledWindow" id="tree-scrolled">
@@ -154,7 +154,7 @@
                     <object class="GtkButtonBox" id="action-bar">
                         <property name="hexpand">true</property>
                         <property name="layout-style">GTK_BUTTONBOX_START</property>
-                        <property name="spacing">5</property>
+                        <property name="spacing">6</property>
                         <property name="vexpand">false</property>
                         <child>
                             <object class="GtkButton" id="insert-button">
