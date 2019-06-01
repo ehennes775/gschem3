@@ -99,17 +99,14 @@ namespace Gschem3
 
                 m_window.device_to_user(ref x0, ref y0);
 
-                var item1 = m_window.closest_item(
-                    (int)Math.round(x0),
-                    (int)Math.round(y0),
-                    MAX_SELECT_DISTANCE
-                    );
-
-                stdout.printf(@"event.state = $(event.state)\n");
-
                 var toggle = (event.state & Gdk.ModifierType.CONTROL_MASK) == Gdk.ModifierType.CONTROL_MASK;
 
-                m_window.select_item(item1, toggle);
+                m_window.select_point(
+                    (int)Math.round(x0),
+                    (int)Math.round(y0),
+                    MAX_SELECT_DISTANCE,
+                    toggle
+                    );
             }
             else if (m_state == State.S2)
             {

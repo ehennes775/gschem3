@@ -278,11 +278,6 @@ namespace Geda3
                 reveal,
                 selected
                 );
-
-            foreach (var attribute in m_attributes)
-            {
-                attribute.draw(painter, reveal, selected);
-            }
         }
 
 

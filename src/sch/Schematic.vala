@@ -150,6 +150,26 @@ namespace Geda3
                     closest_distance = item_distance;
                     closest_item = item;
                 }
+
+                var parent = item as AttributeParent;
+
+                if (parent != null)
+                {
+                    foreach (var child in parent.attributes)
+                    {
+                        var child_distance = child.shortest_distance(
+                            painter,
+                            x,
+                            y
+                            );
+                        
+                        if (child_distance < closest_distance)
+                        {
+                            closest_distance = child_distance;
+                            closest_item = child;
+                        }
+                    }
+                }
             }
 
             return closest_item;
@@ -175,6 +195,16 @@ namespace Geda3
             foreach (var item in m_items)
             {
                 item.draw(painter, reveal, item in selected);
+
+                var parent = item as AttributeParent;
+
+                if (parent != null)
+                {
+                    foreach (var child in parent.attributes)
+                    {
+                        child.draw(painter, reveal, child in selected);
+                    }
+                }
             }
         }
 

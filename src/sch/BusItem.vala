@@ -215,11 +215,6 @@ namespace Geda3
                 b_x[1],
                 b_y[1]
                 );
-
-            foreach (var attribute in m_attributes)
-            {
-                attribute.draw(painter, reveal, selected);
-            }
         }
 
 

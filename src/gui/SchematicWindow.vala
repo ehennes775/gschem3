@@ -923,6 +923,72 @@ namespace Gschem3
         }
 
 
+        public void select_point(
+            int x,
+            int y,
+            double max_distance,
+            bool toggle
+            )
+        {
+            var item = closest_item(
+                x,
+                y,
+                max_distance
+                );
+
+            if (toggle)
+            {
+                if (item != null)
+                {
+                    if (m_selected.contains(item))
+                    {
+                        m_selected.remove(item);
+
+                        var parent = item as Geda3.AttributeParent;
+
+                        if (parent != null)
+                        {
+                            m_selected.remove_all(parent.attributes);
+                        }
+                    }
+                    else
+                    {
+                        m_selected.add(item);
+
+                        var parent = item as Geda3.AttributeParent;
+
+                        if (parent != null)
+                        {
+                            m_selected.add_all(parent.attributes);
+                        }
+                    }
+                }
+
+                queue_draw();
+                selection_changed();
+            }
+            else
+            {
+                m_selected.clear();
+
+                if (item != null)
+                {
+                    m_selected.add(item);
+
+                    var parent = item as Geda3.AttributeParent;
+
+                    if (parent != null)
+                    {
+                        m_selected.add_all(parent.attributes);
+                    }
+                }
+
+                queue_draw();
+                selection_changed();
+            }
+        }
+
+
         /**
          * Snap an angle using the current snap mode
          *
