@@ -74,6 +74,15 @@ namespace Geda3
 
 
         /**
+         * Indicates this type represents a 'filled' shape
+         */
+        public bool is_solid()
+        {
+            return (this != HOLLOW);
+        }
+
+
+        /**
          * Indicates fill type uses first angle, pitch, and width
          */
         public bool uses_first_set()

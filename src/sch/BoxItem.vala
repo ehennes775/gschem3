@@ -490,46 +490,18 @@ namespace Geda3
             int y
             )
         {
-            var x1 = double.min(b_upper_x, b_lower_x);
-            var y1 = double.min(b_upper_y, b_lower_y);
-            var x2 = double.max(b_upper_x, b_lower_x);
-            var y2 = double.max(b_upper_y, b_lower_y);
+            var bounds = Bounds.with_points(
+                b_lower_x,
+                b_lower_y,
+                b_upper_x,
+                b_upper_y
+                );
 
-            var dx = double.min(x - x1, x2 - x);
-            var dy = double.min(y - y1, y2 - y);
-
-            if (fill_style.fill_type != FillType.HOLLOW)
-            {
-                dx = double.min(dx, 0);
-                dy = double.min(dy, 0);
-            }
-
-            var shortest_distance = double.MAX;
-
-            if (dx < 0)
-            {
-                if (dy < 0)
-                {
-                    shortest_distance = Math.hypot(dx, dy);
-                }
-                else
-                {
-                    shortest_distance = Math.fabs(dx);
-                }
-            }
-            else
-            {
-                if (dy < 0)
-                {
-                    shortest_distance = Math.fabs(dy);
-                }
-                else
-                {
-                    shortest_distance = double.min(dx, dy);
-                }
-            }
-
-            return shortest_distance;
+            return bounds.shortest_distance(
+                x,
+                y,
+                fill_style.fill_type.is_solid()
+                );
         }
 
 

@@ -547,7 +547,9 @@ namespace Geda3
             int y
             )
         {
-            return double.MAX;
+            var bounds = calculate_bounds(painter, false);
+
+            return bounds.shortest_distance(x, y, true);
         }
 
 

@@ -294,6 +294,70 @@ namespace Geda3
 
 
         /**
+         * Calculate the shortest distance from a point to this bounds
+         *
+         * When not treated as a solid, this function returns the
+         * closest distance to an edge of the bounds. Interior points
+         * return the distance to the closest edge.
+         *
+         * When treated a solid, and when the point lies within the
+         * bounds, this function returns zero for the distance.
+         *
+         * If the bounds is empty, this function returns double.MAX.
+         *
+         * @param x The x coordinate of the point
+         * @param y The y coordinate of the point
+         * @param solid Treat the bounds as a solid
+         * @return The distance to the bounds
+         */
+        public double shortest_distance(
+            int x,
+            int y,
+            bool solid
+            )
+        {
+            var shortest_distance = double.MAX;
+
+            if (!empty())
+            {
+                var dx = double.min(x - min_x, max_x - x);
+                var dy = double.min(y - min_y, max_y - y);
+
+                if (solid)
+                {
+                    dx = double.min(dx, 0);
+                    dy = double.min(dy, 0);
+                }
+
+                if (dx < 0)
+                {
+                    if (dy < 0)
+                    {
+                        shortest_distance = Math.hypot(dx, dy);
+                    }
+                    else
+                    {
+                        shortest_distance = Math.fabs(dx);
+                    }
+                }
+                else
+                {
+                    if (dy < 0)
+                    {
+                        shortest_distance = Math.fabs(dy);
+                    }
+                    else
+                    {
+                        shortest_distance = double.min(dx, dy);
+                    }
+                }
+            }
+
+            return shortest_distance;
+        }
+
+
+        /**
          * Create a string for debugging
          *
          * @return A string representation for debugging
