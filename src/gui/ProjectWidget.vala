@@ -1,7 +1,8 @@
 namespace Gschem3
 {
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/ProjectWidget.ui.xml")]
-    public class ProjectWidget : Gtk.Box, Gtk.Buildable
+    public class ProjectWidget : Gtk.Bin,
+        Gtk.Buildable
     {
         /**
          * Indicates files can be added to the project

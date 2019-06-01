@@ -1,57 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <interface>
-    <template class="Gschem3ProjectWidget" parent="GtkBox">
-        <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+    <template class="Gschem3ProjectWidget" parent="GtkBin">
         <child>
-            <object class="GtkScrolledWindow" id="tree-scrolled">
+            <object class="GtkBox" id="top-level-box">
+                <property name="margin">12</property>
+                <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                <property name="spacing">12</property>
                 <child>
-                    <object class="GtkTreeView" id="tree">
-                        <property name="hexpand">true</property>
-                        <property name="vexpand">true</property>
+                    <object class="GtkScrolledWindow" id="tree-scrolled">
                         <child>
-                            <object class="GtkTreeViewColumn" id="column-name">
-                                <property name="title">Name</property>
+                            <object class="GtkTreeView" id="tree">
+                                <property name="hexpand">true</property>
+                                <property name="vexpand">true</property>
                                 <child>
-                                    <object class="GtkCellRendererPixbuf" id="column-name-renderer-icon">
+                                    <object class="GtkTreeViewColumn" id="column-name">
+                                        <property name="title">Name</property>
+                                        <child>
+                                            <object class="GtkCellRendererPixbuf" id="column-name-renderer-icon">
+                                            </object>
+                                            <attributes>
+                                                <attribute name="pixbuf">0</attribute>
+                                            </attributes>
+                                        </child>
+                                        <child>
+                                            <object class="GtkCellRendererText" id="column-name-renderer-name">
+                                            </object>
+                                            <attributes>
+                                                <attribute name="editable">3</attribute>
+                                                <attribute name="text">1</attribute>
+                                            </attributes>
+                                        </child>
                                     </object>
-                                    <attributes>
-                                        <attribute name="pixbuf">0</attribute>
-                                    </attributes>
-                                </child>
-                                <child>
-                                    <object class="GtkCellRendererText" id="column-name-renderer-name">
-                                    </object>
-                                    <attributes>
-                                        <attribute name="editable">3</attribute>
-                                        <attribute name="text">1</attribute>
-                                    </attributes>
                                 </child>
                             </object>
                         </child>
                     </object>
                 </child>
-            </object>
-        </child>
-        <child>
-            <object class="GtkButtonBox" id="buttons">
-                <property name="layout-style">GTK_BUTTONBOX_START</property>
-                <property name="hexpand">true</property>
                 <child>
-                    <object class="GtkButton" id="button-add">
-                        <property name="action-name">win.project-add-files</property>
-                        <property name="label">Add...</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkButton" id="button-remove">
-                        <property name="action-name">win.project-remove-files</property>
-                        <property name="label">Remove</property>
-                    </object>
-                </child>
-                <child>
-                    <object class="GtkButton" id="button-open">
-                        <property name="action-name">win.project-open-files</property>
-                        <property name="label">Open</property>
+                    <object class="GtkButtonBox" id="buttons">
+                        <property name="hexpand">TRUE</property>
+                        <property name="layout-style">GTK_BUTTONBOX_START</property>
+                        <property name="spacing">6</property>
+                        <child>
+                            <object class="GtkButton" id="button-add">
+                                <property name="action-name">win.project-add-files</property>
+                                <property name="label">Add...</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="button-remove">
+                                <property name="action-name">win.project-remove-files</property>
+                                <property name="label">Remove</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="button-open">
+                                <property name="action-name">win.project-open-files</property>
+                                <property name="label">Open</property>
+                            </object>
+                        </child>
                     </object>
                 </child>
             </object>
