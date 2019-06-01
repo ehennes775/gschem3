@@ -11,13 +11,13 @@ Current deveopment focuses on getting the symbol library operational.
 
 The following screenshot shows a development version of Gschem3 with the project manager.
 
-![Screenshot of Gschem3](gschem3-project.png)
+![Screenshot of Gschem3](ProjectWidget.png)
 
 ### Library
 
 The following screenshot shows a development version of Gschem3 with the symbol library manager.
 
-![Screenshot of Gschem3 Library Widget](gschem3-library.png)
+![Screenshot of Gschem3 Library Widget](LibraryWidget.png)
 
 ## Links
 - [Coding Standards](coding.md)
