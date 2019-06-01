@@ -4,8 +4,11 @@ namespace Gschem3
      * Provides a user interface for the symbol library
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/LibraryWidget.ui.xml")]
-    public class LibraryWidget : Gtk.Bin,
-        ComplexSelector
+    public class LibraryWidget :
+        ActionProvider,
+        ComplexSelector,
+        Gtk.Bin,
+        Gtk.Buildable
     {
         /**
          * The symbol library
@@ -83,9 +86,36 @@ namespace Gschem3
             m_selection.mode = Gtk.SelectionMode.MULTIPLE;
             m_selection.changed.connect(on_changed_selection);
 
+            // Setup context menu
+
+            m_tree_view.events |= Gdk.EventMask.BUTTON_PRESS_MASK;
+            m_tree_view.button_press_event.connect(on_button_release_event);
+
             //
 
             m_library_filter.buffer.notify["text"].connect(on_notify_filter);
+
+
+
+            m_open_symbol_action.activate.connect(
+                on_open_library_symbol
+                );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void parser_finished(Gtk.Builder builder)
+
+            ensures(m_context_menu != null)
+
+        {
+            var builder2 = new Gtk.Builder.from_resource(
+                "/com/github/ehennes775/gschem3/gui/LibraryWidgetMenu.ui.xml"
+                );
+
+            m_context_menu = builder2.get_object("context") as MenuModel;
         }
 
 
@@ -129,6 +159,17 @@ namespace Gschem3
 
         // temp located here for development
         private static Geda3.AttributePromoter m_promoter = new Geda3.StandardPromoter();
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void add_actions_to(ActionMap map)
+        {
+            map.add_action(m_open_symbol_action);
+            map.add_action(m_remove_symbol_action);
+            map.add_action(m_rename_symbol_action);
+        }
 
 
         /**
@@ -248,6 +289,9 @@ namespace Gschem3
          * Adapts the SymbolLibrary to a Gtk.TreeModel
          */
         private LibraryAdapter m_adapter;
+
+
+        private MenuModel m_context_menu;
 
 
         /**
@@ -440,6 +484,66 @@ namespace Gschem3
 
 
         /**
+         *
+         * @todo This function is not displaying a popup menu.
+         */
+        private bool on_button_release_event(Gdk.EventButton event)
+        {
+            if (event.triggers_context_menu())
+            {
+                var menu = new Gtk.Menu.from_model(m_context_menu);
+
+                //menu.show_all();
+
+                // Depricated GTK+ 3.22
+                menu.popup(
+                    null,
+                    null,
+                    null,
+                    event.button,
+                    event.time
+                    );
+
+                //menu.popup_at_pointer(null);
+
+                return true;
+            }
+
+            return false;
+        }
+
+
+        /**
+         * Signal handler for opening library symbols
+         *
+         * The user requests to open the library symbols selected in
+         * the tree view.
+         *
+         * @param parameter Unused
+         */
+        private void on_open_library_symbol(Variant? parameter) 
+        {
+            var files = new Gee.ArrayList<File>();
+            var items = get_selected_items();
+
+            foreach (var item in items)
+            {
+                if (!is_openable(item))
+                {
+                    continue;
+                }
+
+                var file_item = item as Geda3.LibraryFile;
+                return_if_fail(file_item != null);
+
+                files.add(file_item.file);
+            }
+
+            opener.open_with_files(files.to_array());
+        }
+
+
+        /**
          * Signal handler for when the tree view needs a complete
          * refresh
          */
@@ -531,7 +635,9 @@ namespace Gschem3
          *
          * @param items The selected items
          */
-        private void update_sensitivities(Gee.Collection<Geda3.LibraryItem> items)
+        private void update_sensitivities(
+            Gee.Collection<Geda3.LibraryItem> items
+            )
 
             requires(items != null)
             requires(items.all_match(i => i != null))

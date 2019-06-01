@@ -39,6 +39,7 @@
         <file>gui/MainWindow.ui.xml</file>
         <file>gui/DocumentTab.ui.xml</file>
         <file>gui/LibraryWidget.ui.xml</file>
+        <file>gui/LibraryWidgetMenu.ui.xml</file>
         <file>gui/ProjectWidget.ui.xml</file>
         <file>gui/ProjectWidgetMenu.ui.xml</file>
         <file>gui/SchematicWindow.ui.xml</file>

@@ -155,6 +155,8 @@ namespace Gschem3
             }
 
             Geda3.LibraryStore.get_instance().system_contributor = new Geda3.SystemLibrary();
+
+            collect_actions(this);
         }
 
 
@@ -456,6 +458,37 @@ namespace Gschem3
             editor.update_document_window(document_window);
             m_editors.add(editor);
             m_property_editor.add(editor);
+        }
+
+
+
+        /**
+         * Collect actions from widgets
+         *
+         * Traverses the window and collect actions from child widgets.
+         * Skips internal children. Places all the action into the
+         * action group of this window.
+         */
+        private void collect_actions(Gtk.Container parent)
+        {
+            parent.@foreach(
+                (widget) =>
+                {
+                    var container = widget as Gtk.Container;
+
+                    if (container != null)
+                    {
+                        collect_actions(container);
+                    }
+
+                    var provider = widget as ActionProvider;
+
+                    if (provider != null)
+                    {
+                        provider.add_actions_to(this);
+                    }
+                }
+                );
         }
 
 
