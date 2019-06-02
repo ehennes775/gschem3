@@ -36,6 +36,12 @@ namespace Geda3
 
 
         /**
+         *
+         */
+        public delegate void SchematicForEachFunc(SchematicItem item);
+
+
+        /**
          * A read only view of the items in the schematic
          */
         public Gee.Collection<SchematicItem> items
@@ -99,20 +105,16 @@ namespace Geda3
         {
             Geda3.Bounds bounds = Geda3.Bounds();
 
-            foreach (var item in m_items)
-            {
-                bounds.union(item.calculate_bounds(painter, reveal));
-
-                var parent = item as AttributeParent;
-
-                if (parent != null)
-                {
-                    foreach (var child in parent.attributes)
+            @foreach(
+                m_items,
+                (item) =>
                     {
-                        bounds.union(child.calculate_bounds(painter, reveal));
+                        bounds.union(item.calculate_bounds(
+                            painter,
+                            reveal
+                            ));
                     }
-                }
-            }
+                );
 
             return bounds;
         }
@@ -137,40 +139,23 @@ namespace Geda3
             var closest_distance = max_distance;
             SchematicItem? closest_item = null;
 
-            foreach (var item in m_items)
-            {
-                var item_distance = item.shortest_distance(
-                    painter,
-                    x,
-                    y
-                    );
-                
-                if (item_distance < closest_distance)
-                {
-                    closest_distance = item_distance;
-                    closest_item = item;
-                }
-
-                var parent = item as AttributeParent;
-
-                if (parent != null)
-                {
-                    foreach (var child in parent.attributes)
+            @foreach(
+                m_items,
+                (item) =>
                     {
-                        var child_distance = child.shortest_distance(
+                        var item_distance = item.shortest_distance(
                             painter,
                             x,
                             y
                             );
                         
-                        if (child_distance < closest_distance)
+                        if (item_distance < closest_distance)
                         {
-                            closest_distance = child_distance;
-                            closest_item = child;
+                            closest_distance = item_distance;
+                            closest_item = item;
                         }
                     }
-                }
-            }
+                );
 
             return closest_item;
         }
@@ -192,20 +177,13 @@ namespace Geda3
             requires(m_items != null)
 
         {
-            foreach (var item in m_items)
-            {
-                item.draw(painter, reveal, item in selected);
-
-                var parent = item as AttributeParent;
-
-                if (parent != null)
-                {
-                    foreach (var child in parent.attributes)
+            @foreach(
+                m_items,
+                (item) =>
                     {
-                        child.draw(painter, reveal, child in selected);
+                        item.draw(painter, reveal, item in selected);
                     }
-                }
-            }
+                );
         }
 
 
@@ -269,26 +247,16 @@ namespace Geda3
         {
             var x = new Gee.HashSet<SchematicItem>();
 
-            foreach (var item in m_items)
-            {
-                if (item.inside_box(painter, box))
-                {
-                    x.add(item);
-                }
-
-                var parent = item as AttributeParent;
-
-                if (parent != null)
-                {
-                    foreach (var child in parent.attributes)
+            @foreach(
+                m_items,
+                (item) =>
                     {
-                        if (child.inside_box(painter, box))
+                        if (item.inside_box(painter, box))
                         {
-                            x.add(child);
+                            x.add(item);
                         }
                     }
-                }
-            }
+                );
 
             return x;
         }
@@ -448,6 +416,33 @@ namespace Geda3
         private Gee.LinkedList<SchematicItem> m_items;
 
         private SchematicReader reader = new SchematicReader();
+
+
+        /**
+         * Iterate through all schematic items and attributes
+         *
+         * @param items
+         * @param func
+         */
+        private static void @foreach(
+            Gee.Collection<SchematicItem> items,
+            SchematicForEachFunc func
+            )
+
+            requires(items.all_match(i => i != null))
+        {
+            foreach (var item in items)
+            {
+                func(item);
+
+                var parent = item as AttributeParent;
+
+                if (parent != null)
+                {
+                    @foreach(parent.attributes, func);
+                }
+            }
+        }
 
 
         /**
