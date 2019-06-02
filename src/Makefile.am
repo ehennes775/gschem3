@@ -251,6 +251,8 @@ libgschem3_a_VALAFLAGS = \
 	--vapi=libgschem3.vapi \
 	--gresources=$(RESOURCES_FILE)
 
+libgschem3_a_LIBADD = libgeda3.a
+
 CLEANFILES = $(BUILT_SOURCES)
 
 Gschem3:
