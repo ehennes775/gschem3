@@ -127,6 +127,7 @@ namespace Geda3
          * {@inheritDoc}
          */
         public AttributeChild create_and_attach(
+            AttributePositioner positioner,
             string name,
             string @value,
             TextPresentation presentation,
@@ -140,6 +141,14 @@ namespace Geda3
                 @value,
                 visibility,
                 presentation
+                );
+
+            positioner.adjust_bus_net(
+                b_x[0],
+                b_y[0],
+                b_x[1],
+                b_y[1],
+                attribute
                 );
 
             attach(attribute);

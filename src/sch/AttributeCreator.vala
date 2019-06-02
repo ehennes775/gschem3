@@ -25,6 +25,7 @@ namespace Geda3
          * @return The new attribute both created and attached
          */
         public abstract AttributeChild create_and_attach(
+            AttributePositioner positioner,
             string name,
             string @value,
             TextPresentation presentation,

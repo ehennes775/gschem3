@@ -234,6 +234,13 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private Geda3.AttributePositioner m_positioner =
+            new Geda3.BasicAttributePositioner();
+
+
+        /**
          * The tree view selection containing the attributes
          */
         private Gtk.TreeSelection m_selection;
@@ -346,7 +353,9 @@ namespace Gschem3
         {
             // block
 
-            var new_attribute = current_state.create_and_attach();
+            var new_attribute = current_state.create_and_attach(
+                m_positioner
+                );
 
             // unblock
             

@@ -73,7 +73,9 @@ libgeda3_a_SOURCES = \
 	sch/AttributeChild.vala \
 	sch/AttributeCreator.vala \
 	sch/AttributeParent.vala \
+	sch/AttributePositioner.vala \
 	sch/ArcItem.vala \
+	sch/BasicAttributePositioner.vala \
 	sch/Bounds.vala \
 	sch/BoxCornerGrip.vala \
 	sch/BoxCornerGripCommon.vala \

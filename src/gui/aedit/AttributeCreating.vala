@@ -100,13 +100,16 @@ namespace Gschem3
         /**
          *
          */
-        public Geda3.AttributeChild create_and_attach()
+        public Geda3.AttributeChild create_and_attach(
+            Geda3.AttributePositioner positioner
+            )
 
             requires(m_item != null)
             requires(m_item.can_create_and_attach)
 
         {
             return m_item.create_and_attach(
+                positioner,
                 m_name,
                 m_value,
                 presentation,

@@ -5,6 +5,7 @@ namespace Geda3
      */
     public class BusItem : SchematicItem,
         AttributeParent,
+        AttributeCreator,    // place after AttributeParent
         Grippable,
         GrippablePoints
     {
@@ -28,6 +29,18 @@ namespace Geda3
             owned get
             {
                 return m_attributes.read_only_view;
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool can_create_and_attach
+        {
+            get
+            {
+                return true;
             }
         }
 
@@ -83,6 +96,8 @@ namespace Geda3
             attribute.notify["name"].connect(on_notify_attribute);
             attribute.notify["value"].connect(on_notify_attribute);
 
+            invalidate(attribute);
+
             attached(attribute, this);
         }
 
@@ -107,6 +122,40 @@ namespace Geda3
             bounds.expand(expand, expand);
 
             return bounds;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public AttributeChild create_and_attach(
+            AttributePositioner positioner,
+            string name,
+            string @value,
+            TextPresentation presentation,
+            Visibility visibility
+            )
+        {
+            var attribute = new TextItem.as_attribute(
+                b_x[0],
+                b_y[0],
+                name,
+                @value,
+                visibility,
+                presentation
+                );
+
+            positioner.adjust_bus_net(
+                b_x[0],
+                b_y[0],
+                b_x[1],
+                b_y[1],
+                attribute
+                );
+
+            attach(attribute);
+
+            return attribute;
         }
 
 

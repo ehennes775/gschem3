@@ -278,6 +278,24 @@ namespace Geda3
                 reveal,
                 selected
                 );
+
+            foreach (var item in m_unpromoted_items)
+            {
+                var parent = item as AttributeParent;
+
+                if (parent != null)
+                {
+                    painter.draw_items(
+                        b_insert_x,
+                        b_insert_y,
+                        b_angle,
+                        b_mirror != 0,
+                        parent.attributes,
+                        reveal,
+                        selected
+                        );
+                }
+            }
         }
 
 
