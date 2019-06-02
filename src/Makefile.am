@@ -63,6 +63,13 @@ libgeda3_a_SOURCES = \
 	prj/key/KeyFileProjectStorage.vala \
 	prj/key/KeyFileSymbolFolder.vala \
 	prj/key/KeyProjectFileMapper.vala \
+	sch/path/AbsoluteMoveToCommand.vala \
+	sch/path/AbsoluteLineToCommand.vala \
+	sch/path/ClosePathCommand.vala \
+	sch/path/ParseUtility.vala \
+	sch/path/PathCommandConverter1.vala \
+	sch/path/RelativeMoveToCommand.vala \
+	sch/path/RelativeLineToCommand.vala \
 	sch/AdjustableColor.vala \
 	sch/AdjustableFillStyle.vala \
 	sch/AdjustableLineStyle.vala \
@@ -124,13 +131,6 @@ libgeda3_a_SOURCES = \
 	sch/TextPresentation.vala \
 	sch/TextSize.vala \
 	sch/Visibility.vala \
-	sch/path/AbsoluteMoveToCommand.vala \
-	sch/path/AbsoluteLineToCommand.vala \
-	sch/path/ClosePathCommand.vala \
-	sch/path/ParseUtility.vala \
-	sch/path/PathCommandConverter1.vala \
-	sch/path/RelativeMoveToCommand.vala \
-	sch/path/RelativeLineToCommand.vala \
 	AttributePromoter.vala \
 	ColorScheme.vala \
 	Fileable.vala \
