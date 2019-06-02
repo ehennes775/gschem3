@@ -26,11 +26,15 @@
         <file>gui/img/ZoomIn.svg</file>
         <file>gui/img/ZoomOut.svg</file>
         <file>gui/img/ZoomTool.svg</file>
+        <file>gui/libw/LibraryWidget.ui.xml</file>
+        <file>gui/libw/LibraryWidgetMenu.ui.xml</file>
         <file>gui/pedit/ColorEditor.ui.xml</file>
         <file>gui/pedit/FillStyleEditor.ui.xml</file>
         <file>gui/pedit/LineStyleEditor.ui.xml</file>
         <file>gui/pedit/PinPropertyEditor.ui.xml</file>
         <file>gui/pedit/TextPropertyEditor.ui.xml</file>
+        <file>gui/prjw/ProjectWidget.ui.xml</file>
+        <file>gui/prjw/ProjectWidgetMenu.ui.xml</file>
         <file>gui/tdlg/TextEditorDialog.ui.xml</file>
         <file>gui/wid/AlignmentComboBox.ui.xml</file>
         <file>gui/wid/ColorComboBox.ui.xml</file>
@@ -38,10 +42,6 @@
         <file>gui/wid/TextSizeComboBox.ui.xml</file>
         <file>gui/MainWindow.ui.xml</file>
         <file>gui/DocumentTab.ui.xml</file>
-        <file>gui/LibraryWidget.ui.xml</file>
-        <file>gui/LibraryWidgetMenu.ui.xml</file>
-        <file>gui/ProjectWidget.ui.xml</file>
-        <file>gui/ProjectWidgetMenu.ui.xml</file>
         <file>gui/SchematicWindow.ui.xml</file>
         <file>ExportBillOfMaterialDialog.ui.xml</file>
         <file>ExportNetlistDialog.ui.xml</file>

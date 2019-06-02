@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      * Provides a user interface for the symbol library
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/LibraryWidget.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/libw/LibraryWidget.ui.xml")]
     public class LibraryWidget : Gtk.Bin,
         ActionProvider,
         ComplexSelector,
@@ -147,7 +147,7 @@ namespace Gschem3
 
         {
             var builder2 = new Gtk.Builder.from_resource(
-                "/com/github/ehennes775/gschem3/gui/LibraryWidgetMenu.ui.xml"
+                "/com/github/ehennes775/gschem3/gui/libw/LibraryWidgetMenu.ui.xml"
                 );
 
             m_context_menu = builder2.get_object("context") as MenuModel;

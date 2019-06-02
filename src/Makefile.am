@@ -174,6 +174,8 @@ libgschem3_a_SOURCES = \
 	gui/dlg/PinEditorDialog.vala \
 	gui/dlg/PinTypeColumnHelper.vala \
 	gui/dlg/TextColumnHelper.vala \
+	gui/libw/LibraryAdapter.vala \
+	gui/libw/LibraryWidget.vala \
 	gui/pedit/ColorEditor.vala \
 	gui/pedit/ColorSwatchRenderer.vala \
 	gui/pedit/FillStyleEditor.vala \
@@ -181,6 +183,8 @@ libgschem3_a_SOURCES = \
 	gui/pedit/PinPropertyEditor.vala \
 	gui/pedit/TextPropertyEditor.vala \
 	gui/pedit/ValueState.vala \
+	gui/prjw/ProjectAdapter.vala \
+	gui/prjw/ProjectWidget.vala \
 	gui/tdlg/TextEditorDialog.vala \
 	gui/ActionProvider.vala \
 	gui/ClipboardHelper.vala \
@@ -200,13 +204,9 @@ libgschem3_a_SOURCES = \
 	gui/Grid.vala \
 	gui/GridSize.vala \
 	gui/ItemEditor.vala \
-	gui/LibraryAdapter.vala \
-	gui/LibraryWidget.vala \
 	gui/MainWindow.vala \
 	gui/NewProjectDialog.vala \
 	gui/PreviewWidget.vala \
-	gui/ProjectAdapter.vala \
-	gui/ProjectWidget.vala \
 	gui/Reloadable.vala \
 	gui/Savable.vala \
 	gui/SchematicPasteHandler.vala \
