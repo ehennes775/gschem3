@@ -798,6 +798,12 @@ namespace Gschem3
         }
 
 
+        private bool is_parent(Geda3.SchematicItem item)
+        {
+            return item is Geda3.AttributeParent;
+        }
+
+
         /**
          * Update the selected item using the schematic window
          */
@@ -806,20 +812,12 @@ namespace Gschem3
             requires(b_schematic_window == null || b_schematic_window.selection != null)
         
         {
-            var single_item_available =
-                (b_schematic_window != null) &&
-                (b_schematic_window.selection.size == 1);
+            var temp = Geda3.GeeEx.single_match(
+                b_schematic_window.selection,
+                is_parent
+                );
 
-            if (single_item_available)
-            {
-                item = b_schematic_window.selection.first_match(
-                    i => true
-                    );
-            }
-            else
-            {
-                item = null;
-            }
+            item = temp as Geda3.AttributeParent;
         }
     }
 }
