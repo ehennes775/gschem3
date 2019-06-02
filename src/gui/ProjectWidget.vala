@@ -2,60 +2,9 @@ namespace Gschem3
 {
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/ProjectWidget.ui.xml")]
     public class ProjectWidget : Gtk.Bin,
+        ActionProvider,
         Gtk.Buildable
     {
-        /**
-         * Indicates files can be added to the project
-         */
-        public bool can_add_files
-        {
-            get;
-            private set;
-        }
-
-
-        /**
-         * Indicates files can be opened from the project
-         */
-        public bool can_open_files
-        {
-            get;
-            private set;
-
-            // The default value establishes the initial value of the
-            // "enabled" property on the action.
-            default = false;
-        }
-
-
-        /**
-         * Indicates files can be removed from the project
-         */
-        public bool can_remove_files
-        {
-            get;
-            private set;
-
-            // The default value establishes the initial value of the
-            // "enabled" property on the action.
-            default = false;
-        }
-
-
-        /**
-         * Indicates the selected item can be renamed
-         */
-        public bool can_rename_item
-        {
-            get;
-            private set;
-
-            // The default value establishes the initial value of the
-            // "enabled" property on the action.
-            default = false;
-        }
-
-
         /**
          * For opening files in the application
          */
@@ -140,6 +89,41 @@ namespace Gschem3
             // set up signal handling for renaming items
 
             m_renderer.edited.connect(on_item_edited);
+
+            // connect actions
+
+            m_add_files_action.activate.connect(
+                on_add_files
+                );
+
+            m_add_new_file_action.activate.connect(
+                on_add_new_file
+                );
+
+            m_open_files_action.activate.connect(
+                on_open_files
+                );
+
+            m_remove_files_action.activate.connect(
+                on_remove_files
+                );
+
+            m_rename_item_action.activate.connect(
+                on_rename_item
+                );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void add_actions_to(ActionMap map)
+        {
+            map.add_action(m_add_files_action);
+            map.add_action(m_add_new_file_action);
+            map.add_action(m_open_files_action);
+            map.add_action(m_remove_files_action);
+            map.add_action(m_rename_item_action);
         }
 
 
@@ -160,45 +144,6 @@ namespace Gschem3
 
 
         /**
-         * Add this widget's actions to the action map
-         *
-         * @param map The action map to receive this widget's actions
-         */
-        public void add_actions(ActionMap map)
-        {
-            map.add_action_entries(action_entries, this);
-
-            bind_property(
-                "can-add-files",
-                map.lookup_action("project-add-files"),
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            bind_property(
-                "can-open-files",
-                map.lookup_action("project-open-files"),
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            bind_property(
-                "can-remove-files",
-                map.lookup_action("project-remove-files"),
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            bind_property(
-                "can-rename-item",
-                map.lookup_action("project-rename-item"),
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-        }
-
-
-        /**
          * Identifies the drop operation
          */
         private enum TargetInfo
@@ -209,16 +154,45 @@ namespace Gschem3
 
 
         /**
-         * Organized from most frequently used to least frequently used
+         *
          */
-        private const ActionEntry[] action_entries =
-        {
-            { "project-open-files", on_open_files, null, null, null },
-            { "project-add-files", on_add_files, null, null, null },
-            { "project-remove-files", on_remove_files, null, null, null },
-            { "project-rename-item", on_rename_item, null, null, null }
-        };
+        private SimpleAction m_add_new_file_action = new SimpleAction(
+            "project-add-new-file",
+            null
+            );
 
+
+        /**
+         *
+         */
+        private SimpleAction m_open_files_action = new SimpleAction(
+            "project-open-files",
+            null
+            );
+
+        /**
+         *
+         */
+        private SimpleAction m_add_files_action = new SimpleAction(
+            "project-add-files",
+            null
+            );
+
+        /**
+         *
+         */
+        private SimpleAction m_remove_files_action = new SimpleAction(
+            "project-remove-files",
+            null
+            );
+
+        /**
+         *
+         */
+        private SimpleAction m_rename_item_action = new SimpleAction(
+            "project-rename-item",
+            null
+            );
 
         /**
          * The file filters used by the add files dialog
@@ -298,7 +272,7 @@ namespace Gschem3
             requires(project != null)
 
         {
-            warn_if_fail(can_add_files);
+            //warn_if_fail(can_add_files);
 
             foreach (var file in files)
             {
@@ -533,7 +507,7 @@ namespace Gschem3
          */
         private void on_add_files(SimpleAction action, Variant? parameter)
         {
-            warn_if_fail(can_add_files);
+            //warn_if_fail(can_add_files);
 
             if (m_add_files_dialog == null)
             {
@@ -565,6 +539,22 @@ namespace Gschem3
             }
 
             m_add_files_dialog.hide();
+        }
+
+
+        /**
+         * Add a new file to the project
+         *
+         * @param action the action that activated this function call
+         * @param parameter unused
+         */
+        private void on_add_new_file(
+            SimpleAction action,
+            Variant? parameter
+            )
+        {
+            opener.open_new("sch");
+            //add_files(files.to_array());
         }
 
 
@@ -615,7 +605,10 @@ namespace Gschem3
          */
         private void on_notify_project(ParamSpec param)
         {
-            can_add_files = (project != null);
+            var enabled = project != null;
+
+            m_add_files_action.set_enabled(enabled);
+            m_add_new_file_action.set_enabled(enabled);
         }
 
 
@@ -627,7 +620,7 @@ namespace Gschem3
          */
         private void on_open_files(SimpleAction action, Variant? parameter)
         {
-            warn_if_fail(can_open_files);
+            //warn_if_fail(can_open_files);
 
             var files = new Gee.ArrayList<File>();
             var items = get_selected_items();
@@ -666,7 +659,7 @@ namespace Gschem3
          */
         private void on_remove_files(SimpleAction action, Variant? parameter)
         {
-            warn_if_fail(can_remove_files);
+            //warn_if_fail(can_remove_files);
 
             var items = get_selected_items();
 
@@ -695,7 +688,7 @@ namespace Gschem3
             requires(tree != null)
 
         {
-            warn_if_fail(can_rename_item);
+            //warn_if_fail(can_rename_item);
 
             var paths = selection.get_selected_rows(null);
             return_if_fail(paths != null);
@@ -728,20 +721,20 @@ namespace Gschem3
         {
             var items = get_selected_items();
 
-            can_open_files = Geda3.GeeEx.any_match(
+            m_open_files_action.set_enabled(Geda3.GeeEx.any_match(
                 items,
                 is_openable
-                );
+                ));
 
-            can_remove_files = Geda3.GeeEx.any_match(
+            m_remove_files_action.set_enabled(Geda3.GeeEx.any_match(
                 items,
                 is_removable
-                );
+                ));
 
-            can_rename_item = Geda3.GeeEx.one_match(
+            m_rename_item_action.set_enabled(Geda3.GeeEx.one_match(
                 items,
                 Geda3.ProjectItem.is_renamable
-                );
+                ));
         }
     }
 }

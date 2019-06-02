@@ -71,8 +71,6 @@ namespace Gschem3
 
             add_action_entries(action_entries, this);
 
-            m_project_widget.add_actions(this);
-
             // Setup drag and drop
 
             var targets = new Gtk.TargetList(null);

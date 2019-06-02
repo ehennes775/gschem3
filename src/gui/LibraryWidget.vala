@@ -4,10 +4,9 @@ namespace Gschem3
      * Provides a user interface for the symbol library
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/LibraryWidget.ui.xml")]
-    public class LibraryWidget :
+    public class LibraryWidget : Gtk.Bin,
         ActionProvider,
         ComplexSelector,
-        Gtk.Bin,
         Gtk.Buildable
     {
         /**
