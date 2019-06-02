@@ -83,6 +83,16 @@ namespace Geda3
         }
 
 
+        /**
+         * Slotting mechanism
+         */
+        public Slotter slotter
+        {
+            get;
+            construct;
+        }
+
+
         public ComplexSymbol symbol
         {
             get
@@ -123,10 +133,11 @@ namespace Geda3
         /**
          * Initialize a new instance
          */
-        public ComplexItem(ComplexLibrary library)
+        public ComplexItem(ComplexLibrary library, Slotter slotter)
         {
             Object(
-                library : library
+                library : library,
+                slotter : slotter
                 );
         }
 
@@ -134,10 +145,15 @@ namespace Geda3
         /**
          * Initialize a new instance
          */
-        public ComplexItem.with_name(ComplexLibrary library, string name)
+        public ComplexItem.with_name(
+            ComplexLibrary library,
+            Slotter slotter,
+            string name
+            )
         {
             Object(
-                library : library
+                library : library,
+                slotter : slotter
                 );
 
             b_insert_x = 0;

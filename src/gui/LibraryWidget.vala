@@ -124,6 +124,7 @@ namespace Gschem3
         {
             var complex = new Geda3.ComplexItem.with_name(
                 m_library,
+                m_slotter,
                 symbol_name
                 );
 
@@ -265,6 +266,12 @@ namespace Gschem3
          * The selection from the Gtk.TreeView widget
          */
         private Gtk.TreeSelection m_selection;
+
+
+        /**
+         *
+         */
+        private Geda3.Slotter m_slotter = new Geda3.DefaultSlotter();
 
 
         /**

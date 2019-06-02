@@ -195,6 +195,9 @@ namespace Geda3
         private static ComplexLibrary m_library = null;
 
 
+        // temp located here for development
+        private static Slotter m_slotter = null;
+
         /**
          * A map of the schematic item types
          *
@@ -233,7 +236,12 @@ namespace Geda3
                 m_library = LibraryStore.get_instance();
             }
 
-            return new ComplexItem(m_library);
+            if (m_slotter == null)
+            {
+                m_slotter = new DefaultSlotter();
+            }
+
+            return new ComplexItem(m_library, m_slotter);
         }
 
 

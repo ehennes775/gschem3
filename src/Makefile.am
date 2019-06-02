@@ -90,6 +90,7 @@ libgeda3_a_SOURCES = \
 	sch/ComplexSymbol.vala \
 	sch/Coord.vala \
 	sch/DashType.vala \
+	sch/DefaultSlotter.vala \
 	sch/FileVersion.vala \
 	sch/FillStyle.vala \
 	sch/FillType.vala \
@@ -114,6 +115,7 @@ libgeda3_a_SOURCES = \
 	sch/SchematicItem.vala \
 	sch/SchematicPainter.vala \
 	sch/SchematicReader.vala \
+	sch/Slotter.vala \
 	sch/StartAngleGrip.vala \
 	sch/Sweep.vala \
 	sch/SweepAngleGrip.vala \
