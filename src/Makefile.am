@@ -146,8 +146,6 @@ libgeda3_a_SOURCES = \
 	PrintUnits.vala \
 	RemovableItem.vala \
 	RenamableItem.vala \
-	SchematicFile.vala \
-	SchematicList.vala \
 	SchematicPainterCairo.vala \
 	StandardPromoter.vala \
 	Symbol.vala
