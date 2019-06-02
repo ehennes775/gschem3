@@ -601,6 +601,14 @@ namespace Geda3
                 unpromoted.add(item);
             }
 
+            if (slotter != null)
+            {
+                return slotter.slot_attributes(
+                    m_symbol.schematic.items,
+                    unpromoted
+                    );
+            }
+
             return unpromoted;
         }
     }
