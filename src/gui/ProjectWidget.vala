@@ -148,14 +148,14 @@ namespace Gschem3
          */
         public void parser_finished(Gtk.Builder builder)
 
-            ensures(context != null)
+            ensures(m_context_menu != null)
 
         {
             var builder2 = new Gtk.Builder.from_resource(
                 "/com/github/ehennes775/gschem3/gui/ProjectWidgetMenu.ui.xml"
                 );
 
-            context = builder2.get_object("context") as MenuModel;
+            m_context_menu = builder2.get_object("context") as MenuModel;
         }
 
 
@@ -238,7 +238,7 @@ namespace Gschem3
 
 
         /**
-         * The context menu for the project widget
+         *
          */
         private ProjectAdapter m_adapter;
 
@@ -272,7 +272,7 @@ namespace Gschem3
         /**
          * The context menu for the project widget
          */
-        private MenuModel context;
+        private MenuModel m_context_menu;
 
 
         /**
@@ -460,28 +460,15 @@ namespace Gschem3
 
         /**
          *
-         * @todo This function is not displaying a popup menu.
+         *
          */
         private bool on_button_release_event(Gdk.EventButton event)
         {
             if (event.triggers_context_menu())
             {
-                stdout.printf("Context menu in...\n");
+                var menu = new Gtk.Menu.from_model(m_context_menu);
 
-                var menu = new Gtk.Menu.from_model(context);
-
-                var menuitem = new Gtk.MenuItem.with_label("Testing...");
-                menu.append(menuitem);
-
-                menu.realize.connect(() => {stdout.printf("realize\n");});
-                menu.unrealize.connect(() => {stdout.printf("unrealize\n");});
-
-                menu.map.connect(() => {stdout.printf("map\n");});
-                menu.unmap.connect(() => {stdout.printf("unmap\n");});
-
-                menu.activate_current.connect(() => {stdout.printf("activate_current\n");});
-
-                menu.show_all();
+                menu.attach_to_widget(tree, null);
 
                 // Depricated GTK+ 3.22
                 menu.popup(
@@ -493,8 +480,6 @@ namespace Gschem3
                     );
 
                 //menu.popup_at_pointer(null);
-
-                stdout.printf("Context menu out...\n");
 
                 return true;
             }
