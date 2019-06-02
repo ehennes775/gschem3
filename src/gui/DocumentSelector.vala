@@ -8,7 +8,7 @@ namespace Gschem3
         /**
          *
          */
-        public abstract DocumentWindow? document_window
+        public abstract DocumentWindow? current_document_window
         {
             get;
             protected construct set;

@@ -4,7 +4,8 @@ namespace Gschem3
      * A widget providing a tabbed view of the open documents
      */
     //[GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/MainWindow.ui.xml")]
-    public class DocumentWindowNotebook : Gtk.Notebook
+    public class DocumentWindowNotebook : Gtk.Notebook,
+        DocumentSelector
     {
         /**
          * A delegate for creating a document window with a file
@@ -25,13 +26,13 @@ namespace Gschem3
         public DocumentWindow? current_document_window
         {
             get;
-            construct set;
+            protected construct set;
             default = null;
         }
 
 
         /**
-         *Initialize the instance
+         * Initialize the instance
          */
         construct
         {

@@ -8,51 +8,50 @@ namespace Gschem3
         Gtk.Buildable
     {
         /**
+         * An attribute positioner for new attributes
+         *
+         * Setting to null provides a default positioner
+         */
+        public Geda3.AttributePositioner? positioner
+        {
+            get
+            {
+                return b_positioner;
+            }
+            construct set
+            {
+                b_positioner = value ?? s_default_positioner;
+            }
+            default = null;
+        }
+
+
+        /**
          *
          */
         public DocumentSelector selector
         {
             get
             {
-                return null;
+                return b_selector;
             }
-            set
+            construct set
             {
-                stdout.printf("Setting to main window\n");
-            }
-        }
-
-
-        /**
-         * The current item being edited
-         *
-         * When null, no item, representing an attribute, is currently
-         * being edited.
-         */
-        public Geda3.SchematicItem? item
-        {
-            get
-            {
-                return b_item;
-            }
-            private construct set
-            {
-                if (b_item != null)
+                if (b_selector != null)
                 {
-                    b_item.attached.disconnect(on_attribute_attached);
-                    b_item.detached.disconnect(on_attribute_detached);
+                    b_selector.notify["current-document-window"].disconnect(
+                        on_notify_selector
+                        );
                 }
 
-                b_item = value as Geda3.AttributeParent;
+                b_selector = value;
 
-                if (b_item != null)
+                if (b_selector != null)
                 {
-                    b_item.attached.connect(on_attribute_attached);
-                    b_item.detached.connect(on_attribute_detached);
+                    b_selector.notify["current-document-window"].connect(
+                        on_notify_selector
+                        );
                 }
-
-                update_attribute_list();
-                update_insert_sensitivity();
             }
             default = null;
         }
@@ -67,50 +66,6 @@ namespace Gschem3
             get;
             construct set;
             default = "missing";
-        }
-
-
-        /**
-         * The schematic window containing the current selection
-         *
-         * If null, there is no current window, or the current window
-         * is not editing a schmeatic.
-         */
-        public SchematicWindow? schematic_window
-        {
-            get
-            {
-                return b_schematic_window;
-            }
-            construct set
-            {
-                if (b_schematic_window != null)
-                {
-                    b_schematic_window.attribute_changed.disconnect(
-                        on_attribute_changed
-                        );
-
-                    b_schematic_window.selection_changed.disconnect(
-                        on_selection_changed
-                        );
-                }
-
-                b_schematic_window = value;
-
-                if (b_schematic_window != null)
-                {
-                    b_schematic_window.attribute_changed.connect(
-                        on_attribute_changed
-                        );
-
-                    b_schematic_window.selection_changed.connect(
-                        on_selection_changed
-                        );
-                }
-
-                update_selected_item();
-            }
-            default = null;
         }
 
 
@@ -140,15 +95,8 @@ namespace Gschem3
 
             m_insert_button.sensitive = false;
             m_insert_button.clicked.connect(on_insert_button_clicked);
-        }
 
-
-        /**
-         * {@inheritDoc}
-         */
-        public void update_document_window(DocumentWindow? window)
-        {
-            schematic_window = window as SchematicWindow;
+            notify["selector"].connect(on_notify_selector);
         }
 
 
@@ -186,15 +134,34 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private Geda3.AttributePositioner s_default_positioner =
+            new Geda3.BasicAttributePositioner();
+
+
+        /**
          * The backing store for the current item being edited
          */
-        private Geda3.AttributeParent? b_item;
+        private Geda3.AttributeParent? b_item = null;
+
+
+        /**
+         * The backing store for the positioner property
+         */
+        private Geda3.AttributePositioner b_positioner;
+
+
+        /**
+         * The backing store for the document selector
+         */
+        private DocumentSelector? b_selector;
 
 
         /**
          * The backing store for the schematic window
          */
-        private SchematicWindow? b_schematic_window;
+        private SchematicWindow? b_schematic_window = null;
 
 
         /**
@@ -231,13 +198,6 @@ namespace Gschem3
          */
         [GtkChild(name="remove-button")]
         private Gtk.Button m_remove_button;
-
-
-        /**
-         *
-         */
-        private Geda3.AttributePositioner m_positioner =
-            new Geda3.BasicAttributePositioner();
 
 
         /**
@@ -286,6 +246,85 @@ namespace Gschem3
          */
         [GtkChild(name="column-visible-renderer-visible")]
         private Gtk.CellRendererToggle m_visible_renderer;
+
+
+        /**
+         * The current item being edited
+         *
+         * When null, no item, representing an attribute, is currently
+         * being edited.
+         */
+        private Geda3.SchematicItem? item
+        {
+            get
+            {
+                return b_item;
+            }
+            set
+            {
+                if (b_item != null)
+                {
+                    b_item.attached.disconnect(on_attribute_attached);
+                    b_item.detached.disconnect(on_attribute_detached);
+                }
+
+                b_item = value as Geda3.AttributeParent;
+
+                if (b_item != null)
+                {
+                    b_item.attached.connect(on_attribute_attached);
+                    b_item.detached.connect(on_attribute_detached);
+                }
+
+                update_attribute_list();
+                update_insert_sensitivity();
+            }
+            default = null;
+        }
+
+
+        /**
+         * The schematic window containing the current selection
+         *
+         * If null, there is no current window, or the current window
+         * is not editing a schmeatic.
+         */
+        private SchematicWindow? schematic_window
+        {
+            get
+            {
+                return b_schematic_window;
+            }
+            set
+            {
+                if (b_schematic_window != null)
+                {
+                    b_schematic_window.attribute_changed.disconnect(
+                        on_attribute_changed
+                        );
+
+                    b_schematic_window.selection_changed.disconnect(
+                        on_selection_changed
+                        );
+                }
+
+                b_schematic_window = value;
+
+                if (b_schematic_window != null)
+                {
+                    b_schematic_window.attribute_changed.connect(
+                        on_attribute_changed
+                        );
+
+                    b_schematic_window.selection_changed.connect(
+                        on_selection_changed
+                        );
+                }
+
+                update_selected_item();
+            }
+            default = null;
+        }
 
 
         /**
@@ -348,13 +387,14 @@ namespace Gschem3
             AttributeCreating current_state
             )
 
+            requires(b_positioner != null)
             requires(m_list != null)
             
         {
             // block
 
             var new_attribute = current_state.create_and_attach(
-                m_positioner
+                b_positioner
                 );
 
             // unblock
@@ -414,6 +454,17 @@ namespace Gschem3
             return_val_if_fail(success, null);
 
             return get_attribute_state_iter(iter);
+        }
+
+
+        /**
+         * Check if an item is usable by this editor
+         *
+         * @param item The item for testing
+         */
+        private bool is_parent(Geda3.SchematicItem item)
+        {
+            return item is Geda3.AttributeParent;
         }
 
 
@@ -510,6 +561,16 @@ namespace Gschem3
             m_list.@set(iter, Column.STATE, state);
 
             update_row_iter(iter);
+        }
+
+
+        /**
+         *
+         */
+        private void on_notify_selector(ParamSpec param)
+        {
+            schematic_window =
+                selector.current_document_window as SchematicWindow;
         }
 
 
@@ -798,19 +859,16 @@ namespace Gschem3
         }
 
 
-        private bool is_parent(Geda3.SchematicItem item)
-        {
-            return item is Geda3.AttributeParent;
-        }
-
-
         /**
          * Update the selected item using the schematic window
          */
         private void update_selected_item()
 
-            requires(b_schematic_window == null || b_schematic_window.selection != null)
-        
+            requires(
+                b_schematic_window == null ||
+                b_schematic_window.selection != null
+                )
+
         {
             var temp = Geda3.GeeEx.single_match(
                 b_schematic_window.selection,

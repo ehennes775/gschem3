@@ -4,8 +4,7 @@ namespace Gschem3
      *
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/MainWindow.ui.xml")]
-    public class MainWindow : Gtk.ApplicationWindow,
-        DocumentSelector
+    public class MainWindow : Gtk.ApplicationWindow
     {
         /**
          * {@inheritDoc}
@@ -128,6 +127,9 @@ namespace Gschem3
 
             m_library_widget.opener = m_document_opener;
             m_project_widget.opener = m_document_opener;
+
+
+            m_attribute_widget.selector = notebook;
 
 
             add_property_editor(new ColorEditor());
@@ -1137,10 +1139,6 @@ namespace Gschem3
             document_window = page as DocumentWindow;
 
             m_drawing_tools.update_document_window(
-                document_window
-                );
-
-            m_attribute_widget.update_document_window(
                 document_window
                 );
 
