@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      * Provides a preview for a schematic or symbol
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/PreviewWidget.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/libw/PreviewWidget.ui.xml")]
     public class PreviewWidget : Gtk.Bin
     {
         /**

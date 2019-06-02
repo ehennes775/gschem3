@@ -28,6 +28,7 @@
         <file>gui/img/ZoomTool.svg</file>
         <file>gui/libw/LibraryWidget.ui.xml</file>
         <file>gui/libw/LibraryWidgetMenu.ui.xml</file>
+        <file>gui/libw/PreviewWidget.ui.xml</file>
         <file>gui/pedit/ColorEditor.ui.xml</file>
         <file>gui/pedit/FillStyleEditor.ui.xml</file>
         <file>gui/pedit/LineStyleEditor.ui.xml</file>
@@ -47,6 +48,5 @@
         <file>ExportNetlistDialog.ui.xml</file>
         <file>Menus.ui.xml</file>
         <file>NewProjectDialog.xml</file>
-        <file>PreviewWidget.ui.xml</file>
     </gresource>
 </gresources>
