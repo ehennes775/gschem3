@@ -552,9 +552,38 @@ namespace Gschem3
             SimpleAction action,
             Variant? parameter
             )
+
+            requires(opener != null)
+            requires(project != null)
+
         {
-            opener.open_new("sch");
-            //add_files(files.to_array());
+            var dialog = new Gtk.FileChooserDialog(
+                "Add New Schematic",
+                get_toplevel() as Gtk.Window,
+                Gtk.FileChooserAction.SAVE,
+                "_Cancel", Gtk.ResponseType.CANCEL,
+                "_OK",     Gtk.ResponseType.OK,
+                null
+                );
+
+            dialog.set_current_folder(
+                project.file.get_parent().get_path()
+                );
+
+            var status = dialog.run();
+            dialog.hide();
+
+            if (status == Gtk.ResponseType.OK)
+            {
+                var files = new File[]
+                {
+                    File.new_for_path(dialog.get_filename())
+                };
+
+                opener.open_with_files(files);
+
+                add_files(files);
+            }
         }
 
 

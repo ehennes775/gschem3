@@ -3,12 +3,28 @@
     <menu id="context">
         <section>
             <item>
-                <attribute name="label" translatable="yes">Add...</attribute>
+                <attribute name="label" translatable="yes">Open</attribute>
+                <attribute name="action">win.project-open-files</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">Add New File...</attribute>
+                <attribute name="action">win.project-add-new-file</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">Add Existing Files...</attribute>
                 <attribute name="action">win.project-add-files</attribute>
             </item>
             <item>
                 <attribute name="label" translatable="yes">Remove</attribute>
                 <attribute name="action">win.project-remove-files</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">Rename</attribute>
+                <attribute name="action">win.project-rename-item</attribute>
             </item>
         </section>
     </menu>
