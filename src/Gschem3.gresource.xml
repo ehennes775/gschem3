@@ -41,11 +41,11 @@
         <file>gui/wid/ColorComboBox.ui.xml</file>
         <file>gui/wid/RotationComboBox.ui.xml</file>
         <file>gui/wid/TextSizeComboBox.ui.xml</file>
+        <file>gui/xbom/ExportBillOfMaterialDialog.ui.xml</file>
+        <file>gui/xnet/ExportNetlistDialog.ui.xml</file>
         <file>gui/MainWindow.ui.xml</file>
         <file>gui/DocumentTab.ui.xml</file>
         <file>gui/SchematicWindow.ui.xml</file>
-        <file>ExportBillOfMaterialDialog.ui.xml</file>
-        <file>ExportNetlistDialog.ui.xml</file>
         <file>Menus.ui.xml</file>
         <file>NewProjectDialog.xml</file>
     </gresource>

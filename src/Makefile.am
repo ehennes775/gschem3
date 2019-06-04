@@ -161,9 +161,6 @@ libgeda3_a_VALAFLAGS = \
 libgschem3_a_SOURCES = \
 	gui/act/CustomAction.vala \
 	gui/act/EditItemAction.vala \
-	gui/act/ExportBillOfMaterial.vala \
-	gui/act/ExportNetlist.vala \
-	gui/act/ExportSchematics.vala \
 	gui/aedit/AttributeCreating.vala \
 	gui/aedit/AttributeEditing.vala \
 	gui/aedit/AttributeEditor.vala \
@@ -194,14 +191,17 @@ libgschem3_a_SOURCES = \
 	gui/ucom/DocumentWindow.vala \
 	gui/ucom/Reloadable.vala \
 	gui/ucom/Savable.vala \
+	gui/xbom/ExportBillOfMaterial.vala \
+	gui/xbom/ExportBillOfMaterialDialog.vala \
+	gui/xnet/ExportNetlist.vala \
+	gui/xnet/ExportNetlistDialog.vala \
+	gui/xsch/ExportSchematics.vala \
 	gui/ClipboardHelper.vala \
 	gui/ClipboardSupport.vala \
 	gui/DocumentWindowFactory.vala \
 	gui/DrawingTool.vala \
 	gui/DrawingToolSet.vala \
 	gui/ErrorDialog.vala \
-	gui/ExportBillOfMaterialDialog.vala \
-	gui/ExportNetlistDialog.vala \
 	gui/FillSwatchRenderer.vala \
 	gui/Grid.vala \
 	gui/GridSize.vala \

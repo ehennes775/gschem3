@@ -18,31 +18,51 @@
 namespace Gschem3
 {
     /**
-     * A dialog box for exporting a netlist
+     * A dialog box allowing the user to export a bill of material.
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/ExportNetlistDialog.ui.xml")]
-    public class ExportNetlistDialog : Gtk.FileChooserDialog
+    public class ExportBillOfMaterialDialog : Gtk.FileChooserDialog,
+        Gtk.Buildable
     {
+        /**
+         * The resource name for the UI design.
+         */
+        public const string RESOURCE_NAME = "/com/github/ehennes775/gschem3/gui/xbom/ExportBillOfMaterialDialog.ui.xml";
+
+
+        /**
+         * The combo box containing the selected BOM format.
+         */
+        private Gtk.ComboBox m_combo;
+
+
+        /**
+         * The list store containing the BOM formats.
+         */
+        private Gtk.ListStore m_formats;
+
+
         /**
          * Initialize the class.
          */
         class construct
         {
+            set_template_from_resource(RESOURCE_NAME);
         }
 
 
         /**
          * Create the export netlist dialog.
          */
-        public ExportNetlistDialog()
+        public ExportBillOfMaterialDialog()
         {
+            init_template();
         }
 
 
         /**
-         * Get the netlist format
+         * Gets the name of the BOM format
          */
-        public string? get_netlist_format()
+        public string? get_bom_format()
 
             requires(m_combo != null)
             requires(m_formats != null)
@@ -64,16 +84,13 @@ namespace Gschem3
 
 
         /**
-         * The combo box containing the netlist format.
+         * Couldn't get the template bindings to work, so this function
+         * obtains the objects from the Gtk.Builder.
          */
-        [GtkChild(name="format-combo")]
-        private Gtk.ComboBox m_combo;
-
-
-        /**
-         * The combo box containing the netlist format.
-         */
-        [GtkChild(name="netlist-formats")]
-        private Gtk.ListStore m_formats;
+        private void parser_finished(Gtk.Builder builder)
+        {
+            m_combo = builder.get_object("format-combo") as Gtk.ComboBox;
+            m_formats = builder.get_object("bom-formats") as Gtk.ListStore;
+        }
     }
 }
