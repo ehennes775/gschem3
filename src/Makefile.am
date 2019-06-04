@@ -165,10 +165,11 @@ libgschem3_a_SOURCES = \
 	gui/aedit/AttributeEditing.vala \
 	gui/aedit/AttributeEditor.vala \
 	gui/aedit/AttributeState.vala \
-	gui/dlg/ColumnHelper.vala \
-	gui/dlg/PinEditorDialog.vala \
-	gui/dlg/PinTypeColumnHelper.vala \
-	gui/dlg/TextColumnHelper.vala \
+	gui/epins/ColumnHelper.vala \
+	gui/epins/PinEditorDialog.vala \
+	gui/epins/PinTypeColumnHelper.vala \
+	gui/epins/TextColumnHelper.vala \
+	gui/etext/TextEditorDialog.vala \
 	gui/docw/DocumentTab.vala \
 	gui/docw/DocumentWindowNotebook.vala \
 	gui/libw/LibraryAdapter.vala \
@@ -184,7 +185,6 @@ libgschem3_a_SOURCES = \
 	gui/prjw/ProjectAdapter.vala \
 	gui/prjw/ProjectWidget.vala \
 	gui/schw/SchematicWindow.vala \
-	gui/tdlg/TextEditorDialog.vala \
 	gui/ucom/ActionProvider.vala \
 	gui/ucom/DocumentOpener.vala \
 	gui/ucom/DocumentSelector.vala \

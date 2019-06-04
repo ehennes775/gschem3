@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      * A dialog for editing pin attributes
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/dlg/PinEditorDialog.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/epins/PinEditorDialog.ui.xml")]
     public class PinEditorDialog : Gtk.Dialog
     {
         /**

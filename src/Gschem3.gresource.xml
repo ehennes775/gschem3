@@ -2,7 +2,8 @@
 <gresources>
     <gresource prefix="/com/github/ehennes775/gschem3">
         <file>gui/aedit/AttributeEditor.ui.xml</file>
-        <file>gui/dlg/PinEditorDialog.ui.xml</file>
+        <file>gui/epins/PinEditorDialog.ui.xml</file>
+        <file>gui/etext/TextEditorDialog.ui.xml</file>
         <file>gui/img/ArcTool.svg</file>
         <file>gui/img/Blank.svg</file>
         <file>gui/img/BlueFolder.svg</file>
@@ -36,7 +37,6 @@
         <file>gui/pedit/TextPropertyEditor.ui.xml</file>
         <file>gui/prjw/ProjectWidget.ui.xml</file>
         <file>gui/prjw/ProjectWidgetMenu.ui.xml</file>
-        <file>gui/tdlg/TextEditorDialog.ui.xml</file>
         <file>gui/wid/AlignmentComboBox.ui.xml</file>
         <file>gui/wid/ColorComboBox.ui.xml</file>
         <file>gui/wid/RotationComboBox.ui.xml</file>

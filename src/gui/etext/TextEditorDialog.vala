@@ -6,7 +6,7 @@ namespace Gschem3
      * This dialog edits both attributes and text. Also, this dialog
      * switches between the two types as needed.
      */
-    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/tdlg/TextEditorDialog.ui.xml")]
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/etext/TextEditorDialog.ui.xml")]
     public class TextEditorDialog : Gtk.Dialog
     {
         /**
