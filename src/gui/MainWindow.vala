@@ -141,9 +141,9 @@ namespace Gschem3
 
             // setup actions
 
-            m_actions = new CustomAction[]
+            m_actions = new ActionProvider[]
             {
-                new EditItemAction(this),
+                //new EditItemAction(this),
                 new ExportBillOfMaterial(this),
                 new ExportNetlist(this),
                 new ExportSchematics(this)
@@ -151,7 +151,7 @@ namespace Gschem3
 
             foreach (var action in m_actions)
             {
-                add_action(action.action);
+                action.add_actions_to(this);
             }
 
             Geda3.LibraryStore.get_instance().system_contributor = new Geda3.SystemLibrary();
@@ -375,7 +375,7 @@ namespace Gschem3
         /**
          * Actions for this ApplicationWindow
          */
-        private CustomAction[] m_actions;
+        private ActionProvider[] m_actions;
 
 
         /**

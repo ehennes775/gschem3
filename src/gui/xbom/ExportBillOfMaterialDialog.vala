@@ -20,42 +20,22 @@ namespace Gschem3
     /**
      * A dialog box allowing the user to export a bill of material.
      */
-    public class ExportBillOfMaterialDialog : Gtk.FileChooserDialog,
-        Gtk.Buildable
+    [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/xbom/ExportBillOfMaterialDialog.ui.xml")]
+    public class ExportBillOfMaterialDialog : Gtk.FileChooserDialog
     {
         /**
-         * The resource name for the UI design.
-         */
-        public const string RESOURCE_NAME = "/com/github/ehennes775/gschem3/gui/xbom/ExportBillOfMaterialDialog.ui.xml";
-
-
-        /**
-         * The combo box containing the selected BOM format.
-         */
-        private Gtk.ComboBox m_combo;
-
-
-        /**
-         * The list store containing the BOM formats.
-         */
-        private Gtk.ListStore m_formats;
-
-
-        /**
-         * Initialize the class.
+         * Initialize the class
          */
         class construct
         {
-            set_template_from_resource(RESOURCE_NAME);
         }
 
 
         /**
-         * Create the export netlist dialog.
+         * Intialize the instance
          */
-        public ExportBillOfMaterialDialog()
+        construct
         {
-            init_template();
         }
 
 
@@ -84,13 +64,16 @@ namespace Gschem3
 
 
         /**
-         * Couldn't get the template bindings to work, so this function
-         * obtains the objects from the Gtk.Builder.
+         * The combo box containing the selected BOM format.
          */
-        private void parser_finished(Gtk.Builder builder)
-        {
-            m_combo = builder.get_object("format-combo") as Gtk.ComboBox;
-            m_formats = builder.get_object("bom-formats") as Gtk.ListStore;
-        }
+        [GtkChild(name="format-combo")]
+        private Gtk.ComboBox m_combo;
+
+
+        /**
+         * The list store containing the BOM formats.
+         */
+        [GtkChild(name="bom-formats")]
+        private Gtk.ListStore m_formats;
     }
 }

@@ -3,16 +3,15 @@ namespace Gschem3
     /**
      * An operation to export schematics from the project
      */
-    public class ExportNetlist : CustomAction
+    public class ExportNetlist : Object,
+        ActionProvider
     {
         /**
-         * Indicates the opeartion is enabled
+         * Initialize the instance
          */
-        public bool enabled
+        construct
         {
-            get;
-            private set;
-            default = true;
+            m_export_netlist_action.activate.connect(on_activate);
         }
 
 
@@ -24,23 +23,31 @@ namespace Gschem3
         public ExportNetlist(Gtk.Window? parent)
         {
             m_parent = parent;
-
-            var temp_action = new SimpleAction(
-                "export-netlist",
-                null
-                );
-
-            bind_property(
-                "enabled",
-                temp_action,
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            temp_action.activate.connect(activate);
-
-            action = temp_action;
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void add_actions_to(ActionMap map)
+        {
+            map.add_action(m_export_netlist_action);
+        }
+
+
+        /**
+         *
+         */
+        private SimpleAction m_export_netlist_action = new SimpleAction(
+            "export-netlist",
+            null
+            );
+
+
+        /**
+         * The transient parent window for dialog boxes
+         */
+        private Gtk.Window? m_parent;
 
 
         /**
@@ -48,7 +55,7 @@ namespace Gschem3
          *
          * @param parameter Unused
          */
-        public void activate(Variant? parameter)
+        private void on_activate(Variant? parameter)
         {
             Gtk.FileChooserDialog dialog = null;
 
@@ -73,12 +80,6 @@ namespace Gschem3
                 }
             }
         }
-
-
-        /**
-         * The transient parent window for dialog boxes
-         */
-        private Gtk.Window? m_parent;
 
 
         /**

@@ -3,16 +3,15 @@ namespace Gschem3
     /**
      * An operation to export a bill of material from the project
      */
-    public class ExportBillOfMaterial : CustomAction
+    public class ExportBillOfMaterial : Object,
+        ActionProvider
     {
         /**
-         * Indicates the opeartion is enabled
+         * Initialize the instance
          */
-        public bool enabled
+        construct
         {
-            get;
-            private set;
-            default = true;
+            m_export_bom.activate.connect(on_activate);
         }
 
 
@@ -24,23 +23,25 @@ namespace Gschem3
         public ExportBillOfMaterial(Gtk.Window? parent)
         {
             m_parent = parent;
-
-            var temp_action = new SimpleAction(
-                "export-bill-of-material",
-                null
-                );
-
-            bind_property(
-                "enabled",
-                temp_action,
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            temp_action.activate.connect(activate);
-
-            action = temp_action;
         }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void add_actions_to(ActionMap map)
+        {
+            map.add_action(m_export_bom);
+        }
+
+
+        /**
+         *
+         */
+        private SimpleAction m_export_bom = new SimpleAction(
+            "export-bill-of-material",
+            null
+            );
 
 
         /**
@@ -48,7 +49,7 @@ namespace Gschem3
          *
          * @param parameter Unused
          */
-        public void activate(Variant? parameter)
+        public void on_activate(Variant? parameter)
         {
             Gtk.FileChooserDialog dialog = null;
 

@@ -3,7 +3,7 @@ namespace Gschem3
     /**
      *
      */
-    public interface ActionProvider : Gtk.Widget
+    public interface ActionProvider : Object
     {
         /**
          *

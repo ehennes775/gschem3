@@ -3,16 +3,15 @@ namespace Gschem3
     /**
      * An operation to export schematics from the project
      */
-    public class ExportSchematics : CustomAction
+    public class ExportSchematics : Object,
+        ActionProvider
     {
         /**
-         * Indicates the opeartion is enabled
+         * Initialize the instance
          */
-        public bool enabled
+        construct
         {
-            get;
-            private set;
-            default = true;
+            m_export_schematics_action.activate.connect(on_activate);
         }
 
 
@@ -24,55 +23,25 @@ namespace Gschem3
         public ExportSchematics(Gtk.Window? parent)
         {
             m_parent = parent;
-
-            var temp_action = new SimpleAction(
-                "export-schematics",
-                null
-                );
-
-            bind_property(
-                "enabled",
-                temp_action,
-                "enabled",
-                BindingFlags.SYNC_CREATE
-                );
-
-            temp_action.activate.connect(activate);
-
-            action = temp_action;
         }
 
 
         /**
-         * Perform the operation
-         *
-         * @param parameter Unused
+         * {@inheritDoc}
          */
-        public void activate(Variant? parameter)
+        public void add_actions_to(ActionMap map)
         {
-            Gtk.FileChooserDialog dialog = null;
-
-            try
-            {
-                dialog = create_dialog();
-
-                var result = dialog.run();
-
-                if (result == Gtk.ResponseType.OK)
-                {
-                }
-            }
-            catch (Error error)
-            {
-            }
-            finally
-            {
-                if (dialog != null)
-                {
-                    dialog.destroy();
-                }
-            }
+            map.add_action(m_export_schematics_action);
         }
+
+
+        /**
+         *
+         */
+        private SimpleAction m_export_schematics_action = new SimpleAction(
+            "export-schematics",
+            null
+            );
 
 
         /**
@@ -101,6 +70,38 @@ namespace Gschem3
             //dialog.set_current_name(DEFAULT_PRINT_FILENAME);
 
             return dialog;
+        }
+
+
+        /**
+         * Perform the operation
+         *
+         * @param parameter Unused
+         */
+        private void on_activate(Variant? parameter)
+        {
+            Gtk.FileChooserDialog dialog = null;
+
+            try
+            {
+                dialog = create_dialog();
+
+                var result = dialog.run();
+
+                if (result == Gtk.ResponseType.OK)
+                {
+                }
+            }
+            catch (Error error)
+            {
+            }
+            finally
+            {
+                if (dialog != null)
+                {
+                    dialog.destroy();
+                }
+            }
         }
     }
 }
