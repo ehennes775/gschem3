@@ -1,13 +1,13 @@
 namespace Gschem3
 {
     /**
-     * An operation to export schematics from the project
+     * Operations to export netlists from the project
      */
     public class ExportNetlist : Object,
         ActionProvider
     {
         /**
-         *
+         * Provides the current project
          */
         public ProjectSelector? selector
         {
@@ -15,7 +15,7 @@ namespace Gschem3
             {
                 return b_selector;
             }
-            set
+            construct set
             {
                 if (b_selector != null)
                 {
@@ -33,6 +33,7 @@ namespace Gschem3
                         );
                 }
             }
+            default = null;
         }
 
 
@@ -43,7 +44,6 @@ namespace Gschem3
         {
             m_export_netlist_action.activate.connect(on_activate);
 
-            notify["project"].connect(on_notify_project);
             notify["selector"].connect(on_notify_selector);
         }
 
@@ -52,6 +52,7 @@ namespace Gschem3
          * Initialize the instance
          *
          * @param parent The parent window for dialog boxes
+         * @param selector Provides the current project
          */
         public ExportNetlist(
             Gtk.Window? parent,
@@ -76,26 +77,26 @@ namespace Gschem3
 
 
         /**
-         * The default output filename.
+         * The default output filename
          */
         private const string DEFAULT_NETLIST_FILENAME = "output.net";
 
 
 
         /**
-         * The command line application to generate netlists.
+         * The command line application to generate netlists
          */
-        private const string NETLIST_COMMAND = "gnetlist";
+        private const string NETLIST_COMMAND = "lepton-netlist";
 
 
         /**
-         *
+         * Backing store for the project selector
          */
         private ProjectSelector? b_selector = null;
 
 
         /**
-         *
+         * Action for exporting a netlist
          */
         private SimpleAction m_export_netlist_action = new SimpleAction(
             "export-netlist",
@@ -110,13 +111,9 @@ namespace Gschem3
 
 
         /**
-         *
+         * The current project
          */
-        private Geda3.Project? project
-        {
-            get;
-            set;
-        }
+        private Geda3.Project? m_project = null;
 
 
 
@@ -173,26 +170,42 @@ namespace Gschem3
         }
 
 
-        private void on_notify_project(ParamSpec param)
-        {
-        }
-
-
+        /**
+         * Signal handler for updating the curremt project
+         */
         private void on_notify_selector(ParamSpec param)
         {
-            project = null;
+            m_project = null;
 
             if (selector != null)
             {
-                project = selector.project;
+                m_project = selector.project;
             }
+
+            var enabled = m_project != null;
+            m_export_netlist_action.set_enabled(enabled);
         }
 
 
 
-        private void create_netlist_file(string filename, string format) throws Error
+        /**
+         * Creates the netlist file
+         *
+         * Both parameters follow the lepton-netlist command line
+         * arguments.
+         *
+         * @param filename The output filename for the netlist
+         * @param format The format to use for the netlist
+         */
+        private void create_netlist_file(
+            string filename,
+            string format
+            )
+            throws Error
 
-            requires(project != null)
+            requires(m_project != null)
+            requires(m_project.folder != null)
+            requires(m_project.folder.get_path() != null)
 
         {
             var arguments = new Gee.ArrayList<string?>();
@@ -205,17 +218,17 @@ namespace Gschem3
             arguments.add("-g");
             arguments.add(format);
 
-            foreach (var item in project.get_files())
+            foreach (var item in m_project.get_files())
             {
                 arguments.add(item.file.get_path());
             }
 
             arguments.add(null);
 
-            /*  Ensure the environment variables OLDPWD and PWD match the
-             *  working directory passed into Process.spawn_async(). Some
-             *  Scheme scripts use getenv() to determine the current
-             *  working directory.
+            /* Ensure the environment variables OLDPWD and PWD match the
+             * working directory passed into Process.spawn_async(). Some
+             * Scheme scripts use getenv() to determine the current
+             * working directory.
              */
 
             var environment = new Gee.ArrayList<string?>();
@@ -224,15 +237,24 @@ namespace Gschem3
             {
                 if (variable == "OLDPWD")
                 {
-                    environment.add("%s=%s".printf(variable, Environment.get_current_dir()));
+                    environment.add("%s=%s".printf(
+                        variable,
+                        Environment.get_current_dir()
+                        ));
                 }
                 else if (variable == "PWD")
                 {
-                    environment.add("%s=%s".printf(variable, project.folder.get_path()));
+                    environment.add("%s=%s".printf(
+                        variable,
+                        m_project.folder.get_path()
+                        ));
                 }
                 else
                 {
-                    environment.add("%s=%s".printf(variable, Environment.get_variable(variable)));
+                    environment.add("%s=%s".printf(
+                        variable,
+                        Environment.get_variable(variable)
+                        ));
                 }
             }
 
@@ -241,7 +263,7 @@ namespace Gschem3
             int status;
 
             Process.spawn_sync(
-                project.folder.get_path(),
+                m_project.folder.get_path(),
                 arguments.to_array(),
                 environment.to_array(),
                 SpawnFlags.SEARCH_PATH,

@@ -145,7 +145,7 @@ namespace Gschem3
             m_actions = new ActionProvider[]
             {
                 //new EditItemAction(this),
-                new ExportBillOfMaterial(this),
+                new ExportBillOfMaterial(this, this),
                 new ExportNetlist(this, this),
                 new ExportSchematics(this)
             };
