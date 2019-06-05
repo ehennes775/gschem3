@@ -4,7 +4,8 @@ namespace Gschem3
      *
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/MainWindow.ui.xml")]
-    public class MainWindow : Gtk.ApplicationWindow
+    public class MainWindow : Gtk.ApplicationWindow,
+        ProjectSelector
     {
         /**
          * {@inheritDoc}
@@ -42,7 +43,7 @@ namespace Gschem3
         public Geda3.Project? project
         {
             get;
-            protected set;
+            protected construct set;
         }
 
 
@@ -145,7 +146,7 @@ namespace Gschem3
             {
                 //new EditItemAction(this),
                 new ExportBillOfMaterial(this),
-                new ExportNetlist(this),
+                new ExportNetlist(this, this),
                 new ExportSchematics(this)
             };
 

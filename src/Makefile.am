@@ -117,6 +117,10 @@ libgeda3_a_SOURCES = \
 	sch/PinItem.vala \
 	sch/PinType.vala \
 	sch/PointGrip.vala \
+	sch/PrintDimension.vala \
+	sch/PrintFormat.vala \
+	sch/PrintOrientation.vala \
+	sch/PrintUnits.vala \
 	sch/RadiusGrip.vala \
 	sch/Schematic.vala \
 	sch/SchematicItem.vala \
@@ -140,10 +144,6 @@ libgeda3_a_SOURCES = \
 	MapError.vala \
 	NullMapper.vala \
 	ParseError.vala \
-	PrintDimension.vala \
-	PrintFormat.vala \
-	PrintOrientation.vala \
-	PrintUnits.vala \
 	RemovableItem.vala \
 	RenamableItem.vala \
 	SchematicPainterCairo.vala \
@@ -189,6 +189,7 @@ libgschem3_a_SOURCES = \
 	gui/ucom/DocumentOpener.vala \
 	gui/ucom/DocumentSelector.vala \
 	gui/ucom/DocumentWindow.vala \
+	gui/ucom/ProjectSelector.vala \
 	gui/ucom/Reloadable.vala \
 	gui/ucom/Savable.vala \
 	gui/xbom/ExportBillOfMaterial.vala \

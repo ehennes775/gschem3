@@ -69,6 +69,15 @@ namespace Geda3
         }
 
 
+        public File folder
+        {
+            get
+            {
+                return m_storage.folder;
+            }
+        }
+
+
         /**
          * A list of the schematics in this project
          *
@@ -195,6 +204,15 @@ namespace Geda3
             return_val_if_fail(temp_child->parent != null, -1);
 
             return temp_child->parent.child_position(temp_child);
+        }
+
+
+        /**
+         * Temporary for development
+         */
+        public ProjectFile[] get_files()
+        {
+            return m_storage.get_files();
         }
 
 
