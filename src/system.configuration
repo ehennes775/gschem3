@@ -1,0 +1,18 @@
+#
+# The system configuration file for gschem3
+#
+
+#
+# Gschem3 provides an example symbol library, so the program is
+# operational after installation. Users will likey prefer their own
+# CAD libraries, and remap this entry or add more entries referencing
+# their own symbol folders.
+#
+# A configuration file can contain multiple library entries. All
+# library entries must use the .library suffix in the group name. The
+# group name must be unique within the file.
+#
+[example.library]
+name=Example
+folder=/usr/local/share/gschem3/sym
+description=Library symbols provided with gschem3 as an example

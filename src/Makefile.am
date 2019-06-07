@@ -1,8 +1,11 @@
+pkgsysconfdir = $(sysconfdir)/@PACKAGE@
+
 RESOURCES_FILE = Gschem3.gresource.xml
 
 AM_CPPFLAGS = \
 	$(DEPS_CFLAGS) \
 	-I/usr/local/include \
+	-DPKGSYSCONFDIR=\"$(pkgsysconfdir)\" \
 	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-include config.h
 
@@ -20,8 +23,6 @@ $(BUILT_SOURCES) : $(RESOURCES_FILE) $(shell $(GLIB_COMPILE_RESOURCES) --generat
 
 bin_PROGRAMS = gschem3
 
-
-pkgsysconfdir = $(sysconfdir)/@PACKAGE@
 
 pkgsysconf_DATA = \
 	system.configuration
