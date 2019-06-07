@@ -20,6 +20,13 @@ $(BUILT_SOURCES) : $(RESOURCES_FILE) $(shell $(GLIB_COMPILE_RESOURCES) --generat
 
 bin_PROGRAMS = gschem3
 
+
+pkgsysconfdir = $(sysconfdir)/@PACKAGE@
+
+pkgsysconf_DATA = \
+	system.configuration
+
+
 # TODO: Resources don't get pulled in from a static library, so as a
 # workaround, the resources will get linked with the executable
 
