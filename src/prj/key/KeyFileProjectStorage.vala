@@ -185,6 +185,29 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void retrieve_netlist_export_format(
+            ref string format
+            )
+
+            requires(m_key_file != null)
+
+        {
+            try
+            {
+                format = m_key_file.get_string(
+                    "lepton.netlister",
+                    "exportFormat"
+                    );
+            }
+            catch (Error error)
+            {
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void save() throws Error
 
             requires(file != null)
@@ -194,6 +217,26 @@ namespace Geda3
             m_key_file.save_to_file(file.get_path());
 
             changed = false;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void store_netlist_export_format(
+            string format
+            )
+
+            requires(m_key_file != null)
+
+        {
+            m_key_file.set_string(
+                "lepton.netlister",
+                "exportFormat",
+                format
+                );
+
+            changed = true;
         }
 
 

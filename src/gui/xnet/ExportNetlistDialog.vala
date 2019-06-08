@@ -64,6 +64,42 @@ namespace Gschem3
 
 
         /**
+         * Set the netlist format
+         */
+        public void set_netlist_format(string format)
+
+            requires(m_combo != null)
+            requires(m_formats != null)
+
+        {
+            var found = false;
+
+            m_formats.@foreach(
+                (model, path, iter) =>
+                {
+                    GLib.Value @value;
+
+                    m_formats.get_value(iter, 0, out @value);
+
+                    found = @value.get_string() == format;
+
+                    if (found)
+                    {
+                        m_combo.set_active_iter(iter);
+                    }
+
+                    return found;
+                }
+                );
+
+            if (!found)
+            {
+                m_combo.active = -1;
+            }
+        }
+
+
+        /**
          * The combo box containing the netlist format.
          */
         [GtkChild(name="format-combo")]

@@ -25,7 +25,10 @@ bin_PROGRAMS = gschem3
 
 
 pkgsysconf_DATA = \
-	system.configuration
+	system.configuration \
+	template.project \
+	template.sch \
+	template.sym
 
 
 # TODO: Resources don't get pulled in from a static library, so as a
@@ -61,6 +64,7 @@ libgeda3_a_SOURCES = \
 	lib/LibraryStore.vala \
 	lib/SymbolLibrary.vala \
 	key/LibraryEntry.vala \
+	prj/NetlisterConfiguration.vala \
 	prj/Project.vala \
 	prj/ProjectFile.vala \
 	prj/ProjectFolder.vala \

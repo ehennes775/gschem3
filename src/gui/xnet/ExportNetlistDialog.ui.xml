@@ -8,10 +8,6 @@
     </columns>
     <data>
       <row>
-        <col id="0">PCB</col>
-        <col id="1">Description</col>
-      </row>
-      <row>
         <col id="0">allegro</col>
         <col id="1">Description</col>
       </row>
@@ -72,6 +68,10 @@
         <col id="1">Description</col>
       </row>
       <row>
+        <col id="0">PCB</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
         <col id="0">pcbpins</col>
         <col id="1">Description</col>
       </row>
@@ -101,6 +101,10 @@
       </row>
       <row>
         <col id="0">tango</col>
+        <col id="1">Description</col>
+      </row>
+      <row>
+        <col id="0">tEDAx</col>
         <col id="1">Description</col>
       </row>
       <row>

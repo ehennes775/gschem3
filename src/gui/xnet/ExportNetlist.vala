@@ -123,6 +123,9 @@ namespace Gschem3
          * @param parameter Unused
          */
         private void on_activate(Variant? parameter)
+
+            requires(m_project != null)
+
         {
             ExportNetlistDialog dialog = null;
 
@@ -134,10 +137,14 @@ namespace Gschem3
 
                 if (result == Gtk.ResponseType.OK)
                 {
+                    var format = dialog.get_netlist_format();
+
                     create_netlist_file(
                         dialog.get_filename(),
-                        dialog.get_netlist_format()
+                        format
                         );
+
+                    m_project.store_netlist_export_format(format);
                 }
             }
             catch (Error error)
@@ -163,8 +170,18 @@ namespace Gschem3
             dialog.do_overwrite_confirmation = true;
             dialog.set_transient_for(m_parent);
 
-            //dialog.set_current_folder(dirname);
-            //dialog.set_current_name(DEFAULT_PRINT_FILENAME);
+            var format = "PCB";
+            m_project.retrieve_netlist_export_format(ref format);
+                
+            dialog.set_netlist_format(format);
+
+            var folder = Path.build_filename(
+                m_project.folder.get_path(),
+                "net"
+                );
+
+            dialog.set_current_folder(folder);
+            dialog.set_current_name(DEFAULT_NETLIST_FILENAME);
 
             return dialog;
         }

@@ -6,7 +6,8 @@ namespace Geda3
      * {{uml/ProjectUml.svg}}
      */
     public class Project : Object,
-        LibraryContributor
+        LibraryContributor,
+        NetlisterConfiguraion
     {
         /**
          * Indicates a node changed in the project
@@ -316,6 +317,20 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void retrieve_netlist_export_format(
+            ref string format
+            )
+
+            requires(m_storage != null)
+
+        {
+            m_storage.retrieve_netlist_export_format(ref format);
+        }
+
+
+        /**
          * Save this project
          */
         public void save() throws Error
@@ -324,6 +339,20 @@ namespace Geda3
 
         {
             m_storage.save();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void store_netlist_export_format(
+            string format
+            )
+
+            requires(m_storage != null)
+
+        {
+            m_storage.store_netlist_export_format(format);
         }
 
 

@@ -89,10 +89,35 @@ namespace Geda3
 
 
         /**
+         * Get the netlist export format from the configuration
+         *
+         * Pass the default value into this function. If the
+         * configuration item exists, this function replaces the
+         * argument with the value. If the configuration item does
+         * not exist, the argument remains unchanged.
+         *
+         * @param format The netlist export format
+         */
+        public abstract void retrieve_netlist_export_format(
+            ref string format
+            );
+
+
+        /**
          * Save the project
          *
          * Writes the values in memory to storage.
          */
         public abstract void save() throws Error;
+
+
+        /**
+         * Set the netlist export format in the configuration
+         *
+         * @param format The netlist export format
+         */
+        public abstract void store_netlist_export_format(
+            string format
+            );
     }
 }
