@@ -332,10 +332,16 @@ namespace Gschem3
          * Create a schematic window with an untitled schematic
          */
         public SchematicWindow(
-            SchematicPasteHandler handler
+            SchematicPasteHandler handler,
+            Gee.Iterable<Geda3.SchematicItem> items
             )
         {
             m_paste_handler = handler;
+
+            foreach (var item in items)
+            {
+                schematic.add(item);
+            }
 
             tab = @"untitled_$(++untitled_number)$(SCHEMATIC_EXTENSION)";
         }
@@ -436,7 +442,10 @@ namespace Gschem3
             SchematicPasteHandler handler
             ) throws Error
         {
-            var window = new SchematicWindow(handler);
+            var window = new SchematicWindow(
+                handler,
+                Gee.Collection<Geda3.SchematicItem>.empty()
+                );
             
             window.read(file);
 

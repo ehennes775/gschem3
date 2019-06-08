@@ -37,11 +37,27 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            var window = new SchematicWindow(
-                m_paste_handler
-                );
+            try
+            {
+                var file = File.new_for_path(Path.build_filename(
+                    TEMPLATE_FOLDER,
+                    @"template.$(type)"
+                    ));
 
-            notebook.add_document_window(window);
+                var template = new Geda3.Schematic();
+                template.read_from_file(file);
+
+                var window = new SchematicWindow(
+                    m_paste_handler,
+                    template.items
+                    );
+
+                notebook.add_document_window(window);
+            }
+            catch (Error error)
+            {
+                stdout.printf(@"$(error.message)\n");
+            }
         }
 
 
@@ -75,6 +91,13 @@ namespace Gschem3
                 create_window
                 );
         }
+
+
+        /**
+         * The configuration folder where templates reside
+         */
+        [CCode(cname="PKGSYSCONFDIR")]
+        private extern const string TEMPLATE_FOLDER;
 
 
         /**
