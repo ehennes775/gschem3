@@ -1,0 +1,17 @@
+v 20181211 2
+T -100 1600 8 10 0 0 0 7 1
+device=device
+T -100 1200 8 10 0 0 0 7 1
+footprint=footprint
+T -100 700 8 10 0 0 0 7 1
+author=author
+T -100 500 8 10 0 0 0 7 1
+copyright=copyright
+T -100 300 8 10 0 0 0 7 1
+dist-license=dist-license
+T -100 100 8 10 0 0 0 7 1
+use-license=use-license
+T -100 1400 8 10 0 0 0 7 1
+description=description
+T -100 1000 8 10 0 0 0 7 1
+numslots=0
