@@ -5,6 +5,7 @@
         <file>gui/epins/PinEditorDialog.ui.xml</file>
         <file>gui/etext/TextEditorDialog.ui.xml</file>
         <file>gui/img/ArcTool.svg</file>
+        <file>gui/img/AttributeTool.svg</file>
         <file>gui/img/Blank.svg</file>
         <file>gui/img/BlueFolder.svg</file>
         <file>gui/img/BoxTool.svg</file>
@@ -22,6 +23,7 @@
         <file>gui/img/SelectTool.svg</file>
         <file>gui/img/Schematic.svg</file>
         <file>gui/img/Symbol.svg</file>
+        <file>gui/img/TextTool.svg</file>
         <file>gui/img/YellowFolder.svg</file>
         <file>gui/img/ZoomExtents.svg</file>
         <file>gui/img/ZoomIn.svg</file>

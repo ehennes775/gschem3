@@ -45,6 +45,12 @@
     <object class="GtkImage" id="icon-tool-select-7">
         <property name="resource">/com/github/ehennes775/gschem3/gui/img/Schematic.svg</property>
     </object>
+    <object class="GtkImage" id="icon-tool-attribute">
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/AttributeTool.svg</property>
+    </object>
+    <object class="GtkImage" id="icon-tool-text">
+        <property name="resource">/com/github/ehennes775/gschem3/gui/img/TextTool.svg</property>
+    </object>
     <object class="GtkImage" id="icon-project-switch">
         <property name="resource">/com/github/ehennes775/gschem3/gui/img/OrangeFolder.svg</property>
     </object>
@@ -151,7 +157,7 @@
                                 <property name="label">Attr</property>
                                 <property name="action-name">win.select-tool</property>
                                 <property name="action-target">'attribute'</property>
-                                <!--<property name="icon-widget">icon-tool-complex</property>-->
+                                <property name="icon-widget">icon-tool-attribute</property>
                             </object>
                         </child>
                         <child>
@@ -159,7 +165,7 @@
                                 <property name="label">Txt</property>
                                 <property name="action-name">win.select-tool</property>
                                 <property name="action-target">'text'</property>
-                                <!--<property name="icon-widget">icon-tool-complex</property>-->
+                                <property name="icon-widget">icon-tool-text</property>
                             </object>
                         </child>
                         <child>
