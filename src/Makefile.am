@@ -65,6 +65,7 @@ libgeda3_a_SOURCES = \
 	lib/SymbolLibrary.vala \
 	key/LibraryEntry.vala \
 	prj/NetlisterConfiguration.vala \
+	prj/PartlisterConfiguration.vala \
 	prj/Project.vala \
 	prj/ProjectFile.vala \
 	prj/ProjectFolder.vala \

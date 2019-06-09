@@ -9,22 +9,22 @@
     <data>
       <row>
         <col id="0">bom</col>
-        <col id="1">Description</col>
+        <col id="1">Description (requires attribs file)</col>
       </row>
       <row>
         <col id="0">bom2</col>
+        <col id="1">Description (requires attribs file)</col>
+      </row>
+      <row>
+        <col id="0">partslist1</col>
         <col id="1">Description</col>
       </row>
       <row>
-        <col id="0">partlist1</col>
+        <col id="0">partslist2</col>
         <col id="1">Description</col>
       </row>
       <row>
-        <col id="0">partlist2</col>
-        <col id="1">Description</col>
-      </row>
-      <row>
-        <col id="0">partlist3</col>
+        <col id="0">partslist3</col>
         <col id="1">Description</col>
       </row>
     </data>

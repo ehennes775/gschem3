@@ -208,6 +208,29 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override void retrieve_partlist_export_format(
+            ref string format
+            )
+
+            requires(m_key_file != null)
+
+        {
+            try
+            {
+                format = m_key_file.get_string(
+                    "lepton.partlister",
+                    "exportFormat"
+                    );
+            }
+            catch (Error error)
+            {
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void save() throws Error
 
             requires(file != null)
@@ -230,8 +253,32 @@ namespace Geda3
             requires(m_key_file != null)
 
         {
+            // TODO: if the value doesn't cahnge, don't set changed
+
             m_key_file.set_string(
                 "lepton.netlister",
+                "exportFormat",
+                format
+                );
+
+            changed = true;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override void store_partlist_export_format(
+            string format
+            )
+
+            requires(m_key_file != null)
+
+        {
+            // TODO: if the value doesn't cahnge, don't set changed
+
+            m_key_file.set_string(
+                "lepton.partlister",
                 "exportFormat",
                 format
                 );

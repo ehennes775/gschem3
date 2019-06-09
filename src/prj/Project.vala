@@ -7,7 +7,8 @@ namespace Geda3
      */
     public class Project : Object,
         LibraryContributor,
-        NetlisterConfiguraion
+        NetlisterConfiguraion,
+        PartlisterConfiguraion
     {
         /**
          * Indicates a node changed in the project
@@ -331,6 +332,20 @@ namespace Geda3
 
 
         /**
+         * {@inheritDoc}
+         */
+        public void retrieve_partlist_export_format(
+            ref string format
+            )
+
+            requires(m_storage != null)
+
+        {
+            m_storage.retrieve_partlist_export_format(ref format);
+        }
+
+
+        /**
          * Save this project
          */
         public void save() throws Error
@@ -353,6 +368,20 @@ namespace Geda3
 
         {
             m_storage.store_netlist_export_format(format);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void store_partlist_export_format(
+            string format
+            )
+
+            requires(m_storage != null)
+
+        {
+            m_storage.store_partlist_export_format(format);
         }
 
 

@@ -133,10 +133,14 @@ namespace Gschem3
 
                 if (result == Gtk.ResponseType.OK)
                 {
+                    var format = dialog.get_bom_format();
+
                     create_bom_file(
                         dialog.get_filename(),
-                        dialog.get_bom_format()
+                        format
                         );
+
+                    m_project.store_partlist_export_format(format);
                 }
             }
             catch (Error error)
@@ -162,8 +166,14 @@ namespace Gschem3
             dialog.do_overwrite_confirmation = true;
             dialog.set_transient_for(m_parent);
 
+            var format = "bom2";
+
+            m_project.retrieve_partlist_export_format(ref format);
+
+            dialog.set_bom_format(format);
+
             //dialog.set_current_folder(dirname);
-            //dialog.set_current_name(DEFAULT_PRINT_FILENAME);
+            dialog.set_current_name(DEFAULT_BOM_FILENAME);
 
             return dialog;
         }
