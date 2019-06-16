@@ -3,23 +3,16 @@ namespace Gschem3
     /**
      *
      */
-    public class SchematicSupport : Object
+    public class SchematicSupport : Object,
+        Peas.Activatable
     {
         /**
-         * Provides attribute promotion
+         * A reference to the main window
          */
-        public Geda3.AttributePromoter promoter
+        public Object object
         {
-            get
-            {
-                return b_promoter;
-            }
-            private set
-            {
-                b_promoter = value;
-
-                b_promoter.configuration = m_project;
-            }
+            owned get;
+            construct;
         }
 
 
@@ -66,6 +59,61 @@ namespace Gschem3
 
 
         /**
+         * Initialize the instance
+         */
+        public SchematicSupport(MainWindow window)
+        {
+            Object(
+                object : window
+                );
+        }
+        
+
+        /**
+         * {@inheritDoc}
+         */
+        public void activate()
+        {
+            var window = object as MainWindow;
+
+            return_if_fail(window != null);
+            return_if_fail(window.document_notebook != null);
+            return_if_fail(window.document_opener != null);
+            return_if_fail(window.drawing_tools != null);
+
+            m_opener = new SchematicWindowOpener(
+                window.document_notebook,
+                window.drawing_tools
+                );
+
+            window.document_opener.add_opener(m_opener);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void deactivate()
+        {
+            var window = object as MainWindow;
+
+            return_if_fail(window != null);
+            return_if_fail(window.document_opener != null);
+
+            window.document_opener.remove_opener(m_opener);
+            m_opener = null;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public void update_state()
+        {
+        }
+
+
+        /**
          * The backing store for the attribute promoter
          */
         private Geda3.AttributePromoter b_promoter;
@@ -81,6 +129,30 @@ namespace Gschem3
          * The current project
          */
         private Geda3.Project? m_project = null;
+
+
+        /**
+         * Provides functionality to open schematic documents
+         */
+        private SchematicWindowOpener? m_opener = null;
+
+
+        /**
+         * Provides attribute promotion
+         */
+        public Geda3.AttributePromoter promoter
+        {
+            get
+            {
+                return b_promoter;
+            }
+            private set
+            {
+                b_promoter = value;
+
+                b_promoter.configuration = m_project;
+            }
+        }
 
 
         /**
