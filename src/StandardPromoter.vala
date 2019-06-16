@@ -18,36 +18,25 @@ namespace Geda3
         /**
          *
          */
-        public bool promote_invisible
+        construct
         {
-            get;
-            construct set;
-            default = false;
+            notify["configuration"].connect(on_notify_configuration);
         }
 
 
         /**
          *
          */
-        construct
+        public override Gee.List<AttributeChild> promote(
+            Gee.Collection<SchematicItem> items
+            )
+
+            requires(configuration != null)
+
         {
-            m_names.add("device");
-            m_names.add("footprint");
-            m_names.add("model-name");
-            m_names.add("value");
+            var promote_invisible = configuration.retrieve_promote_invisible();
+            var promote_names = configuration.retrieve_promote_attributes();
 
-            // need to figure out how refdes is getting promoted.
-            m_names.add("refdes");
-
-            notify["configuration"].connect(on_notify_configuration);
-         }
-
-
-        /**
-         *
-         */
-        public override Gee.List<AttributeChild> promote(Gee.Collection<SchematicItem> items)
-        {
             var promoted = new Gee.ArrayList<AttributeChild>();
 
             foreach (var item in items)
@@ -66,11 +55,13 @@ namespace Geda3
                     continue;
                 }
 
-                if (name == SYMVERSION)
-                {
-                    promoted.add(attribute);
-                }
-                else if (name in m_names)
+                var promote = 
+                    (name == REFDES) ||
+                    (name == SYMVERSION) ||
+                    (name in promote_names) ||
+                    (promote_invisible && (attribute.visibility == Geda3.Visibility.INVISIBLE));
+
+                if (promote)
                 {
                     promoted.add(attribute);
                 }
@@ -86,15 +77,17 @@ namespace Geda3
 
 
         /**
+         * An attribute with this name is always promoted
          *
+         * TODO: need to figure out how refdes is getting promoted
          */
-        private const string SYMVERSION = "symversion";
+        private const string REFDES = "refdes";
 
 
         /**
-         *
+         * An attribute with this name is always promoted
          */
-        private Gee.Set<string> m_names = new Gee.HashSet<string>();
+        private const string SYMVERSION = "symversion";
 
 
         /**

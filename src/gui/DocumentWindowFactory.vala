@@ -19,8 +19,10 @@ namespace Gschem3
          *
          */
         public void add_opener(DocumentOpener opener)
-        {
 
+            requires(m_openers != null)
+
+        {
             m_openers.add(opener);
         }
 
@@ -58,6 +60,18 @@ namespace Gschem3
             return_if_fail(opener != null);
 
             opener.open_with_files(files);
+        }
+
+
+        /**
+         *
+         */
+        public void remove_opener(DocumentOpener opener)
+
+            requires(m_openers != null)
+
+        {
+            m_openers.remove(opener);
         }
 
 

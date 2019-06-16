@@ -8,6 +8,42 @@ namespace Gschem3
         ProjectSelector
     {
         /**
+         *
+         */
+        public DocumentWindowNotebook document_notebook
+        {
+            get
+            {
+                return notebook;
+            }
+        }
+
+
+        /**
+         *
+         */
+        public DocumentWindowFactory document_opener
+        {
+            get
+            {
+                return m_document_opener;
+            }
+        }
+
+
+        /**
+         *
+         */
+        public DrawingToolSet drawing_tools
+        {
+            get
+            {
+                return m_drawing_tools;
+            }
+        }
+
+
+        /**
          * {@inheritDoc}
          */
         public DocumentWindow? document_window
@@ -117,17 +153,11 @@ namespace Gschem3
 
             m_document_opener = new DocumentWindowFactory();
 
-            m_document_opener.add_opener(
-                new SchematicWindowOpener(
-                    notebook,
-                    m_drawing_tools
-                    )
-                );
 
             m_library_widget.opener = m_document_opener;
             m_project_widget.opener = m_document_opener;
 
-
+            
             m_attribute_widget.selector = notebook;
 
 
@@ -158,7 +188,13 @@ namespace Gschem3
             Geda3.LibraryStore.get_instance().system_contributor = new Geda3.SystemLibrary();
 
             collect_actions(this);
+
+            m_support = new SchematicSupport(this);
+            m_support.activate();
         }
+
+
+        private SchematicSupport? m_support = null;
 
 
         /**
