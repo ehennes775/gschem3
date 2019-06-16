@@ -6,11 +6,23 @@ namespace Geda3
     public abstract class AttributePromoter : Object
     {
         /**
+         * The configuration for attribute promotion
+         */
+        public abstract StandardPromoterConfiguration? configuration
+        {
+            get;
+            set;
+        }
+
+
+        /**
          * Select promoted attributes
          *
          * @param items The top level items in the symbol
          * @return A list of the promoted attributes
          */
-        public abstract Gee.List<AttributeChild> promote(Gee.Collection<SchematicItem> items);
+        public abstract Gee.List<AttributeChild> promote(
+            Gee.Collection<SchematicItem> items
+            );
     }
 }

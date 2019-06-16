@@ -6,9 +6,13 @@ namespace Geda3
     public class StandardPromoter : AttributePromoter
     {
         /**
-         *
+         * The configuration for attribute promotion
          */
-        public const string SYMVERSION = "symversion";
+        public override StandardPromoterConfiguration? configuration
+        {
+            get;
+            set;
+        }
 
 
         /**
@@ -34,7 +38,9 @@ namespace Geda3
 
             // need to figure out how refdes is getting promoted.
             m_names.add("refdes");
-        }
+
+            notify["configuration"].connect(on_notify_configuration);
+         }
 
 
         /**
@@ -82,6 +88,20 @@ namespace Geda3
         /**
          *
          */
+        private const string SYMVERSION = "symversion";
+
+
+        /**
+         *
+         */
         private Gee.Set<string> m_names = new Gee.HashSet<string>();
+
+
+        /**
+         *
+         */
+        private void on_notify_configuration(ParamSpec param)
+        {
+        }
     }
 }

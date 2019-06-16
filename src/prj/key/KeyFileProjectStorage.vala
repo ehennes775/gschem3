@@ -231,6 +231,54 @@ namespace Geda3
         /**
          * {@inheritDoc}
          */
+        public override bool retrieve_promote_invisible()
+
+            requires(m_key_file != null)
+
+        {
+            try
+            {
+                return m_key_file.get_boolean(
+                    "attributePromotion",
+                    "promoteInvisible"
+                    );
+            }
+            catch (Error error)
+            {
+                return false;
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public override Gee.Set<string> retrieve_promote_attributes()
+
+            requires(m_key_file != null)
+
+        {
+            var attributes = new Gee.HashSet<string>();
+
+            try
+            {
+                attributes.add_all_array(m_key_file.get_string_list(
+                    "attributePromotion",
+                    "promoteAttributes"
+                    ));
+
+                return attributes;
+            }
+            catch (Error error)
+            {
+                return attributes;
+            }
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
         public override void save() throws Error
 
             requires(file != null)

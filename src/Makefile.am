@@ -161,6 +161,7 @@ libgeda3_a_SOURCES = \
 	RenamableItem.vala \
 	SchematicPainterCairo.vala \
 	StandardPromoter.vala \
+	StandardPromoterConfiguration.vala \
 	Symbol.vala
 
 libgeda3_a_VALAFLAGS = \
@@ -223,6 +224,7 @@ libgschem3_a_SOURCES = \
 	gui/MainWindow.vala \
 	gui/NewProjectDialog.vala \
 	gui/SchematicPasteHandler.vala \
+	gui/SchematicSupport.vala \
 	gui/SchematicWindowOpener.vala \
 	gui/SchematicWindowSettings.vala \
 	gui/grid/MeshGrid.vala \

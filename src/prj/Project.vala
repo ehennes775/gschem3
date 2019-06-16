@@ -8,7 +8,8 @@ namespace Geda3
     public class Project : Object,
         LibraryContributor,
         NetlisterConfiguraion,
-        PartlisterConfiguraion
+        PartlisterConfiguraion,
+        StandardPromoterConfiguration
     {
         /**
          * Indicates a node changed in the project
@@ -342,6 +343,30 @@ namespace Geda3
 
         {
             m_storage.retrieve_partlist_export_format(ref format);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool retrieve_promote_invisible()
+
+            requires(m_storage != null)
+
+        {
+            return m_storage.retrieve_promote_invisible();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public Gee.Set<string> retrieve_promote_attributes()
+
+            requires(m_storage != null)
+
+        {
+            return m_storage.retrieve_promote_attributes();
         }
 
 
