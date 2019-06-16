@@ -99,7 +99,7 @@ namespace Gschem3
 
             foreach (var editor in m_editors)
             {
-                window.add_property_editor(editor);
+                window.property_editors.add(editor);
             }
 
             document_selector = window.document_notebook;
@@ -121,7 +121,7 @@ namespace Gschem3
 
             foreach (var editor in m_editors)
             {
-                // TODO: Remove property editors
+                window.property_editors.remove(editor);
             }
 
             m_editors = new ItemEditor[] {};
@@ -226,6 +226,26 @@ namespace Gschem3
 
 
         /**
+         * Set the current document window
+         */
+        private DocumentWindow? document_window
+        {
+            set
+            {
+                return_if_fail(m_editors != null);
+                //return_if_fail(m_editors.all_match(e => e != null));
+
+                foreach (var editor in m_editors)
+                {
+                    editor.update_document_window(
+                        value
+                        );
+                }
+            }
+        }
+
+
+        /**
          * Signal handler for updating the current project
          */
         private void on_notify_selector(ParamSpec param)
@@ -248,22 +268,14 @@ namespace Gschem3
          *
          */
         private void on_notify_document_selector(ParamSpec param)
-
-            requires(m_editors != null)
-
         {
-            DocumentWindow? document_window = null;
-
             if (document_selector != null)
             {
                 document_window = document_selector.current_document_window;
             }
-
-            foreach (var editor in m_editors)
+            else
             {
-                editor.update_document_window(
-                    document_window
-                    );
+                document_window = null;
             }
         }
     }

@@ -84,6 +84,18 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        public Gtk.Box property_editors
+        {
+            get
+            {
+                return m_property_editor;
+            }
+        }
+
+
+        /**
          * Initialize the class
          */
         static construct
@@ -466,22 +478,6 @@ namespace Gschem3
          *
          */
         private SchematicSupport? m_schematic_support = null;
-
-
-        /**
-         * Add a property editor to the property editor widget
-         *
-         * @param editor The editor to add to the property editor
-         */
-        // public for development
-        public void add_property_editor(ItemEditor editor)
-
-            requires(m_property_editor != null)
-
-        {
-            m_property_editor.add(editor);
-        }
-
 
 
         /**
