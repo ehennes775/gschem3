@@ -153,19 +153,10 @@ namespace Gschem3
 
             m_document_opener = new DocumentWindowFactory();
 
+            m_library_widget.opener = document_opener;
+            m_project_widget.opener = document_opener;
 
-            m_library_widget.opener = m_document_opener;
-            m_project_widget.opener = m_document_opener;
-
-            
-            m_attribute_widget.selector = notebook;
-
-
-            add_property_editor(new ColorEditor());
-            add_property_editor(new LineStyleEditor());
-            add_property_editor(new FillStyleEditor());
-            add_property_editor(new TextPropertyEditor());
-            add_property_editor(new PinPropertyEditor());
+            m_attribute_widget.selector = document_notebook;
 
             key_press_event.connect(on_key_press_event);
             key_release_event.connect(on_key_release_event);
@@ -189,12 +180,9 @@ namespace Gschem3
 
             collect_actions(this);
 
-            m_support = new SchematicSupport(this);
-            m_support.activate();
+            m_schematic_support = new SchematicSupport(this);
+            m_schematic_support.activate();
         }
-
-
-        private SchematicSupport? m_support = null;
 
 
         /**
@@ -422,13 +410,6 @@ namespace Gschem3
 
 
         /**
-         * A list of the property editors that must be updated when
-         * the current document window changes.
-         */
-        private Gee.List<ItemEditor> m_editors = new Gee.ArrayList<ItemEditor>();
-
-
-        /**
          * A dialog box for opening new files
          */
         private Gtk.FileChooserDialog m_file_open_dialog = null;
@@ -482,18 +463,22 @@ namespace Gschem3
 
 
         /**
+         *
+         */
+        private SchematicSupport? m_schematic_support = null;
+
+
+        /**
          * Add a property editor to the property editor widget
          *
          * @param editor The editor to add to the property editor
          */
-        private void add_property_editor(ItemEditor editor)
+        // public for development
+        public void add_property_editor(ItemEditor editor)
 
-            requires(m_editors != null)
             requires(m_property_editor != null)
 
         {
-            editor.update_document_window(document_window);
-            m_editors.add(editor);
             m_property_editor.add(editor);
         }
 
@@ -1176,13 +1161,6 @@ namespace Gschem3
             m_drawing_tools.update_document_window(
                 document_window
                 );
-
-            foreach (var editor in m_editors)
-            {
-                editor.update_document_window(
-                    document_window
-                    );
-            }
         }
 
 

@@ -10,7 +10,7 @@ namespace Gschem3
          * The schematic window containing the current selection
          *
          * If null, there is no current window, or the current window
-         * is not editing a schmeatic.
+         * is not editing a schematic.
          */
         public SchematicWindow? schematic_window
         {

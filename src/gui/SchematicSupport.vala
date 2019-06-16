@@ -87,6 +87,22 @@ namespace Gschem3
                 );
 
             window.document_opener.add_opener(m_opener);
+
+            m_editors = new ItemEditor[]
+            {
+                new ColorEditor(),
+                new LineStyleEditor(),
+                new FillStyleEditor(),
+                new TextPropertyEditor(),
+                new PinPropertyEditor()
+            };
+
+            foreach (var editor in m_editors)
+            {
+                window.add_property_editor(editor);
+            }
+
+            document_selector = window.document_notebook;
         }
 
 
@@ -102,6 +118,15 @@ namespace Gschem3
 
             window.document_opener.remove_opener(m_opener);
             m_opener = null;
+
+            foreach (var editor in m_editors)
+            {
+                // TODO: Remove property editors
+            }
+
+            m_editors = new ItemEditor[] {};
+
+            document_selector = null;
         }
 
 
@@ -120,9 +145,24 @@ namespace Gschem3
 
 
         /**
-         * The current project selector
+         * The backing store for the document selector
+         */
+        private DocumentSelector? b_document_selector = null;
+
+
+        /**
+         * The backing store for the project selector
          */
         private ProjectSelector? b_selector = null;
+
+
+        /**
+         * The item editors activated on the main window
+         *
+         * When empty, no item editors have not been activated. This field
+         * should not be null, or contain nulls.
+         */
+        private ItemEditor[] m_editors = new ItemEditor[] {};
 
 
         /**
@@ -156,7 +196,37 @@ namespace Gschem3
 
 
         /**
-         * Signal handler for updating the curremt project
+         *
+         */
+        private DocumentSelector? document_selector
+        {
+            get
+            {
+                return b_document_selector;
+            }
+            set
+            {
+                if (b_document_selector != null)
+                {
+                    b_document_selector.notify["current-document-window"].disconnect(
+                        on_notify_document_selector
+                        );
+                }
+
+                b_document_selector = value;
+
+                if (b_document_selector != null)
+                {
+                    b_document_selector.notify["current-document-window"].connect(
+                        on_notify_document_selector
+                        );
+                }
+            }
+        }
+
+
+        /**
+         * Signal handler for updating the current project
          */
         private void on_notify_selector(ParamSpec param)
 
@@ -171,6 +241,30 @@ namespace Gschem3
             }
 
             b_promoter.configuration = m_project;
+        }
+
+
+        /**
+         *
+         */
+        private void on_notify_document_selector(ParamSpec param)
+
+            requires(m_editors != null)
+
+        {
+            DocumentWindow? document_window = null;
+
+            if (document_selector != null)
+            {
+                document_window = document_selector.current_document_window;
+            }
+
+            foreach (var editor in m_editors)
+            {
+                editor.update_document_window(
+                    document_window
+                    );
+            }
         }
     }
 }
