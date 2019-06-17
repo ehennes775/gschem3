@@ -255,7 +255,8 @@ libgschem3_a_SOURCES = \
 	gui/wid/ColorComboBox.vala \
 	gui/wid/PropertyComboBox.vala \
 	gui/wid/RotationComboBox.vala \
-	gui/wid/TextSizeComboBox.vala
+	gui/wid/TextSizeComboBox.vala \
+	ProjectSupport.vala
 
 libgschem3_a_VALAFLAGS = \
 	--target-glib=2.40 \

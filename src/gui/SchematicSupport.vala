@@ -121,7 +121,7 @@ namespace Gschem3
 
             foreach (var editor in m_editors)
             {
-                window.property_editors.remove(editor);
+                editor.destroy();
             }
 
             m_editors = new ItemEditor[] {};

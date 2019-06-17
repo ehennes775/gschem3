@@ -226,17 +226,6 @@
                                 <child>
                                     <object class="GtkStack" id="side-stack">
                                         <child>
-                                            <object class="Gschem3ProjectWidget" id="project">
-                                                <property name="hexpand">true</property>
-                                                <property name="vexpand">true</property>
-                                            </object>
-                                            <packing>
-                                                <property name="name">project</property>
-                                                <property name="title">Project</property>
-                                                <!--<property name="icon-name">zoom-out</property>-->
-                                            </packing>
-                                        </child>
-                                        <child>
                                             <object class="Gschem3LibraryWidget" id="library">
                                                 <property name="hexpand">true</property>
                                                 <property name="vexpand">true</property>

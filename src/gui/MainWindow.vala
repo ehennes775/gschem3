@@ -4,8 +4,7 @@ namespace Gschem3
      *
      */
     [GtkTemplate(ui="/com/github/ehennes775/gschem3/gui/MainWindow.ui.xml")]
-    public class MainWindow : Gtk.ApplicationWindow,
-        ProjectSelector
+    public class MainWindow : Gtk.ApplicationWindow
     {
         /**
          *
@@ -71,19 +70,6 @@ namespace Gschem3
 
 
         /**
-         * The currently open project
-         *
-         * This property functions as a source for bindings. A null
-         * indicates no project is open.
-         */
-        public Geda3.Project? project
-        {
-            get;
-            protected construct set;
-        }
-
-
-        /**
          *
          */
         public Gtk.Box property_editors
@@ -91,6 +77,18 @@ namespace Gschem3
             get
             {
                 return m_property_editor;
+            }
+        }
+
+
+        /**
+         *
+         */
+        public Gtk.Stack side_stack
+        {
+            get
+            {
+                return m_side_stack_widget;
             }
         }
 
@@ -136,22 +134,6 @@ namespace Gschem3
 
             drag_data_received.connect(on_data_received);
 
-            // Setup project signal handling
-
-            bind_property(
-                "project",
-                m_project_widget,
-                "project",
-                BindingFlags.SYNC_CREATE
-                );
-
-            bind_property(
-                "project",
-                Geda3.LibraryStore.get_instance(),
-                "project-contributor",
-                BindingFlags.SYNC_CREATE
-                );
-
             // Setup notebook signal handling
 
             notebook.switch_page.connect(on_switch_page);
@@ -166,7 +148,6 @@ namespace Gschem3
             m_document_opener = new DocumentWindowFactory();
 
             m_library_widget.opener = document_opener;
-            m_project_widget.opener = document_opener;
 
             m_attribute_widget.selector = document_notebook;
 
@@ -178,8 +159,8 @@ namespace Gschem3
             m_actions = new ActionProvider[]
             {
                 //new EditItemAction(this),
-                new ExportBillOfMaterial(this, this),
-                new ExportNetlist(this, this),
+                //new ExportBillOfMaterial(this, this),
+                //new ExportNetlist(this, this),
                 new ExportSchematics(this)
             };
 
@@ -191,6 +172,9 @@ namespace Gschem3
             Geda3.LibraryStore.get_instance().system_contributor = new Geda3.SystemLibrary();
 
             collect_actions(this);
+
+            m_project_support = new ProjectSupport(this);
+            m_project_support.activate();
 
             m_schematic_support = new SchematicSupport(this);
             m_schematic_support.activate();
@@ -206,85 +190,17 @@ namespace Gschem3
         {
             if (file != null)
             {
-                open_project(file);
+                m_project_support.open_project_with_file(file);
             }
         }
 
 
         /**
          * Close the current project
-         *
-         * Truth table for this function:
-         *
-         * project = the state of the project on entry
-         * changed = changes made to project since last save
-         * abort = user chose not to save the changes
-         * dialog = the user response from the dialog
-         * save = if the project is saved
-         * output = the state of the project on exit
-         *
-         * |project|changed|dialog |save |output|
-         * +-------+-------+-------+-----+------+
-         * |closed |x      |x      |false|closed|
-         * |open   |false  |x      |false|closed|
-         * |open   |true   |save   |true |closed|
-         * |open   |true   |discard|false|closed|
-         * |open   |true   |cancel |false|open  |
-         *
-         * If the project is open after this function is called, then
-         * operations such as project-new and project-open should
-         * abort.
          */
         public void close_project()
         {
-            if (project != null)
-            {
-                if (false) // if (project.changed)
-                {
-                    var dialog = new Gtk.MessageDialog(
-                        this,
-                        Gtk.DialogFlags.MODAL,
-                        Gtk.MessageType.QUESTION,
-                        Gtk.ButtonsType.NONE,
-                        "Save changes?"
-                        );
-
-                    dialog.add_buttons(
-                        "Save",    Gtk.ResponseType.YES,
-                        "Discard", Gtk.ResponseType.NO,
-                        "Cancel",  Gtk.ResponseType.CANCEL
-                        );
-
-                    var response = dialog.run();
-
-                    if (response == Gtk.ResponseType.YES)
-                    {
-                        try
-                        {
-                            project.save();
-                            project = null;
-                        }
-                        catch (Error error)
-                        {
-                            ErrorDialog.show_with_file(
-                                this,
-                                error,
-                                project.file
-                                );
-                        }
-                    }
-                    else if (response == Gtk.ResponseType.NO)
-                    {
-                        project = null;
-                    }
-
-                    dialog.destroy();
-                }
-                else
-                {
-                    project = null;
-                }
-            }
+            m_project_support.close_project();
         }
 
 
@@ -324,15 +240,10 @@ namespace Gschem3
          * @param file the project file to open
          */
         public void open_project(File file)
-
-            requires(project == null)
-
         {
             try
             {
-                var mapper = new Geda3.KeyFileProjectStorage.open(file);
-
-                project = new Geda3.Project(mapper);
+                m_project_support.open_project_with_file(file);
             }
             catch (Error error)
             {
@@ -346,18 +257,6 @@ namespace Gschem3
          */
         [CCode(cname = "PACKAGE_NAME")]
         private extern const string PROGRAM_TITLE;
-
-
-        /**
-         * The file extension for projects
-         */
-        private const string PROJECT_EXTENSION = ".project";
-
-
-        /**
-         * File filters used by the open project dialog
-         */
-        private static Gtk.FileFilter[] s_project_filters = create_project_filters();
 
 
         /**
@@ -390,9 +289,6 @@ namespace Gschem3
             { "file-open", on_file_open, null, null, null },
             { "file-new", on_file_new, "s", null, null },
             { "file-reload", on_file_reload, null, null, null },
-            { "project-save", on_project_save, null, null, null },
-            { "project-open", on_project_open, null, null, null },
-            { "project-new", on_project_new, null, null, null },
             { "select-grid", null, "s", "'mesh'", on_grid_change },
             { "view-reveal", null, null, "false", on_view_reveal_change }
         };
@@ -449,10 +345,10 @@ namespace Gschem3
 
 
         /**
-         * The widget containing the project view
+         *
          */
-        [GtkChild(name="project")]
-        private ProjectWidget m_project_widget;
+        [GtkChild(name="side-stack")]
+        private Gtk.Stack m_side_stack_widget;
 
 
         /**
@@ -472,6 +368,12 @@ namespace Gschem3
          *
          */
         private DocumentWindowFactory m_document_opener;
+
+
+        /**
+         *
+         */
+        private ProjectSupport? m_project_support = null;
 
 
         /**
@@ -507,27 +409,6 @@ namespace Gschem3
                     }
                 }
                 );
-        }
-
-
-        /**
-         * Create the file filters used by the open project
-         */
-        private static Gtk.FileFilter[] create_project_filters()
-        {
-            var filters = new Gee.ArrayList<Gtk.FileFilter>();
-
-            var all = new Gtk.FileFilter();
-            all.set_filter_name("All Files");
-            all.add_pattern("*.*");
-            filters.add(all);
-
-            var projects = new Gtk.FileFilter();
-            projects.set_filter_name("Projects");
-            projects.add_pattern(@"*$PROJECT_EXTENSION");
-            filters.add(projects);
-
-            return filters.to_array();
         }
 
 
@@ -920,17 +801,17 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            if (project != null)
-            {
-                try
-                {
-                    project.save();
-                }
-                catch (Error error)
-                {
-                    ErrorDialog.show_with_file(this, error, project.file);
-                }
-            }
+            //if (true)
+            //{
+            //    try
+            //    {
+            //        m_project_support.save_project();
+            //    }
+            //    catch (Error error)
+            //    {
+            //        //ErrorDialog.show_with_file(this, error, project.file);
+            //    }
+            //}
 
             var page_count = notebook.get_n_pages();
 
@@ -1005,99 +886,6 @@ namespace Gschem3
             if (page != null)
             {
                 page.select_grid(name);
-            }
-        }
-
-
-        /**
-         * Create a new project and set it as the current project
-         *
-         * @param action the action that activated this function call
-         * @param parameter unused
-         */
-        private void on_project_new(SimpleAction action, Variant? parameter)
-        {
-            close_project();
-
-            if (project == null)
-            {
-                var dialog = new NewProjectDialog();
-
-                dialog.set_transient_for(this);
-
-                var response = dialog.run();
-
-                if (response == Gtk.ResponseType.ACCEPT)
-                {
-                    //var file = dialog.get_file();
-
-                    //project = new Geda3.KeyFileProject.create(file);
-                }
-
-                dialog.destroy();
-            }
-        }
-
-
-        /**
-         * Open an existing project and set it as the current project
-         *
-         * @param action the action that activated this function call
-         * @param parameter unused
-         */
-        private void on_project_open(SimpleAction action, Variant? parameter)
-        {
-            close_project();
-
-            if (project == null)
-            {
-                var dialog = new Gtk.FileChooserDialog(
-                    "Select File",
-                    this,
-                    Gtk.FileChooserAction.OPEN,
-                    "_Cancel", Gtk.ResponseType.CANCEL,
-                    "_Open", Gtk.ResponseType.ACCEPT
-                    );
-
-                foreach (var filter in s_project_filters)
-                {
-                    dialog.add_filter(filter);
-                }
-
-                var response = dialog.run();
-
-                if (response == Gtk.ResponseType.ACCEPT)
-                {
-                    var file = dialog.get_file();
-
-                    open_project(file);
-                }
-
-                dialog.destroy();
-            }
-        }
-
-
-        /**
-         * Save the current project
-         *
-         * @param action the action that activated this function call
-         * @param parameter unused
-         */
-        private void on_project_save(SimpleAction action, Variant? parameter)
-
-            requires(project != null)
-
-        {
-            //warn_if_fail(can_project_save);
-
-            try
-            {
-                project.save();
-            }
-            catch (Error error)
-            {
-                ErrorDialog.show_with_file(this, error, project.file);
             }
         }
 
