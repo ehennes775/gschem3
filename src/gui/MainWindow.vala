@@ -190,7 +190,7 @@ namespace Gschem3
         {
             if (file != null)
             {
-                m_project_support.open_project_with_file(file);
+                m_project_support.open_project(file);
             }
         }
 
@@ -243,7 +243,7 @@ namespace Gschem3
         {
             try
             {
-                m_project_support.open_project_with_file(file);
+                m_project_support.open_project(file);
             }
             catch (Error error)
             {
@@ -801,17 +801,14 @@ namespace Gschem3
             requires(notebook != null)
 
         {
-            //if (true)
-            //{
-            //    try
-            //    {
-            //        m_project_support.save_project();
-            //    }
-            //    catch (Error error)
-            //    {
-            //        //ErrorDialog.show_with_file(this, error, project.file);
-            //    }
-            //}
+            try
+            {
+                m_project_support.save_project();
+            }
+            catch (Error error)
+            {
+                //ErrorDialog.show_with_file(this, error, project.file);
+            }
 
             var page_count = notebook.get_n_pages();
 

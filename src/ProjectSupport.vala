@@ -87,6 +87,8 @@ namespace Gschem3
             window.add_action(m_create_project_action);
             window.add_action(m_open_project_action);
             window.add_action(m_save_project_action);
+
+            m_project_widget.add_actions_to(window);
         }
 
 
@@ -176,6 +178,9 @@ namespace Gschem3
 
             return_if_fail(window != null);
 
+            // TODO: Add this functionality
+            // m_project_widget.remove_actions_from(window);
+
             window.remove_action(m_create_project_action.name);
             window.remove_action(m_open_project_action.name);
             window.remove_action(m_save_project_action.name);
@@ -190,7 +195,7 @@ namespace Gschem3
          *
          * @param file the project file to open
          */
-        public void open_project_with_file(File file) throws Error
+        public void open_project(File file) throws Error
         {
             close_project();
 
@@ -199,6 +204,22 @@ namespace Gschem3
                 var mapper = new Geda3.KeyFileProjectStorage.open(file);
 
                 project = new Geda3.Project(mapper);
+            }
+        }
+
+
+        /**
+         * Save the current project
+         *
+         * With no current project open, this function does nothing. This
+         * allows actions, such as "save all" to call this function without
+         * ensuring an open project exists.
+         */
+        public void save_project() throws Error
+        {
+            if (project != null)
+            {
+                project.save();
             }
         }
 
@@ -338,7 +359,7 @@ namespace Gschem3
                 {
                     var file = dialog.get_file();
 
-                    open_project_with_file(file);
+                    open_project(file);
                 }
 
                 dialog.destroy();
@@ -349,6 +370,10 @@ namespace Gschem3
         /**
          * Save the current project
          *
+         * This function should only be called with an open project.
+         * Sensitivities for the save action should prevent this function
+         * being called with no project open.
+         *
          * @param action the action that activated this function call
          * @param parameter unused
          */
@@ -357,7 +382,7 @@ namespace Gschem3
             requires(project != null)
 
         {
-            project.save();
+            save_project();
         }
     }
 }
